@@ -4,7 +4,7 @@ const DropdownInput = (props) => {
   let timer;
   let options = props.options;
   if (props.value && props.value.length > 0) {
-    options = options.filter((e) => e.label.includes(props.value));
+    options = options.filter((e) => !e.label.includes(props.value));
   }
   const [showOptions, setShowOptions] = useState(false);
 

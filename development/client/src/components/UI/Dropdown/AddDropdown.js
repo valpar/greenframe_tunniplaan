@@ -47,6 +47,7 @@ const AddDropdown = (props) => {
         options={props.options}
         onChange={changeHandler}
         isMulti={props.isMulti ? true : false}
+        isClearable={false}
         onInputChange={inputChangeHandler}
         noOptionsMessage={(value) => (value = "")}
         value={
