@@ -85,18 +85,19 @@ const homeworkService = {
         `SELECT homeworks.id, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, 
         homeworks.dateDeleted FROM scheduleDb.homeworks 
         WHERE subjects_id = (select id from subjects where subjectCode = ? )
-              AND homeworks.dueDate >= (select scheduled.startTime from scheduleDb.scheduled 
+              AND homeworks.dueDate > (select scheduled.startTime from scheduleDb.scheduled 
                                         WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
-                                        AND scheduled.startTime <= ? order by scheduled.dateCreated desc limit 1) 
+                                        AND scheduled.startTime < ? order by scheduled.startTime desc limit 1) 
               AND homeworks.dueDate <=      (select scheduled.startTime from scheduleDb.scheduled 
                                         WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
-                                        AND scheduled.startTime > ? order by scheduled.dateCreated  limit 1) `, 
+                                        AND scheduled.startTime > ? order by scheduled.startTime LIMIT 1 ) `, 
         [subCode, subCode, actualDate, subCode, actualDate]);
         console.log(actualDate, subCode);
       if (homework[0][0] !== undefined) {
         return homework[0];
       }
     } catch (error) {
+      console.log(error);
       return false;
     }
   },
