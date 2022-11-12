@@ -9,7 +9,7 @@ const scheduleController = {
     let toDate: string = req.params.toDate;
 
     if (atDate == undefined) {
-      atDate = new Date().toJSON().slice(0,10).replace(/-/g,'-');; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
+      atDate = new Date().toJSON().slice(0,10).replace(/-/g,'-');; // tähtaeg tänasest juhul kui kuupäeva pole
     } else {
       if (atDate.includes("T")) {
         const splitatDate = atDate.split("T");
