@@ -19,7 +19,7 @@ const homeworkService = {
       const homework: [Ihomework[], FieldPacket[]] = await pool.query(
         "SELECT homeworks.id, subjects.subjectCode, subjects.id as subjects_id, subjects.subject, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, homeworks.dateDeleted FROM scheduleDb.homeworks left join subjects ON homeworks.subjects_id = subjects.Id WHERE homeworks.id = ? AND homeworks.dateDeleted IS NULL LIMIT 1",
         [id]);
-      console.log("proovime id järgi leida kodutööd");
+      // console.log("proovime id järgi leida kodutööd");
       if (homework[0][0] !== undefined) {
         return homework[0];
       }
@@ -29,7 +29,7 @@ const homeworkService = {
   }, 
   createhomework: async (description: string, dueDate: string, subjects_id: number): Promise<number | false | undefined> => {
     try {
-      console.log("4",description, dueDate, subjects_id )
+      // console.log("4",description, dueDate, subjects_id )
       const [id]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         "INSERT INTO homeworks (description, dueDate, subjects_id) VALUES (?, ?, ?)",
         [description, dueDate, subjects_id]
@@ -72,7 +72,6 @@ const homeworkService = {
         "SELECT id FROM subjects WHERE subjectCode = ? AND dateDeleted is NULL",
         [code]
       );
-      // console.log(fields);
       return subject[0];
     } catch (error) {
       return false;
@@ -80,18 +79,7 @@ const homeworkService = {
   },
   gethomeworkBySubjectCode: async (subCode: string, actualDate: string): Promise<Ihomework[] | false | undefined> => {
    
-    // try {
-    //   const [subject]: [RowDataPacket[][], FieldPacket[]] = await pool.query(
-    //     "SELECT id FROM subjects WHERE subjectCode = ? AND dateDeleted is NULL LIMIT 1",
-    //     [subCode]
-    //   );
-    //   const subjectId = subject[0];
-    //   console.log(subjectId);
-    // } catch (error) {
-    
-    // }
 
-  
     try {
       const homework: [Ihomework[], FieldPacket[]] = await pool.query(
         `SELECT homeworks.id, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, 
@@ -104,7 +92,7 @@ const homeworkService = {
                                         WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
                                         AND scheduled.startTime > ? order by scheduled.dateCreated  limit 1) `, 
         [subCode, subCode, actualDate, subCode, actualDate]);
-        console.log(actualDate);
+        console.log(actualDate, subCode);
       if (homework[0][0] !== undefined) {
         return homework[0];
       }
