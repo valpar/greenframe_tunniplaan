@@ -86,8 +86,8 @@ const homeworkController = {
   },
 
   addHomework: async (req: Request, res: Response) => {
-    let { description, dueDate, subjectCode, subjects_id } = req.body;
-
+    let { description, dueDate, subjectCode, subjects_id, url } = req.body;
+    console.log(description, dueDate, subjectCode, subjects_id, url )
     if (!description) {
       return res.status(responseCodes.badRequest).json({
         error: "homework description is missing",
@@ -113,7 +113,8 @@ const homeworkController = {
     const id = await homeworkService.createhomework(
       description,
       dueDate,
-      subjects_id
+      subjects_id,
+      url
     );
     if (!id) {
       return res.status(responseCodes.ServerError).json({
@@ -148,7 +149,7 @@ const homeworkController = {
   },
   updateHomeworkById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    let { description, dueDate, subjects_id, subjectCode } = req.body;
+    let { description, dueDate, subjects_id, subjectCode, url } = req.body;
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: "No valid id provided",
@@ -169,7 +170,8 @@ const homeworkController = {
       id,
       description,
       dueDate,
-      subjects_id
+      subjects_id,
+      url
     );
     if (homeworkExists === undefined) {
       return res.status(responseCodes.badRequest).json({

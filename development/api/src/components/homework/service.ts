@@ -8,7 +8,7 @@ const homeworkService = {
   getAllhomeworks: async (): Promise<Ihomework[] | false> => {
     try {
       const [homeworks]: [Ihomework[], FieldPacket[]] = await pool.query(
-        "SELECT homeworks.id, subjects.subjectCode, subjects.id as subjects_id, subjects.subject, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, homeworks.dateDeleted FROM scheduleDb.homeworks left join subjects ON homeworks.subjects_id = subjects.Id where homeworks.dateDeleted IS NULL order BY homeworks.id;");
+        "SELECT homeworks.id, subjects.subjectCode, subjects.id as subjects_id, subjects.subject, homeworks.description, homeworks.dueDate, homeworks.url, homeworks.dateCreated, homeworks.dateUpdated, homeworks.dateDeleted FROM scheduleDb.homeworks left join subjects ON homeworks.subjects_id = subjects.Id where homeworks.dateDeleted IS NULL order BY homeworks.id;");
       return homeworks;
     } catch (error) {
       return false;
@@ -17,7 +17,7 @@ const homeworkService = {
   gethomeworkId: async (id: number): Promise<Ihomework[] | false | undefined> => {
     try {
       const homework: [Ihomework[], FieldPacket[]] = await pool.query(
-        "SELECT homeworks.id, subjects.subjectCode, subjects.id as subjects_id, subjects.subject, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, homeworks.dateDeleted FROM scheduleDb.homeworks left join subjects ON homeworks.subjects_id = subjects.Id WHERE homeworks.id = ? AND homeworks.dateDeleted IS NULL LIMIT 1",
+        "SELECT homeworks.id, subjects.subjectCode, subjects.id as subjects_id, subjects.subject, homeworks.description, homeworks.dueDate, homeworks.url,homeworks.dateCreated, homeworks.dateUpdated, homeworks.dateDeleted FROM scheduleDb.homeworks left join subjects ON homeworks.subjects_id = subjects.Id WHERE homeworks.id = ? AND homeworks.dateDeleted IS NULL LIMIT 1",
         [id]);
       // console.log("proovime id järgi leida kodutööd");
       if (homework[0][0] !== undefined) {
@@ -27,12 +27,12 @@ const homeworkService = {
       return false;
     }
   }, 
-  createhomework: async (description: string, dueDate: string, subjects_id: number): Promise<number | false | undefined> => {
+  createhomework: async (description: string, dueDate: string, subjects_id: number, url: string): Promise<number | false | undefined> => {
     try {
-      // console.log("4",description, dueDate, subjects_id )
+      console.log("createHomework",description, dueDate, subjects_id, url );
       const [id]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "INSERT INTO homeworks (description, dueDate, subjects_id) VALUES (?, ?, ?)",
-        [description, dueDate, subjects_id]
+        "INSERT INTO homeworks (description, dueDate, subjects_id, url) VALUES (?, ?, ?, ?)",
+        [description, dueDate, subjects_id, url]
       );
       return id.insertId;
     } catch (error) {
@@ -53,11 +53,11 @@ const homeworkService = {
       return false;
     }
   },
-  updatehomework: async (id:number, description:string, dueDate: string, subjects_id:number): Promise<boolean | undefined> => {
+  updatehomework: async (id:number, description:string, dueDate: string, subjects_id:number, url: string): Promise<boolean | undefined> => {
     try {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "UPDATE homeworks SET description = ?, dueDate = ?, subjects_id = ? WHERE id = ?",
-        [description, dueDate, subjects_id, id]
+        "UPDATE homeworks SET description = ?, dueDate = ?, subjects_id = ? , url = ? WHERE id = ?",
+        [description, dueDate, subjects_id,url, id]
       );
       if (result.affectedRows > 0) {
         return true;
@@ -82,7 +82,7 @@ const homeworkService = {
 
     try {
       const homework: [Ihomework[], FieldPacket[]] = await pool.query(
-        `SELECT homeworks.id, homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, 
+        `SELECT homeworks.id, homeworks.description, homeworks.dueDate, homeworks.url, homeworks.dateCreated, homeworks.dateUpdated, 
         homeworks.dateDeleted FROM scheduleDb.homeworks 
         WHERE subjects_id = (select id from subjects where subjectCode = ? )
               AND homeworks.dueDate > (select scheduled.startTime from scheduleDb.scheduled 
