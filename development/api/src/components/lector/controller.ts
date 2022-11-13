@@ -6,7 +6,7 @@ import lecturerService from "./service";
 const lecturerController = {
   getAllLecturersById: async (req: Request, res: Response) => {
     const lecturers = await lecturerService.getAllLecturers();
-    console.log(lecturers);
+    // console.log(lecturers);
     if (lecturers) {
       return res.status(responseCodes.ok).json({ lecturers });
     }
