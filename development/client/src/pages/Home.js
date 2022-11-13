@@ -271,6 +271,7 @@ const Home = () => {
                 </div>
                 <Table
                   userLecturer={userLecturer}
+                  admin={admin}
                   day={e}
                   filteredData={filteredData}
                   rawData={data}

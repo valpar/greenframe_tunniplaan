@@ -7,6 +7,7 @@ import Input from "../Input/Input";
 import { Calendar } from "react-calendar";
 import CalendarOneInput from "../Calendar/CalendarOneInput";
 import AddHomework from "../../addHomework/AddHomework";
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
 const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(
@@ -26,18 +27,18 @@ const TableSubjectInfo = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [enteredInfo, setEnteredInfo] = useState({
     comment: "",
-    homeworks: [{ description: "", deadline: "", extrasLink: "" }],
+    homeworks: [{ id: null, description: "", dueDate: "", extrasLink: "" }],
     distanceLink: "",
   });
   const [homeworksValid, setHomeWorksValid] = useState([
     {
       descriptionValid: { description: true, errorMessage: "" },
-      deadlineValid: { deadline: true, errorMessage: "" },
+      dueDateValid: { dueDate: true, errorMessage: "" },
       extrasLinkValid: { extrasLink: true, errorMessage: "" },
     },
   ]);
   const [distanceLinkIsValid, setDistanceLinkIsValid] = useState(true);
-  const [fieldsValid, setFieldsValid] = useState(true);
+  const [extraInfoCloseConfirm, setExtraInfoCloseConfirm] = useState(false);
 
   useEffect(() => {
     setEnteredInfo((prevState) => {
@@ -47,7 +48,7 @@ const TableSubjectInfo = (props) => {
         distanceLink: props.item.distanceLink,
       };
     });
-  }, []);
+  }, [editMode]);
 
   const {
     response: homeworkResponse,
@@ -74,8 +75,21 @@ const TableSubjectInfo = (props) => {
                 1000 * 60 * 60 * 24 * 14
         )
       );
+      setEnteredInfo((prevState) => {
+        return {
+          ...prevState,
+          homeworks: homeworkResponse.homework.map((obj, i) => {
+            return {
+              id: obj.id,
+              description: obj.description,
+              dueDate: obj.dueDate,
+              extrasLink: "",
+            };
+          }),
+        };
+      });
     }
-  }, [homeworkResponse, homeworkError, homeworkLoading]);
+  }, [homeworkResponse, homeworkError, homeworkLoading, editMode]);
 
   const addExtraInfoHandler = (event, index) => {
     let fieldName = "";
@@ -85,11 +99,11 @@ const TableSubjectInfo = (props) => {
       newValue = event.target.value;
     }
     const removeDate = event.target?.id === "removeDate" ? true : false;
-    const isDeadline = !event.target && !event.name ? true : false;
+    const isDueDate = !event.target && !event.name ? true : false;
 
     const homework =
       fieldName === "description" ||
-      isDeadline ||
+      isDueDate ||
       event.name === "extraLink" ||
       event.target?.id === "removeDate";
 
@@ -99,13 +113,14 @@ const TableSubjectInfo = (props) => {
         ? prevState.homeworks.map((obj, i) => {
             if (i === index)
               return {
+                id: obj.id,
                 description:
                   fieldName === "description" ? newValue : obj.description,
-                deadline: isDeadline
+                dueDate: isDueDate
                   ? new Date(event).toISOString()
                   : removeDate
                   ? ""
-                  : obj.deadline,
+                  : obj.dueDate,
                 extrasLink:
                   event.name === "extraLink" ? event.value : obj.extrasLink,
               };
@@ -129,25 +144,25 @@ const TableSubjectInfo = (props) => {
     setHomeWorksValid((prevState) =>
       prevState.map((obj, i) => {
         const description = enteredInfo.homeworks[i].description;
-        const deadline = enteredInfo.homeworks[i].deadline;
+        const dueDate = enteredInfo.homeworks[i].dueDate;
         const extrasLink = enteredInfo.homeworks[i].extrasLink;
         const dateValid =
-          deadline.length === 0 || deadline > new Date().toISOString();
+          dueDate.length === 0 || dueDate > new Date().toISOString();
         return {
           descriptionValid:
             description.length === 0 &&
-            (deadline.length > 0 || extrasLink.length > 0)
+            (dueDate.length > 0 || extrasLink.length > 0)
               ? { description: false, errorMessage: "KIRJELDUS LISAMATA" }
               : { description: true, errorMessage: "" },
-          deadlineValid:
-            (description.length > 0 && deadline.length === 0) || !dateValid
+          dueDateValid:
+            (description.length > 0 && dueDate.length === 0) || !dateValid
               ? {
-                  deadline: false,
+                  dueDate: false,
                   errorMessage: !dateValid
                     ? "KUUPÄEV MÖÖDAS"
                     : "TÄHTAEG LISAMATA",
                 }
-              : { deadline: true, errorMessage: "" },
+              : { dueDate: true, errorMessage: "" },
           extrasLinkValid:
             extrasLink.length > 0 && !isValidUrl(extrasLink)
               ? { extrasLink: false, errorMessage: "VIGANE LINK" }
@@ -167,7 +182,7 @@ const TableSubjectInfo = (props) => {
       comment: prevState.comment,
       homeworks: [
         ...prevState.homeworks,
-        { description: "", deadline: "", extrasLink: "" },
+        { description: "", dueDate: "", extrasLink: "" },
       ],
       distanceLink: prevState.distanceLink,
     }));
@@ -176,7 +191,7 @@ const TableSubjectInfo = (props) => {
       ...prevState,
       {
         descriptionValid: { description: true, errorMessage: "" },
-        deadlineValid: { deadline: true, errorMessage: "" },
+        dueDateValid: { dueDate: true, errorMessage: "" },
         extrasLinkValid: { extrasLink: true, errorMessage: "" },
       },
     ]);
@@ -198,6 +213,36 @@ const TableSubjectInfo = (props) => {
     setEditMode(true);
   };
 
+  const confirmationHandler = () => {
+    setExtraInfoCloseConfirm(false);
+    props.onClick();
+  };
+  const declineHandler = () => {
+    setExtraInfoCloseConfirm(false);
+  };
+
+  const showConfirmationHandler = () => {
+    if (!editMode) props.onClick();
+    setExtraInfoCloseConfirm(true);
+  };
+  const saveInformationHandler = () => {
+    const fieldsValid = homeworksValid.filter((e) => {
+      return (
+        !e.descriptionValid.description ||
+        !e.dueDateValid.dueDate ||
+        !e.extrasLinkValid.extrasLink
+      );
+    });
+    if (distanceLinkIsValid && fieldsValid.length === 0) {
+      setEditMode(false);
+      setEnteredInfo({
+        comment: "",
+        homeworks: [{ id: null, description: "", dueDate: "", extrasLink: "" }],
+        distanceLink: "",
+      });
+    }
+  };
+
   return (
     <Fragment>
       <tr
@@ -207,17 +252,29 @@ const TableSubjectInfo = (props) => {
           Õppeinfo:
         </td>
         <td className={classes.actions}>
-          {props.userLecturer && !editMode && (
+          {(props.userLecturer || props.admin) && !editMode && (
             <i
               onClick={editInfoHandler}
               className={`${classes.editIcon} bi bi-pencil-fill`}
             ></i>
           )}
           {editMode && (
-            <i className={`${classes.confirmIcon} bi bi-check-lg`}></i>
+            <i
+              onClick={saveInformationHandler}
+              className={`${classes.confirmIcon} bi bi-check-lg`}
+            ></i>
+          )}
+          {editMode && extraInfoCloseConfirm && (
+            <div className={classes.closeConfirmInfo}>
+              <ConfirmModal
+                modalMessage="Sulge ilma salvestamata?"
+                onConfirm={confirmationHandler}
+                onDecline={declineHandler}
+              />
+            </div>
           )}
           <i
-            onClick={props.onClick}
+            onClick={showConfirmationHandler}
             className={`bi bi-x-lg ${classes.closeIcon}`}
           ></i>
         </td>

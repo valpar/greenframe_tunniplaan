@@ -1,7 +1,6 @@
-const dateParser = (date) => {
-  if (date.toString().includes(".000Z"))
-    return new Date(date.replace("T", " ").slice(0, 19));
-  return new Date(date);
+export const dateParser = (date) => {
+  if (date.toString().includes(".000Z")) return new Date(date.substring(0, 10));
+  return date;
 };
 
 export const formatDateTime = (date) => {

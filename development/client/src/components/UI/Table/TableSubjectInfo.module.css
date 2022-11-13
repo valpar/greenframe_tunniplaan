@@ -45,15 +45,23 @@
   text-align: end !important;
 }
 .editIcon {
+  cursor: pointer;
   margin-right: 0.3rem;
   font-size: 1.3em;
 }
 .confirmIcon {
+  cursor: pointer;
   margin-right: 0.3rem;
   font-size: 1.8em;
 }
 .closeIcon {
+  cursor: pointer;
   z-index: 1;
   margin-right: 0.5rem;
   font-size: 1.5em;
+}
+.closeConfirmInfo {
+  position: absolute;
+  margin-left: -41rem;
+  margin-top: 0.15rem;
 }

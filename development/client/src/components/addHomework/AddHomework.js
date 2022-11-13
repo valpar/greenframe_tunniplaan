@@ -111,12 +111,12 @@ const AddHomework = (props) => {
           onClickDay={changeHandler}
           onShowCalendar={showCalendar}
           onClick={addDateHandler}
-          value={dateValue}
+          value={props.homeworkData.dueDate}
           placeholder="Tähtaeg"
           index="1"
-          name="deadline"
-          errorMessage={props.onErrors.deadlineValid.errorMessage}
-          hasError={!props.onErrors.deadlineValid.deadline}
+          name="dueDate"
+          errorMessage={props.onErrors.dueDateValid.errorMessage}
+          hasError={!props.onErrors.dueDateValid.dueDate}
         />
         {dateValue && (
           <i

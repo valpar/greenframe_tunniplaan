@@ -1,7 +1,7 @@
 import { Calendar } from "react-calendar";
 import classes from "./CalendarOneInput.module.css";
 import InputWithLabel from "../Input/InputWithLabel";
-import { formatDate } from "../../../utils/Format/Date";
+import { dateParser, formatDate } from "../../../utils/Format/Date";
 
 const CalendarOneInput = (props) => {
   return (
@@ -9,7 +9,7 @@ const CalendarOneInput = (props) => {
       {props.onShowCalendar && (
         <Calendar
           onClickDay={props.onClickDay}
-          value={props.value}
+          value={dateParser(props.value)}
           className={
             props.index === 0
               ? classes.reactCalendar
@@ -27,7 +27,7 @@ const CalendarOneInput = (props) => {
         readOnly={true}
         index={props.index}
         placeholder={props.placeholder}
-        value={props.value ? formatDate(props.value) : ""}
+        value={props.value ? formatDate(dateParser(props.value)) : ""}
         hasError={props.hasError}
         errorMessage={props.errorMessage}
       />
