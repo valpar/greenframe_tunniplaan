@@ -143,19 +143,19 @@ const TableSubjectInfo = (props) => {
   const homeworksFieldsValid = useCallback(() => {
     setHomeWorksValid((prevState) =>
       prevState.map((obj, i) => {
-        const description = enteredInfo.homeworks[i].description;
-        const dueDate = enteredInfo.homeworks[i].dueDate;
-        const extrasLink = enteredInfo.homeworks[i].extrasLink;
+        const description = enteredInfo.homeworks[i]?.description;
+        const dueDate = enteredInfo.homeworks[i]?.dueDate;
+        const extrasLink = enteredInfo.homeworks[i]?.extrasLink;
         const dateValid =
-          dueDate.length === 0 || dueDate > new Date().toISOString();
+          dueDate?.length === 0 || dueDate > new Date().toISOString();
         return {
           descriptionValid:
-            description.length === 0 &&
-            (dueDate.length > 0 || extrasLink.length > 0)
+            description?.length === 0 &&
+            (dueDate?.length > 0 || extrasLink?.length > 0)
               ? { description: false, errorMessage: "KIRJELDUS LISAMATA" }
               : { description: true, errorMessage: "" },
           dueDateValid:
-            (description.length > 0 && dueDate.length === 0) || !dateValid
+            (description?.length > 0 && dueDate.length === 0) || !dateValid
               ? {
                   dueDate: false,
                   errorMessage: !dateValid
@@ -164,7 +164,7 @@ const TableSubjectInfo = (props) => {
                 }
               : { dueDate: true, errorMessage: "" },
           extrasLinkValid:
-            extrasLink.length > 0 && !isValidUrl(extrasLink)
+            extrasLink?.length > 0 && !isValidUrl(extrasLink)
               ? { extrasLink: false, errorMessage: "VIGANE LINK" }
               : { extrasLink: true, errorMessage: "" },
         };
@@ -240,6 +240,13 @@ const TableSubjectInfo = (props) => {
         homeworks: [{ id: null, description: "", dueDate: "", extrasLink: "" }],
         distanceLink: "",
       });
+      setHomeWorksValid([
+        {
+          descriptionValid: { description: true, errorMessage: "" },
+          dueDateValid: { dueDate: true, errorMessage: "" },
+          extrasLinkValid: { extrasLink: true, errorMessage: "" },
+        },
+      ]);
     }
   };
 

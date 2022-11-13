@@ -298,7 +298,13 @@ const ScheduleAddition = (props) => {
     );
   };
   return (
-    <div className={classes.newScheduleItemModal}>
+    <div
+      className={
+        props.editMode
+          ? classes.editScheduleModal
+          : classes.newScheduleItemModal
+      }
+    >
       {showAddModal && (
         <AddNewItem
           onClose={closeModalHandler}
@@ -310,7 +316,11 @@ const ScheduleAddition = (props) => {
           onNewItem={newItemhandler}
         />
       )}
-      <h6>LOENGU LISAMINE TUNNIPLAANI</h6>
+      <h6>
+        {props.editMode
+          ? "LOENGU MUUTMINE TUNNIPLAANIS"
+          : "LOENGU LISAMINE TUNNIPLAANI"}
+      </h6>
       <div className={classes.dropdownsRow}>
         <AddDropdown
           onChange={dropdownHandler}

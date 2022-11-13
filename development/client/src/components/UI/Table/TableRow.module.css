@@ -48,3 +48,11 @@
   margin-left: 0.5rem;
   font-size: 0.8rem;
 }
+.editSchedule {
+  width: 48rem;
+  margin-top: -3rem;
+  margin-left: -0.15rem;
+}
+.editColumn {
+  border: 0.12rem solid rgb(185, 183, 183);
+}

@@ -10,6 +10,15 @@
   align-items: center;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+.editScheduleModal {
+  padding: 1.1rem;
+  margin-top: 3rem;
+  height: auto;
+  width: 50rem;
+  font-size: 0.8em;
+  text-align: center;
+  align-items: center;
+}
 .newScheduleItemModal h6 {
   font-weight: bold;
 }

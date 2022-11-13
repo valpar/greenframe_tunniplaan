@@ -10,6 +10,7 @@ const TableBody = (props) => {
     props.item.subjectCode.length > 4 ? props.item.subjectCode : "HHHHH";
   const [showInfo, setShowInfo] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const {
     response: homeworkResponse,
     isLoading: homeworkLoading,
@@ -42,7 +43,9 @@ const TableBody = (props) => {
     setShowEdit(false);
   };
 
-  const lectureEditHandler = () => {};
+  const lectureEditHandler = () => {
+    setShowEditModal(true);
+  };
 
   return (
     <Fragment>
@@ -89,6 +92,15 @@ const TableBody = (props) => {
           </div>
         </td>
       </tr>
+      {showEditModal && props.admin && (
+        <tr>
+          <td colSpan={4} className={classes.editColumn}>
+            <div className={classes.editSchedule}>
+              <ScheduleAddition editMode="editMode" />
+            </div>
+          </td>
+        </tr>
+      )}
       {showInfo && (
         <TableSubjectInfo
           admin={props.admin}
