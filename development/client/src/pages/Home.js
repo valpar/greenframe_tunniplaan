@@ -22,6 +22,7 @@ const Home = () => {
 
   const [dropdownsSelection, setDropdownSelection] = useState([]);
   const [admin, setAdmin] = useState(false);
+  const [userLecturer, setUserLecturer] = useState(false);
   const [addSchedule, setAddSchedule] = useState(false);
 
   const work_Data = useCallback(() => {
@@ -212,8 +213,11 @@ const Home = () => {
       Number(new Date(objA.startTime)) - Number(new Date(objB.startTime))
   );
 
-  const userRollHandler = () => {
-    setAdmin((prevState) => (prevState = !prevState));
+  const userRollHandler = (event) => {
+    event.preventDefault();
+    event.target.name === "admin"
+      ? setAdmin((prevState) => (prevState = !prevState))
+      : setUserLecturer((prevState) => (prevState = !prevState));
   };
 
   const addScheduleHandler = () => {
@@ -265,7 +269,12 @@ const Home = () => {
                     {dateService.formatDate(e)}
                   </div>
                 </div>
-                <Table day={e} filteredData={filteredData} rawData={data} />
+                <Table
+                  userLecturer={userLecturer}
+                  day={e}
+                  filteredData={filteredData}
+                  rawData={data}
+                />
                 {noSchoolWork && (
                   <p className={classes.betweenTables}>
                     Tudengitele eraldatud aeg stressamiseks 🥸
@@ -280,8 +289,17 @@ const Home = () => {
             onClick={userRollHandler}
             className={classes.adminBtn}
             type="button"
+            name="admin"
           >
-            Salanupp
+            Haldus
+          </button>
+          <button
+            onClick={userRollHandler}
+            className={classes.adminBtn}
+            type="button"
+            name="lecturer"
+          >
+            Õppejõud
           </button>
         </div>
       </div>

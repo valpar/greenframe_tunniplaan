@@ -1,0 +1,61 @@
+.homeworkAdd {
+  padding-top: 0.2rem;
+}
+.homeworkTextarea {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+.homeworkAdd textarea {
+  background: #ffffff;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #d2d2d2;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none;
+  transition: border-color 150ms ease;
+  width: 45rem;
+}
+.homeworkAdd textarea:hover {
+  border-color: #9d9d9d;
+}
+.homeworkAdd textarea:focus {
+  outline: none;
+  border-color: #9d9d9d;
+}
+.afterFirstRow {
+  padding-top: 1rem;
+}
+.textareaError {
+  border-color: rgb(225, 44, 44) !important;
+}
+.addIcon {
+  cursor: pointer;
+  position: absolute;
+  font-size: 1.8em;
+  margin-top: 0rem;
+  margin-left: 0.5rem;
+}
+.removeIcon {
+  cursor: pointer;
+  position: absolute;
+  font-size: 1.5em;
+  margin-top: 0.19rem;
+  margin-left: 2rem;
+}
+.homeworkExtra {
+  width: 17.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.removeDateIcon {
+  position: absolute;
+  font-size: 1.5em;
+  margin-top: 0.5rem;
+  margin-left: 6.5rem;
+}
+.removeDateIcon:hover {
+  cursor: pointer;
+}

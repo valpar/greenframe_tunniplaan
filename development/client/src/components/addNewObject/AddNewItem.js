@@ -54,12 +54,12 @@ const AddNewItem = (props) => {
     });
   };
 
-  const submitItemHandler = () => {
+  const submitItemHandler = async () => {
     const isValid = inputsAreValid.every((isValid) => isValid.inputs === true);
     setValidSubmit(isValid);
     if (isValid) {
-      inputsState.forEach((element) => {
-        axios
+      inputsState.forEach(async (element) => {
+        await axios
           .post(`${baseURL}/${props.modalFor}`, { ...element })
           .then((response) => {
             props.onNewItem(

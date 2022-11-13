@@ -15,6 +15,7 @@ const InputWithLabel = (props) => {
   const mouseLeaveHandler = () => {
     setShowTooltip(false);
   };
+
   return (
     <div
       className={
@@ -38,6 +39,7 @@ const InputWithLabel = (props) => {
         readOnly={props.readOnly ? true : false}
         className={props.hasError ? classes.errorHandling : ""}
         autoComplete="off"
+        placeholder={props.placeholder}
       />
     </div>
   );

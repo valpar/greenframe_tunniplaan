@@ -211,20 +211,17 @@ const ScheduleAddition = (props) => {
 
   const valitationFailed = (objArr) => {
     for (let i = 0; i < objArr.length; i++) {
-      if (objArr[i].endTime !== true && objArr[i].date !== true) {
-        console.log("jup");
+      if (objArr[i].endTime !== true || objArr[i].date !== true) {
         return true;
       }
     }
     return false;
   };
 
-  const submitScheduleHandler = () => {
+  const submitScheduleHandler = async () => {
     const hasSubject =
-      addedLecture[0].subjectId !== null || addedLecture[0].subjectId !== "";
+      addedLecture[0].subjectId !== null && addedLecture[0].subjectId !== "";
     const occurenceValidator = validateOccurences(newOccurence);
-    console.log(occurenceValidator);
-    console.log(!valitationFailed(occurenceValidator));
     if (!valitationFailed(occurenceValidator) && hasSubject) {
       newOccurence.forEach(async (element) => {
         await axios.post(`${baseURL}/schedule`, {

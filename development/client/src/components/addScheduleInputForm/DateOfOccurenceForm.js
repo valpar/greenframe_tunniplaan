@@ -7,6 +7,7 @@ import SearchDropdown from "../UI/Dropdown/SearchDropdown";
 import InputWithLabel from "../UI/Input/InputWithLabel";
 import { useEffect, useState } from "react";
 import DropdownInput from "../UI/Dropdown/DropdownInput";
+import CalendarOneInput from "../UI/Calendar/CalendarOneInput";
 
 const loadCalculator = (load, startTime) => {
   const minutes = [45, 90, 150, 195, 300, 345, 405, 450, 510, 555, 615, 660];
@@ -75,7 +76,7 @@ const lunchValues = [
 ];
 
 const DateOfOccurenceForm = (props) => {
-  const [dateValue, setDateValue] = useState(new Date());
+  const [dateValue, setDateValue] = useState();
   const [showCalendar, setShowCalendar] = useState(false);
   const [loadValue, setLoadValue] = useState("");
   const [startTime, setStartTime] = useState("10:00");
@@ -118,6 +119,7 @@ const DateOfOccurenceForm = (props) => {
 
   const addDateHandler = (event) => {
     event.preventDefault();
+    setDateValue(new Date());
     setShowCalendar((prevState) => (prevState = !prevState));
   };
   const loadChangeHandler = (load) => {
@@ -222,17 +224,19 @@ const DateOfOccurenceForm = (props) => {
     setLunchValue(value);
   };
   useEffect(() => {
-    let valueArr = startTime.split(":");
-    props.onChange(
-      [
-        {
-          startTime: `${new Date(
-            dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
-          ).toISOString()}`,
-        },
-      ],
-      props.index
-    );
+    if (dateValue) {
+      let valueArr = startTime.split(":");
+      props.onChange(
+        [
+          {
+            startTime: `${new Date(
+              dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
+            ).toISOString()}`,
+          },
+        ],
+        props.index
+      );
+    }
   }, []);
 
   useEffect(() => {
@@ -276,27 +280,16 @@ const DateOfOccurenceForm = (props) => {
         props.index === 0 ? classes.container : classes.containerNoLabel
       }
     >
-      <div className={classes.calendar}>
-        {showCalendar && (
-          <Calendar
-            onClickDay={calendarClickHandler}
-            value={dateValue}
-            className={classes.reactCalendar}
-            locale="et-EE"
-          />
-        )}
-        <InputWithLabel
-          onClick={addDateHandler}
-          type="text"
-          name="date"
-          label="Kuupäev"
-          readOnly={true}
-          index={props.index}
-          value={formatDate(dateValue)}
-          hasError={enteredDateIsValid}
-          errorMessage={errorMessages.date}
-        />
-      </div>
+      <CalendarOneInput
+        onShowCalendar={showCalendar}
+        onClickDay={calendarClickHandler}
+        value={dateValue}
+        index={props.index}
+        onClick={addDateHandler}
+        label="Kuupäev"
+        hasError={enteredDateIsValid}
+        errorMessages={errorMessages.date}
+      />
       <InputWithLabel
         onChange={loadChangeHandler}
         type="text"

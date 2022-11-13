@@ -41,6 +41,7 @@ const Table = (props) => {
                 </tr>
               )}
               <TableRow
+                userLecturer={props.userLecturer}
                 rawData={props.rawData}
                 data={data}
                 key={item.id}

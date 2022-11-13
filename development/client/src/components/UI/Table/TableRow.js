@@ -36,6 +36,7 @@ const TableBody = (props) => {
       </tr>
       {showInfo && (
         <TableSubjectInfo
+          userLecturer={props.userLecturer}
           onClick={extraInfoHandler}
           item={props.item}
           data={props.data}

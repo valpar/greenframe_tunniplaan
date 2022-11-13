@@ -8,9 +8,9 @@ const useAxios = (axiosParams, trigger) => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchData = async (params) => {
+  const fetchData = async () => {
     try {
-      const result = await axios.request(params);
+      const result = await axios.request(axiosParams);
       setResponse(result.data);
     } catch (error) {
       setError(error);
@@ -19,11 +19,7 @@ const useAxios = (axiosParams, trigger) => {
     }
   };
   useEffect(() => {
-    if (trigger !== undefined) {
-      const timer = setTimeout(() => fetchData(axiosParams), 1);
-      return () => clearTimeout(timer);
-    }
-    fetchData(axiosParams);
+    fetchData();
   }, [trigger]);
   return { response, error, isLoading };
 };

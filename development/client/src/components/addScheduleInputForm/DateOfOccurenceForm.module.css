@@ -17,8 +17,14 @@
 }
 .reactCalendar {
   position: absolute;
-  margin: 0rem 0rem 0rem -6rem;
-  scale: 0.4;
+  margin: 3.6rem 0rem 0rem -1.25rem;
+  scale: 0.876;
+  z-index: 1;
+}
+.reactCalendarAfter {
+  position: absolute;
+  margin: 1.85rem 0rem 0rem -1.25rem;
+  scale: 0.876;
   z-index: 1;
 }
 .addIcon {
