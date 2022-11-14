@@ -3,6 +3,7 @@ import responseCodes from "../general/responseCodes";
 import { ISchedule } from "./interface";
 import scheduleService from "./service";
 
+
 const scheduleController = {
   getEntireSchedule: async (req: Request, res: Response) => {
     let atDate: string = req.params.atDate;
