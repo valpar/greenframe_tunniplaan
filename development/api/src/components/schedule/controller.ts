@@ -3,13 +3,14 @@ import responseCodes from "../general/responseCodes";
 import { ISchedule } from "./interface";
 import scheduleService from "./service";
 
+
 const scheduleController = {
   getEntireSchedule: async (req: Request, res: Response) => {
     let atDate: string = req.params.atDate;
     let toDate: string = req.params.toDate;
 
     if (atDate == undefined) {
-      atDate = new Date().toJSON().slice(0,10).replace(/-/g,'-');; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
+      atDate = new Date().toJSON().slice(0,10).replace(/-/g,'-');; // tähtaeg tänasest juhul kui kuupäeva pole
     } else {
       if (atDate.includes("T")) {
         const splitatDate = atDate.split("T");
