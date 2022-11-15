@@ -1,6 +1,8 @@
 import { FieldPacket, ResultSetHeader,RowDataPacket } from "mysql2";
 import pool from "../../database";
-import { ISchedule, Iroom, Ilecturer, Icourse } from "./interface";
+import { ISchedule, Iroom, Ilecturer, Icourse, IhomeW } from "./interface";
+import Ihomework from "../homework/interface";
+import homeworkService from "../homework/service";
 
 const scheduleService = {
   getEntireSchedule: async (atDate:string, toDate:string): Promise<ISchedule[] | false> => {
@@ -30,8 +32,58 @@ const scheduleService = {
         ORDER BY scheduled.startTime ;`,[atDate, toDate]
       );
 
+
+
+
+      // try {
+      //   const [homeworks]: [Ihomework[], FieldPacket[]] = await pool.query(
+      //     `SELECT homeworks.id, subjects.subjectCode, subjects.id as subjects_id, subjects.subject, 
+      //     homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, 
+      //     homeworks.dateDeleted FROM scheduleDb.homeworks left join 
+      //     subjects ON homeworks.subjects_id = subjects.Id 
+      //     where homeworks.dateDeleted IS NULL order BY homeworks.id;`);
+        
+     
+      //    console.log(homeworks); 
+
+
+
+
+
+
+
+
+
+
       let i = 0;
       while ( i < schedule.length) {
+
+        let subjectCode = schedule[i].subjectCode;
+        let actualDate = schedule[i].startTime.toISOString().slice(0, 11).replace('T', ' ');
+
+        const homework = await homeworkService.gethomeworkBySubjectCode(
+          subjectCode, actualDate
+        ); 
+
+        if(!homework) {
+
+        } else {
+          let arrHomeworks = []; let h=0;
+          while (h < homework.length) {
+            let objHomework: IhomeW = {};
+            objHomework['id'] = homework[h].id;
+            objHomework['description'] = homework[h].description;
+            objHomework['dueDate'] = homework[h].dueDate;
+            objHomework['extrasLink'] = homework[h].extrasLink;
+            objHomework['dateCreated'] = homework[h].dateCreated;
+            objHomework['dateUpdated'] = homework[h].dateUpdated;
+            objHomework['dateDeleted'] = homework[h].dateDeleted;
+            arrHomeworks.push(objHomework);
+          h++;
+          }
+          schedule[i].homeworks = arrHomeworks;
+        }
+
         let arrRooms=[];        
         if(schedule[i].strRoomsId) {
           const tmpArrRoomId = schedule[i].strRoomsId.split(',');
@@ -107,6 +159,14 @@ const scheduleService = {
       console.log(error);
       return false;
     }
+  
+  
+  // } catch (error) {
+  //   return false;
+
+  // }
+
+
   },
 
   
