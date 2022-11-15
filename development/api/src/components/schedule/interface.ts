@@ -26,8 +26,9 @@ interface ISchedule extends RowDataPacket {
   rooms: Iroom[] | null;
   comment: string;
   courses: Icourse[] | null;
-  subject: {};
-  subjectCode: string;
+  subject: {};  
+  subjectId?: number;
+  subjectCode?: string;
   lecturers: Ilecturer[] | null;
   atDate?:Date;
   toDate?:Date;

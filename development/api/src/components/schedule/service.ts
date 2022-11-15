@@ -63,7 +63,8 @@ const scheduleService = {
         objSubject['subjectCode'] = schedule[i].subjectCode;
         objSubject['subject'] = schedule[i].subjectdescription;
         schedule[i].subject = objSubject;
-
+        delete schedule[i].subjectId;
+        delete schedule[i].subjectdescription;
 
 
 
@@ -154,6 +155,7 @@ const scheduleService = {
           schedule[i].lecturers = null;
         }
 
+      delete schedule[i].subjectCode;
       delete schedule[i].strRoomsId;
       delete schedule[i].strRooms;
       delete schedule[i].strCoursesId;
