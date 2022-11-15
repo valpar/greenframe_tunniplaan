@@ -5,14 +5,14 @@ import { RowDataPacket } from "mysql2";
 
 
 interface Iroom {
- roomId?:number
-  room?:string 
+ roomId?:number;
+  room?:string ;
 
 }
 interface Icourse {
-  courseId?:number
-  courseCode?:string
-  courseName?:string
+  courseId?:number;
+  courseCode?:string;
+  courseName?:string;
 }
 interface Ilecturer {
   lecturerId?:number
@@ -26,7 +26,7 @@ interface ISchedule extends RowDataPacket {
   rooms: Iroom[] | null;
   comment: string;
   courses: Icourse[] | null;
-  subject: string;
+  subject: {};
   subjectCode: string;
   lecturers: Ilecturer[] | null;
   atDate?:Date;
@@ -45,5 +45,11 @@ interface IhomeW {
   dateDeleted?: Date | null;
 
 }
+interface Isubject {
+  id?: number;
+  subjectCode?: string ;
+  subject?: string;
 
-export { ISchedule, Iroom, Icourse, Ilecturer, IhomeW};
+ 
+ }
+export { ISchedule, Iroom, Icourse, Ilecturer, IhomeW, Isubject};
