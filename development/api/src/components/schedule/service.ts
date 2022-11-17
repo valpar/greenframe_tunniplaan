@@ -339,6 +339,18 @@ updateSchedule: async (id:number, startTime:string, endTime:string, rooms: Array
     return  updatedRows;
   },    
 
+  getSubjectByCode: async (code: string): Promise<any> => {
+    try {
+      const [subject]: [RowDataPacket[][], FieldPacket[]] = await pool.query(
+        "SELECT id FROM subjects WHERE subjectCode = ? AND dateDeleted is NULL",
+        [code]
+      );
+      return subject[0];
+    } catch (error) {
+      return false;
+    }
+  },
+
 
   getgcal: async (atDate:string, toDate:string, courseId:number, lecturerId:number ): Promise<ISchedule[] | false> => {
 
