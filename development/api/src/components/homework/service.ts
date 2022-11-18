@@ -77,7 +77,7 @@ const homeworkService = {
       return false;
     }
   },
-  gethomeworkBySubjectCode: async (subCode: string, actualDate: string): Promise<Ihomework[] | false | undefined> => {
+  gethomeworkBySubjectCode: async (subCode: string | undefined, actualDate: string): Promise<Ihomework[] | false | undefined> => {
    
 
     try {

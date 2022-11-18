@@ -1,6 +1,6 @@
 import { FieldPacket, ResultSetHeader,RowDataPacket } from "mysql2";
 import pool from "../../database";
-import { ISchedule, Iroom, Ilecturer, Icourse, IhomeW } from "./interface";
+import { ISchedule, Iroom, Ilecturer, Icourse, IhomeW, Isubject } from "./interface";
 import Ihomework from "../homework/interface";
 import homeworkService from "../homework/service";
 
@@ -9,7 +9,7 @@ const scheduleService = {
     try {
       const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(
         `        SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
-        subjects.subjectCode AS subjectCode, subjects.subject AS subject, scheduled.distanceLink AS distanceLink, scheduled.comment, 
+        subjects.id AS  subjectId, subjects.subjectCode AS subjectCode, subjects.subject AS subjectdescription, scheduled.distanceLink AS distanceLink, scheduled.comment, 
         group_concat( DISTINCT lecturers.id ORDER BY lecturers.id) As strLecturersId,
         group_concat( DISTINCT lecturers.firstName ORDER BY lecturers.id) As strLecturersFirstName,
         group_concat( DISTINCT lecturers.lastName ORDER BY lecturers.id) As strLecturersLastName,
@@ -28,7 +28,7 @@ const scheduleService = {
         rooms ON scheduled_has_rooms.rooms_id = rooms.id
         WHERE scheduled.startTime >= ? AND scheduled.startTime <= DATE_ADD(?, INTERVAl 1 DAY) 
         AND scheduled.dateDeleted IS NULL
-        GROUP BY id, startTime, endTime, scheduled.comment, subjects.subjectCode, subjects.subject, scheduled.distanceLink
+        GROUP BY id, startTime, endTime, scheduled.comment, subjects.id, subjects.subjectCode, subjects.subject, scheduled.distanceLink
         ORDER BY scheduled.startTime ;`,[atDate, toDate]
       );
 
@@ -57,6 +57,18 @@ const scheduleService = {
 
       let i = 0;
       while ( i < schedule.length) {
+
+        let objSubject: Isubject = {};
+        objSubject['id'] = schedule[i].subjectId;
+        objSubject['subjectCode'] = schedule[i].subjectCode;
+        objSubject['subject'] = schedule[i].subjectdescription;
+        schedule[i].subject = objSubject;
+        delete schedule[i].subjectId;
+        delete schedule[i].subjectdescription;
+
+
+
+
 
         let subjectCode = schedule[i].subjectCode;
         let actualDate = schedule[i].startTime.toISOString().slice(0, 11).replace('T', ' ');
@@ -143,6 +155,7 @@ const scheduleService = {
           schedule[i].lecturers = null;
         }
 
+      delete schedule[i].subjectCode;
       delete schedule[i].strRoomsId;
       delete schedule[i].strRooms;
       delete schedule[i].strCoursesId;
@@ -325,6 +338,18 @@ updateSchedule: async (id:number, startTime:string, endTime:string, rooms: Array
     }  
     return  updatedRows;
   },    
+
+  getSubjectByCode: async (code: string): Promise<any> => {
+    try {
+      const [subject]: [RowDataPacket[][], FieldPacket[]] = await pool.query(
+        "SELECT id FROM subjects WHERE subjectCode = ? AND dateDeleted is NULL",
+        [code]
+      );
+      return subject[0];
+    } catch (error) {
+      return false;
+    }
+  },
 
 
   getgcal: async (atDate:string, toDate:string, courseId:number, lecturerId:number ): Promise<ISchedule[] | false> => {
