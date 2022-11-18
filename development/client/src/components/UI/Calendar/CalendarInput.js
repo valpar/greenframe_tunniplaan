@@ -89,6 +89,7 @@ const CalendarInput = (props) => {
           onChange={setStartCalendar}
           value={startCalendar}
           locale="et-EE"
+          showWeekNumbers={true}
         />
       )}
       {pickEndDate && (

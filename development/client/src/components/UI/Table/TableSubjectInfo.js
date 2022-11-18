@@ -8,6 +8,7 @@ import { Calendar } from "react-calendar";
 import CalendarOneInput from "../Calendar/CalendarOneInput";
 import AddHomework from "../../addHomework/AddHomework";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
+import axios from "axios";
 
 const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(
@@ -21,7 +22,7 @@ const isValidUrl = (urlString) => {
   );
   return !!urlPattern.test(urlString);
 };
-
+const baseURL = "http://localhost:4000";
 const TableSubjectInfo = (props) => {
   const [homework, setHomework] = useState([]);
   const [editMode, setEditMode] = useState(false);
@@ -83,7 +84,7 @@ const TableSubjectInfo = (props) => {
               id: obj.id,
               description: obj.description,
               dueDate: obj.dueDate,
-              extrasLink: "",
+              extrasLink: obj.extrasLink,
             };
           }),
         };
@@ -225,7 +226,7 @@ const TableSubjectInfo = (props) => {
     if (!editMode) props.onClick();
     setExtraInfoCloseConfirm(true);
   };
-  const saveInformationHandler = () => {
+  const saveInformationHandler = async () => {
     const fieldsValid = homeworksValid.filter((e) => {
       return (
         !e.descriptionValid.description ||
@@ -234,6 +235,38 @@ const TableSubjectInfo = (props) => {
       );
     });
     if (distanceLinkIsValid && fieldsValid.length === 0) {
+      await axios
+        .patch(`${baseURL}/schedule/${props.item.id}`, {
+          ...props.item,
+          comment: enteredInfo.comment,
+          distanceLink: enteredInfo.distanceLink,
+        })
+        .then((response) => {
+          console.log(response);
+        });
+      enteredInfo.homeworks.forEach(async (e, i) => {
+        if (e.id) {
+          await axios
+            .patch(`${baseURL}/homeworks/${e.id}`, {
+              ...e,
+              subjectCode: props.item.subjectCode,
+            })
+            .then((response) => {
+              console.log(response);
+            });
+        }
+        if (!e.id) {
+          await axios
+            .post(`${baseURL}/homeworks/${e.id}`, {
+              ...e,
+              subjectCode: props.item.subjectCode,
+            })
+            .then((response) => {
+              console.log(response);
+            });
+        }
+      });
+
       setEditMode(false);
       setEnteredInfo({
         comment: "",

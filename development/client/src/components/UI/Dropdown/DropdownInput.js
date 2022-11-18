@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import classes from "./DropdownInput.module.css";
 const DropdownInput = (props) => {
+  const [options, setOptions] = useState();
   let timer;
-  let options = props.options;
-  if (props.value && props.value.length > 0) {
-    options = options.filter((e) => !e.label.includes(props.value));
-  }
+  useEffect(() => {
+    setOptions(props.options);
+  }, []);
+
   const [showOptions, setShowOptions] = useState(false);
 
   const inputChangeHandler = (event) => {
     event.preventDefault();
+    setOptions(
+      props.options.filter((e) => e.label.includes(event.target.value))
+    );
     props.onChange(event.target.value);
   };
   const showOptionsHandler = () => {

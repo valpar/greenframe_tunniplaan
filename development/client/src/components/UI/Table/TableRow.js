@@ -11,14 +11,6 @@ const TableBody = (props) => {
   const [showInfo, setShowInfo] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const {
-    response: homeworkResponse,
-    isLoading: homeworkLoading,
-    error: homeworkError,
-  } = useAxios({
-    method: "get",
-    url: `/homeworkbycode/${subjectCode}/${props.item.startTime}`,
-  });
 
   const extraInfoHandler = () => {
     setShowInfo((prevState) => (prevState = !prevState));
@@ -63,7 +55,7 @@ const TableBody = (props) => {
         <td onClick={extraInfoHandler}>
           <div className={classes.subject}>
             {props.item.subject}
-            {(props.item.comment || homeworkResponse?.homework) && (
+            {(props.item.comment || props.item?.homeworks) && (
               <i className={`bi bi-info-circle ${classes.infoIcon}`}></i>
             )}
           </div>
