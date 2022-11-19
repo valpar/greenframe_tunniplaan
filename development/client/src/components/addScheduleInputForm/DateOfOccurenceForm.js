@@ -1,9 +1,5 @@
 import classes from "./DateOfOccurenceForm.module.css";
-
-import { Calendar } from "react-calendar";
-import { formatDate, formatMilliseconds } from "../../utils/Format/Date";
-
-import Input from "../UI/Input/Input";
+import { formatMilliseconds } from "../../utils/Format/Date";
 import InputWithLabel from "../UI/Input/InputWithLabel";
 import { useEffect, useState } from "react";
 import DropdownInput from "../UI/Dropdown/DropdownInput";
@@ -96,12 +92,41 @@ const DateOfOccurenceForm = (props) => {
   useEffect(() => {
     if (props.onNotValidFields[props.index]) {
       setEnteredEndTimeIsValid(!props.onNotValidFields[props.index].endTime);
+      if (!props.onNotValidFields[props.index].endTime) {
+        setErrorMessages((prevState) => {
+          return {
+            ...prevState,
+            endTime: "LOENGUL PEAB OLEMA LISATUD LÕPP",
+          };
+        });
+      }
 
-      setEnteredDateIsValid(!props.onNotValidFields[props.index].date);
+      if (!props.onNotValidFields[props.index].date) {
+        setEnteredDateIsValid(!props.onNotValidFields[props.index].date);
+        setErrorMessages((prevState) => {
+          return {
+            ...prevState,
+            date: "TOIMUMISAEG EI OLE UNIKAALNE",
+          };
+        });
+      }
+      if (!dateValue) {
+        console.log("jje");
+        setEnteredDateIsValid(true);
+        setErrorMessages((prevState) => {
+          return {
+            ...prevState,
+            date: "LOENGUT EI SAA LISADA ILMA KUUPÄEVATA",
+          };
+        });
+      }
+    }
+    if (props.onNotValidFields[props.index]?.date && dateValue) {
+      setEnteredDateIsValid(false);
       setErrorMessages((prevState) => {
         return {
           ...prevState,
-          date: "toimumisaeg ei ole unikaalne",
+          date: "",
         };
       });
     }
@@ -119,7 +144,6 @@ const DateOfOccurenceForm = (props) => {
 
   const addDateHandler = (event) => {
     event.preventDefault();
-    setDateValue(new Date());
     setShowCalendar((prevState) => (prevState = !prevState));
   };
   const loadChangeHandler = (load) => {
@@ -131,8 +155,16 @@ const DateOfOccurenceForm = (props) => {
   };
   const calendarClickHandler = (date) => {
     setEnteredDateIsValid(false);
-    if (!(formatMilliseconds(date) > formatMilliseconds(new Date())))
+    setErrorMessages((prevState) => {
+      return {
+        ...prevState,
+        date: "",
+      };
+    });
+    if (!(formatMilliseconds(date) > formatMilliseconds(new Date()))) {
       setEnteredDateIsValid(true);
+    }
+
     setDateValue(date);
     if (startTime.length > 0) {
       let valueArr = startTime.split(":");
@@ -193,6 +225,15 @@ const DateOfOccurenceForm = (props) => {
   };
   const endTimeChangeHandler = (value) => {
     setEnteredEndTimeIsValid(false);
+    if (value !== "") {
+      setErrorMessages((prevState) => {
+        return {
+          ...prevState,
+          endTime: "",
+        };
+      });
+    }
+
     if (value.match(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)) {
       let valueArr = value.split(":");
       setEndTime(value);
@@ -276,7 +317,6 @@ const DateOfOccurenceForm = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(loadValue);
     if (loadValue > 0 && loadValue < 13 && startTime.length === 5) {
       setEndTime(loadCalculator(loadValue, startTime));
       let valueArr = loadCalculator(loadValue, startTime).split(":");
@@ -324,7 +364,7 @@ const DateOfOccurenceForm = (props) => {
         onClick={addDateHandler}
         label="Kuupäev"
         hasError={enteredDateIsValid}
-        errorMessages={errorMessages.date}
+        errorMessage={errorMessages.date}
       />
       <InputWithLabel
         onChange={loadChangeHandler}
@@ -334,6 +374,10 @@ const DateOfOccurenceForm = (props) => {
         value={loadValue}
         index={props.index}
         hasError={enteredLoadIsValid}
+        readOnly={!dateValue ? true : false}
+        onErrorMessage={
+          !dateValue ? "MUUTMISEKS VALI KUUPÄEV" : errorMessages.load
+        }
       />
 
       <DropdownInput
@@ -346,6 +390,11 @@ const DateOfOccurenceForm = (props) => {
         cssClass="dropdownOccurence"
         index={props.index}
         hasError={enteredStartTimeIsValid}
+        readOnly={!dateValue ? true : false}
+        showOptions={dateValue ? true : false}
+        onErrorMessage={
+          !dateValue ? "MUUTMISEKS VALI KUUPÄEV" : errorMessages.startTime
+        }
       />
       <DropdownInput
         onChange={endTimeChangeHandler}
@@ -356,6 +405,11 @@ const DateOfOccurenceForm = (props) => {
         value={endTime}
         index={props.index}
         hasError={enteredEndTimeIsValid}
+        readOnly={!dateValue ? true : false}
+        showOptions={dateValue ? true : false}
+        onErrorMessage={
+          !dateValue ? "MUUTMISEKS VALI KUUPÄEV" : errorMessages.endTime
+        }
       />
       <InputWithLabel
         readOnly={true}
@@ -365,6 +419,7 @@ const DateOfOccurenceForm = (props) => {
         name="hasLunch"
         value={lunchValue}
         index={props.index}
+        onErrorMessage={!endTime ? "MUUTMISEKS SISESTA LOENGU LÕPP" : ""}
       />
 
       <div className={classes.addIcon}>

@@ -53,11 +53,19 @@ const ScheduleAddition = (props) => {
   } = useAxios({ method: "get", url: "/subjects" }, newDropdownItem);
 
   const [subjectValid, setSubjectValid] = useState(false);
+  const [errorMessages, setErrorMessages] = useState({
+    subject: "",
+  });
   const [occurenesIsValid, setOccurencesIsValid] = useState([]);
-
   const [clearOccurenceFields, setClearOccurenceFields] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
+  const [fieldsValid, setFieldsValid] = useState(true);
+  const [showConfirmModal, setShowConfirmModal] = useState({
+    type: "",
+    show: false,
+    message: "",
+  });
 
   const workCourseData = useCallback(() => {
     if (!courseLoading && courseResponse !== undefined) {
@@ -131,69 +139,6 @@ const ScheduleAddition = (props) => {
     workSubjectsData();
   }, [workSubjectsData, subjectsResponse]);
 
-  const dropdownHandler = (dropDownValue) => {
-    console.log(dropDownValue);
-    if (dropDownValue[0].subjectId === "newSubject") {
-      setShowAddModal(true);
-      setModalContent("subjects");
-      return;
-    }
-    if (dropDownValue[0].lecturerId === "newLecturer") {
-      setShowAddModal(true);
-      setModalContent("lecturers");
-      return;
-    }
-    if (dropDownValue[0].courseId === "newCourse") {
-      setShowAddModal(true);
-      setModalContent("courses");
-      return;
-    }
-    if (dropDownValue[0].roomId === "newRoom") {
-      setShowAddModal(true);
-      setModalContent("rooms");
-      return;
-    }
-    if (dropDownValue[0].subjectId) setSubjectValid(false);
-    setAddedLecture((prevState) => {
-      const dropdown = Object.keys(dropDownValue[0])[0];
-      return [
-        {
-          rooms: dropdown === "roomId" ? dropDownValue : prevState[0].rooms,
-          courses:
-            dropdown === "courseId" ? dropDownValue : prevState[0].courses,
-          subjectId:
-            dropdown === "subjectId"
-              ? dropDownValue[0].subjectId
-              : prevState[0].subjectId,
-          lecturers:
-            dropdown === "lecturerId" ? dropDownValue : prevState[0].lecturers,
-          comment: prevState[0].comment,
-          distanceLink: prevState[0].distanceLink,
-        },
-      ];
-    });
-  };
-
-  const occurenceHandler = (occurence, index) => {
-    if (clearOccurenceFields) setClearOccurenceFields(false);
-    if (occurence[0].subjectId) setSubjectValid(false);
-    setNewOccurence((prevState) => {
-      const dropdown = Object.keys(occurence[0])[0];
-      let newArr = [...prevState];
-      newArr[index] = {
-        startTime:
-          dropdown === "startTime"
-            ? occurence[0].startTime
-            : prevState[index].startTime,
-        endTime:
-          dropdown === "endTime"
-            ? occurence[0].endTime
-            : prevState[index].endTime,
-      };
-      return newArr;
-    });
-  };
-
   const validateOccurences = (occurenceArray) => {
     let validated = [];
     occurenceArray.forEach((element, i, self) => {
@@ -217,6 +162,120 @@ const ScheduleAddition = (props) => {
     }
     return false;
   };
+
+  const startTimeUnique = (objArr) => {
+    for (let i = 0; i < objArr.length; i++) {
+      if (objArr[i].date !== true) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const dropdownHandler = (dropDownValue) => {
+    if (dropDownValue[0].subjectId === "newSubject") {
+      setShowAddModal(true);
+      setModalContent("subjects");
+      return;
+    }
+    if (dropDownValue[0].lecturerId === "newLecturer") {
+      setShowAddModal(true);
+      setModalContent("lecturers");
+      return;
+    }
+    if (dropDownValue[0].courseId === "newCourse") {
+      setShowAddModal(true);
+      setModalContent("courses");
+      return;
+    }
+    if (dropDownValue[0].roomId === "newRoom") {
+      setShowAddModal(true);
+      setModalContent("rooms");
+      return;
+    }
+    if (dropDownValue[0].subjectId) {
+      setErrorMessages((prevState) => {
+        return {
+          ...prevState,
+          subject: "",
+        };
+      });
+      setSubjectValid(false);
+    }
+
+    if (dropDownValue[0].lecturerId) {
+      console.log(newOccurence);
+      const lecturerOccupied = props.scheduled.filter((e) => {
+        let lecturer = [];
+        if (e.lecturers) {
+          lecturer = e.lecturers?.filter(
+            (e) => e.lecturerId === dropDownValue[0].lecturerId
+          );
+        }
+
+        for (let i = 0; i < newOccurence.length; i++) {
+          if (lecturer.length > 0 && e.startTime === newOccurence[i].startTime)
+            return e;
+        }
+        return false;
+      });
+      if (lecturerOccupied.length > 0) {
+        setShowConfirmModal({
+          type: "lecturer",
+          show: true,
+          message: "ÕPPEJÕUD ON HÕIVATUD",
+        });
+      }
+      console.log(lecturerOccupied);
+    }
+    setAddedLecture((prevState) => {
+      const dropdown = Object.keys(dropDownValue[0])[0];
+      return [
+        {
+          rooms: dropdown === "roomId" ? dropDownValue : prevState[0].rooms,
+          courses:
+            dropdown === "courseId" ? dropDownValue : prevState[0].courses,
+          subjectId:
+            dropdown === "subjectId"
+              ? dropDownValue[0].subjectId
+              : prevState[0].subjectId,
+          lecturers:
+            dropdown === "lecturerId" ? dropDownValue : prevState[0].lecturers,
+          comment: prevState[0].comment,
+          distanceLink: prevState[0].distanceLink,
+        },
+      ];
+    });
+  };
+
+  const occurenceHandler = (occurence, index) => {
+    console.log(occurence);
+    if (clearOccurenceFields) setClearOccurenceFields(false);
+    if (occurence[0].subjectId) setSubjectValid(false);
+    setNewOccurence((prevState) => {
+      const dropdown = Object.keys(occurence[0])[0];
+      let newArr = [...prevState];
+      newArr[index] = {
+        startTime:
+          dropdown === "startTime"
+            ? occurence[0].startTime
+            : prevState[index].startTime,
+        endTime:
+          dropdown === "endTime"
+            ? occurence[0].endTime
+            : prevState[index].endTime,
+      };
+      return newArr;
+    });
+  };
+
+  useEffect(() => {
+    const occurenceValidator = validateOccurences(newOccurence);
+    if (!fieldsValid) {
+      if (!startTimeUnique(occurenceValidator)) setFieldsValid(true);
+      return setOccurencesIsValid(occurenceValidator);
+    }
+  }, [newOccurence]);
 
   const submitScheduleHandler = async () => {
     const hasSubject =
@@ -249,8 +308,15 @@ const ScheduleAddition = (props) => {
       ]);
       props.onNewOccurence();
     } else {
+      setFieldsValid(false);
       setOccurencesIsValid(occurenceValidator);
       setSubjectValid(!hasSubject);
+      setErrorMessages((prevState) => {
+        return {
+          ...prevState,
+          subject: "ÕPPEAINE ON KOHUSTUSLIK",
+        };
+      });
     }
   };
   const newRowHandler = () => {
@@ -330,6 +396,7 @@ const ScheduleAddition = (props) => {
           name="subject"
           hasError={subjectValid}
           value={addedLecture[0].subjectId}
+          onErrorMessage={errorMessages.subject}
         />
         <AddDropdown
           onChange={dropdownHandler}
@@ -339,6 +406,9 @@ const ScheduleAddition = (props) => {
           name="lecturer"
           isMulti={true}
           value={addedLecture[0].lecturers}
+          modalMessage={
+            showConfirmModal.type === "lecturer" ? showConfirmModal : null
+          }
         />
         <AddDropdown
           onChange={dropdownHandler}

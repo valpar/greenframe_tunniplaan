@@ -14,6 +14,17 @@
   height: 10rem;
   background-color: white;
 }
+.topArrow {
+  margin: -0.5rem 0rem 0rem 4.5rem;
+  position: absolute;
+  border: 0.01rem solid rgba(128, 128, 128, 0.368);
+  border-left: none;
+  border-bottom: none;
+  width: 1rem;
+  height: 1rem;
+  transform: rotate(-45deg);
+  background-color: white;
+}
 .leftArrow {
   margin: 2.1rem 0rem 0rem 9.4rem;
   position: absolute;

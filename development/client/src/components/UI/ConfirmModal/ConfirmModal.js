@@ -1,9 +1,11 @@
 import classes from "./ConfirmModal.module.css";
 
 const ConfirmModal = (props) => {
+  let arrow = classes.leftArrow;
+  if (props.topArrow) arrow = classes.topArrow;
   return (
     <div className={classes.container}>
-      <div className={classes.leftArrow}></div>
+      <div className={arrow}></div>
       <div className={classes.message}>
         <p>{props.modalMessage}</p>
       </div>
