@@ -7,7 +7,9 @@ import ScheduleAddition from "../../scheduleAddition/ScheduleAddition";
 
 const TableBody = (props) => {
   const subjectCode =
-    props.item.subjectCode.length > 4 ? props.item.subjectCode : "HHHHH";
+    props.item.subject.subjectCode.length > 4
+      ? props.item.subject.subjectCode
+      : "HHHHH";
   const [showInfo, setShowInfo] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -54,7 +56,7 @@ const TableBody = (props) => {
         </td>
         <td onClick={extraInfoHandler}>
           <div className={classes.subject}>
-            {props.item.subject}
+            {props.item.subject.subject}
             {(props.item.comment || props.item?.homeworks) && (
               <i className={`bi bi-info-circle ${classes.infoIcon}`}></i>
             )}
@@ -71,9 +73,17 @@ const TableBody = (props) => {
           >
             {joinRooms(props.item)}
             {props.item.distanceLink && (
-              <i
-                className={`bi bi-camera-video-fill ${classes.meetingIcon}`}
-              ></i>
+              <a
+                rel="noreferrer"
+                target="_blank"
+                href={props.item.distanceLink}
+                className={classes.videoLink}
+              >
+                {" "}
+                <i
+                  className={`bi bi-camera-video-fill ${classes.meetingIcon}`}
+                ></i>
+              </a>
             )}
             {showEdit && props.admin && (
               <i
@@ -101,6 +111,7 @@ const TableBody = (props) => {
           item={props.item}
           data={props.data}
           rawData={props.rawData}
+          onUpdate={props.onUpdate}
         />
       )}
     </Fragment>

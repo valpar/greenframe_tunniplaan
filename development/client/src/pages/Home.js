@@ -118,7 +118,9 @@ const Home = () => {
     if (type === "subject") {
       for (let i = 0; i < objectValues.length; i++) {
         filteredeData.push(
-          ...rawData.filter((e) => e[objectKeys[i]].includes(objectValues[i]))
+          ...rawData.filter((e) =>
+            e.subject[objectKeys[i]].includes(objectValues[i])
+          )
         );
       }
     }
@@ -275,6 +277,7 @@ const Home = () => {
                   day={e}
                   filteredData={filteredData}
                   rawData={data}
+                  onUpdate={newOccurenceHandler}
                 />
                 {noSchoolWork && (
                   <p className={classes.betweenTables}>

@@ -48,6 +48,7 @@ const Table = (props) => {
                 key={item.id}
                 item={item}
                 index={index}
+                onUpdate={props.onUpdate}
               />
             </Fragment>
           );

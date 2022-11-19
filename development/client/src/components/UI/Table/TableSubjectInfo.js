@@ -3,9 +3,6 @@ import { Fragment, useState, useEffect, useCallback } from "react";
 import classes from "./TableSubjectInfo.module.css";
 import * as dateService from "../../../utils/Format/Date";
 import InputWithPlaceholder from "../Input/InputWithPlaceholder";
-import Input from "../Input/Input";
-import { Calendar } from "react-calendar";
-import CalendarOneInput from "../Calendar/CalendarOneInput";
 import AddHomework from "../../addHomework/AddHomework";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import axios from "axios";
@@ -57,7 +54,7 @@ const TableSubjectInfo = (props) => {
     error: homeworkError,
   } = useAxios({
     method: "get",
-    url: `/homeworkbycode/${props.item.subjectCode}/${props.item.startTime}`,
+    url: `/homeworkbycode/${props.item.subject.subjectCode}/${props.item.startTime}`,
   });
 
   useEffect(() => {
@@ -240,6 +237,7 @@ const TableSubjectInfo = (props) => {
           ...props.item,
           comment: enteredInfo.comment,
           distanceLink: enteredInfo.distanceLink,
+          subjectId: props.item.subject.id,
         })
         .then((response) => {
           console.log(response);
@@ -249,7 +247,7 @@ const TableSubjectInfo = (props) => {
           await axios
             .patch(`${baseURL}/homeworks/${e.id}`, {
               ...e,
-              subjectCode: props.item.subjectCode,
+              subjectCode: props.item.subject.subjectCode,
             })
             .then((response) => {
               console.log(response);
@@ -257,9 +255,9 @@ const TableSubjectInfo = (props) => {
         }
         if (!e.id) {
           await axios
-            .post(`${baseURL}/homeworks/${e.id}`, {
+            .post(`${baseURL}/homeworks`, {
               ...e,
-              subjectCode: props.item.subjectCode,
+              subjectCode: props.item.subject.subjectCode,
             })
             .then((response) => {
               console.log(response);
@@ -280,6 +278,7 @@ const TableSubjectInfo = (props) => {
           extrasLinkValid: { extrasLink: true, errorMessage: "" },
         },
       ]);
+      props.onUpdate();
     }
   };
 
@@ -319,6 +318,11 @@ const TableSubjectInfo = (props) => {
           ></i>
         </td>
       </tr>
+      {props.item.comment && (
+        <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
+          <td colSpan={4}>{props.item.comment}</td>
+        </tr>
+      )}
       {editMode && (
         <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
           <td colSpan={4}>
@@ -332,14 +336,29 @@ const TableSubjectInfo = (props) => {
       )}
 
       {!editMode && homework.description && (
-        <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
-          <td colSpan={4}>
-            {homework.description} <br />
-            <strong>{`Tähtaeg: ${dateService.formatDate(
-              homework.dueDate
-            )}`}</strong>
-          </td>
-        </tr>
+        <>
+          <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
+            <td colSpan={4}>{`Kodutöö:`}</td>
+          </tr>
+          <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
+            <td colSpan={4}>
+              {homework.description} <br />
+              {homework.extrasLink && (
+                <a
+                  rel="noreferrer"
+                  target="_blank"
+                  href={homework.extrasLink}
+                  className={classes.homeworksLink}
+                >
+                  Materjalid
+                </a>
+              )}
+              <strong>{`Tähtaeg: ${dateService.formatDate(
+                homework.dueDate
+              )}`}</strong>
+            </td>
+          </tr>
+        </>
       )}
 
       {editMode && (
@@ -369,7 +388,12 @@ const TableSubjectInfo = (props) => {
 
       {!editMode && props.item.comment.length > 0 && (
         <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
-          <td colSpan={4}>{`Videoloengu link: ${props.item.distanceLink}`}</td>
+          <td colSpan={4}>
+            {`Videoloengu `}{" "}
+            <a rel="noreferrer" target="_blank" href={props.item.distanceLink}>
+              link
+            </a>
+          </td>
         </tr>
       )}
 
@@ -392,28 +416,33 @@ const TableSubjectInfo = (props) => {
           </tr>
         </>
       )}
-      {props.item.subjectCode.length > 4 && (
+      {props.item.subject.subjectCode.length > 4 && (
         <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
           <td colSpan={4}>
             Link ainekaardile:<br></br>
             <a
-              href={`https://ois2.tlu.ee/tluois/aine/${props.item.subjectCode}`}
+              href={`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {`https://ois2.tlu.ee/tluois/aine/${props.item.subjectCode}`}
+              {`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
             </a>
           </td>
         </tr>
       )}
       <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
-        <td colSpan={4}>{`${props.item.subject} järgmised toimumisajad:`}</td>
+        <td
+          colSpan={4}
+        >{`${props.item.subject.subject} järgmised toimumisajad:`}</td>
       </tr>
       {props.rawData.map((e, i) => {
         let time1 = dateService.formatMilliseconds(e.startTime);
         let time2 = dateService.formatMilliseconds(props.item.startTime);
 
-        if (e.subject.includes(props.item.subject) && time1 > time2) {
+        if (
+          e.subject.subject.includes(props.item.subject.subject) &&
+          time1 > time2
+        ) {
           return (
             <tr
               key={i}
@@ -424,7 +453,7 @@ const TableSubjectInfo = (props) => {
                 .formatDateTime(e.startTime)
                 .toString()}-${dateService
                 .formatHoursMinutes(e.endTime)
-                .toString()} ${e.subject}`}</td>
+                .toString()} ${e.subject.subject}`}</td>
             </tr>
           );
         }

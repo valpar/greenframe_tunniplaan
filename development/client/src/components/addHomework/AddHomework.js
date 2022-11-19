@@ -111,7 +111,7 @@ const AddHomework = (props) => {
           onClickDay={changeHandler}
           onShowCalendar={showCalendar}
           onClick={addDateHandler}
-          value={props.homeworkData.dueDate}
+          value={props.homeworkData.dueDate ? props.homeworkData.dueDate : ""}
           placeholder="Tähtaeg"
           index="1"
           name="dueDate"

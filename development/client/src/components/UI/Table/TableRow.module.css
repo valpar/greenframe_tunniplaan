@@ -56,3 +56,11 @@
 .editColumn {
   border: 0.12rem solid rgb(185, 183, 183);
 }
+.videoLink {
+  color: rgb(150, 150, 150);
+  text-decoration: none;
+}
+.videoLink :hover {
+  color: rgb(60, 60, 60);
+  text-decoration: none;
+}

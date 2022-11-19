@@ -9,7 +9,7 @@ const CalendarOneInput = (props) => {
       {props.onShowCalendar && (
         <Calendar
           onClickDay={props.onClickDay}
-          value={dateParser(props.value)}
+          value={props.value ? dateParser(props.value) : new Date()}
           className={
             props.index === 0
               ? classes.reactCalendar

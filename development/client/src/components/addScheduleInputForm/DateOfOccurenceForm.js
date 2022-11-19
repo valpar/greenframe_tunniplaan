@@ -3,7 +3,7 @@ import classes from "./DateOfOccurenceForm.module.css";
 import { Calendar } from "react-calendar";
 import { formatDate, formatMilliseconds } from "../../utils/Format/Date";
 
-import SearchDropdown from "../UI/Dropdown/SearchDropdown";
+import Input from "../UI/Input/Input";
 import InputWithLabel from "../UI/Input/InputWithLabel";
 import { useEffect, useState } from "react";
 import DropdownInput from "../UI/Dropdown/DropdownInput";
@@ -220,9 +220,45 @@ const DateOfOccurenceForm = (props) => {
     }
   };
 
-  const lunchChangeHandler = (value) => {
-    setLunchValue(value);
+  const lunchChangeHandler = () => {
+    let valueArr = endTime.split(":");
+    if (endTime > "14:59" && lunchValue === "JAH") {
+      setLunchValue("EI");
+
+      props.onChange(
+        [
+          {
+            endTime: `${new Date(
+              dateValue.setHours(valueArr[0] - 1, valueArr[1], "00", "000")
+            ).toISOString()}`,
+          },
+        ],
+        props.index
+      );
+      setEndTime((prevState) => {
+        let valueArr = prevState.split(":");
+        return `${valueArr[0] - 1}:${valueArr[1]}`;
+      });
+    }
+    if (endTime > "13:59" && lunchValue === "EI") {
+      setLunchValue("JAH");
+      props.onChange(
+        [
+          {
+            endTime: `${new Date(
+              dateValue.setHours(+valueArr[0] + 1, valueArr[1], "00", "000")
+            ).toISOString()}`,
+          },
+        ],
+        props.index
+      );
+      setEndTime((prevState) => {
+        let valueArr = prevState.split(":");
+        return `${+valueArr[0] + 1}:${valueArr[1]}`;
+      });
+    }
   };
+
   useEffect(() => {
     if (dateValue) {
       let valueArr = startTime.split(":");
@@ -321,15 +357,16 @@ const DateOfOccurenceForm = (props) => {
         index={props.index}
         hasError={enteredEndTimeIsValid}
       />
-      <DropdownInput
-        onChange={lunchChangeHandler}
-        options={lunchValues}
+      <InputWithLabel
+        readOnly={true}
+        onClick={lunchChangeHandler}
         label="Lõuna"
         cssClass="dropdownOccurence"
         name="hasLunch"
         value={lunchValue}
         index={props.index}
       />
+
       <div className={classes.addIcon}>
         {props.index === 0 && (
           <i onClick={props.onClick} className="bi bi-plus-lg"></i>
