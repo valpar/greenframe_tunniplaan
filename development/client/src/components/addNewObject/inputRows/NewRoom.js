@@ -49,7 +49,11 @@ const NewRoom = (props) => {
 
   return (
     <div className={classes.container}>
-      {index === 0 && <h1 className={classes.caption}>UUE RUUMI LISAMINE</h1>}
+      {index === 0 && (
+        <h1 className={classes.caption}>{`${
+          props.editMode ? "RUUMI MUUTMINE" : "UUE RUUMI LISAMINE"
+        }`}</h1>
+      )}
       <div className={classes.inputRow}>
         <InputWithPlaceholder
           placeholder="Ruum"
@@ -58,7 +62,7 @@ const NewRoom = (props) => {
           value={props.values.room}
           errorMessage={errorMessage.room}
         />
-        {index === 0 && (
+        {index === 0 && !props.editMode && (
           <i
             onClick={props.onAddNewRow}
             className={`${classes.plusIcon} bi bi-plus`}

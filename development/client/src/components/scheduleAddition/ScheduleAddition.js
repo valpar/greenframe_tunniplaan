@@ -105,6 +105,8 @@ const ScheduleAddition = (props) => {
   });
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState([]);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editValues, setEditValues] = useState();
 
   const workCourseData = useCallback(() => {
     if (!courseLoading && courseResponse !== undefined) {
@@ -477,6 +479,16 @@ const ScheduleAddition = (props) => {
     props.onUpdate();
     props.onClose();
   };
+  const editItemHandler = (value) => {
+    setIsEditMode(true);
+    setShowAddModal(true);
+
+    if (value[0].roomId) setModalContent("rooms");
+    if (value[0].courseId) setModalContent("courses");
+    if (value[0].lecturerId) setModalContent("lecturers");
+    if (value[0].subjectId) setModalContent("subjects");
+    setEditValues(value);
+  };
   return (
     <div
       className={
@@ -487,6 +499,8 @@ const ScheduleAddition = (props) => {
     >
       {showAddModal && (
         <AddNewItem
+          editValues={editValues}
+          editMode={isEditMode}
           onClose={closeModalHandler}
           subjectsData={subjectsResponse}
           lecturerData={lecturerResponse}
@@ -507,6 +521,7 @@ const ScheduleAddition = (props) => {
       ></i>
       <div className={classes.dropdownsRow}>
         <AddDropdown
+          onEdit={editItemHandler}
           onChange={dropdownHandler}
           cssClass="dropdownAddition"
           options={subjectsData}
@@ -517,6 +532,7 @@ const ScheduleAddition = (props) => {
           onErrorMessage={errorMessages.subject}
         />
         <AddDropdown
+          onEdit={editItemHandler}
           onChange={dropdownHandler}
           cssClass="dropdownAddition"
           options={lecturerData}
@@ -531,6 +547,7 @@ const ScheduleAddition = (props) => {
           onDecline={dropdownDeclineHandler}
         />
         <AddDropdown
+          onEdit={editItemHandler}
           onChange={dropdownHandler}
           cssClass="dropdownAddition"
           options={courseData}
@@ -540,6 +557,7 @@ const ScheduleAddition = (props) => {
           value={addedLecture[0].courses}
         />
         <AddDropdown
+          onEdit={editItemHandler}
           onChange={dropdownHandler}
           cssClass="dropdownAddition"
           options={roomsData}

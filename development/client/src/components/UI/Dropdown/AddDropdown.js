@@ -10,13 +10,15 @@ import TooltipLarge from "../Tooltip/TooltipLarge";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
 const Control = ({ children, ...props }) => {
-  const { icon, onEdit } = props.selectProps;
+  const { icon, onEdit, showPencil } = props.selectProps;
   const style = { cursor: "pointer" };
   return (
     <components.Control {...props}>
-      <span onClick={onEdit} style={style}>
-        {icon}
-      </span>
+      {showPencil && (
+        <span onClick={onEdit} style={style}>
+          {icon}
+        </span>
+      )}
       {children}
     </components.Control>
   );
@@ -24,10 +26,13 @@ const Control = ({ children, ...props }) => {
 
 const AddDropdown = (props) => {
   const [showTooltip, setShowTooltip] = useState(false);
+  const [menuIsOpen, setMenuIsOpen] = useState(undefined);
+  const [showPencil, setShowPencil] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const icon = <i className="bi bi-pencil-fill"></i>;
 
   const styles = {
-    control: (css) => ({ ...css, paddingLeft: "1rem" }),
+    control: (css) => ({ ...css, paddingLeft: "0.6rem" }),
   };
 
   const changeHandler = (choice) => {
@@ -46,6 +51,7 @@ const AddDropdown = (props) => {
     if (newArrayOfObj.length > 0) {
       props.onChange(newArrayOfObj);
     } else {
+      setShowPencil(false);
       props.onChange([{ value: props.name }]);
     }
   };
@@ -58,14 +64,34 @@ const AddDropdown = (props) => {
 
   const mouseEnterHandler = () => {
     setShowTooltip(true);
+    if (props.value.length === 1) return setShowPencil(true);
+    setShowPencil(false);
   };
   const mouseLeaveHandler = () => {
     setShowTooltip(false);
+    setShowPencil(false);
   };
   const declineHandler = () => {
+    if (showConfirmModal) {
+      setMenuIsOpen(undefined);
+      setShowPencil(false);
+      return setShowConfirmModal(false);
+    }
     props.onDecline(props.name);
   };
-  const editHandler = () => {};
+  const editHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setMenuIsOpen(false);
+    setShowConfirmModal(true);
+  };
+  const confirmHandler = () => {
+    setMenuIsOpen(undefined);
+    setShowPencil(false);
+    setShowConfirmModal(false);
+    props.onEdit(props.value);
+  };
+
   return (
     <div
       onMouseEnter={mouseEnterHandler}
@@ -82,6 +108,9 @@ const AddDropdown = (props) => {
       )}
 
       <Select
+        showPencil={showPencil}
+        menuIsOpen={menuIsOpen}
+        isSearchable
         icon={icon}
         onEdit={editHandler}
         components={{ Control }}
@@ -105,12 +134,16 @@ const AddDropdown = (props) => {
               })
         }
       />
-      {props.modalMessage?.show && (
+      {(props.modalMessage?.show || showConfirmModal) && (
         <div className={classes.confirmModal}>
           <ConfirmModal
-            modalMessage={props.modalMessage?.message}
+            modalMessage={
+              showConfirmModal
+                ? `KAS SOOVID MUUTA`
+                : props.modalMessage?.message
+            }
             topArrow={true}
-            onConfirm={props.onConfirm}
+            onConfirm={showConfirmModal ? confirmHandler : props.onConfirm}
             onDecline={declineHandler}
           />
         </div>

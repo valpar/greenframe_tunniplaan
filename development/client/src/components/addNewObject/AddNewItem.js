@@ -16,6 +16,19 @@ const AddNewItem = (props) => {
   const [inputsAreValid, setInputsAreValid] = useState([{ inputs: false }]);
   const [validSubmit, setValidSubmit] = useState(true);
   const [responseId, setResponseId] = useState();
+  console.log(props.editValues);
+  console.log(props.modalFor);
+  useEffect(() => {
+    if (props.modalFor === "rooms") {
+      setInputsState(
+        props.roomsData.rooms.filter((e) => {
+          let arr = props.editValues.filter((room) => room.roomId === e.id);
+          console.log(arr);
+          return arr.length !== 0 ? { room: e.room } : false;
+        })
+      );
+    }
+  }, []);
 
   const inputsChangeHandler = (inputsObj, rowIndex, validInputs) => {
     setInputsState((prevState) =>
@@ -90,6 +103,8 @@ const AddNewItem = (props) => {
           return (
             <div key={i}>
               <NewSubject
+                editValues={props.editValues}
+                editMode={props.editMode}
                 onAddNewRow={addNewRowHandler}
                 onRemoveRow={removeRowHandler}
                 modalFor={props.modalFor}
@@ -106,6 +121,8 @@ const AddNewItem = (props) => {
           return (
             <div key={i}>
               <NewLecturer
+                editValues={props.editValues}
+                editMode={props.editMode}
                 onAddNewRow={addNewRowHandler}
                 onRemoveRow={removeRowHandler}
                 modalFor={props.modalFor}
@@ -122,6 +139,8 @@ const AddNewItem = (props) => {
           return (
             <div key={i}>
               <NewCourse
+                editValues={props.editValues}
+                editMode={props.editMode}
                 onAddNewRow={addNewRowHandler}
                 onRemoveRow={removeRowHandler}
                 modalFor={props.modalFor}
@@ -138,6 +157,8 @@ const AddNewItem = (props) => {
           return (
             <div key={i}>
               <NewRoom
+                editValues={props.editValues}
+                editMode={props.editMode}
                 onAddNewRow={addNewRowHandler}
                 onRemoveRow={removeRowHandler}
                 modalFor={props.modalFor}
