@@ -66,6 +66,7 @@ const ScheduleAddition = (props) => {
     show: false,
     message: "",
   });
+  const [itemToDelete, setItemToDelete] = useState([]);
 
   const workCourseData = useCallback(() => {
     if (!courseLoading && courseResponse !== undefined) {
@@ -202,45 +203,32 @@ const ScheduleAddition = (props) => {
       });
       setSubjectValid(false);
     }
-
-    if (dropDownValue[0].lecturerId) {
-      console.log(newOccurence);
-      const lecturerOccupied = props.scheduled.filter((e) => {
-        let lecturer = [];
-        if (e.lecturers) {
-          lecturer = e.lecturers?.filter(
-            (e) => e.lecturerId === dropDownValue[0].lecturerId
-          );
-        }
-
-        for (let i = 0; i < newOccurence.length; i++) {
-          if (lecturer.length > 0 && e.startTime === newOccurence[i].startTime)
-            return e;
-        }
-        return false;
-      });
-      if (lecturerOccupied.length > 0) {
-        setShowConfirmModal({
-          type: "lecturer",
-          show: true,
-          message: "ÕPPEJÕUD ON HÕIVATUD",
-        });
-      }
-      console.log(lecturerOccupied);
-    }
     setAddedLecture((prevState) => {
       const dropdown = Object.keys(dropDownValue[0])[0];
       return [
         {
-          rooms: dropdown === "roomId" ? dropDownValue : prevState[0].rooms,
+          rooms:
+            dropdown === "roomId"
+              ? dropDownValue
+              : dropDownValue[0].value === "room"
+              ? ""
+              : prevState[0].rooms,
           courses:
-            dropdown === "courseId" ? dropDownValue : prevState[0].courses,
+            dropdown === "courseId"
+              ? dropDownValue
+              : dropDownValue[0].value === "course"
+              ? ""
+              : prevState[0].courses,
           subjectId:
             dropdown === "subjectId"
               ? dropDownValue[0].subjectId
               : prevState[0].subjectId,
           lecturers:
-            dropdown === "lecturerId" ? dropDownValue : prevState[0].lecturers,
+            dropdown === "lecturerId"
+              ? dropDownValue
+              : dropDownValue[0].value === "lecturer"
+              ? ""
+              : prevState[0].lecturers,
           comment: prevState[0].comment,
           distanceLink: prevState[0].distanceLink,
         },
@@ -268,6 +256,39 @@ const ScheduleAddition = (props) => {
       return newArr;
     });
   };
+  useEffect(() => {
+    if (newOccurence || addedLecture[0].lecturers?.length > 0) {
+      const lecturerOccupied = props.scheduled.filter((e) => {
+        let lecturer = [];
+        if (e.lecturers && addedLecture[0].lecturers !== "") {
+          lecturer = e.lecturers?.filter((lecturerE) => {
+            let lec = addedLecture[0].lecturers.filter((element) => {
+              return lecturerE.lecturerId === element.lecturerId;
+            });
+            return lec.length > 0;
+          });
+        }
+        for (let i = 0; i < newOccurence.length; i++) {
+          if (
+            lecturer.length > 0 &&
+            e.startTime <= newOccurence[i].startTime &&
+            e.endTime > newOccurence[i].startTime
+          ) {
+            setItemToDelete((prevState) => [...prevState, ...lecturer]);
+            return e;
+          }
+        }
+        return false;
+      });
+      if (lecturerOccupied.length > 0) {
+        setShowConfirmModal({
+          type: "lecturer",
+          show: true,
+          message: "ÕPPEJÕUD ON HÕIVATUD",
+        });
+      }
+    }
+  }, [newOccurence, addedLecture[0].lecturers]);
 
   useEffect(() => {
     const occurenceValidator = validateOccurences(newOccurence);
@@ -363,6 +384,41 @@ const ScheduleAddition = (props) => {
       })
     );
   };
+
+  const dropdownConfirmHandler = () => {
+    setShowConfirmModal({
+      type: "",
+      show: false,
+      message: "",
+    });
+    setItemToDelete([]);
+  };
+  const dropdownDeclineHandler = (type) => {
+    setShowConfirmModal({
+      type: "",
+      show: false,
+      message: "",
+    });
+    setAddedLecture((prevState) => {
+      let value = prevState[0][type + "s"];
+      if (prevState[0].lecturers?.length === 1) value = "";
+      if (prevState[0].lecturers?.length > 1) {
+        value = value.filter((e) => {
+          let arr = itemToDelete?.filter(
+            (item) => item[type + "Id"] === e[type + "Id"]
+          );
+          return arr.length === 0;
+        });
+      }
+      return [
+        {
+          ...prevState[0],
+          [type + "s"]: value,
+        },
+      ];
+    });
+    setItemToDelete([]);
+  };
   return (
     <div
       className={
@@ -409,6 +465,8 @@ const ScheduleAddition = (props) => {
           modalMessage={
             showConfirmModal.type === "lecturer" ? showConfirmModal : null
           }
+          onConfirm={dropdownConfirmHandler}
+          onDecline={dropdownDeclineHandler}
         />
         <AddDropdown
           onChange={dropdownHandler}

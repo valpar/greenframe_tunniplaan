@@ -244,10 +244,13 @@ const TableSubjectInfo = (props) => {
         });
       enteredInfo.homeworks.forEach(async (e, i) => {
         if (e.id) {
+          console.log(e);
+          console.log(props.item);
           await axios
             .patch(`${baseURL}/homeworks/${e.id}`, {
               ...e,
               subjectCode: props.item.subject.subjectCode,
+              subjects_id: props.item.subject.id,
             })
             .then((response) => {
               console.log(response);

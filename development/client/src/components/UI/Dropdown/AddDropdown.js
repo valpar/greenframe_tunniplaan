@@ -5,14 +5,9 @@ import TooltipLarge from "../Tooltip/TooltipLarge";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
 const AddDropdown = (props) => {
-  const [valueCount, setValueCount] = useState();
   const [showTooltip, setShowTooltip] = useState(false);
-  useEffect(() => {
-    setValueCount(props.value);
-  }, [props.value]);
 
   const changeHandler = (choice) => {
-    if (choice.length === 0) setValueCount();
     let newArrayOfObj;
     if (props.isMulti) {
       newArrayOfObj = choice.map(({ value }) => ({
@@ -44,8 +39,9 @@ const AddDropdown = (props) => {
   const mouseLeaveHandler = () => {
     setShowTooltip(false);
   };
-  console.log(props.onErrorMessage);
-  console.log(showTooltip);
+  const declineHandler = () => {
+    props.onDecline(props.name);
+  };
   return (
     <div
       onMouseEnter={mouseEnterHandler}
@@ -60,6 +56,7 @@ const AddDropdown = (props) => {
           <TooltipLarge index={props.index} message={props.onErrorMessage} />
         </div>
       )}
+
       <Select
         placeholder={props.label}
         options={props.options}
@@ -71,7 +68,13 @@ const AddDropdown = (props) => {
         value={
           props.value === ""
             ? props.value
-            : props.options.find(({ value }) => value === valueCount)
+            : props.options.filter(({ value }) => {
+                if (typeof props.value === "number")
+                  return value === props.value;
+                return props.value?.find((v) => {
+                  return Object.values(v)[0] === value;
+                });
+              })
         }
       />
       {props.modalMessage?.show && (
@@ -79,6 +82,8 @@ const AddDropdown = (props) => {
           <ConfirmModal
             modalMessage={props.modalMessage?.message}
             topArrow={true}
+            onConfirm={props.onConfirm}
+            onDecline={declineHandler}
           />
         </div>
       )}

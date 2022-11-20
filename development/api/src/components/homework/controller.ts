@@ -86,8 +86,9 @@ const homeworkController = {
   },
 
   addHomework: async (req: Request, res: Response) => {
-    let { description, dueDate, subjectCode, subjects_id, extrasLink } = req.body;
-    console.log(description, dueDate, subjectCode, subjects_id, extrasLink )
+    let { description, dueDate, subjectCode, subjects_id, extrasLink } =
+      req.body;
+    console.log(description, dueDate, subjectCode, subjects_id, extrasLink);
     if (!description) {
       return res.status(responseCodes.badRequest).json({
         error: "homework description is missing",
@@ -157,7 +158,8 @@ const homeworkController = {
   },
   updateHomeworkById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    let { description, dueDate, subjects_id, subjectCode, extrasLink } = req.body;
+    let { description, dueDate, subjects_id, subjectCode, extrasLink } =
+      req.body;
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: "No valid id provided",
