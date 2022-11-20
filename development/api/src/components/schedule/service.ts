@@ -32,29 +32,6 @@ const scheduleService = {
         ORDER BY scheduled.startTime ;`,[atDate, toDate]
       );
 
-
-
-
-      // try {
-      //   const [homeworks]: [Ihomework[], FieldPacket[]] = await pool.query(
-      //     `SELECT homeworks.id, subjects.subjectCode, subjects.id as subjects_id, subjects.subject, 
-      //     homeworks.description, homeworks.dueDate, homeworks.dateCreated, homeworks.dateUpdated, 
-      //     homeworks.dateDeleted FROM scheduleDb.homeworks left join 
-      //     subjects ON homeworks.subjects_id = subjects.Id 
-      //     where homeworks.dateDeleted IS NULL order BY homeworks.id;`);
-        
-     
-      //    console.log(homeworks); 
-
-
-
-
-
-
-
-
-
-
       let i = 0;
       while ( i < schedule.length) {
 
@@ -65,10 +42,6 @@ const scheduleService = {
         schedule[i].subject = objSubject;
         delete schedule[i].subjectId;
         delete schedule[i].subjectdescription;
-
-
-
-
 
         let subjectCode = schedule[i].subjectCode;
         let actualDate = schedule[i].startTime.toISOString().slice(0, 11).replace('T', ' ');
