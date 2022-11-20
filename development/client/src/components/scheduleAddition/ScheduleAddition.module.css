@@ -10,6 +10,15 @@
   align-items: center;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+.editScheduleModal {
+  padding: 1.1rem;
+  margin-top: 3rem;
+  height: auto;
+  width: 50rem;
+  font-size: 0.8em;
+  text-align: center;
+  align-items: center;
+}
 .newScheduleItemModal h6 {
   font-weight: bold;
 }
@@ -40,4 +49,52 @@
   flex-direction: row;
   justify-content: flex-end;
   width: 46.8rem;
+}
+.buttonRow.editMode {
+  justify-content: space-between;
+}
+.deleteConfirm {
+  position: absolute;
+  margin: -2.1rem 0rem 0rem -37rem;
+}
+.closeIcon {
+  position: absolute;
+  font-size: 1.1rem;
+  margin: -1.85rem 0rem 0rem 22.5rem;
+  cursor: pointer;
+}
+.closeIcon:hover {
+  color: black;
+}
+.overLay {
+  position: absolute;
+  width: 49.9rem;
+  height: 23.4rem;
+  background-color: rgba(200, 200, 200, 0.667);
+  margin: -22.2rem 0rem 0rem -1.05rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.spinner {
+  height: 10rem;
+  width: 10rem;
+  font-size: 2em;
+  color: gray;
+}
+.spinnerMessage {
+  margin-top: 2rem;
+  font-size: 2em;
+}
+.message {
+  position: absolute;
+  width: 49.9rem;
+  height: 23.4rem;
+  background-color: white;
+  margin: -22.2rem 0rem 0rem -1.05rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

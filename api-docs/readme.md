@@ -110,15 +110,35 @@ erDiagram
 - Loengu aja kustutamine: `DELETE /api/v1/users/:id/`
 
 ### Õppejõuga seotud
-
+- GET `/lecturers`
+- GET `/lecturers/:activeSubjects` ???
+- GET `/lecturers/:id`
+- POST `/lecturers`
+- DELETE `/lecturers/:id`
+- PATCH `/lecturers/:id`
 
 ### Õppeainega seotud
-
+- GET `/subjects`
+- GET `/subjects/:id`
+- POST `/subjects`
+- DELETE `/subjects/:id`
+- PATCH `/subjects/:id`
 
 ### Kursusega seotud
+- GET `/courses`
+- GET `/courses/:id`
+- POST `/courses`
+- DELETE `/courses/:id`
+- PATCH `/courses/:id`
 
 
 ### Ruumiga seotud
+- GET `/rooms`
+- GET `/rooms/:id`
+- POST `/rooms`
+- DELETE `/rooms/:id`
+- DELETE `/rooms/:id`
+
 
 ### Kodutööga seotud
 - Kõik kodutööd: `GET /api/homeworks/`

@@ -1,0 +1,92 @@
+.container {
+  position: absolute;
+  margin: -3.6rem 0rem 0rem 36rem;
+  border: 0.01rem solid rgba(128, 128, 128, 0.368);
+  width: 10rem;
+  height: 5rem;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 0.23rem;
+}
+.background {
+  position: absolute;
+  width: 20rem;
+  height: 10rem;
+  background-color: white;
+}
+.topArrow {
+  margin: -0.5rem 0rem 0rem 4.5rem;
+  position: absolute;
+  border: 0.01rem solid rgba(128, 128, 128, 0.368);
+  border-left: none;
+  border-bottom: none;
+  width: 1rem;
+  height: 1rem;
+  transform: rotate(-45deg);
+  background-color: white;
+}
+.leftArrow {
+  margin: 2.1rem 0rem 0rem 9.4rem;
+  position: absolute;
+  border: 0.01rem solid rgba(128, 128, 128, 0.368);
+  border-left: none;
+  border-bottom: none;
+  width: 1rem;
+  height: 1rem;
+  transform: rotate(45deg);
+  background-color: white;
+}
+.bottomArrow {
+  margin: 4.4rem 0rem 0rem 4.5rem;
+  position: absolute;
+  border: 0.01rem solid rgba(128, 128, 128, 0.368);
+  border-left: none;
+  border-bottom: none;
+  width: 1rem;
+  height: 1rem;
+  transform: rotate(135deg);
+  background-color: white;
+}
+.message {
+  margin: 0.5rem;
+  margin-bottom: 0rem;
+  width: 8.7rem;
+  height: 2.3rem;
+}
+.message p {
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.4rem;
+  font-size: 1.1em;
+}
+.buttonRow {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.1rem;
+  margin-left: 0.6rem;
+  width: 8.7rem;
+  height: 1.4rem;
+}
+.buttonRow :nth-child(1) {
+  border: 0.01rem solid rgba(128, 128, 128, 0.368);
+  border-radius: 0.13rem;
+  background-color: white;
+  width: 2.5rem;
+}
+.buttonRow :nth-child(2) {
+  border: 0.01rem solid rgba(128, 128, 128, 0.368);
+  border-radius: 0.13rem;
+  background-color: white;
+  width: 2.5rem;
+}
+.buttonRow :nth-child(1):hover {
+  background-color: aliceblue;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.buttonRow :nth-child(2):hover {
+  background-color: aliceblue;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
