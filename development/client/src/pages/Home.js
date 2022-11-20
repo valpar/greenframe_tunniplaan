@@ -22,6 +22,7 @@ const Home = () => {
 
   const [dropdownsSelection, setDropdownSelection] = useState([]);
   const [admin, setAdmin] = useState(false);
+  const [userLecturer, setUserLecturer] = useState(false);
   const [addSchedule, setAddSchedule] = useState(false);
 
   const work_Data = useCallback(() => {
@@ -117,7 +118,9 @@ const Home = () => {
     if (type === "subject") {
       for (let i = 0; i < objectValues.length; i++) {
         filteredeData.push(
-          ...rawData.filter((e) => e[objectKeys[i]].includes(objectValues[i]))
+          ...rawData.filter((e) =>
+            e.subject[objectKeys[i]].includes(objectValues[i])
+          )
         );
       }
     }
@@ -212,8 +215,11 @@ const Home = () => {
       Number(new Date(objA.startTime)) - Number(new Date(objB.startTime))
   );
 
-  const userRollHandler = () => {
-    setAdmin((prevState) => (prevState = !prevState));
+  const userRollHandler = (event) => {
+    event.preventDefault();
+    event.target.name === "admin"
+      ? setAdmin((prevState) => (prevState = !prevState))
+      : setUserLecturer((prevState) => (prevState = !prevState));
   };
 
   const addScheduleHandler = () => {
@@ -265,7 +271,14 @@ const Home = () => {
                     {dateService.formatDate(e)}
                   </div>
                 </div>
-                <Table day={e} filteredData={filteredData} rawData={data} />
+                <Table
+                  userLecturer={userLecturer}
+                  admin={admin}
+                  day={e}
+                  filteredData={filteredData}
+                  rawData={data}
+                  onUpdate={newOccurenceHandler}
+                />
                 {noSchoolWork && (
                   <p className={classes.betweenTables}>
                     Tudengitele eraldatud aeg stressamiseks 🥸
@@ -280,8 +293,17 @@ const Home = () => {
             onClick={userRollHandler}
             className={classes.adminBtn}
             type="button"
+            name="admin"
           >
-            Salanupp
+            Haldus
+          </button>
+          <button
+            onClick={userRollHandler}
+            className={classes.adminBtn}
+            type="button"
+            name="lecturer"
+          >
+            Õppejõud
           </button>
         </div>
       </div>

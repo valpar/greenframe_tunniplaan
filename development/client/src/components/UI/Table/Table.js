@@ -41,11 +41,14 @@ const Table = (props) => {
                 </tr>
               )}
               <TableRow
+                admin={props.admin}
+                userLecturer={props.userLecturer}
                 rawData={props.rawData}
                 data={data}
                 key={item.id}
                 item={item}
                 index={index}
+                onUpdate={props.onUpdate}
               />
             </Fragment>
           );

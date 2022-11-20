@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TooltipTop from "../Tooltip/TooltipTop";
+import TooltipLarge from "../Tooltip/TooltipLarge";
 import classes from "./InputWithLabel.module.css";
 
 const InputWithLabel = (props) => {
@@ -15,6 +16,7 @@ const InputWithLabel = (props) => {
   const mouseLeaveHandler = () => {
     setShowTooltip(false);
   };
+
   return (
     <div
       className={
@@ -24,8 +26,8 @@ const InputWithLabel = (props) => {
       }
     >
       {props.index === 0 && <label>{props.label ? props.label : ""}</label>}
-      {props.hasError && props.errorMessage > "" && showTooltip && (
-        <TooltipTop errorMessage={props.errorMessage} />
+      {props.onErrorMessage !== "" && showTooltip && (
+        <TooltipLarge index={props.index} message={props.onErrorMessage} />
       )}
       <input
         onMouseEnter={mouseEnterHandler}
@@ -38,6 +40,7 @@ const InputWithLabel = (props) => {
         readOnly={props.readOnly ? true : false}
         className={props.hasError ? classes.errorHandling : ""}
         autoComplete="off"
+        placeholder={props.placeholder}
       />
     </div>
   );

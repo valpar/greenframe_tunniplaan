@@ -3,13 +3,15 @@ import responseCodes from "../general/responseCodes";
 import { ISchedule } from "./interface";
 import scheduleService from "./service";
 
+
+
 const scheduleController = {
   getEntireSchedule: async (req: Request, res: Response) => {
     let atDate: string = req.params.atDate;
     let toDate: string = req.params.toDate;
 
     if (atDate == undefined) {
-      atDate = new Date().toJSON().slice(0,10).replace(/-/g,'-');; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
+      atDate = new Date().toJSON().slice(0,10).replace(/-/g,'-');; // tähtaeg tänasest juhul kui kuupäeva pole
     } else {
       if (atDate.includes("T")) {
         const splitatDate = atDate.split("T");
@@ -51,8 +53,9 @@ const scheduleController = {
 
 
 createSchedule: async (req: Request, res: Response) => {
-  const { startTime, endTime, rooms, comment, courses, subjectId, lecturers,
+  const { startTime, endTime, rooms, comment, courses, lecturers, subjectCode,
   distanceLink} = req.body;
+  let {subjectId} = req.body;
   let startTimeFormatted:string ;
   let endTimeFormatted:string ;
 
@@ -67,6 +70,19 @@ createSchedule: async (req: Request, res: Response) => {
   } else { endTimeFormatted = endTime.replace("T"," "); }
 
   console.log(startTimeFormatted, endTimeFormatted);
+
+  if (!subjectCode && !subjectId) {
+    return res.status(responseCodes.badRequest).json({
+      error: "subjectCode or subjectId is missing",
+    });
+  }
+  if (!subjectId) {
+    const resultSubjectId = await scheduleService.getSubjectByCode(subjectCode);
+
+    subjectId = resultSubjectId.id;
+  }
+
+
 
   if (!startTime) {
     return res.status(responseCodes.badRequest).json({
@@ -94,8 +110,10 @@ createSchedule: async (req: Request, res: Response) => {
 },
 
 updateSchedule: async (req: Request, res: Response) => {
-  const {startTime, endTime, rooms, comment, courses, subjectId, lecturers,
+  const {startTime, endTime, rooms, comment, courses, subjectCode, lecturers,
   distanceLink} = req.body;
+  let {subjectId} = req.body;
+
   const id: number = parseInt(req.params.id, 10);
   let startTimeFormatted:string ;
   let endTimeFormatted:string ;
@@ -123,14 +141,27 @@ updateSchedule: async (req: Request, res: Response) => {
       error: "endTime is missing",
     });
   }
+
+  if (!subjectCode && !subjectId) {
+    return res.status(responseCodes.badRequest).json({
+      error: "subjectCode or subjectId is missing",
+    });
+  }
+  if (!subjectId) {
+    const resultSubjectId = await scheduleService.getSubjectByCode(subjectCode);
+
+    subjectId = resultSubjectId.id;
+  }
+
+
   // const lecturerName = lecturer.split(" ");
   // const lecturerFist = lecturerName[0];
   // const lecturerLast = lecturerName[1];
 
-  const scheduleId = await scheduleService.updateSchedule(id, startTimeFormatted, endTimeFormatted, rooms, comment, courses, subjectId, 
+  const updated = await scheduleService.updateSchedule(id, startTimeFormatted, endTimeFormatted, rooms, comment, courses, subjectId, 
     lecturers, distanceLink);
-  if (scheduleId) {
-    return res.status(responseCodes.ok).json({ scheduleId });
+  if (updated) {
+    return res.status(responseCodes.ok).json({ updated });
   }
   return res.status(responseCodes.ServerError).json({
     error: "Server error",

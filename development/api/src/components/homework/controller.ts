@@ -45,7 +45,7 @@ const homeworkController = {
   getHomeworkByCode: async (req: Request, res: Response) => {
     const subjectCode: string = req.params.code;
     let actualDate: string = req.params.actualDate;
-    console.log("parameeter actualDate: ", actualDate);
+    // console.log("parameeter actualDate: ", actualDate);
     if (actualDate == undefined) {
       actualDate = "3000-12-12"; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
     } else {
@@ -86,8 +86,9 @@ const homeworkController = {
   },
 
   addHomework: async (req: Request, res: Response) => {
-    let { description, dueDate, subjectCode, subjects_id } = req.body;
-
+    let { description, dueDate, subjectCode, subjects_id, extrasLink } =
+      req.body;
+    console.log(description, dueDate, subjectCode, subjects_id, extrasLink);
     if (!description) {
       return res.status(responseCodes.badRequest).json({
         error: "homework description is missing",
@@ -98,6 +99,14 @@ const homeworkController = {
       return res.status(responseCodes.badRequest).json({
         error: "homework dueDate is missing",
       });
+    }
+    if (dueDate.includes("T")) {
+      const splitDueDate = dueDate.split("T");
+      dueDate = splitDueDate[0];
+    }
+    if (dueDate.includes(" ")) {
+      const splitDueDate = dueDate.split(" ");
+      dueDate = splitDueDate[0];
     }
     if (!subjectCode && !subjects_id) {
       return res.status(responseCodes.badRequest).json({
@@ -113,7 +122,8 @@ const homeworkController = {
     const id = await homeworkService.createhomework(
       description,
       dueDate,
-      subjects_id
+      subjects_id,
+      extrasLink
     );
     if (!id) {
       return res.status(responseCodes.ServerError).json({
@@ -148,7 +158,8 @@ const homeworkController = {
   },
   updateHomeworkById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    let { description, dueDate, subjects_id, subjectCode } = req.body;
+    let { description, dueDate, subjects_id, subjectCode, extrasLink } =
+      req.body;
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: "No valid id provided",
@@ -169,7 +180,8 @@ const homeworkController = {
       id,
       description,
       dueDate,
-      subjects_id
+      subjects_id,
+      extrasLink
     );
     if (homeworkExists === undefined) {
       return res.status(responseCodes.badRequest).json({

@@ -121,9 +121,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `scheduleDb`.`homeworks` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(350) NULL,
+  `description` VARCHAR(2500) NULL,
   `dueDate` DATETIME NULL,
   `subjects_id` INT NOT NULL,
+  `extrasLink` VARCHAR(250) NULL,
   `dateCreated` DATETIME NULL DEFAULT  CURRENT_TIMESTAMP,
   `dateDeleted` DATETIME NULL,
   `dateUpdated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

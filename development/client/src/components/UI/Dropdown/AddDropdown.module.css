@@ -33,3 +33,11 @@
   background: none;
   pointer-events: none;
 }
+.tooltip {
+  position: absolute;
+  margin: -1.8rem 0rem 0rem 1rem;
+}
+.confirmModal {
+  position: absolute;
+  margin: 6.7rem 0rem 0rem -36rem;
+}
