@@ -1,11 +1,34 @@
 import { useEffect, useState } from "react";
-import Select from "react-select";
+import Select, {
+  components,
+  ControlProps,
+  Props,
+  StylesConfig,
+} from "react-select";
 import classes from "./AddDropdown.module.css";
 import TooltipLarge from "../Tooltip/TooltipLarge";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
+const Control = ({ children, ...props }) => {
+  const { icon, onEdit } = props.selectProps;
+  const style = { cursor: "pointer" };
+  return (
+    <components.Control {...props}>
+      <span onClick={onEdit} style={style}>
+        {icon}
+      </span>
+      {children}
+    </components.Control>
+  );
+};
+
 const AddDropdown = (props) => {
   const [showTooltip, setShowTooltip] = useState(false);
+  const icon = <i className="bi bi-pencil-fill"></i>;
+
+  const styles = {
+    control: (css) => ({ ...css, paddingLeft: "1rem" }),
+  };
 
   const changeHandler = (choice) => {
     let newArrayOfObj;
@@ -42,6 +65,7 @@ const AddDropdown = (props) => {
   const declineHandler = () => {
     props.onDecline(props.name);
   };
+  const editHandler = () => {};
   return (
     <div
       onMouseEnter={mouseEnterHandler}
@@ -58,6 +82,10 @@ const AddDropdown = (props) => {
       )}
 
       <Select
+        icon={icon}
+        onEdit={editHandler}
+        components={{ Control }}
+        styles={styles}
         placeholder={props.label}
         options={props.options}
         onChange={changeHandler}

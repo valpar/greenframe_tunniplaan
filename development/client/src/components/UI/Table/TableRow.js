@@ -41,6 +41,10 @@ const TableBody = (props) => {
     setShowEditModal(true);
   };
 
+  const closeEditModalHandler = () => {
+    setShowEditModal(false);
+  };
+
   return (
     <Fragment>
       <tr
@@ -98,7 +102,12 @@ const TableBody = (props) => {
         <tr>
           <td colSpan={4} className={classes.editColumn}>
             <div className={classes.editSchedule}>
-              <ScheduleAddition editMode="editMode" />
+              <ScheduleAddition
+                onClose={closeEditModalHandler}
+                editMode="editMode"
+                editData={props.item}
+                onUpdate={props.onUpdate}
+              />
             </div>
           </td>
         </tr>

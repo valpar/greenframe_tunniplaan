@@ -3,6 +3,7 @@ import classes from "./ConfirmModal.module.css";
 const ConfirmModal = (props) => {
   let arrow = classes.leftArrow;
   if (props.topArrow) arrow = classes.topArrow;
+  if (props.bottomArrow) arrow = classes.bottomArrow;
   return (
     <div className={classes.container}>
       <div className={arrow}></div>

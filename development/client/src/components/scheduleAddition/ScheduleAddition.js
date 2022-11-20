@@ -5,6 +5,8 @@ import AddDropdown from "../UI/Dropdown/AddDropdown";
 import classes from "./ScheduleAddition.module.css";
 import axios from "axios";
 import AddNewItem from "../addNewObject/AddNewItem";
+import TooltipLarge from "../UI/Tooltip/TooltipLarge";
+import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
 
 const baseURL = "http://localhost:4000";
 
@@ -29,6 +31,41 @@ const ScheduleAddition = (props) => {
       distanceLink: "",
     },
   ]);
+  useEffect(() => {
+    if (props.editMode) {
+      setAddedLecture([
+        {
+          comment: props.editData.comment,
+          rooms:
+            props.editData.rooms !== ""
+              ? props.editData.rooms?.map((e) => {
+                  return { roomId: e.roomId };
+                })
+              : props.editData.rooms,
+          courses:
+            props.editData.courses !== ""
+              ? props.editData.courses?.map((e) => {
+                  return { courseId: e.courseId };
+                })
+              : props.editData.courses,
+          subjectId: props.editData.subject.id,
+          lecturers:
+            props.editData.lecturers !== ""
+              ? props.editData.lecturers?.map((e) => {
+                  return { lecturerId: e.lecturerId };
+                })
+              : props.editData.lecturers,
+          distanceLink: props.editData.distanceLink,
+        },
+      ]);
+      setNewOccurence([
+        {
+          startTime: props.editData.startTime,
+          endTime: props.editData.endTime,
+        },
+      ]);
+    }
+  }, []);
   const [newDropdownItem, setNewDropdownItem] = useState(false);
 
   const {
@@ -66,6 +103,7 @@ const ScheduleAddition = (props) => {
     show: false,
     message: "",
   });
+  const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState([]);
 
   const workCourseData = useCallback(() => {
@@ -257,7 +295,10 @@ const ScheduleAddition = (props) => {
     });
   };
   useEffect(() => {
-    if (newOccurence || addedLecture[0].lecturers?.length > 0) {
+    if (
+      (newOccurence || addedLecture[0].lecturers?.length > 0) &&
+      props.scheduled
+    ) {
       const lecturerOccupied = props.scheduled.filter((e) => {
         let lecturer = [];
         if (e.lecturers && addedLecture[0].lecturers !== "") {
@@ -419,6 +460,23 @@ const ScheduleAddition = (props) => {
     });
     setItemToDelete([]);
   };
+
+  const deleteScheduleHandler = () => {
+    setShowDeleteConfirmModal(true);
+  };
+  const closeDeleteConfirm = () => {
+    setShowDeleteConfirmModal(false);
+  };
+  const deleteScheduleRowHandler = async () => {
+    setShowDeleteConfirmModal(false);
+    await axios
+      .delete(`${baseURL}/schedule/${props.editData.id}`)
+      .then((response) => {
+        console.log(response);
+      });
+    props.onUpdate();
+    props.onClose();
+  };
   return (
     <div
       className={
@@ -443,6 +501,10 @@ const ScheduleAddition = (props) => {
           ? "LOENGU MUUTMINE TUNNIPLAANIS"
           : "LOENGU LISAMINE TUNNIPLAANI"}
       </h6>
+      <i
+        onClick={props.onClose}
+        className={`bi bi-x-lg ${classes.closeIcon}`}
+      ></i>
       <div className={classes.dropdownsRow}>
         <AddDropdown
           onChange={dropdownHandler}
@@ -498,12 +560,41 @@ const ScheduleAddition = (props) => {
               onDelete={deleteRowHandler}
               onNotValidFields={occurenesIsValid}
               onAfterSubmit={clearOccurenceFields}
+              editMode={props.editMode}
+              editData={props.editData}
             />
           </div>
         );
       })}
 
-      <div className={classes.buttonRow}>
+      <div
+        className={
+          props.editMode
+            ? `${classes.buttonRow} ${classes.editMode}`
+            : `${classes.buttonRow}`
+        }
+      >
+        {props.editMode && (
+          <>
+            {showDeleteConfirmModal && (
+              <div className={classes.deleteConfirm}>
+                <ConfirmModal
+                  bottomArrow={true}
+                  modalMessage="KINNITA KUSTUTAMINE"
+                  onDecline={closeDeleteConfirm}
+                  onConfirm={deleteScheduleRowHandler}
+                />
+              </div>
+            )}
+            <button
+              onClick={deleteScheduleHandler}
+              className={classes.submitButton}
+              type="button"
+            >
+              KUSTUTA
+            </button>
+          </>
+        )}
         <button
           onClick={submitScheduleHandler}
           className={classes.submitButton}
@@ -512,6 +603,11 @@ const ScheduleAddition = (props) => {
           SALVESTA
         </button>
       </div>
+      {/* <div className={classes.overLay}>
+        <div class={`spinner-border ${classes.spinner}`} role="status"></div>
+        <span class={`sr-only ${classes.spinnerMessage}`}>Laeb...</span>
+      </div>
+      <div className={classes.message}>Greate succsess</div> */}
     </div>
   );
 };

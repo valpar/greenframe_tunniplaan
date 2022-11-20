@@ -1,5 +1,9 @@
 import classes from "./DateOfOccurenceForm.module.css";
-import { formatMilliseconds } from "../../utils/Format/Date";
+import {
+  formatDate,
+  formatHoursMinutes,
+  formatMilliseconds,
+} from "../../utils/Format/Date";
 import InputWithLabel from "../UI/Input/InputWithLabel";
 import { useEffect, useState } from "react";
 import DropdownInput from "../UI/Dropdown/DropdownInput";
@@ -349,6 +353,13 @@ const DateOfOccurenceForm = (props) => {
   const deleteRowHandler = () => {
     props.onDelete(props.index);
   };
+  useEffect(() => {
+    if (props.editMode) {
+      setDateValue(new Date(props.editData.startTime));
+      setStartTime(formatHoursMinutes(props.editData.startTime));
+      setEndTime(formatHoursMinutes(props.editData.endTime));
+    }
+  }, []);
 
   return (
     <form
@@ -423,7 +434,7 @@ const DateOfOccurenceForm = (props) => {
       />
 
       <div className={classes.addIcon}>
-        {props.index === 0 && (
+        {props.index === 0 && !props.editMode && (
           <i onClick={props.onClick} className="bi bi-plus-lg"></i>
         )}
         {props.index > 0 && (
