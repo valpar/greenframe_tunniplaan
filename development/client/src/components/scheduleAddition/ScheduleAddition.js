@@ -7,8 +7,9 @@ import axios from "axios";
 import AddNewItem from "../addNewObject/AddNewItem";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
+import config from "../../config.json";
 
-const baseURL = "http://localhost:4000";
+axios.defaults.baseURL = config.api.url;
 
 const ScheduleAddition = (props) => {
   const [courseData, setCourseData] = useState([]);
@@ -347,7 +348,7 @@ const ScheduleAddition = (props) => {
     const occurenceValidator = validateOccurences(newOccurence);
     if (!valitationFailed(occurenceValidator) && hasSubject) {
       newOccurence.forEach(async (element) => {
-        await axios.post(`${baseURL}/schedule`, {
+        await axios.post(`/schedule`, {
           ...addedLecture[0],
           ...element,
         });
@@ -428,6 +429,10 @@ const ScheduleAddition = (props) => {
     );
   };
 
+  const deleteItemHandler = () => {
+    setNewDropdownItem((prevState) => (prevState = !prevState));
+  };
+
   const dropdownConfirmHandler = () => {
     setShowConfirmModal({
       type: "",
@@ -471,11 +476,9 @@ const ScheduleAddition = (props) => {
   };
   const deleteScheduleRowHandler = async () => {
     setShowDeleteConfirmModal(false);
-    await axios
-      .delete(`${baseURL}/schedule/${props.editData.id}`)
-      .then((response) => {
-        console.log(response);
-      });
+    await axios.delete(`/schedule/${props.editData.id}`).then((response) => {
+      console.log(response);
+    });
     props.onUpdate();
     props.onClose();
   };
@@ -501,6 +504,7 @@ const ScheduleAddition = (props) => {
         <AddNewItem
           editValues={editValues}
           editMode={isEditMode}
+          onDelete={deleteItemHandler}
           onClose={closeModalHandler}
           subjectsData={subjectsResponse}
           lecturerData={lecturerResponse}

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import config from "../config.json";
 
-axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = config.api.url;
 
 const useAxios = (axiosParams, trigger) => {
   const [response, setResponse] = useState(undefined);
