@@ -6,6 +6,7 @@ import InputWithPlaceholder from "../Input/InputWithPlaceholder";
 import AddHomework from "../../addHomework/AddHomework";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import axios from "axios";
+import config from '../config.json';
 
 const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(
@@ -19,7 +20,7 @@ const isValidUrl = (urlString) => {
   );
   return !!urlPattern.test(urlString);
 };
-const baseURL = "http://localhost:4000";
+const baseURL = config.api.url;
 const TableSubjectInfo = (props) => {
   const [homework, setHomework] = useState([]);
   const [editMode, setEditMode] = useState(false);

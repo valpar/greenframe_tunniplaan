@@ -7,8 +7,11 @@ import axios from "axios";
 import AddNewItem from "../addNewObject/AddNewItem";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
+import config from '../config.json';
 
-const baseURL = "http://localhost:4000";
+// const baseURL = "http://localhost:4000";
+
+const baseURL = config.api.url;
 
 const ScheduleAddition = (props) => {
   const [courseData, setCourseData] = useState([]);
