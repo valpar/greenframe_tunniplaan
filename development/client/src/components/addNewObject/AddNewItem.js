@@ -8,9 +8,8 @@ import axios from "axios";
 import NewLecturer from "./inputRows/NewLecturer";
 import NewRoom from "./inputRows/NewRoom";
 import NewCourse from "./inputRows/NewCourse";
-import config from '../config.json';
 
-const baseURL  = config.api.url;
+const baseURL = "http://localhost:4000";
 
 const AddNewItem = (props) => {
   const [inputsState, setInputsState] = useState([{}]);
