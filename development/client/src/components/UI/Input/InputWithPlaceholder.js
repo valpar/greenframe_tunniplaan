@@ -1,4 +1,5 @@
 import { useState } from "react";
+import TooltipLarge from "../Tooltip/TooltipLarge";
 import TooltipTop from "../Tooltip/TooltipTop";
 import classes from "./InputWithPlaceholder.module.css";
 
@@ -25,7 +26,9 @@ const InputWithPlaceholder = (props) => {
       }
     >
       {(props.hasError || (props.errorMessage > "" && showTooltip)) && (
-        <TooltipTop errorMessage={props.errorMessage} />
+        <div className={classes.tooltip}>
+          <TooltipLarge message={props.errorMessage} />
+        </div>
       )}
 
       <input

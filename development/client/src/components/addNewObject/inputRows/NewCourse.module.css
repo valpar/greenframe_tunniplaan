@@ -20,6 +20,12 @@
 .inputRow:nth-child(0) {
   margin-right: 2rem;
 }
+.editMode {
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 .plusIcon {
   font-size: 2em;
   margin-top: -0.3rem;

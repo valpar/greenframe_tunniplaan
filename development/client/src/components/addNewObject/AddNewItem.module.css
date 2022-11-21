@@ -38,7 +38,22 @@
   position: absolute;
   margin: -2.1rem 0rem 0rem -37rem;
 }
+
+.confirmError {
+  position: absolute;
+  margin: -1.8rem 0rem 0rem 22rem;
+}
+.confirmErrorAdd {
+  margin-top: -1.8rem;
+}
+.confirmModalRow {
+  position: absolute;
+}
+.confirmModalAdd {
+  position: absolute;
+  margin: -4.5rem 0rem 0rem -13rem;
+}
 .confirmModalUpdate {
   position: absolute;
-  margin: -2.1rem 0rem 0rem -13rem;
+  margin: -4.5rem 0rem 0rem -15rem;
 }

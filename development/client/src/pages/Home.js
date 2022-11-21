@@ -230,6 +230,10 @@ const Home = () => {
     setNewOccurenceAdded((prevState) => (prevState = !prevState));
   };
 
+  const closeAdditionModalHandler = () => {
+    setAddSchedule(false);
+  };
+
   return (
     <Fragment>
       <div className={classes.container}>
@@ -251,6 +255,7 @@ const Home = () => {
             <ScheduleAddition
               scheduled={data}
               onNewOccurence={newOccurenceHandler}
+              onClose={closeAdditionModalHandler}
             />
           )}
           {[

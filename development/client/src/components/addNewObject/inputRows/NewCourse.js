@@ -14,6 +14,25 @@ const NewCourse = (props) => {
     courseCode: "",
   });
 
+  useEffect(() => {
+    if (props.editMode) {
+      setEnteredCourseData(
+        props.courseData.courses.filter((e) => {
+          let arr = props.editValues.filter(
+            (course) => course.courseId === e.id
+          );
+          return arr.length !== 0
+            ? {
+                courseName: e.courseName,
+                courseCode: e.courseCode,
+              }
+            : false;
+        })[0]
+      );
+    }
+    setErrorMessages({ courseName: null, courseCode: null });
+  }, []);
+
   const inputChangeHandler = (value) => {
     const isCourseName = value.name === "courseName";
     const isCourseCode = value.name === "courseCode";
@@ -24,7 +43,7 @@ const NewCourse = (props) => {
         props.courseData.courses.filter((e) => e.courseName === value.value)
           .length > 0;
 
-      courseNameExists || !hasValue
+      (courseNameExists || !hasValue) && !props.editMode
         ? setErrorMessages((prevState) => {
             return {
               ...prevState,
@@ -45,7 +64,7 @@ const NewCourse = (props) => {
         props.courseData.courses.filter((e) => e.courseCode === value.value)
           .length > 0;
 
-      courseCodeExists || !hasValue
+      (courseCodeExists || !hasValue) && !props.editMode
         ? setErrorMessages((prevState) => {
             return {
               ...prevState,
@@ -77,8 +96,12 @@ const NewCourse = (props) => {
 
   return (
     <div className={classes.container}>
-      {index === 0 && <h1 className={classes.caption}>UUE KURSUSE LISAMINE</h1>}
-      <div className={classes.inputRow}>
+      {index === 0 && (
+        <h1 className={classes.caption}>{`${
+          props.editMode ? "KURSUSE MUUTMINE" : "UUE KURSUSE LISAMINE"
+        }`}</h1>
+      )}
+      <div className={props.editMode ? classes.editMode : classes.inputRow}>
         <InputWithPlaceholder
           placeholder="Kursus"
           onChange={inputChangeHandler}
@@ -93,7 +116,7 @@ const NewCourse = (props) => {
           value={props.values.courseCode}
           errorMessage={errorMessage.courseCode}
         />
-        {index === 0 && (
+        {index === 0 && !props.editMode && (
           <i
             onClick={props.onAddNewRow}
             className={`${classes.plusIcon} bi bi-plus`}
