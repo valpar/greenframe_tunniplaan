@@ -2,46 +2,24 @@ import { Request, Response } from "express";
 import responseCodes from "../general/responseCodes";
 import { ISchedule } from "./interface";
 import scheduleService from "./service";
-
-
+import formatDate from "../../utils/formatDate";
 
 const scheduleController = {
   getEntireSchedule: async (req: Request, res: Response) => {
-    let atDate: string = req.params.atDate;
-    let toDate: string = req.params.toDate;
+    let {atDate, toDate}  = req.body;
 
     if (atDate == undefined) {
       atDate = new Date().toJSON().slice(0,10).replace(/-/g,'-');; // tähtaeg tänasest juhul kui kuupäeva pole
     } else {
-      if (atDate.includes("T")) {
-        const splitatDate = atDate.split("T");
-        atDate = splitatDate[0];
-      }
-      if (atDate.includes(" ")) {
-        const splitatDate = atDate.split(" ");
-        atDate = atDate[0];
-      }
+      atDate = formatDate.forSql(atDate);
     } 
 
 
     if (toDate == undefined) {
       toDate = "3000-12-12"; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
     } else {
-      if (toDate.includes("T")) {
-        const splittoDate = toDate.split("T");
-        toDate = splittoDate[0];
-      }
-      if (toDate.includes(" ")) {
-        const splittoDate = toDate.split(" ");
-        toDate = splittoDate[0];
-      }
+      toDate = formatDate.forSql(toDate);
     }
-    console.log(atDate);
-    console.log(toDate);
-
-
-
-
     const schedule = await scheduleService.getEntireSchedule(atDate, toDate);
     if (schedule) {
       return res.status(responseCodes.ok).json({ schedule });
@@ -53,23 +31,9 @@ const scheduleController = {
 
 
 createSchedule: async (req: Request, res: Response) => {
-  const { startTime, endTime, rooms, comment, courses, lecturers, subjectCode,
+  const { rooms, comment, courses, lecturers, subjectCode,
   distanceLink} = req.body;
-  let {subjectId} = req.body;
-  let startTimeFormatted:string ;
-  let endTimeFormatted:string ;
-
-  if (startTime.length>19){
-    startTimeFormatted = startTime.substr(0, 19);
-    startTimeFormatted = startTimeFormatted.replace("T"," ");
-  }  else { startTimeFormatted = startTime.replace("T"," ");  }
-  
-  if (endTime.length>19){
-    endTimeFormatted = endTime.substr(0, 19);
-    endTimeFormatted = endTimeFormatted.replace("T"," ");
-  } else { endTimeFormatted = endTime.replace("T"," "); }
-
-  console.log(startTimeFormatted, endTimeFormatted);
+  let {startTime, endTime, subjectId} = req.body;
 
   if (!subjectCode && !subjectId) {
     return res.status(responseCodes.badRequest).json({
@@ -82,24 +46,23 @@ createSchedule: async (req: Request, res: Response) => {
     subjectId = resultSubjectId.id;
   }
 
-
-
   if (!startTime) {
     return res.status(responseCodes.badRequest).json({
       error: "startTime is missing",
     });
+  } else {
+    startTime = formatDate.forSql(startTime);
   }
 
   if (!endTime) {
     return res.status(responseCodes.badRequest).json({
       error: "endTime is missing",
     });
+  } else {
+    endTime = formatDate.forSql(endTime);
   }
-  // const lecturerName = lecturer.split(" ");
-  // const lecturerFist = lecturerName[0];
-  // const lecturerLast = lecturerName[1];
 
-  const scheduleId = await scheduleService.createSchedule(startTimeFormatted, endTimeFormatted, rooms, comment, courses, subjectId, 
+  const scheduleId = await scheduleService.createSchedule(startTime, endTime, rooms, comment, courses, subjectId, 
     lecturers, distanceLink);
   if (scheduleId) {
     return res.status(responseCodes.ok).json({ scheduleId });
@@ -110,36 +73,25 @@ createSchedule: async (req: Request, res: Response) => {
 },
 
 updateSchedule: async (req: Request, res: Response) => {
-  const {startTime, endTime, rooms, comment, courses, subjectCode, lecturers,
+  const {rooms, comment, courses, subjectCode, lecturers,
   distanceLink} = req.body;
-  let {subjectId} = req.body;
-
+  let {startTime, endTime, subjectId} = req.body;
   const id: number = parseInt(req.params.id, 10);
-  let startTimeFormatted:string ;
-  let endTimeFormatted:string ;
-
-  if (startTime.length>19){
-    startTimeFormatted = startTime.substr(0, 19);
-    startTimeFormatted = startTimeFormatted.replace("T"," ");
-  }  else { startTimeFormatted = startTime.replace("T"," ");  }
-  
-  if (endTime.length>19){
-    endTimeFormatted = endTime.substr(0, 19);
-    endTimeFormatted = endTimeFormatted.replace("T"," ");
-  } else { endTimeFormatted = endTime.replace("T"," "); }
-
-  console.log(startTimeFormatted, endTimeFormatted);
-
+ 
   if (!startTime) {
     return res.status(responseCodes.badRequest).json({
       error: "startTime is missing",
     });
+  } else {
+    startTime = formatDate.forSql(startTime);
   }
 
   if (!endTime) {
     return res.status(responseCodes.badRequest).json({
       error: "endTime is missing",
     });
+  } else {
+    endTime = formatDate.forSql(endTime);
   }
 
   if (!subjectCode && !subjectId) {
@@ -154,11 +106,7 @@ updateSchedule: async (req: Request, res: Response) => {
   }
 
 
-  // const lecturerName = lecturer.split(" ");
-  // const lecturerFist = lecturerName[0];
-  // const lecturerLast = lecturerName[1];
-
-  const updated = await scheduleService.updateSchedule(id, startTimeFormatted, endTimeFormatted, rooms, comment, courses, subjectId, 
+  const updated = await scheduleService.updateSchedule(id, startTime, endTime, rooms, comment, courses, subjectId, 
     lecturers, distanceLink);
   if (updated) {
     return res.status(responseCodes.ok).json({ updated });
@@ -186,11 +134,6 @@ deleteSchedule: async (req: Request, res: Response) => {
   });
 },
 
-
-
-
-
-
 getgcal: async (req: Request, res: Response) => {
   let atDate: string = req.params.atDate;
   let toDate: string = req.params.toDate;
@@ -201,34 +144,15 @@ getgcal: async (req: Request, res: Response) => {
   if (atDate == undefined) {
     atDate = new Date().toJSON().slice(0,10).replace(/-/g,'-');; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
   } else {
-    if (atDate.includes("T")) {
-      const splitatDate = atDate.split("T");
-      atDate = splitatDate[0];
-    }
-    if (atDate.includes(" ")) {
-      const splitatDate = atDate.split(" ");
-      atDate = atDate[0];
-    }
+  atDate = formatDate.forSql(atDate);
   } 
  
 
   if (toDate == undefined) {
     toDate = "3000-12-12"; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
   } else {
-    if (toDate.includes("T")) {
-      const splittoDate = toDate.split("T");
-      toDate = splittoDate[0];
-    }
-    if (toDate.includes(" ")) {
-      const splittoDate = toDate.split(" ");
-      toDate = splittoDate[0];
-    }
+    toDate = formatDate.forSql(toDate);
   }
-  console.log(atDate);
-  console.log(toDate);
-
-
-
 
   const schedule = await scheduleService.getgcal(atDate, toDate, courseId, lecturerId);
   if (schedule) {
@@ -238,7 +162,6 @@ getgcal: async (req: Request, res: Response) => {
     error: "Server error",
   });
 },
-
 
 
 };

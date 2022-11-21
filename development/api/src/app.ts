@@ -28,6 +28,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapi));
 
 const port: number = 3000; // Port number, where API works
 
+
+
+
 app.get("/ping", ping);
 
 // Schedule API
@@ -74,6 +77,7 @@ app.patch(
   checkAlphabet,
   lecturerController.updateLecturerById
 );
+
 
 // Subjects endpoints
 app.get("/subjects", subjectController.getAllSubjects);
