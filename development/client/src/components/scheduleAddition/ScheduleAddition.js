@@ -7,8 +7,9 @@ import axios from "axios";
 import AddNewItem from "../addNewObject/AddNewItem";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
+import config from "../../config.json";
 
-const baseURL = "http://localhost:4000";
+axios.defaults.baseURL = config.api.url;
 
 const ScheduleAddition = (props) => {
   const [courseData, setCourseData] = useState([]);
@@ -105,6 +106,8 @@ const ScheduleAddition = (props) => {
   });
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState([]);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editValues, setEditValues] = useState();
 
   const workCourseData = useCallback(() => {
     if (!courseLoading && courseResponse !== undefined) {
@@ -345,7 +348,7 @@ const ScheduleAddition = (props) => {
     const occurenceValidator = validateOccurences(newOccurence);
     if (!valitationFailed(occurenceValidator) && hasSubject) {
       newOccurence.forEach(async (element) => {
-        await axios.post(`${baseURL}/schedule`, {
+        await axios.post(`/schedule`, {
           ...addedLecture[0],
           ...element,
         });
@@ -426,6 +429,10 @@ const ScheduleAddition = (props) => {
     );
   };
 
+  const deleteItemHandler = () => {
+    setNewDropdownItem((prevState) => (prevState = !prevState));
+  };
+
   const dropdownConfirmHandler = () => {
     setShowConfirmModal({
       type: "",
@@ -469,13 +476,21 @@ const ScheduleAddition = (props) => {
   };
   const deleteScheduleRowHandler = async () => {
     setShowDeleteConfirmModal(false);
-    await axios
-      .delete(`${baseURL}/schedule/${props.editData.id}`)
-      .then((response) => {
-        console.log(response);
-      });
+    await axios.delete(`/schedule/${props.editData.id}`).then((response) => {
+      console.log(response);
+    });
     props.onUpdate();
     props.onClose();
+  };
+  const editItemHandler = (value) => {
+    setIsEditMode(true);
+    setShowAddModal(true);
+
+    if (value[0].roomId) setModalContent("rooms");
+    if (value[0].courseId) setModalContent("courses");
+    if (value[0].lecturerId) setModalContent("lecturers");
+    if (value[0].subjectId) setModalContent("subjects");
+    setEditValues(value);
   };
   return (
     <div
@@ -487,6 +502,9 @@ const ScheduleAddition = (props) => {
     >
       {showAddModal && (
         <AddNewItem
+          editValues={editValues}
+          editMode={isEditMode}
+          onDelete={deleteItemHandler}
           onClose={closeModalHandler}
           subjectsData={subjectsResponse}
           lecturerData={lecturerResponse}
@@ -507,6 +525,7 @@ const ScheduleAddition = (props) => {
       ></i>
       <div className={classes.dropdownsRow}>
         <AddDropdown
+          onEdit={editItemHandler}
           onChange={dropdownHandler}
           cssClass="dropdownAddition"
           options={subjectsData}
@@ -517,6 +536,7 @@ const ScheduleAddition = (props) => {
           onErrorMessage={errorMessages.subject}
         />
         <AddDropdown
+          onEdit={editItemHandler}
           onChange={dropdownHandler}
           cssClass="dropdownAddition"
           options={lecturerData}
@@ -531,6 +551,7 @@ const ScheduleAddition = (props) => {
           onDecline={dropdownDeclineHandler}
         />
         <AddDropdown
+          onEdit={editItemHandler}
           onChange={dropdownHandler}
           cssClass="dropdownAddition"
           options={courseData}
@@ -540,6 +561,7 @@ const ScheduleAddition = (props) => {
           value={addedLecture[0].courses}
         />
         <AddDropdown
+          onEdit={editItemHandler}
           onChange={dropdownHandler}
           cssClass="dropdownAddition"
           options={roomsData}
