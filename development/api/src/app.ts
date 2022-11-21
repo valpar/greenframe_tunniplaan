@@ -19,7 +19,10 @@ import ping from "./components/ping/controller";
 import courseService from "./components/course/service";
 
 const app: Application = express(); // create express app
-app.use(cors()); //use cors
+// app.use(cors()); //use cors
+app.use(cors({
+  origin: '*'
+}));
 app.use(express.json()); // For creating body object inside middleware request object
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapi));
 
