@@ -64,7 +64,8 @@ const AddDropdown = (props) => {
 
   const mouseEnterHandler = () => {
     setShowTooltip(true);
-    if (props.value.length === 1) return setShowPencil(true);
+    if (props.value?.length === 1 || typeof props.value === "number")
+      return setShowPencil(true);
     setShowPencil(false);
   };
   const mouseLeaveHandler = () => {

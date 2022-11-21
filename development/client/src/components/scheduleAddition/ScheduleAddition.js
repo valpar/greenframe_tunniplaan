@@ -215,22 +215,31 @@ const ScheduleAddition = (props) => {
   };
 
   const dropdownHandler = (dropDownValue) => {
+    const hasLecturers =
+      dropDownValue.filter((value) => value.lecturerId === "newLecturer")
+        .length > 0;
+    const hasCourses =
+      dropDownValue.filter((value) => value.courseId === "newCourse").length >
+      0;
+    const hasRooms =
+      dropDownValue.filter((value) => value.roomId === "newRoom").length > 0;
+
     if (dropDownValue[0].subjectId === "newSubject") {
       setShowAddModal(true);
       setModalContent("subjects");
       return;
     }
-    if (dropDownValue[0].lecturerId === "newLecturer") {
+    if (hasLecturers) {
       setShowAddModal(true);
       setModalContent("lecturers");
       return;
     }
-    if (dropDownValue[0].courseId === "newCourse") {
+    if (hasCourses) {
       setShowAddModal(true);
       setModalContent("courses");
       return;
     }
-    if (dropDownValue[0].roomId === "newRoom") {
+    if (hasRooms) {
       setShowAddModal(true);
       setModalContent("rooms");
       return;
@@ -405,6 +414,8 @@ const ScheduleAddition = (props) => {
 
   const closeModalHandler = (dropdownToReset) => {
     setShowAddModal(false);
+    setIsEditMode(false);
+
     if (dropdownToReset) {
       setAddedLecture((prevState) =>
         prevState.map((obj) => {
@@ -485,11 +496,11 @@ const ScheduleAddition = (props) => {
   const editItemHandler = (value) => {
     setIsEditMode(true);
     setShowAddModal(true);
-
-    if (value[0].roomId) setModalContent("rooms");
-    if (value[0].courseId) setModalContent("courses");
-    if (value[0].lecturerId) setModalContent("lecturers");
-    if (value[0].subjectId) setModalContent("subjects");
+    console.log(value);
+    if (value[0]?.roomId) setModalContent("rooms");
+    if (value[0]?.courseId) setModalContent("courses");
+    if (value[0]?.lecturerId) setModalContent("lecturers");
+    if (typeof value === "number") setModalContent("subjects");
     setEditValues(value);
   };
   return (
@@ -512,6 +523,7 @@ const ScheduleAddition = (props) => {
           roomsData={roomResponse}
           modalFor={modalContent}
           onNewItem={newItemhandler}
+          scheduled={props.scheduled}
         />
       )}
       <h6>

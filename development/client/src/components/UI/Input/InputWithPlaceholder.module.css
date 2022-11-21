@@ -22,3 +22,7 @@
 .errorHandling input:focus {
   outline: none;
 }
+.tooltip {
+  position: absolute;
+  margin: -1.8rem 0rem 0rem 0rem;
+}

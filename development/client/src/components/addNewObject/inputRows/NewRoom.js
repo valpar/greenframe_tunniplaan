@@ -11,7 +11,17 @@ const NewRoom = (props) => {
   const [errorMessage, setErrorMessages] = useState({
     room: "",
   });
-
+  useEffect(() => {
+    if (props.editMode) {
+      setEnteredRoomData(
+        props.roomsData.rooms.filter((e) => {
+          let arr = props.editValues.filter((room) => room.roomId === e.id);
+          return arr.length !== 0 ? { room: e.room } : false;
+        })[0]
+      );
+    }
+    setErrorMessages({ room: null });
+  }, []);
   const inputChangeHandler = (value) => {
     const isRoom = value.name === "room";
     const hasValue = value.value !== "";
@@ -19,7 +29,7 @@ const NewRoom = (props) => {
       const roomExists =
         props.roomsData.rooms.filter((e) => e.room === value.value).length > 0;
 
-      roomExists || !hasValue
+      (roomExists || !hasValue) && !props.editMode
         ? setErrorMessages((prevState) => {
             return {
               ...prevState,
@@ -54,7 +64,7 @@ const NewRoom = (props) => {
           props.editMode ? "RUUMI MUUTMINE" : "UUE RUUMI LISAMINE"
         }`}</h1>
       )}
-      <div className={classes.inputRow}>
+      <div className={props.editMode ? classes.editMode : classes.inputRow}>
         <InputWithPlaceholder
           placeholder="Ruum"
           onChange={inputChangeHandler}

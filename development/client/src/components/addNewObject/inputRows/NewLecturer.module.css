@@ -15,6 +15,12 @@
   flex-direction: row;
   justify-content: space-between;
 }
+.editMode {
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 .plusIcon {
   font-size: 2em;
   margin-top: -0.3rem;
