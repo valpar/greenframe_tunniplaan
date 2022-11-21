@@ -66,14 +66,14 @@ const AddHomework = (props) => {
       }
     >
       <div className={classes.homeworkTextare}>
-        {showTooltip && !props.onErrors.descriptionValid.description && (
+        {showTooltip && !props.onErrors?.descriptionValid.description && (
           <TooltipTop
-            errorMessage={props.onErrors.descriptionValid.errorMessage}
+            errorMessage={props.onErrors?.descriptionValid.errorMessage}
           />
         )}
         <textarea
           className={
-            props.onErrors.descriptionValid.description
+            props.onErrors?.descriptionValid.description
               ? ""
               : classes.textareaError
           }
@@ -115,8 +115,8 @@ const AddHomework = (props) => {
           placeholder="Tähtaeg"
           index="1"
           name="dueDate"
-          errorMessage={props.onErrors.dueDateValid.errorMessage}
-          hasError={!props.onErrors.dueDateValid.dueDate}
+          errorMessage={props.onErrors?.dueDateValid.errorMessage}
+          hasError={!props.onErrors?.dueDateValid.dueDate}
         />
         {dateValue && (
           <i
@@ -130,8 +130,8 @@ const AddHomework = (props) => {
           placeholder="Link lisa materjalidele"
           name="extraLink"
           value={props.homeworkData.extrasLink}
-          errorMessage={props.onErrors.extrasLinkValid.errorMessage}
-          hasErrors={props.onErrors.extrasLinkValid.extrasLink}
+          errorMessage={props.onErrors?.extrasLinkValid.errorMessage}
+          hasErrors={props.onErrors?.extrasLinkValid.extrasLink}
         />
       </div>
     </div>
