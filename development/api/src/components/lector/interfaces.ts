@@ -14,6 +14,7 @@ interface ILector extends RowDataPacket {
 interface INewLector {
   firstName: string;
   lastName: string;
+  email: string;
 }
 interface ILecturerSubjects extends RowDataPacket {
   fullName: string;
