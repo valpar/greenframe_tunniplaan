@@ -61,7 +61,7 @@ const lecturerController = {
     const subjectExists = await lecturerService.deleteLecturerById(id);
     if (subjectExists == undefined) {
       return res.status(responseCodes.badRequest).json({
-        message: `Lecturer not found with id: ${id} or has active subjects`,
+        message: `Lecturer not found with id: ${id}`,
       });
     }
     if (subjectExists) {
@@ -75,7 +75,8 @@ const lecturerController = {
   // Uue Õppejõu lisamine
 
   addLecturer: async (req: Request, res: Response) => {
-    const { firstName, lastName } = req.body;
+    const { firstName, lastName, email } = req.body;
+    console.log(firstName, lastName, email);
     if (!firstName) {
       return res.status(responseCodes.badRequest).json({
         error: "First name is required",
@@ -86,9 +87,15 @@ const lecturerController = {
         error: "Last name is required",
       });
     }
+    if (!email) {
+      return res.status(responseCodes.badRequest).json({
+        error: "Email is required",
+      });
+    }
     const newLecturer: INewLector = {
       firstName,
       lastName,
+      email,
     };
     const id = await lecturerService.createlecturer(newLecturer);
     if (id) {
@@ -102,7 +109,7 @@ const lecturerController = {
   },
   updateLecturerById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    const { firstName, lastName } = req.body;
+    const { firstName, lastName, email } = req.body;
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: "No valid id provided",
@@ -118,9 +125,15 @@ const lecturerController = {
         error: "Provide lastname",
       });
     }
+    if (!email) {
+      return res.status(responseCodes.badRequest).json({
+        error: "Email is required",
+      });
+    }
     const newLecturer: INewLector = {
       firstName,
       lastName,
+      email,
     };
     const lecturerExists = await lecturerService.updateLecturerById(
       newLecturer,
