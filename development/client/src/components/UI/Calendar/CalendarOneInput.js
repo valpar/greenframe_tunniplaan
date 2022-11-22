@@ -8,6 +8,7 @@ const CalendarOneInput = (props) => {
   const [date, setDate] = useState(
     new Date(new Date().setDate(new Date().getDate() + 1))
   );
+
   return (
     <div className={classes.calendar}>
       {props.onShowCalendar && (

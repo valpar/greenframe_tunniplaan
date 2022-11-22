@@ -44,6 +44,7 @@ const InputWithPlaceholder = (props) => {
         className={props.hasError ? classes.errorHandling : ""}
         autoComplete="off"
         placeholder={props.placeholder}
+        maxLength={props.maxLength}
       />
     </div>
   );

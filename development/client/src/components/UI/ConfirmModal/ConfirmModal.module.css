@@ -1,7 +1,7 @@
 .container {
   position: absolute;
   margin: -3.6rem 0rem 0rem 36rem;
-  border: 0.01rem solid rgba(128, 128, 128, 0.368);
+
   width: 10rem;
   height: 5rem;
   background-color: white;
@@ -17,7 +17,7 @@
 .topArrow {
   margin: -0.5rem 0rem 0rem 4.5rem;
   position: absolute;
-  border: 0.01rem solid rgba(128, 128, 128, 0.368);
+
   border-left: none;
   border-bottom: none;
   width: 1rem;
@@ -28,7 +28,7 @@
 .leftArrow {
   margin: 2.1rem 0rem 0rem 9.4rem;
   position: absolute;
-  border: 0.01rem solid rgba(128, 128, 128, 0.368);
+
   border-left: none;
   border-bottom: none;
   width: 1rem;
@@ -39,7 +39,7 @@
 .bottomArrow {
   margin: 4.4rem 0rem 0rem 4.5rem;
   position: absolute;
-  border: 0.01rem solid rgba(128, 128, 128, 0.368);
+
   border-left: none;
   border-bottom: none;
   width: 1rem;

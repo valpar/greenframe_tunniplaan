@@ -115,7 +115,6 @@ const DateOfOccurenceForm = (props) => {
         });
       }
       if (!dateValue) {
-        console.log("jje");
         setEnteredDateIsValid(true);
         setErrorMessages((prevState) => {
           return {

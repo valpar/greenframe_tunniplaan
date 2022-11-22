@@ -65,7 +65,15 @@
   margin-left: -41rem;
   margin-top: 0.15rem;
 }
+.saveConfirmInfo {
+  position: absolute;
+  margin-left: -42.5rem;
+  margin-top: 1.8rem;
+}
 .homeworksLink {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
   margin-right: 1rem;
 }
 
