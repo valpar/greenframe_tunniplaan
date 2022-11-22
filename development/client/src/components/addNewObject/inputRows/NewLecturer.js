@@ -16,6 +16,26 @@ const NewLecturer = (props) => {
     email: "",
   });
 
+  useEffect(() => {
+    if (props.editMode) {
+      setEnteredLecturerData(
+        props.lecturerData.lecturers.filter((e) => {
+          let arr = props.editValues.filter(
+            (lecturer) => lecturer.lecturerId === e.id
+          );
+          return arr.length !== 0
+            ? { firstName: e.firstName, lastName: e.lastName, email: e.email }
+            : false;
+        })[0]
+      );
+    }
+    setErrorMessages({
+      firstName: null,
+      lastName: null,
+      email: null,
+    });
+  }, []);
+
   const inputChangeHandler = (value) => {
     const isFirstName = value.name === "firstName";
     const isLastName = value.name === "lastName";
@@ -63,13 +83,28 @@ const NewLecturer = (props) => {
         return { ...prevState, email: value.value };
       });
 
-      if (hasValue) {
+      if (hasValue && !props.editMode) {
         const timer = setTimeout(() => {
           emailExists || !isEmalilVaild
             ? setErrorMessages((prevState) => {
                 return {
                   ...prevState,
                   email: emailExists ? "ÕPPEJÕUD OLEMAS" : "EMAIL ON VIGANE",
+                };
+              })
+            : setErrorMessages((prevState) => {
+                return { ...prevState, email: null };
+              });
+        }, 2000);
+        return () => clearTimeout(timer);
+      }
+      if (props.editMode) {
+        const timer = setTimeout(() => {
+          !isEmalilVaild
+            ? setErrorMessages((prevState) => {
+                return {
+                  ...prevState,
+                  email: "EMAIL ON VIGANE",
                 };
               })
             : setErrorMessages((prevState) => {
@@ -105,8 +140,12 @@ const NewLecturer = (props) => {
   }, [enteredLecturerData, errorMessage]);
   return (
     <div className={classes.container}>
-      {index === 0 && <h1 className={classes.caption}>UUE ÕPPEJÕU LISAMINE</h1>}
-      <div className={classes.inputRow}>
+      {index === 0 && (
+        <h1 className={classes.caption}>{`${
+          props.editMode ? "ÕPPEJÕU MUUTMINE" : "UUE ÕPPEJÕU LISAMINE"
+        }`}</h1>
+      )}
+      <div className={props.editMode ? classes.editMode : classes.inputRow}>
         <InputWithPlaceholder
           placeholder="Eesnimi"
           onChange={inputChangeHandler}
@@ -128,7 +167,7 @@ const NewLecturer = (props) => {
           value={props.values.email}
           errorMessage={errorMessage.email}
         />
-        {index === 0 && (
+        {index === 0 && !props.editMode && (
           <i
             onClick={props.onAddNewRow}
             className={`${classes.plusIcon} bi bi-plus`}

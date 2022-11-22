@@ -16,6 +16,23 @@ const NewSubject = (props) => {
     creditPoint: "",
   });
 
+  useEffect(() => {
+    if (props.editMode) {
+      setEnteredSubjectData(
+        props.subjectsData.subjects.filter((e) => {
+          return e.id === props.editValues
+            ? {
+                subject: e.subject,
+                subjectCode: e.subjectCode,
+                creditPoint: e.creditPoint,
+              }
+            : false;
+        })[0]
+      );
+    }
+    setErrorMessages({ subject: null, subjectCode: null, creditPoint: null });
+  }, []);
+
   const inputChangeHandler = (value) => {
     const isSubject = value.name === "subject";
     const isSubjectCode = value.name === "subjectCode";
@@ -41,7 +58,7 @@ const NewSubject = (props) => {
       const codeExists =
         props.subjectsData.subjects.filter((e) => e.subjectCode === value.value)
           .length > 0;
-      codeExists || !hasValue
+      (codeExists || !hasValue) && !props.editMode
         ? setErrorMessages((prevState) => {
             return {
               ...prevState,
@@ -93,7 +110,9 @@ const NewSubject = (props) => {
   return (
     <div className={classes.container}>
       {index === 0 && (
-        <h1 className={classes.caption}>UUE ÕPPEAINE LISAMINE</h1>
+        <h1 className={classes.caption}>{`${
+          props.editMode ? "ÕPPEAINE MUUTMINE" : "UUE ÕPPEAINE LISAMINE"
+        }`}</h1>
       )}
       <div className={classes.inputRow}>
         <InputWithPlaceholder
@@ -117,7 +136,7 @@ const NewSubject = (props) => {
           value={props.values.creditPoint}
           errorMessage={errorMessage.creditPoint}
         />
-        {index === 0 && (
+        {index === 0 && !props.editMode && (
           <i
             onClick={props.onAddNewRow}
             className={`${classes.plusIcon} bi bi-plus`}

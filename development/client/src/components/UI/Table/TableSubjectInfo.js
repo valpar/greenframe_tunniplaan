@@ -6,6 +6,7 @@ import InputWithPlaceholder from "../Input/InputWithPlaceholder";
 import AddHomework from "../../addHomework/AddHomework";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import axios from "axios";
+import config from "../../../config.json";
 
 const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(
@@ -19,7 +20,7 @@ const isValidUrl = (urlString) => {
   );
   return !!urlPattern.test(urlString);
 };
-const baseURL = "http://localhost:4000";
+axios.defaults.baseURL = config.api.url;
 const TableSubjectInfo = (props) => {
   const [homework, setHomework] = useState([]);
   const [editMode, setEditMode] = useState(false);
@@ -233,7 +234,7 @@ const TableSubjectInfo = (props) => {
     });
     if (distanceLinkIsValid && fieldsValid.length === 0) {
       await axios
-        .patch(`${baseURL}/schedule/${props.item.id}`, {
+        .patch(`/schedule/${props.item.id}`, {
           ...props.item,
           comment: enteredInfo.comment,
           distanceLink: enteredInfo.distanceLink,
@@ -247,7 +248,7 @@ const TableSubjectInfo = (props) => {
           console.log(e);
           console.log(props.item);
           await axios
-            .patch(`${baseURL}/homeworks/${e.id}`, {
+            .patch(`/homeworks/${e.id}`, {
               ...e,
               subjectCode: props.item.subject.subjectCode,
               subjects_id: props.item.subject.id,
@@ -258,7 +259,7 @@ const TableSubjectInfo = (props) => {
         }
         if (!e.id) {
           await axios
-            .post(`${baseURL}/homeworks`, {
+            .post(`/homeworks`, {
               ...e,
               subjectCode: props.item.subject.subjectCode,
             })
