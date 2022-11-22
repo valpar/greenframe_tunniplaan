@@ -6,7 +6,8 @@ import formatDate from "../../utils/formatDate";
 
 const scheduleController = {
   getEntireSchedule: async (req: Request, res: Response) => {
-    let { atDate, toDate } = req.body;
+
+    let {atDate, toDate}  = req.params;
 
     if (atDate == undefined) {
       atDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-"); // tähtaeg tänasest juhul kui kuupäeva pole
