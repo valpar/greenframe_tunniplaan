@@ -68,3 +68,13 @@
 .homeworksLink {
   margin-right: 1rem;
 }
+
+.btnSubjectCard a {
+  text-decoration: none;
+  color: black;
+}
+
+.btnSubjectCard a:hover {
+  text-decoration: none;
+  color: blue;
+}

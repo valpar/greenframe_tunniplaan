@@ -292,9 +292,9 @@ const TableSubjectInfo = (props) => {
         className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
       >
         <td colSpan={3} style={{ borderRight: "0rem" }}>
-          Õppeinfo:
+          {editMode ? "Õppeinfo:" : "Lisainfo..."}
         </td>
-        <td className={classes.actions}>
+        <td colSpan={4} className={classes.actions}>
           {(props.userLecturer || props.admin) && !editMode && (
             <i
               onClick={editInfoHandler}
@@ -322,11 +322,6 @@ const TableSubjectInfo = (props) => {
           ></i>
         </td>
       </tr>
-      {props.item.comment && (
-        <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
-          <td colSpan={4}>{props.item.comment}</td>
-        </tr>
-      )}
       {editMode && (
         <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
           <td colSpan={4}>
@@ -339,7 +334,7 @@ const TableSubjectInfo = (props) => {
         </tr>
       )}
 
-      {!editMode && homework.description && (
+      {!editMode && homework?.description && (
         <>
           <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
             <td colSpan={4}>{`Kodutöö:`}</td>
@@ -393,10 +388,15 @@ const TableSubjectInfo = (props) => {
       {!editMode && props.item.comment.length > 0 && (
         <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
           <td colSpan={4}>
-            {`Videoloengu `}{" "}
-            <a rel="noreferrer" target="_blank" href={props.item.distanceLink}>
-              link
-            </a>
+            <div className={classes.btnSubjectCard}>
+              <a
+                rel="noreferrer"
+                target="_blank"
+                href={props.item.distanceLink}
+              >
+                VIDEOLOENG
+              </a>
+            </div>
           </td>
         </tr>
       )}
@@ -423,21 +423,20 @@ const TableSubjectInfo = (props) => {
       {props.item.subject.subjectCode.length > 4 && (
         <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
           <td colSpan={4}>
-            Link ainekaardile:<br></br>
-            <a
-              href={`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
-            </a>
+            <div className={classes.btnSubjectCard}>
+              <a
+                href={`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                AINEKAART
+              </a>
+            </div>
           </td>
         </tr>
       )}
       <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
-        <td
-          colSpan={4}
-        >{`${props.item.subject.subject} järgmised toimumisajad:`}</td>
+        <td colSpan={4}>{`Järgmised toimumisajad:`}</td>
       </tr>
       {props.rawData.map((e, i) => {
         let time1 = dateService.formatMilliseconds(e.startTime);
