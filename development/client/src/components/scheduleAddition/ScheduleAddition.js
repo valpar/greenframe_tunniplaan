@@ -356,12 +356,30 @@ const ScheduleAddition = (props) => {
       addedLecture[0].subjectId !== null && addedLecture[0].subjectId !== "";
     const occurenceValidator = validateOccurences(newOccurence);
     if (!valitationFailed(occurenceValidator) && hasSubject) {
-      newOccurence.forEach(async (element) => {
-        await axios.post(`/schedule`, {
-          ...addedLecture[0],
-          ...element,
+      if (!props.editMode) {
+        newOccurence.forEach(async (element) => {
+          await axios
+            .post(`/schedule`, {
+              ...addedLecture[0],
+              ...element,
+            })
+            .then((res) => console.log(res));
         });
-      });
+      }
+      if (props.editMode) {
+        newOccurence.forEach(async (element) => {
+          await axios
+            .patch(`/schedule/${props.editData.id}`, {
+              ...addedLecture[0],
+              ...element,
+            })
+            .then((res) => console.log(res));
+        });
+        props.onUpdate();
+        props.onClose();
+        return;
+      }
+
       setNewOccurence([
         {
           startTime: "",

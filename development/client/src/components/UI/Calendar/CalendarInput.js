@@ -9,13 +9,21 @@ let now = new Date();
 const CalendarInput = (props) => {
   const [startCalendar, setStartCalendar] = useState(new Date());
   const [endCalendar, setEndCalendar] = useState(
-    new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
+    new Date(
+      now.getFullYear(),
+      now.getMonth() + 1,
+      now.getDate(),
+      now.getHours()
+    )
   );
   const [pickStartDate, setPickStartDate] = useState(true);
   const [pickEndDate, setPickEndDate] = useState(false);
   const [showBtnModal, setShowBtnModal] = useState(true);
 
   const startDateHandler = () => {
+    setShowBtnModal((prevState) => {
+      return pickStartDate ? false : true;
+    });
     setPickStartDate((prevState) => (prevState = !prevState));
 
     setPickEndDate((prevState) => {
@@ -25,6 +33,9 @@ const CalendarInput = (props) => {
     });
   };
   const endDateHandler = () => {
+    setShowBtnModal((prevState) => {
+      return pickEndDate ? false : true;
+    });
     setPickEndDate((prevState) => (prevState = !prevState));
     setPickStartDate((prevState) => {
       if (prevState) {
@@ -56,26 +67,50 @@ const CalendarInput = (props) => {
     ]);
   }, [startCalendar, endCalendar]);
 
-  const changeCalendarHandler = () => {
-    const timer = setTimeout(() => {
-      setPickStartDate((prevState) => (prevState = !prevState));
-      setPickEndDate((prevState) => (prevState = !prevState));
-    }, 5);
-    return () => clearTimeout(timer);
+  const changeCalendarStartHandler = (e) => {
+    setStartCalendar(new Date(new Date(e).setHours(new Date().getHours())));
+
+    setPickStartDate((prevState) => (prevState = !prevState));
+    setPickEndDate((prevState) => (prevState = !prevState));
+  };
+  const changeCalendarEndHandler = (e) => {
+    setEndCalendar(new Date(new Date(e).setHours(new Date().getHours())));
+
+    setPickStartDate((prevState) => (prevState = !prevState));
+    setPickEndDate((prevState) => (prevState = !prevState));
   };
   const buttonDateHandler = (event) => {
     event.preventDefault();
     const now = new Date();
+    const now2 = new Date();
     const btnType = event.target.name;
-    if (btnType === "today") setEndCalendar(now);
-    if (btnType === "tomorrow")
-      setEndCalendar(new Date(now.setDate(now.getDate() + 1)));
-    if (btnType === "week")
-      setEndCalendar(new Date(now.setDate(now.getDate() + 7)));
-    if (btnType === "month")
+    if (btnType === "today") {
+      setStartCalendar(now);
+      setEndCalendar(now);
+    }
+    if (btnType === "tomorrow") {
+      setStartCalendar(new Date(now.setDate(now.getDate() + 1, now.getTime())));
       setEndCalendar(
-        new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
+        new Date(now2.setDate(now2.getDate() + 1, now2.getTime()))
       );
+    }
+
+    if (btnType === "week") {
+      setStartCalendar(now2);
+      setEndCalendar(new Date(now.setDate(now.getDate() + 7, now.getTime())));
+    }
+
+    if (btnType === "month") {
+      setStartCalendar(now2);
+      setEndCalendar(
+        new Date(
+          now.getFullYear(),
+          now.getMonth() + 1,
+          now.getDate(),
+          now.getHours()
+        )
+      );
+    }
   };
 
   return (
@@ -135,7 +170,7 @@ const CalendarInput = (props) => {
       <div className={classes.calendar}>
         {pickStartDate && (
           <Calendar
-            onClickDay={changeCalendarHandler}
+            onClickDay={changeCalendarStartHandler}
             onChange={setStartCalendar}
             value={startCalendar}
             locale="et-EE"
@@ -145,12 +180,13 @@ const CalendarInput = (props) => {
         )}
         {pickEndDate && (
           <Calendar
-            onClickDay={changeCalendarHandler}
+            onClickDay={changeCalendarEndHandler}
             onChange={setEndCalendar}
             value={endCalendar}
             locale="et-EE"
             showWeekNumbers={true}
             className="filters"
+            minDate={startCalendar}
           />
         )}
       </div>

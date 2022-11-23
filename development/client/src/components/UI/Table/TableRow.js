@@ -115,6 +115,7 @@ const TableBody = (props) => {
                 editMode="editMode"
                 editData={props.item}
                 onUpdate={props.onUpdate}
+                scheduled={props.rawData}
               />
             </div>
           </td>

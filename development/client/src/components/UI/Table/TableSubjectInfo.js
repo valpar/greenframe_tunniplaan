@@ -20,6 +20,7 @@ const isValidUrl = (urlString) => {
   );
   return !!urlPattern.test(urlString);
 };
+
 axios.defaults.baseURL = config.api.url;
 const TableSubjectInfo = (props) => {
   const [homework, setHomework] = useState([]);
@@ -71,16 +72,7 @@ const TableSubjectInfo = (props) => {
       homeworkError === "" &&
       homeworkResponse.hasOwnProperty("homework")
     ) {
-      setHomework(
-        ...homeworkResponse.homework.filter(
-          (e) =>
-            new Date(e.dueDate).getTime() <
-              new Date(props.item.startTime).getTime() &&
-            new Date(e.dueDate).getTime() >
-              new Date(props.item.startTime).getTime() -
-                1000 * 60 * 60 * 24 * 14
-        )
-      );
+      setHomework(...homeworkResponse.homework);
       setEnteredInfo((prevState) => {
         return {
           ...prevState,
@@ -107,6 +99,7 @@ const TableSubjectInfo = (props) => {
   }, [homeworkResponse, homeworkError, homeworkLoading, editMode]);
 
   const addExtraInfoHandler = (event, index) => {
+    console.log(event.value);
     let fieldName = "";
     let newValue = "";
     if (event.target) {
@@ -222,6 +215,8 @@ const TableSubjectInfo = (props) => {
       await axios.delete(`/homeworks/${homeworkId}`).then((response) => {
         console.log(response);
       });
+      setUpdateRequest((prevState) => (prevState = !prevState));
+      props.onUpdate();
     }
     if (enteredInfo.homeworks.length === 1) {
       setEnteredInfo((prevState) => ({
@@ -236,6 +231,7 @@ const TableSubjectInfo = (props) => {
           extrasLinkValid: { extrasLink: true, errorMessage: "" },
         },
       ]);
+      setHomework([]);
       return;
     }
 
@@ -342,7 +338,7 @@ const TableSubjectInfo = (props) => {
         className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
       >
         <td colSpan={3} style={{ borderRight: "0rem" }}>
-          {editMode ? "Õppeinfo:" : "Lisainfo..."}
+          {editMode ? "Kommentaar:" : "Õppeinfo:"}
         </td>
         <td colSpan={4} className={classes.actions}>
           {(props.userLecturer || props.admin) && !editMode && (
@@ -393,41 +389,64 @@ const TableSubjectInfo = (props) => {
               hasErrors={!commentValid}
               errorMessage={!commentValid ? "MAX PIKKUS 50 TÄHEMÄRKI" : ""}
               maxLength={50}
+              placeholder="Kommentaar tunniplaanis"
             />
           </td>
         </tr>
       )}
 
-      {!editMode && homework?.description && (
-        <>
-          <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
-            <td colSpan={4}>{`Kodutöö:`}</td>
-          </tr>
-          <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
-            <td colSpan={4}>
-              {homework.description} <br />
-              {homework.extrasLink && (
-                <a
-                  rel="noreferrer"
-                  target="_blank"
-                  href={homework.extrasLink}
-                  className={classes.homeworksLink}
+      {!editMode &&
+        homework?.description &&
+        (homeworkResponse?.homework
+          ? homeworkResponse.homework
+          : enteredInfo.homeworks
+        ).map((homework, i) => {
+          return (
+            <>
+              {i === 0 && (
+                <tr
+                  key={i + 1000000}
+                  className={`${classes.extraRowInfo} ${classes.rowHeading}`}
                 >
-                  MATERJALID
-                </a>
+                  <td colSpan={4}>{`Iseseisev töö:`}</td>
+                </tr>
               )}
-              <strong>{`Tähtaeg: ${dateService.formatDate(
-                homework.dueDate
-              )}`}</strong>
-            </td>
-          </tr>
-        </>
-      )}
+              <tr
+                key={i}
+                className={`${classes.extraRowInfo} ${classes.rowInfo}`}
+              >
+                <td colSpan={4}>
+                  {homework.description} <br />
+                  {homework.extrasLink && (
+                    <a
+                      rel="noreferrer"
+                      target="_blank"
+                      href={homework.extrasLink}
+                      className={classes.homeworksLink}
+                    >
+                      Õppematerjalid
+                    </a>
+                  )}
+                  <strong>{`Tähtaeg: ${dateService.formatDate(
+                    homework.dueDate
+                  )}`}</strong>
+                </td>
+              </tr>
+              {i !== 0 && (
+                <tr key={i + 2000000} className={`${classes.line}`}>
+                  <td colSpan={4}>
+                    <hr></hr>
+                  </td>
+                </tr>
+              )}
+            </>
+          );
+        })}
 
       {editMode && (
         <>
           <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
-            <td colSpan={4}>{`Kodutöö:`}</td>
+            <td colSpan={4}>{`Iseseisev töö:`}</td>
           </tr>
           <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
             <td colSpan={4}>
@@ -506,10 +525,23 @@ const TableSubjectInfo = (props) => {
       {props.rawData.map((e, i) => {
         let time1 = dateService.formatMilliseconds(e.startTime);
         let time2 = dateService.formatMilliseconds(props.item.startTime);
+        let arr = [];
+        if (e.courses !== "") {
+          arr = e.courses.filter((course) => {
+            if (props.item.courses !== "") {
+              let hasCourse = props.item.courses.filter(
+                (crs) => crs.courseId === course.courseId
+              );
+              return hasCourse?.length > 0 ? true : false;
+            }
+            return false;
+          });
+        }
 
         if (
           e.subject.subject.includes(props.item.subject.subject) &&
-          time1 > time2
+          time1 > time2 &&
+          arr?.length > 0
         ) {
           return (
             <tr
