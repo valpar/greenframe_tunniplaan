@@ -121,7 +121,10 @@ const ScheduleFilters = (props) => {
         cssClass="dropdownFilters"
         isMulti={true}
       />
-      <CalendarInput onChange={filtersHandler} />
+      <div className={classes.calendar}>
+        <CalendarInput onChange={filtersHandler} />
+      </div>
+
       <SearchDropdown
         onChange={filtersHandler}
         options={subjectsData}

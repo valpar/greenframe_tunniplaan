@@ -9,9 +9,14 @@ import ScheduleAddition from "../components/scheduleAddition/ScheduleAddition";
 import Table from "../components/UI/Table/Table";
 
 const Home = () => {
+  const now = new Date();
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: new Date().toISOString(),
+    endDate: new Date(
+      now.getFullYear(),
+      now.getMonth() + 1,
+      now.getDate()
+    ).toISOString(),
   });
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -160,9 +165,6 @@ const Home = () => {
       return [...dropdownController(prevState, dropdownValues)];
     });
   };
-  useEffect(() => {
-    console.log(scheduleRequestParams);
-  }, [scheduleRequestParams]);
 
   useEffect(() => {
     const hasStartTime = dropdownsSelection.find((o) => o.startTime);
