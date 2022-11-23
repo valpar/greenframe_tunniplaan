@@ -133,6 +133,7 @@
   background-color: aliceblue;
 }
 .betweenTables {
+  width: 50rem;
   margin-top: 3rem;
 }
 .userInfoBox {
