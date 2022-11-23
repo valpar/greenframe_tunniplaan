@@ -102,16 +102,26 @@ const homeworkService = {
     actualDate: string
   ): Promise<Ihomework[] | false | undefined> => {
     try {
+      // const homework: [Ihomework[], FieldPacket[]] = await pool.query(
+      //   `SELECT homeworks.id, homeworks.description, homeworks.dueDate, homeworks.extrasLink, homeworks.dateCreated, homeworks.dateUpdated, 
+      //   homeworks.dateDeleted FROM scheduleDb.homeworks 
+      //   WHERE subjects_id = (select id from subjects where subjectCode = ? )
+      //         AND homeworks.dueDate > (select scheduled.startTime from scheduleDb.scheduled 
+      //                                   WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
+      //                                   AND scheduled.startTime < ? order by scheduled.startTime desc limit 1) 
+      //         AND homeworks.dueDate <=      (select scheduled.startTime from scheduleDb.scheduled 
+      //                                   WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
+      //                                   AND scheduled.startTime > ? order by scheduled.startTime LIMIT 1 ) `,
+      //   [subCode, subCode, actualDate, subCode, actualDate]
+      // );
       const homework: [Ihomework[], FieldPacket[]] = await pool.query(
         `SELECT homeworks.id, homeworks.description, homeworks.dueDate, homeworks.extrasLink, homeworks.dateCreated, homeworks.dateUpdated, 
         homeworks.dateDeleted FROM scheduleDb.homeworks 
         WHERE subjects_id = (select id from subjects where subjectCode = ? )
               AND homeworks.dueDate > (select scheduled.startTime from scheduleDb.scheduled 
                                         WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
-                                        AND scheduled.startTime < ? order by scheduled.startTime desc limit 1) 
-              AND homeworks.dueDate <=      (select scheduled.startTime from scheduleDb.scheduled 
-                                        WHERE scheduled.subjects_id = (select id from subjects where subjectCode = ? ) 
-                                        AND scheduled.startTime > ? order by scheduled.startTime LIMIT 1 ) `,
+                                        AND scheduled.startTime < ? 
+                                        AND homeworks.dateDeleted is NULL order by scheduled.startTime desc limit 1) `,
         [subCode, subCode, actualDate, subCode, actualDate]
       );
       console.log(actualDate, subCode);

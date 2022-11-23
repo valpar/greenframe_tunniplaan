@@ -5,6 +5,8 @@ import CalendarOneInput from "../UI/Calendar/CalendarOneInput";
 import useAutosizeTextArea from "../../hooks/useAutosizeTextArea";
 import TooltipTop from "../UI/Tooltip/TooltipTop";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
+import { formatDate, formatMilliseconds } from "../../utils/Format/Date";
+import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 
 const AddHomework = (props) => {
   const [dateValue, setDateValue] = useState();
@@ -48,7 +50,7 @@ const AddHomework = (props) => {
 
   const confirmationHandler = () => {
     setShowConfirmationModal(false);
-    props.onRemoveRow(props.index);
+    props.onRemoveRow(props.index, props.homeworkData.id);
   };
 
   const declineHandler = () => {
@@ -56,6 +58,10 @@ const AddHomework = (props) => {
   };
 
   useAutosizeTextArea(textAreaRef.current, props.homeworkData.description);
+  let date;
+  if (props.homeworkData.dueDate !== "") {
+    date = new Date(formatMilliseconds(props.homeworkData.dueDate));
+  }
 
   return (
     <div
@@ -67,9 +73,11 @@ const AddHomework = (props) => {
     >
       <div className={classes.homeworkTextare}>
         {showTooltip && !props.onErrors?.descriptionValid.description && (
-          <TooltipTop
-            errorMessage={props.onErrors?.descriptionValid.errorMessage}
-          />
+          <div className={classes.descriptionErrorMessage}>
+            <TooltipLarge
+              message={props.onErrors?.descriptionValid.errorMessage}
+            />
+          </div>
         )}
         <textarea
           className={
@@ -86,11 +94,13 @@ const AddHomework = (props) => {
           value={props.homeworkData.description}
           name="description"
         />
-        <i
-          onClick={props.onAddRow}
-          className={`bi bi-plus-lg ${classes.addIcon}`}
-        ></i>
-        {props.index > 0 && (
+        {props.index === props.arrayLength - 1 && (
+          <i
+            onClick={props.onAddRow}
+            className={`bi bi-plus-lg ${classes.addIcon}`}
+          ></i>
+        )}
+        {
           <>
             {showCofirmationModal && (
               <ConfirmModal
@@ -104,14 +114,14 @@ const AddHomework = (props) => {
               className={`bi bi-x-lg ${classes.removeIcon}`}
             ></i>
           </>
-        )}
+        }
       </div>
       <div className={classes.homeworkExtra}>
         <CalendarOneInput
           onClickDay={changeHandler}
           onShowCalendar={showCalendar}
           onClick={addDateHandler}
-          value={props.homeworkData.dueDate ? props.homeworkData.dueDate : ""}
+          value={props.homeworkData.dueDate ? date : ""}
           placeholder="Tähtaeg"
           index="1"
           name="dueDate"

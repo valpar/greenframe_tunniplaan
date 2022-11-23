@@ -13,6 +13,7 @@ const CalendarInput = (props) => {
   );
   const [pickStartDate, setPickStartDate] = useState(true);
   const [pickEndDate, setPickEndDate] = useState(false);
+  const [showBtnModal, setShowBtnModal] = useState(true);
 
   const startDateHandler = () => {
     setPickStartDate((prevState) => (prevState = !prevState));
@@ -34,20 +35,16 @@ const CalendarInput = (props) => {
 
   const closeCalendarHandler = () => {
     setStartCalendar(new Date());
-    setEndCalendar(
-      new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
-    );
 
-    setPickStartDate((prevState) => {
-      if (prevState) {
-        return (prevState = !prevState);
-      }
-    });
-    setPickEndDate((prevState) => {
-      if (prevState) {
-        return (prevState = !prevState);
-      }
-    });
+    if (showBtnModal) {
+      setPickStartDate(false);
+      setPickEndDate(false);
+      setShowBtnModal(false);
+    }
+    if (!showBtnModal) {
+      setPickStartDate(true);
+      setShowBtnModal(true);
+    }
   };
 
   useEffect(() => {
@@ -59,15 +56,42 @@ const CalendarInput = (props) => {
     ]);
   }, [startCalendar, endCalendar]);
 
+  const changeCalendarHandler = () => {
+    const timer = setTimeout(() => {
+      setPickStartDate((prevState) => (prevState = !prevState));
+      setPickEndDate((prevState) => (prevState = !prevState));
+    }, 5);
+    return () => clearTimeout(timer);
+  };
+  const buttonDateHandler = (event) => {
+    event.preventDefault();
+    const now = new Date();
+    const btnType = event.target.name;
+    if (btnType === "today") setEndCalendar(now);
+    if (btnType === "tomorrow")
+      setEndCalendar(new Date(now.setDate(now.getDate() + 1)));
+    if (btnType === "week")
+      setEndCalendar(new Date(now.setDate(now.getDate() + 7)));
+    if (btnType === "month")
+      setEndCalendar(
+        new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
+      );
+  };
+
   return (
-    <Fragment>
+    <div className={classes.container}>
       <div className={classes.calendarInput}>
-        {(pickStartDate || pickEndDate) && (
-          <i className="bi bi-x-lg" onClick={closeCalendarHandler}></i>
-        )}
+        <i
+          className={`bi bi-chevron-down ${classes.openIcon}`}
+          onClick={closeCalendarHandler}
+        ></i>
 
         <input
-          className={classes.startDate}
+          className={
+            pickStartDate
+              ? `${classes.startDate} ${classes.active}`
+              : classes.startDate
+          }
           type="text"
           name="startDate"
           value={formatDate(startCalendar)}
@@ -75,7 +99,11 @@ const CalendarInput = (props) => {
           onClick={startDateHandler}
         />
         <input
-          className={classes.endDate}
+          className={
+            pickEndDate
+              ? `${classes.endDate} ${classes.active}`
+              : classes.endDate
+          }
           type="text"
           name="endDate"
           value={formatDate(endCalendar)}
@@ -84,22 +112,49 @@ const CalendarInput = (props) => {
         />
         <div className={classes.verticalStripe} />
       </div>
-      {pickStartDate && (
-        <Calendar
-          onChange={setStartCalendar}
-          value={startCalendar}
-          locale="et-EE"
-          showWeekNumbers={true}
-        />
+      {showBtnModal && (
+        <div className={classes.dateBtnContainer}>
+          <div className={classes.btnRow}>
+            <button onClick={buttonDateHandler} name="today">
+              Täna
+            </button>
+            <button onClick={buttonDateHandler} name="tomorrow">
+              Homme
+            </button>
+          </div>
+          <div className={classes.btnRow}>
+            <button onClick={buttonDateHandler} name="week">
+              Nädal
+            </button>
+            <button onClick={buttonDateHandler} name="month">
+              Kuu
+            </button>
+          </div>
+        </div>
       )}
-      {pickEndDate && (
-        <Calendar
-          onChange={setEndCalendar}
-          value={endCalendar}
-          locale="et-EE"
-        />
-      )}
-    </Fragment>
+      <div className={classes.calendar}>
+        {pickStartDate && (
+          <Calendar
+            onClickDay={changeCalendarHandler}
+            onChange={setStartCalendar}
+            value={startCalendar}
+            locale="et-EE"
+            showWeekNumbers={true}
+            className="filters"
+          />
+        )}
+        {pickEndDate && (
+          <Calendar
+            onClickDay={changeCalendarHandler}
+            onChange={setEndCalendar}
+            value={endCalendar}
+            locale="et-EE"
+            showWeekNumbers={true}
+            className="filters"
+          />
+        )}
+      </div>
+    </div>
   );
 };
 

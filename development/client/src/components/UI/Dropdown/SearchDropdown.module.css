@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 20rem;
+  margin-bottom: 1rem;
 }
 .dropdownAddition {
   display: flex;

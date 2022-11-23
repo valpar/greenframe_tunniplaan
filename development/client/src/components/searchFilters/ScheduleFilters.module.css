@@ -2,3 +2,6 @@
   display: flex;
   flex-direction: column;
 }
+.calendar {
+  margin-bottom: 1rem;
+}

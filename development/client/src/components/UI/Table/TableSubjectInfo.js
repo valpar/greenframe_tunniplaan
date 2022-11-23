@@ -38,6 +38,9 @@ const TableSubjectInfo = (props) => {
   ]);
   const [distanceLinkIsValid, setDistanceLinkIsValid] = useState(true);
   const [extraInfoCloseConfirm, setExtraInfoCloseConfirm] = useState(false);
+  const [extraInfoSaveConfirm, setExtraInfoSaveConfirm] = useState(false);
+  const [commentValid, setCommentValid] = useState(true);
+  const [updateRequest, setUpdateRequest] = useState(true);
 
   useEffect(() => {
     setEnteredInfo((prevState) => {
@@ -53,12 +56,16 @@ const TableSubjectInfo = (props) => {
     response: homeworkResponse,
     isLoading: homeworkLoading,
     error: homeworkError,
-  } = useAxios({
-    method: "get",
-    url: `/homeworkbycode/${props.item.subject.subjectCode}/${props.item.startTime}`,
-  });
+  } = useAxios(
+    {
+      method: "get",
+      url: `/homeworkbycode/${props.item.subject.subjectCode}/${props.item.startTime}`,
+    },
+    updateRequest
+  );
 
   useEffect(() => {
+    console.log(homeworkResponse);
     if (
       !homeworkLoading &&
       homeworkError === "" &&
@@ -87,6 +94,15 @@ const TableSubjectInfo = (props) => {
           }),
         };
       });
+      setHomeWorksValid(
+        Array.from(homeworkResponse.homework, (item) => {
+          return {
+            descriptionValid: { description: true, errorMessage: "" },
+            dueDateValid: { dueDate: true, errorMessage: "" },
+            extrasLinkValid: { extrasLink: true, errorMessage: "" },
+          };
+        })
+      );
     }
   }, [homeworkResponse, homeworkError, homeworkLoading, editMode]);
 
@@ -99,6 +115,11 @@ const TableSubjectInfo = (props) => {
     }
     const removeDate = event.target?.id === "removeDate" ? true : false;
     const isDueDate = !event.target && !event.name ? true : false;
+
+    if (event?.name === "comment") {
+      const commentLenghtValid = event?.value?.length < 50;
+      setCommentValid(commentLenghtValid);
+    }
 
     const homework =
       fieldName === "description" ||
@@ -196,7 +217,28 @@ const TableSubjectInfo = (props) => {
     ]);
   };
 
-  const removeRowHandler = (index) => {
+  const removeRowHandler = async (index, homeworkId) => {
+    if (homeworkId) {
+      await axios.delete(`/homeworks/${homeworkId}`).then((response) => {
+        console.log(response);
+      });
+    }
+    if (enteredInfo.homeworks.length === 1) {
+      setEnteredInfo((prevState) => ({
+        comment: prevState.comment,
+        homeworks: [{ id: null, description: "", dueDate: "", extrasLink: "" }],
+        distanceLink: prevState.distanceLink,
+      }));
+      setHomeWorksValid([
+        {
+          descriptionValid: { description: true, errorMessage: "" },
+          dueDateValid: { dueDate: true, errorMessage: "" },
+          extrasLinkValid: { extrasLink: true, errorMessage: "" },
+        },
+      ]);
+      return;
+    }
+
     setEnteredInfo((prevState) => ({
       comment: prevState.comment,
       homeworks: [...prevState.homeworks.filter((e, i) => i !== index)],
@@ -218,6 +260,7 @@ const TableSubjectInfo = (props) => {
   };
   const declineHandler = () => {
     setExtraInfoCloseConfirm(false);
+    setExtraInfoSaveConfirm(false);
   };
 
   const showConfirmationHandler = () => {
@@ -232,7 +275,10 @@ const TableSubjectInfo = (props) => {
         !e.extrasLinkValid.extrasLink
       );
     });
-    if (distanceLinkIsValid && fieldsValid.length === 0) {
+    const homeworksNotEmpty = enteredInfo.homeworks.every((e) => {
+      return e.description !== "" && e.dueDate !== "";
+    });
+    if (commentValid && distanceLinkIsValid && fieldsValid.length === 0) {
       await axios
         .patch(`/schedule/${props.item.id}`, {
           ...props.item,
@@ -245,8 +291,6 @@ const TableSubjectInfo = (props) => {
         });
       enteredInfo.homeworks.forEach(async (e, i) => {
         if (e.id) {
-          console.log(e);
-          console.log(props.item);
           await axios
             .patch(`/homeworks/${e.id}`, {
               ...e,
@@ -257,7 +301,7 @@ const TableSubjectInfo = (props) => {
               console.log(response);
             });
         }
-        if (!e.id) {
+        if (!e.id && homeworksNotEmpty) {
           await axios
             .post(`/homeworks`, {
               ...e,
@@ -282,8 +326,14 @@ const TableSubjectInfo = (props) => {
           extrasLinkValid: { extrasLink: true, errorMessage: "" },
         },
       ]);
+      setExtraInfoSaveConfirm(false);
+      setUpdateRequest((prevState) => (prevState = !prevState));
       props.onUpdate();
     }
+  };
+
+  const showSaveConfirmHandler = () => {
+    setExtraInfoSaveConfirm(true);
   };
 
   return (
@@ -292,9 +342,9 @@ const TableSubjectInfo = (props) => {
         className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
       >
         <td colSpan={3} style={{ borderRight: "0rem" }}>
-          Õppeinfo:
+          {editMode ? "Õppeinfo:" : "Lisainfo..."}
         </td>
-        <td className={classes.actions}>
+        <td colSpan={4} className={classes.actions}>
           {(props.userLecturer || props.admin) && !editMode && (
             <i
               onClick={editInfoHandler}
@@ -302,10 +352,21 @@ const TableSubjectInfo = (props) => {
             ></i>
           )}
           {editMode && (
-            <i
-              onClick={saveInformationHandler}
-              className={`${classes.confirmIcon} bi bi-check-lg`}
-            ></i>
+            <>
+              {editMode && extraInfoSaveConfirm && (
+                <div className={classes.saveConfirmInfo}>
+                  <ConfirmModal
+                    modalMessage="SALVESTA?"
+                    onConfirm={saveInformationHandler}
+                    onDecline={declineHandler}
+                  />
+                </div>
+              )}
+              <i
+                onClick={showSaveConfirmHandler}
+                className={`${classes.confirmIcon} bi bi-check-lg`}
+              ></i>
+            </>
           )}
           {editMode && extraInfoCloseConfirm && (
             <div className={classes.closeConfirmInfo}>
@@ -322,11 +383,6 @@ const TableSubjectInfo = (props) => {
           ></i>
         </td>
       </tr>
-      {props.item.comment && (
-        <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
-          <td colSpan={4}>{props.item.comment}</td>
-        </tr>
-      )}
       {editMode && (
         <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
           <td colSpan={4}>
@@ -334,12 +390,15 @@ const TableSubjectInfo = (props) => {
               onChange={addExtraInfoHandler}
               name="comment"
               value={enteredInfo.comment}
+              hasErrors={!commentValid}
+              errorMessage={!commentValid ? "MAX PIKKUS 50 TÄHEMÄRKI" : ""}
+              maxLength={50}
             />
           </td>
         </tr>
       )}
 
-      {!editMode && homework.description && (
+      {!editMode && homework?.description && (
         <>
           <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
             <td colSpan={4}>{`Kodutöö:`}</td>
@@ -354,7 +413,7 @@ const TableSubjectInfo = (props) => {
                   href={homework.extrasLink}
                   className={classes.homeworksLink}
                 >
-                  Materjalid
+                  MATERJALID
                 </a>
               )}
               <strong>{`Tähtaeg: ${dateService.formatDate(
@@ -372,7 +431,7 @@ const TableSubjectInfo = (props) => {
           </tr>
           <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
             <td colSpan={4}>
-              {enteredInfo.homeworks.map((e, i) => {
+              {enteredInfo.homeworks.map((e, i, s) => {
                 return (
                   <AddHomework
                     key={i}
@@ -382,6 +441,7 @@ const TableSubjectInfo = (props) => {
                     onErrors={homeworksValid[i]}
                     onAddRow={addRowHandler}
                     onRemoveRow={removeRowHandler}
+                    arrayLength={s.length}
                   />
                 );
               })}
@@ -393,10 +453,15 @@ const TableSubjectInfo = (props) => {
       {!editMode && props.item.comment.length > 0 && (
         <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
           <td colSpan={4}>
-            {`Videoloengu `}{" "}
-            <a rel="noreferrer" target="_blank" href={props.item.distanceLink}>
-              link
-            </a>
+            <div className={classes.btnSubjectCard}>
+              <a
+                rel="noreferrer"
+                target="_blank"
+                href={props.item.distanceLink}
+              >
+                VIDEOLOENG
+              </a>
+            </div>
           </td>
         </tr>
       )}
@@ -423,21 +488,20 @@ const TableSubjectInfo = (props) => {
       {props.item.subject.subjectCode.length > 4 && (
         <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
           <td colSpan={4}>
-            Link ainekaardile:<br></br>
-            <a
-              href={`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
-            </a>
+            <div className={classes.btnSubjectCard}>
+              <a
+                href={`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                AINEKAART
+              </a>
+            </div>
           </td>
         </tr>
       )}
       <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
-        <td
-          colSpan={4}
-        >{`${props.item.subject.subject} järgmised toimumisajad:`}</td>
+        <td colSpan={4}>{`Järgmised toimumisajad:`}</td>
       </tr>
       {props.rawData.map((e, i) => {
         let time1 = dateService.formatMilliseconds(e.startTime);

@@ -48,7 +48,11 @@ const TableBody = (props) => {
   return (
     <Fragment>
       <tr
-        className={classes.tableHead}
+        className={
+          props.item?.comment
+            ? `${classes.tableHead} ${classes.comment}`
+            : classes.tableHead
+        }
         key={props.id}
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
@@ -60,7 +64,11 @@ const TableBody = (props) => {
         </td>
         <td onClick={extraInfoHandler}>
           <div className={classes.subject}>
-            {props.item.subject.subject}
+            <div className={props.item?.comment ? classes.commentCol : ""}>
+              {props.item.subject.subject} <br />
+              <i>{props.item.comment}</i>
+            </div>
+
             {(props.item.comment || props.item?.homeworks) && (
               <i className={`bi bi-info-circle ${classes.infoIcon}`}></i>
             )}

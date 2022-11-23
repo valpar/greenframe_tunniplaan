@@ -59,3 +59,7 @@
 .removeDateIcon:hover {
   cursor: pointer;
 }
+.descriptionErrorMessage {
+  position: absolute;
+  margin: -1.6rem 0rem 0rem 0.5rem;
+}

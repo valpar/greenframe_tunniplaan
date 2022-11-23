@@ -9,13 +9,22 @@ import ScheduleAddition from "../components/scheduleAddition/ScheduleAddition";
 import Table from "../components/UI/Table/Table";
 
 const Home = () => {
+  const now = new Date();
+  const [scheduleRequestParams, setScheduleRequestParams] = useState({
+    startDate: new Date().toISOString(),
+    endDate: new Date(
+      now.getFullYear(),
+      now.getMonth() + 1,
+      now.getDate()
+    ).toISOString(),
+  });
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [newOccurenceAdded, setNewOccurenceAdded] = useState(false);
   const { response, loading, error } = useAxios(
     {
       method: "get",
-      url: "/schedule",
+      url: `/schedule/${scheduleRequestParams.startDate}/${scheduleRequestParams.endDate}`,
     },
     newOccurenceAdded
   );
@@ -145,6 +154,13 @@ const Home = () => {
   };
 
   const dataFilterHandler = (dropdownValues) => {
+    if (dropdownValues[0]?.startTime && dropdownValues[0]?.endTime) {
+      setScheduleRequestParams({
+        startDate: new Date(dropdownValues[0].startTime).toISOString(),
+        endDate: new Date(dropdownValues[0]?.endTime).toISOString(),
+      });
+      setNewOccurenceAdded((prevState) => (prevState = !prevState));
+    }
     setDropdownSelection((prevState) => {
       return [...dropdownController(prevState, dropdownValues)];
     });
