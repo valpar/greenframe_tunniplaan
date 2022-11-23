@@ -43,6 +43,13 @@
   position: absolute;
   margin: -1.8rem 0rem 0rem 22rem;
 }
+.lecturerError {
+  position: absolute;
+  margin: -1.8rem 0rem 0rem 22rem;
+}
+.lecturerPadding {
+  padding-top: 4.5rem;
+}
 .confirmErrorAdd {
   margin-top: -1.8rem;
 }

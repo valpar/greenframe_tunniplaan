@@ -15,7 +15,8 @@ const Home = () => {
     endDate: new Date(
       now.getFullYear(),
       now.getMonth() + 1,
-      now.getDate()
+      now.getDate(),
+      now.getHours()
     ).toISOString(),
   });
   const [data, setData] = useState([]);
@@ -33,6 +34,7 @@ const Home = () => {
   const [admin, setAdmin] = useState(false);
   const [userLecturer, setUserLecturer] = useState(false);
   const [addSchedule, setAddSchedule] = useState(false);
+  const [showUsersModal, setShowUsersModal] = useState(false);
 
   const work_Data = useCallback(() => {
     if (!loading && response !== undefined) {
@@ -233,9 +235,19 @@ const Home = () => {
 
   const userRollHandler = (event) => {
     event.preventDefault();
-    event.target.name === "admin"
-      ? setAdmin((prevState) => (prevState = !prevState))
-      : setUserLecturer((prevState) => (prevState = !prevState));
+    if (event.target.name === "admin") {
+      setAdmin(true);
+      setUserLecturer(false);
+    }
+    if (event.target.name === "lecturer") {
+      setAdmin(false);
+      setUserLecturer(true);
+    }
+    if (event.target.name === "student") {
+      setAdmin(false);
+      setUserLecturer(false);
+    }
+    setShowUsersModal(false);
   };
 
   const addScheduleHandler = () => {
@@ -249,83 +261,160 @@ const Home = () => {
   const closeAdditionModalHandler = () => {
     setAddSchedule(false);
   };
+  const showUserRollesHandler = () => {
+    setShowUsersModal(true);
+  };
+
+  const userPicture = admin
+    ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    : userLecturer
+    ? "https://images.pexels.com/photos/4342401/pexels-photo-4342401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    : "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600";
 
   return (
     <Fragment>
-      <div className={classes.container}>
-        <div className={classes.scheduleFilters}>
-          {admin && (
-            <button
-              onClick={addScheduleHandler}
-              className={classes.addBtn}
-              type="button"
-            >
-              LISA
-            </button>
-          )}
-          <ScheduleFilters onPassingFilters={dataFilterHandler} />
-        </div>
-
-        <div className={classes.schedule}>
-          {admin && addSchedule && (
-            <ScheduleAddition
-              scheduled={data}
-              onNewOccurence={newOccurenceHandler}
-              onClose={closeAdditionModalHandler}
-            />
-          )}
-          {[
-            ...new Set(filteredData.map((e) => e.startTime.substring(0, 10))),
-          ].map((e, i, s) => {
-            let noSchoolWork =
-              dateService.formatMilliseconds(s[i + 1]) -
-                dateService.formatMilliseconds(e) >
-              86400000;
-
-            return (
-              <div key={i}>
-                <div className={classes.scheduleDays}>
-                  <div className={classes.scheduleDay}>
-                    {dateService.formatWeekday(e)}
-                  </div>
-                  <div className={classes.scheduleDate}>
-                    {dateService.formatDate(e)}
-                  </div>
-                </div>
-                <Table
-                  userLecturer={userLecturer}
-                  admin={admin}
-                  day={e}
-                  filteredData={filteredData}
-                  rawData={data}
-                  onUpdate={newOccurenceHandler}
-                />
-                {noSchoolWork && (
-                  <p className={classes.betweenTables}>
-                    Tudengitele eraldatud aeg stressamiseks 🥸
-                  </p>
-                )}
+      <div className={classes.mainContainer}>
+        <div className={classes.header}>
+          <div className={classes.headerItems}>
+            <div className={classes.logo}>
+              <a
+                href="https://www.tlu.ee/haapsalu"
+                title="Avaleht"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="https://www.tlu.ee/sites/default/files/2018-05/HK-est.svg"
+                  alt="Tallinna Ülikool"
+                ></img>
+              </a>
+            </div>
+            <div className={classes.headerBtns}>
+              <div className={classes.slash}></div>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://start.hk.tlu.ee/sahtelbeta/sahtel/index.php"
+              >
+                <i>SAHTEL</i>
+              </a>
+              <div className={classes.slash}></div>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              >
+                <i>RIIUL</i>
+              </a>
+            </div>
+            <div className={classes.login}>
+              <div className={classes.userInfo}>
+                <img
+                  onClick={showUserRollesHandler}
+                  src={userPicture}
+                  alt="Homer"
+                ></img>
               </div>
-            );
-          })}
+              {showUsersModal && (
+                <div>
+                  <div className={classes.userInfoBox}>
+                    <button
+                      onClick={userRollHandler}
+                      className={classes.adminBtn}
+                      type="button"
+                      name="admin"
+                    >
+                      Haldus
+                    </button>
+                    <button
+                      onClick={userRollHandler}
+                      className={classes.adminBtn}
+                      type="button"
+                      name="lecturer"
+                    >
+                      Õppejõud
+                    </button>
+                    <button
+                      onClick={userRollHandler}
+                      className={classes.adminBtn}
+                      type="button"
+                      name="student"
+                    >
+                      Õpilane
+                    </button>
+                  </div>
+                  <div className={classes.boxArrow}></div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <hr></hr>
         </div>
-        <div className={classes.leftSide}>
-          <button
-            onClick={userRollHandler}
-            className={classes.adminBtn}
-            type="button"
-            name="admin"
-          >
-            Haldus
-          </button>
-          <button
-            onClick={userRollHandler}
-            className={classes.adminBtn}
-            type="button"
-            name="lecturer"
-          >
-            Õppejõud
-          </button>
+        <div className={classes.container}>
+          <div className={classes.scheduleFilters}>
+            <div className={classes.fixedFilters}>
+              {admin && (
+                <button
+                  onClick={addScheduleHandler}
+                  className={classes.addBtn}
+                  type="button"
+                >
+                  LISA
+                </button>
+              )}
+              <ScheduleFilters onPassingFilters={dataFilterHandler} />
+            </div>
+          </div>
+
+          <div className={classes.schedule}>
+            {admin && addSchedule && (
+              <ScheduleAddition
+                scheduled={data}
+                onNewOccurence={newOccurenceHandler}
+                onClose={closeAdditionModalHandler}
+              />
+            )}
+            {[
+              ...new Set(filteredData.map((e) => e.startTime.substring(0, 10))),
+            ].map((e, i, s) => {
+              let noSchoolWork =
+                dateService.formatMilliseconds(s[i + 1]) -
+                  dateService.formatMilliseconds(e) >
+                86400000;
+
+              return (
+                <div key={i}>
+                  <div className={classes.scheduleDays}>
+                    <div className={classes.scheduleDay}>
+                      {dateService.formatWeekday(e)}
+                    </div>
+                    <div className={classes.scheduleDate}>
+                      {dateService.formatDate(e)}
+                    </div>
+                  </div>
+                  <Table
+                    userLecturer={userLecturer}
+                    admin={admin}
+                    day={e}
+                    filteredData={filteredData}
+                    rawData={data}
+                    onUpdate={newOccurenceHandler}
+                  />
+                  {noSchoolWork && (
+                    <p className={classes.betweenTables}>
+                      Tudengitele eraldatud aeg stressamiseks 🥸
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+            {filteredData.length === 0 && (
+              <p className={classes.betweenTables}>
+                Tudengitele eraldatud aeg stressamiseks 🥸
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </Fragment>

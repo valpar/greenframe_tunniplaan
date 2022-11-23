@@ -3,11 +3,27 @@ import TooltipLarge from "../Tooltip/TooltipLarge";
 import TooltipTop from "../Tooltip/TooltipTop";
 import classes from "./InputWithPlaceholder.module.css";
 
+const addPrefix = (link) => {
+  console.log(link?.includes("http://") || link?.includes("https://"));
+  return link.length > 5
+    ? link?.includes("http")
+      ? link
+      : "https://" + link
+    : link;
+};
+
 const InputWithPlaceholder = (props) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const inputChangeHandler = (event) => {
     event.preventDefault();
-    props.onChange({ name: props.name, value: event.target.value });
+    console.log(event.target.name);
+    props.onChange({
+      name: props.name,
+      value:
+        event.target.name === "distanceLink"
+          ? addPrefix(event.target.value)
+          : event.target.value,
+    });
   };
 
   const mouseEnterHandler = () => {
