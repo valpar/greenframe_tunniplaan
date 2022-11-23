@@ -8,6 +8,15 @@ import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
 import { formatDate, formatMilliseconds } from "../../utils/Format/Date";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 
+const addPrefix = (link) => {
+  console.log(link?.includes("http://") || link?.includes("https://"));
+  return link.length > 5
+    ? link?.includes("http")
+      ? link
+      : "https://" + link
+    : link;
+};
+
 const AddHomework = (props) => {
   const [dateValue, setDateValue] = useState();
   const [showCalendar, setShowCalendar] = useState(false);
@@ -30,6 +39,12 @@ const AddHomework = (props) => {
   const changeHandler = (event) => {
     if (event.target) {
       event.preventDefault();
+    }
+    if (event?.name === "extraLink") {
+      return props.onChange(
+        { ...event, value: addPrefix(event.value) },
+        props.index
+      );
     }
     if (!event.target && !event.name) {
       setShowCalendar((prevState) => (prevState = !prevState));
@@ -87,7 +102,7 @@ const AddHomework = (props) => {
           }
           onMouseEnter={mouseEnterHandler}
           onMouseLeave={mouseLeaveHandler}
-          placeholder="Kodutöö kirjeldus..."
+          placeholder="Iseseisva töö kirjeldus..."
           onChange={changeHandler}
           maxLength={2500}
           ref={textAreaRef}
@@ -137,7 +152,7 @@ const AddHomework = (props) => {
         )}
         <InputWithPlaceholder
           onChange={changeHandler}
-          placeholder="Link lisa materjalidele"
+          placeholder="Õppematerjalide link"
           name="extraLink"
           value={props.homeworkData.extrasLink}
           errorMessage={props.onErrors?.extrasLinkValid.errorMessage}

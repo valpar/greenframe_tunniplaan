@@ -203,6 +203,7 @@ const AddNewItem = (props) => {
         .then((response) => console.log(response));
     }
     if (props.modalFor === "lecturers") {
+      console.log(inputsState[0]);
       await axios
         .patch(`/lecturers/${props.editValues[0].lecturerId}`, inputsState[0])
         .then((response) => console.log(response));
@@ -238,8 +239,8 @@ const AddNewItem = (props) => {
         .then((response) => console.log(response));
     }
     setDeleteModalMessage("KUSTUTA");
-    props.onClose();
     props.onDelete();
+    props.onClose();
   };
   console.log(validSubmit);
   return (
@@ -323,7 +324,9 @@ const AddNewItem = (props) => {
       <div
         className={
           props.editMode
-            ? `${classes.btnRow} ${classes.onEdit}`
+            ? props.modalFor === "lecturers" && !validSubmit
+              ? `${classes.btnRow} ${classes.onEdit} ${classes.lecturerPadding}`
+              : `${classes.btnRow} ${classes.onEdit}`
             : classes.btnRow
         }
       >
@@ -350,7 +353,11 @@ const AddNewItem = (props) => {
         {!validSubmit && (
           <div
             className={
-              props.editMode ? classes.confirmError : classes.confirmErrorAdd
+              props.editMode
+                ? props.modalFor === "lecturers"
+                  ? classes.lecturerError
+                  : classes.confirmError
+                : classes.confirmErrorAdd
             }
           >
             <TooltipLarge message={"TÄITMATA VÄLJAD"} />

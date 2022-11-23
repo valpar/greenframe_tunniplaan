@@ -18,16 +18,22 @@ const NewLecturer = (props) => {
 
   useEffect(() => {
     if (props.editMode) {
-      setEnteredLecturerData(
-        props.lecturerData.lecturers.filter((e) => {
-          let arr = props.editValues.filter(
-            (lecturer) => lecturer.lecturerId === e.id
-          );
-          return arr.length !== 0
-            ? { firstName: e.firstName, lastName: e.lastName, email: e.email }
-            : false;
-        })[0]
-      );
+      const lecturerData = props.lecturerData.lecturers.filter((e) => {
+        let arr = props.editValues.filter(
+          (lecturer) => lecturer.lecturerId === e.id
+        );
+        return arr.length !== 0
+          ? { firstName: e.firstName, lastName: e.lastName, email: e.email }
+          : false;
+      })[0];
+      setEnteredLecturerData(lecturerData);
+      if (!lecturerData.email) {
+        return setErrorMessages({
+          firstName: null,
+          lastName: null,
+          email: "EMAIL PUUDU",
+        });
+      }
     }
     setErrorMessages({
       firstName: null,
