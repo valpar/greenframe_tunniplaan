@@ -31,7 +31,7 @@ const scheduleService = {
         GROUP BY id, startTime, endTime, scheduled.comment, subjects.id, subjects.subjectCode, subjects.subject, scheduled.distanceLink
         ORDER BY scheduled.startTime ;`,[atDate, toDate]
       );
-
+      console.log (atDate, toDate);
       let i = 0;
       while ( i < schedule.length) {
 
