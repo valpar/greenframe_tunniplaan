@@ -333,7 +333,7 @@ const ScheduleAddition = (props) => {
         }
         return false;
       });
-      if (lecturerOccupied.length > 0) {
+      if (lecturerOccupied.length > 0 && !props.editMode) {
         setShowConfirmModal({
           type: "lecturer",
           show: true,
