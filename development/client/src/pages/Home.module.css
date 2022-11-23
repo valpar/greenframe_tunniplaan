@@ -36,6 +36,7 @@
 }
 .scheduleFilters {
   margin: 10rem -8rem 0rem 5rem;
+  height: 40rem;
 }
 .adminBtn {
   margin: 10rem 8rem 0rem -6rem;
@@ -54,9 +55,11 @@
   height: 2.3rem;
   width: 20rem;
   border-radius: 0.3rem;
-  border: 0.1rem solid rgba(198, 198, 198, 0.879);
+  border: none;
   color: rgb(112, 111, 111);
   font-weight: bold;
+  margin-bottom: 1rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .addBtn:hover {
   background-color: aliceblue;

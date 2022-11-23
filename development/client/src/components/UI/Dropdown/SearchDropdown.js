@@ -1,4 +1,4 @@
-import Select from "react-select";
+import Select, { NonceProvider } from "react-select";
 import classes from "./SearchDropdown.module.css";
 
 const SearchDropdown = (props) => {
@@ -42,6 +42,23 @@ const SearchDropdown = (props) => {
         isMulti={props.isMulti ? true : false}
         onInputChange={inputChangeHandler}
         noOptionsMessage={(value) => (value = "")}
+        styles={{
+          control: (baseStyles, state) => ({
+            ...baseStyles,
+            border: "none",
+            boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
+          }),
+          menu: (baseStyles, state) => ({
+            ...baseStyles,
+            border: "none",
+            boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+          }),
+          container: (baseStyles, state) => ({
+            ...baseStyles,
+            border: "none",
+            boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+          }),
+        }}
       />
     </div>
   );
