@@ -266,7 +266,18 @@ const Home = () => {
   const showUserRollesHandler = () => {
     setShowUsersModal(true);
   };
-
+const emptyFiltersHandler = () => {
+  setFilteredData(data);
+  setDropdownSelection([{
+    startDate: new Date().toISOString(),
+    endDate: new Date(
+      now.getFullYear(),
+      now.getMonth() + 1,
+      now.getDate(),
+      now.getHours()
+    ).toISOString(),
+  }])
+}
   const userPicture = admin
     ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     : userLecturer
@@ -365,7 +376,7 @@ const Home = () => {
                   LISA
                 </button>
               )}
-              <ScheduleFilters onPassingFilters={dataFilterHandler} />
+              <ScheduleFilters onEmptyFilters={emptyFiltersHandler} onPassingFilters={dataFilterHandler} />
             </div>
           </div>
 

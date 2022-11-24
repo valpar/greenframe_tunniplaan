@@ -27,7 +27,7 @@ const SearchDropdown = (props) => {
       props.onInputChange(e);
     }
   };
-
+console.log(props?.reset)
   return (
     <div
       className={
@@ -36,6 +36,7 @@ const SearchDropdown = (props) => {
     >
       {props.topLabel && <label>{props.topLabel}</label>}
       <Select
+        value={props?.reset?"":undefined}
         placeholder={props.label}
         options={props.options}
         onChange={changeHandler}

@@ -9,6 +9,8 @@ const ScheduleFilters = (props) => {
   const [lecturerData, setLecturerData] = useState([]);
   const [roomsData, setRoomsData] = useState([]);
   const [subjectsData, setSubjectsData] = useState([]);
+  const [isReset, setIsReset] = useState(false);
+
 
   const {
     response: courseResponse,
@@ -107,12 +109,18 @@ const ScheduleFilters = (props) => {
   }, [workSubjectsData, subjectsResponse]);
 
   const filtersHandler = (filterObj) => {
+    if(isReset) setIsReset(prevState=>prevState=!prevState)
     props.onPassingFilters(filterObj);
   };
+  const emptyFiltersHandler=()=>{
+    setIsReset(prevState=>prevState =!prevState);
+    props.onEmptyFilters();
+  }
 
   return (
     <div className={classes.scheduleFilters}>
       <SearchDropdown
+        reset={isReset}
         onChange={filtersHandler}
         options={courseData}
         label="Kursus"
@@ -125,6 +133,7 @@ const ScheduleFilters = (props) => {
       </div>
 
       <SearchDropdown
+        reset={isReset}
         onChange={filtersHandler}
         options={subjectsData}
         label="Õppeaine"
@@ -133,6 +142,7 @@ const ScheduleFilters = (props) => {
         isMulti={true}
       />
       <SearchDropdown
+        reset={isReset}
         onChange={filtersHandler}
         options={lecturerData}
         label="Õppejõud"
@@ -141,6 +151,7 @@ const ScheduleFilters = (props) => {
         isMulti={true}
       />
       <SearchDropdown
+        reset={isReset}
         onChange={filtersHandler}
         options={roomsData}
         label="Ruum"
@@ -148,6 +159,7 @@ const ScheduleFilters = (props) => {
         cssClass="dropdownFilters"
         isMulti={true}
       />
+      <button className={classes.emptyBtn} onClick={emptyFiltersHandler}>TÜHJENDA</button>
     </div>
   );
 };
