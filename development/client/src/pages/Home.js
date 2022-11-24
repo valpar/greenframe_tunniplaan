@@ -137,13 +137,15 @@ const Home = () => {
     }
 
     if (filterType === "startTime") {
+        const reverseDate =(str)=> {
+          return str.split(".").reverse().join(".");
+      }
       filteredeData.push(
         ...rawData.filter((e) => {
-          let time1 = dateService.formatMilliseconds(e[objectKeys[0]]);
-          let time2 = dateService.formatMilliseconds(objectValues[0]);
+          let time1 = dateService.formatMilliseconds(reverseDate(dateService.formatDate(e[objectKeys[0]])));
+          let time2 = dateService.formatMilliseconds(reverseDate(dateService.formatDate(objectValues[0])));
           let time3 =
-            dateService.formatMilliseconds(objectValues[1]) +
-            24 * 60 * 60 * 1000;
+          dateService.formatMilliseconds(reverseDate(dateService.formatDate(objectValues[1])));
           return time1 >= time2 && time1 <= time3;
         })
       );

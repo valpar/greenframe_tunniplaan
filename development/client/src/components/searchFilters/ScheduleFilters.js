@@ -107,7 +107,6 @@ const ScheduleFilters = (props) => {
   }, [workSubjectsData, subjectsResponse]);
 
   const filtersHandler = (filterObj) => {
-    console.log(filterObj);
     props.onPassingFilters(filterObj);
   };
 

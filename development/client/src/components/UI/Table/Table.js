@@ -3,17 +3,20 @@ import classes from "./Table.module.css";
 import { Fragment, useState } from "react";
 
 const Table = (props) => {
-  const data = props.filteredData
-    .filter((e) => e.startTime.includes(props.day))
-    .sort((a, b) => {
+  
+  const today = props.filteredData
+    .filter((e) => e.startTime.includes(props.day));
+  const noCourse = today.filter(course => course.courses === "");
+  const hasCourses = today.filter(course => course.courses !== "");
+    hasCourses.sort((a, b) => {
       if (a.courses && b.courses) {
         if (a.courses[0].courseId < b.courses[0].courseId) return -1;
-
         if (a.courses[0].courseId > b.courses[0].courseId) return 1;
       }
 
       return 0;
     });
+  const data = [...hasCourses, ...noCourse];  
 
   return (
     <table className={classes.scheduleTable}>
