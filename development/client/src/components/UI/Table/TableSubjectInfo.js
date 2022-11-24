@@ -401,6 +401,7 @@ const TableSubjectInfo = (props) => {
           ? homeworkResponse.homework
           : enteredInfo.homeworks
         ).map((homework, i) => {
+          console.log(i);
           return (
             <>
               {i === 0 && (
@@ -432,13 +433,11 @@ const TableSubjectInfo = (props) => {
                   )}`}</strong>
                 </td>
               </tr>
-              {i !== 0 && (
                 <tr key={i + 2000000} className={`${classes.line}`}>
                   <td colSpan={4}>
                     <hr></hr>
                   </td>
                 </tr>
-              )}
             </>
           );
         })}
