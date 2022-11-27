@@ -1,12 +1,7 @@
-.dropdownFilters {
-  display: flex;
-  flex-direction: column;
-  width: 20rem;
-}
 .dropdownAddition {
   display: flex;
   flex-direction: column;
-  width: 10rem;
+  width: 12rem;
 }
 .dropdownOccurence {
   display: flex;

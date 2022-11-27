@@ -640,15 +640,15 @@ const ScheduleAddition = (props) => {
           scheduled={props.scheduled}
         />
       )}
-      <h6>
-        {props.editMode
-          ? "LOENGU MUUTMINE TUNNIPLAANIS"
-          : "LOENGU LISAMINE TUNNIPLAANI"}
-      </h6>
-      <i
-        onClick={props.onClose}
-        className={`bi bi-x-lg ${classes.closeIcon}`}
-      ></i>
+      <div className={classes.headingRow}>
+        <h6>
+          {props.editMode
+            ? "LOENGU MUUTMINE TUNNIPLAANIS"
+            : "LOENGU LISAMINE TUNNIPLAANI"}
+        </h6>
+        <i onClick={props.onClose} className={`bi bi-x-lg`}></i>
+      </div>
+
       <div className={classes.dropdownsRow}>
         <AddDropdown
           onEdit={editItemHandler}

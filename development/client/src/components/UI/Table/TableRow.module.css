@@ -2,15 +2,16 @@
   padding-left: 0.5rem;
   text-align: left;
   font-size: 0.65em;
-  height: 2rem;
-  border: 0.12rem solid rgb(185, 183, 183);
+  height: 2.3rem;
+  border: 0.1rem solid #cecece;
 }
 .tableHead.comment td {
   height: 3.1rem;
 }
 
 .tableHead td:nth-child(1) {
-  width: 4.3rem;
+  padding-left: 1.4rem;
+  width: 5.5rem;
 }
 .tableHead td:nth-child(2) {
   width: 17rem;
@@ -53,12 +54,12 @@
   font-size: 0.8rem;
 }
 .editSchedule {
-  width: 48rem;
+  width: 100%;
   margin-top: -3rem;
   margin-left: -0.15rem;
 }
 .editColumn {
-  border: 0.12rem solid rgb(185, 183, 183);
+  border: 0.1rem solid #cecece;
 }
 .videoLink {
   color: rgb(150, 150, 150);

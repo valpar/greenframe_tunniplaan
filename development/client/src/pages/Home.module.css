@@ -1,27 +1,43 @@
-.mainContainer {
-  position: relative;
+.container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
 }
-/* .container {
-  padding-left: 10rem;
-  padding-right: 10rem;
-} */
+
 .header {
   position: fixed;
   width: 100%;
-  height: 9rem;
+  max-width: 72rem;
+  height: 8rem;
   background-color: white;
   z-index: 2;
+  padding: 0rem 1rem 0rem 1rem;
 }
-.headerBtns {
-  position: absolute;
+.headerContent {
   display: flex;
   flex-direction: row;
-  margin: 6.5rem 0rem 0rem 80rem;
+  height: 7.8rem;
+}
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  width: 20rem;
+  padding: 0rem 0rem 0.5rem 0.5rem;
+}
+.headerBtns {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 100%;
+  width: 60%;
+  padding-bottom: 0.2rem;
 }
 .headerBtns a {
+  cursor: pointer;
   text-decoration: none;
+  line-height: 0.7rem;
   color: black;
 }
 .slash {
@@ -29,20 +45,23 @@
   height: 1.3rem;
   background-color: #a4d65e;
   transform: rotate(15deg);
-  margin: 0rem 0.2rem 0rem 0.2rem;
+  margin: 0rem 0.2rem 0rem 0.3rem;
 }
-.headerItems {
-  display: flex;
-  flex-direction: row;
+.line {
+  width: 100%;
+  height: 0.2rem;
+  background-color: #6c8298;
+  border: 0.1rem solid #d4d4d4;
+}
+.login {
+  padding: 2.7rem 0rem 0rem 1.5rem;
 }
 
 .userInfo {
-  position: absolute;
-  height: 6rem;
-  width: 6rem;
+  height: 5rem;
+  width: 5rem;
   border-radius: 3rem;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  margin: 1.9rem 0rem 0rem 44rem;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 .userInfo img {
   width: 100%;
@@ -51,66 +70,34 @@
   object-fit: cover;
   cursor: pointer;
 }
-.logo {
-  height: 5rem;
-  width: 20rem;
-  margin: 2rem 0rem 0rem 25rem;
+.userContainer {
+  position: absolute;
+  z-index: 2;
 }
-.header hr {
-  margin-left: 24.5rem;
-  height: 0.2rem;
-  width: 71rem;
-  background: black;
-}
-.container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-evenly;
-}
-
-.schedule {
-  position: relative;
+.userInfoBox {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  margin-top: 6rem;
-}
-.scheduleDays {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  background-color: rgb(166, 166, 166);
-  width: 50rem;
-  height: 2rem;
-  margin: 3rem 0rem 0rem 0rem;
-
-  text-align: left;
-  font-weight: bold;
-  font-size: 0.8em;
+  box-shadow: rgba(82, 142, 4, 0.419) 0px 0px 4px 1px;
+  background-color: white;
+  margin: 1rem 0rem 0rem -2rem;
+  padding: 1rem;
+  height: 10rem;
+  width: 9rem;
 }
-.scheduleDay {
-  padding-left: 0.5rem;
-}
-.scheduleDate {
-  padding-right: 0.5rem;
-}
-
-.leftSide {
-  width: 10rem;
-}
-.scheduleFilters {
-  position: relative;
-  margin: 9rem -22rem 0rem 0rem;
-  width: 18.5rem;
-  height: 40rem;
-}
-.fixedFilters {
-  position: fixed;
+.boxArrow {
+  position: absolute;
+  background-color: white;
+  box-shadow: rgba(82, 142, 4, 0.419) -3px -2px 3px -1px;
+  width: 1.5rem;
+  height: 1.5rem;
+  transform: rotate(45deg);
+  margin: 0.2rem 0rem 0rem 1.8rem;
 }
 .adminBtn {
   height: 2.3rem;
-  width: auto;
+  width: 90%;
   border-radius: 0.2rem;
   border: 0.1rem solid rgba(198, 198, 198, 0.879);
   background-color: white;
@@ -118,43 +105,87 @@
 .adminBtn:hover {
   background-color: aliceblue;
 }
-.addBtn {
-  background-color: rgb(213, 213, 213);
+
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 70rem;
+}
+.scheduleFilters {
+  position: fixed;
+  padding-top: 9rem;
+  padding-right: 0.7rem;
+  max-width: 14rem;
+  top: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: 1;
+}
+
+.addBtn button {
+  background-color: #666666;
   height: 2.3rem;
-  width: 20rem;
-  border-radius: 0.3rem;
+  width: 100%;
   border: none;
-  color: rgb(112, 111, 111);
+  color: #ffffff;
   font-weight: bold;
   margin-bottom: 1rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-.addBtn:hover {
-  background-color: aliceblue;
+.btnHover {
+  position: absolute;
+  border: none;
+  height: 2.3rem;
+  width: 95%;
+  background-color: #a4d65e;
+  z-index: -1;
+  transition: 0.1s ease-in-out;
+}
+
+.addBtn:hover .btnHover {
+  transition: 0.1s ease-in-out;
+  transform: rotate(3deg);
+  background-color: #a4d65e;
+  margin-left: 0.3rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.faAngleRight {
+  color: #ffffff;
+  position: absolute;
+  margin: 0.6rem 0rem 0rem -1.5rem;
+  font-size: 1em;
+}
+.schedule {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 8rem;
+  width: 100%;
+  padding-left: 15rem;
+}
+.scheduleDays {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 0.2rem;
+  background-color: #a4d65e;
+  width: 100%;
+  height: 2.3rem;
+  margin-top: 1rem;
+  text-align: left;
+  font-size: 1em;
+}
+.scheduleDay {
+  font-weight: bold;
+  padding-left: 0.7rem;
+  padding-right: 0.4rem;
 }
 .betweenTables {
   width: 50rem;
   margin-top: 3rem;
-}
-.userInfoBox {
-  position: absolute;
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
-  width: 10rem;
-  height: 10rem;
-  box-shadow: rgba(82, 142, 4, 0.419) 0px 3px 8px;
-  background-color: white;
-  margin: 9.3rem 0rem 0rem 40.5rem;
-  z-index: 3;
-  padding: 1rem;
-}
-.boxArrow {
-  position: absolute;
-  background-color: white;
-  box-shadow: rgba(82, 142, 4, 0.419) 0px 3px 8px;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin: 8.6rem 0rem 0rem 46.2rem;
-  transform: rotate(45deg);
 }

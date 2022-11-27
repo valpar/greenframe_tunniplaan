@@ -376,19 +376,21 @@ const DateOfOccurenceForm = (props) => {
         hasError={enteredDateIsValid}
         errorMessage={errorMessages.date}
       />
-      <InputWithLabel
-        onChange={loadChangeHandler}
-        type="text"
-        name="workLoad"
-        label="Maht"
-        value={loadValue}
-        index={props.index}
-        hasError={enteredLoadIsValid}
-        readOnly={!dateValue ? true : false}
-        onErrorMessage={
-          !dateValue ? "MUUTMISEKS VALI KUUPÄEV" : errorMessages.load
-        }
-      />
+      <div className={classes.inputWithLabel}>
+        <InputWithLabel
+          onChange={loadChangeHandler}
+          type="text"
+          name="workLoad"
+          label="Maht"
+          value={loadValue}
+          index={props.index}
+          hasError={enteredLoadIsValid}
+          readOnly={!dateValue ? true : false}
+          onErrorMessage={
+            !dateValue ? "MUUTMISEKS VALI KUUPÄEV" : errorMessages.load
+          }
+        />
+      </div>
 
       <DropdownInput
         onLoad={startTimeChangeHandler}
@@ -421,16 +423,18 @@ const DateOfOccurenceForm = (props) => {
           !dateValue ? "MUUTMISEKS VALI KUUPÄEV" : errorMessages.endTime
         }
       />
-      <InputWithLabel
-        readOnly={true}
-        onClick={lunchChangeHandler}
-        label="Lõuna"
-        cssClass="dropdownOccurence"
-        name="hasLunch"
-        value={lunchValue}
-        index={props.index}
-        onErrorMessage={!endTime ? "MUUTMISEKS SISESTA LOENGU LÕPP" : ""}
-      />
+      <div className={classes.inputWithLabel}>
+        <InputWithLabel
+          readOnly={true}
+          onClick={lunchChangeHandler}
+          label="Lõuna"
+          cssClass="dropdownOccurence"
+          name="hasLunch"
+          value={lunchValue}
+          index={props.index}
+          onErrorMessage={!endTime ? "MUUTMISEKS SISESTA LOENGU LÕPP" : ""}
+        />
+      </div>
 
       <div className={classes.addIcon}>
         {props.index === 0 && !props.editMode && (

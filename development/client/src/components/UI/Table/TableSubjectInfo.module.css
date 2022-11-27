@@ -4,8 +4,8 @@
   text-align: left;
   font-size: 0.65em;
   height: auto;
-  border-left: 0.12rem solid rgb(185, 183, 183);
-  border-right: 0.12rem solid rgb(185, 183, 183);
+  border-left: 0.1rem solid #cecece;
+  border-right: 0.1rem solid #cecece;
 }
 
 .extraRowInfo.rowHeading td {
@@ -16,8 +16,8 @@
   margin-bottom: 1rem;
   height: auto;
   font-size: 0.65em;
-  border-left: 0.12rem solid rgb(185, 183, 183);
-  border-right: 0.12rem solid rgb(185, 183, 183);
+  border-left: 0.1rem solid #cecece;
+  border-right: 0.1rem solid #cecece;
 }
 .extraRowInfo.rowHeading td:nth-child(1) {
   padding-left: 0.5rem;
@@ -27,8 +27,8 @@
   margin-bottom: 1rem;
   height: auto;
   font-size: 0.65em;
-  border-left: 0.12rem solid rgb(185, 183, 183);
-  border-right: 0.12rem solid rgb(185, 183, 183);
+  border-left: 0.1rem solid #cecece;
+  border-right: 0.1rem solid #cecece;
 }
 
 .headingPadding td {
@@ -36,9 +36,9 @@
 }
 .bottomRow {
   height: 0.3rem;
-  border-left: 0.12rem solid rgb(185, 183, 183);
-  border-right: 0.12rem solid rgb(185, 183, 183);
-  border-bottom: 0.12rem solid rgb(185, 183, 183);
+  border-left: 0.1rem solid #cecece;
+  border-right: 0.1rem solid #cecece;
+  border-bottom: 0.1rem solid #cecece;
 }
 .actions {
   border-left: 0rem solid !important;
@@ -89,8 +89,8 @@
 .line {
   height: 1px !important;
   padding: -1rem;
-  border-left: 0.12rem solid rgb(185, 183, 183);
-  border-right: 0.12rem solid rgb(185, 183, 183);
+  border-left: 0.1rem solid #cecece;
+  border-right: 0.1rem solid #cecece;
   padding: 0rem 4rem 0rem 4rem;
 }
 .line hr {

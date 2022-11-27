@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 8rem;
+  width: 18%;
 }
 .container label {
   text-align: start;
@@ -20,7 +20,7 @@
   background-color: white;
   border: 0.1rem solid rgb(213, 213, 213);
   border-radius: 0.3rem;
-  width: 8rem;
+  width: 14.5%;
   max-height: 7rem;
   margin-top: 4.5rem;
   overflow: scroll;

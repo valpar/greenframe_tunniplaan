@@ -1,8 +1,24 @@
 .dropdownFilters {
   display: flex;
   flex-direction: column;
-  width: 20rem;
+  width: auto;
   margin-bottom: 1rem;
+}
+.btnHover {
+  position: absolute;
+  border: none;
+  height: 2.3rem;
+  width: 95%;
+  background-color: #a4d65e;
+  transition: 0.1s ease-in-out;
+}
+
+.dropdownFilters:hover .btnHover {
+  transition: 0.1s ease-in-out;
+  transform: rotate(3deg);
+  background-color: #a4d65e;
+  width: 97.5%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .dropdownAddition {
   display: flex;
