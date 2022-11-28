@@ -4,6 +4,9 @@
   background-color: #ffffff;
 }
 .calendarInput {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   height: 2.3rem;
   width: 100%;
   border-bottom: 0.1rem solid #cecece;
@@ -11,15 +14,18 @@
   font-weight: bold;
   text-align: center;
 }
-.calendarInput .openIcon {
+/* .calendarInput .openIcon {
   position: absolute;
   color: rgb(183, 183, 183);
   font-size: 1.2em;
   margin-left: 7.7rem;
   margin-top: 0.6rem;
   -webkit-text-stroke: 0.1em;
-}
+} */
 .calendarInputNoBorder {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   height: 2.3rem;
   width: 100%;
   font-size: 0.8em;
@@ -27,21 +33,47 @@
   text-align: center;
   background-color: #ffffff;
 }
-.calendarInputNoBorder .openIcon {
+/* .calendarInputNoBorder .openIcon {
   position: absolute;
   color: rgb(183, 183, 183);
   font-size: 1.2em;
   margin-left: 7.7rem;
   margin-top: 0.6rem;
   -webkit-text-stroke: 0.1em;
+} */
+.inputs {
+  padding-left: 0.2rem;
+  width: 70%;
+}
+.icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 30%;
+  padding-right: 0.3rem;
 }
 .xmark {
-  position: absolute;
   color: #cecece;
   font-size: 1.25em;
-  margin: 0.65rem 0rem 0rem 5.65rem;
+  width: 45%;
 }
 .xmark:hover {
+  color: rgb(146, 146, 146);
+}
+.verticalStripe {
+  height: 1.3rem;
+  width: 0rem;
+  border-right: 0.1rem solid;
+  color: rgb(203, 203, 203);
+}
+.openIcon {
+  width: 45%;
+  padding-left: 0.3rem;
+  font-size: 1.2em;
+  color: #cecece !important;
+}
+.openIcon:hover {
   color: rgb(146, 146, 146);
 }
 .btnHover {
@@ -67,8 +99,8 @@
 }
 .startDate {
   color: gray;
-  margin-left: -3.6rem;
-  width: 34%;
+
+  width: 50%;
   height: 2.25rem;
   text-align: center;
   border: none;
@@ -82,8 +114,8 @@
 }
 .endDate {
   color: gray;
-  margin-left: -0.1rem;
-  width: 35%;
+
+  width: 50%;
   height: 2.25rem;
   text-align: center;
   border: none;
@@ -95,15 +127,7 @@
   border-bottom: 0.1rem solid blue;
   color: black;
 }
-.verticalStripe {
-  margin-top: -1.75rem;
-  margin-left: 10.8rem;
-  position: absolute;
-  height: 1.3rem;
-  width: 0rem;
-  border-right: 0.1rem solid;
-  color: rgb(203, 203, 203);
-}
+
 .dateBtnContainer {
   width: 100%;
   height: 3rem;
@@ -131,10 +155,4 @@
 .filters {
   border-top: 1px solid #d1d1cc;
   border-radius: 0rem 0rem 0.2rem 0.2rem;
-}
-.openIcon {
-  color: #cecece !important;
-}
-.openIcon:hover {
-  color: rgb(146, 146, 146);
 }
