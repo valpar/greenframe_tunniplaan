@@ -145,44 +145,48 @@ const CalendarInput = (props) => {
           showBtnModal ? classes.calendarInput : classes.calendarInputNoBorder
         }
       >
-        <FontAwesomeIcon
-          icon={faAngleDown}
-          className={classes.openIcon}
-          onClick={closeCalendarHandler}
-        />
-
-        {resetDate && (
-          <FontAwesomeIcon
-            onClick={resetDateHandler}
-            className={classes.xmark}
-            icon={faXmark}
+        <div className={classes.inputs}>
+          <input
+            className={
+              pickStartDate
+                ? `${classes.startDate} ${classes.active}`
+                : classes.startDate
+            }
+            type="text"
+            name="startDate"
+            value={formatDate(startCalendar)}
+            readOnly
+            onClick={startDateHandler}
           />
-        )}
-        <input
-          className={
-            pickStartDate
-              ? `${classes.startDate} ${classes.active}`
-              : classes.startDate
-          }
-          type="text"
-          name="startDate"
-          value={formatDate(startCalendar)}
-          readOnly
-          onClick={startDateHandler}
-        />
-        <input
-          className={
-            pickEndDate
-              ? `${classes.endDate} ${classes.active}`
-              : classes.endDate
-          }
-          type="text"
-          name="endDate"
-          value={formatDate(endCalendar)}
-          readOnly
-          onClick={endDateHandler}
-        />
-        <div className={classes.verticalStripe} />
+          <input
+            className={
+              pickEndDate
+                ? `${classes.endDate} ${classes.active}`
+                : classes.endDate
+            }
+            type="text"
+            name="endDate"
+            value={formatDate(endCalendar)}
+            readOnly
+            onClick={endDateHandler}
+          />
+        </div>
+
+        <div className={classes.icons}>
+          {resetDate && (
+            <FontAwesomeIcon
+              onClick={resetDateHandler}
+              className={classes.xmark}
+              icon={faXmark}
+            />
+          )}
+          <div className={classes.verticalStripe} />
+          <FontAwesomeIcon
+            icon={faAngleDown}
+            className={classes.openIcon}
+            onClick={closeCalendarHandler}
+          />
+        </div>
       </div>
       {showBtnModal && (
         <div className={classes.dateBtnContainer}>
