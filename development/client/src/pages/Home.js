@@ -385,6 +385,12 @@ const Home = () => {
                   />
                 </div>
               )}
+              {!admin && !userLecturer && (
+                <div className={classes.loginInBtn}>
+                  <div className={classes.btnHover} />
+                  <button type="button">LOGI SISSE</button>
+                </div>
+              )}
               <ScheduleFilters
                 onEmptyFilters={emptyFiltersHandler}
                 onPassingFilters={dataFilterHandler}

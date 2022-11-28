@@ -45,7 +45,7 @@
   height: 1.3rem;
   background-color: #a4d65e;
   transform: rotate(15deg);
-  margin: 0rem 0.2rem 0rem 0.3rem;
+  margin: 0rem 0.2rem 0rem 1rem;
 }
 .line {
   width: 100%;
@@ -149,7 +149,35 @@
   transition: 0.1s ease-in-out;
   transform: rotate(3deg);
   background-color: #a4d65e;
-  margin-left: 0.3rem;
+  width: 98%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.loginInBtn button {
+  background-color: #ffffff;
+  height: 2.3rem;
+  width: 100%;
+  border: 0.1rem solid rgb(203, 203, 203);
+  color: black;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.btnHover {
+  position: absolute;
+  border: none;
+  height: 2.3rem;
+  width: 95%;
+  background-color: #a4d65e;
+  z-index: -1;
+  transition: 0.1s ease-in-out;
+}
+
+.loginInBtn:hover .btnHover {
+  transition: 0.1s ease-in-out;
+  transform: rotate(3deg);
+  background-color: #a4d65e;
+  width: 98%;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .faAngleRight {
@@ -187,5 +215,5 @@
 }
 .betweenTables {
   width: 50rem;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }

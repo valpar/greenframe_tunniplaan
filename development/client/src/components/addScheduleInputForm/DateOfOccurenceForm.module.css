@@ -32,15 +32,33 @@
   scale: 0.876;
   z-index: 1;
 }
+.addRemove {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 6%;
+}
+.iconRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
 .addIcon {
   font-size: 1.7em;
-  position: absolute;
-  margin-top: 2.1rem;
-  margin-left: 47.9rem;
 }
 .deleteRowBtn {
-  position: absolute;
-  font-size: 1em;
-  margin-left: -0.7rem;
-  margin-top: -1.8rem;
+  font-size: 2em;
+}
+@media screen and (max-width: 925px) {
+  .addRemove {
+    width: 9%;
+  }
+}
+@media screen and (max-width: 796px) {
+  .addRemove {
+    width: 12%;
+  }
 }

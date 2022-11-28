@@ -54,7 +54,6 @@
   font-size: 0.8rem;
 }
 .editSchedule {
-  width: 100%;
   margin-top: -3rem;
   margin-left: -0.15rem;
 }
@@ -69,3 +68,6 @@
   color: rgb(60, 60, 60);
   text-decoration: none;
 }
+/* .editLectureRow {
+  width: 100%;
+} */

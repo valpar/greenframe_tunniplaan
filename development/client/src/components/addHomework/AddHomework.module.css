@@ -1,5 +1,6 @@
 .homeworkAdd {
   padding-top: 0.2rem;
+  width: 100%;
 }
 .homeworkTextarea {
   display: flex;
@@ -15,7 +16,7 @@
   line-height: 1.5;
   resize: none;
   transition: border-color 150ms ease;
-  width: 45rem;
+  width: 100%;
 }
 .homeworkAdd textarea:hover {
   border-color: #9d9d9d;
@@ -30,25 +31,29 @@
 .textareaError {
   border-color: rgb(225, 44, 44) !important;
 }
+.iconRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 10%;
+  padding-right: 1rem;
+}
 .addIcon {
   cursor: pointer;
-  position: absolute;
   font-size: 1.8em;
-  margin-top: 0rem;
-  margin-left: 0.5rem;
+  padding-left: 0.4rem;
 }
 .removeIcon {
   cursor: pointer;
-  position: absolute;
-  font-size: 1.5em;
-  margin-top: 0.19rem;
-  margin-left: 2rem;
+  font-size: 1.8em;
+  padding-left: 0.4rem;
 }
 .homeworkExtra {
-  width: 17.5rem;
+  padding-top: 0.3rem;
+  width: 40%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .removeDateIcon {
   position: absolute;
@@ -62,4 +67,14 @@
 .descriptionErrorMessage {
   position: absolute;
   margin: -1.6rem 0rem 0rem 0.5rem;
+}
+.deleteConfirmation {
+  position: absolute;
+}
+.calendar {
+  width: 70%;
+  padding-right: 1rem;
+}
+.extrasLink {
+  width: 100%;
 }

@@ -702,23 +702,30 @@ const ScheduleAddition = (props) => {
           value={addedLecture[0].rooms}
         />
       </div>
-      {newOccurence.map((occurence, i) => {
-        return (
-          <div key={i} className={classes.occurenceRow}>
-            <DateOfOccurenceForm
-              onChange={occurenceHandler}
-              onNewOccurence={[occurence]}
-              index={i}
-              onClick={newRowHandler}
-              onDelete={deleteRowHandler}
-              onNotValidFields={occurenesIsValid}
-              onAfterSubmit={clearOccurenceFields}
-              editMode={props.editMode}
-              editData={props.editData}
-            />
-          </div>
-        );
-      })}
+      <div
+        className={
+          props.editMode ? classes.editOccurenceRow : classes.occurenceRow
+        }
+      >
+        {newOccurence.map((occurence, i) => {
+          return (
+            <div key={i}>
+              <DateOfOccurenceForm
+                onChange={occurenceHandler}
+                onNewOccurence={[occurence]}
+                index={i}
+                onClick={newRowHandler}
+                onDelete={deleteRowHandler}
+                onNotValidFields={occurenesIsValid}
+                onAfterSubmit={clearOccurenceFields}
+                editMode={props.editMode}
+                editData={props.editData}
+                occurenceLength={newOccurence.length}
+              />
+            </div>
+          );
+        })}
+      </div>
 
       <div
         className={

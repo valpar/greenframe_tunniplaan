@@ -361,21 +361,24 @@ const DateOfOccurenceForm = (props) => {
   }, []);
 
   return (
-    <form
+    <div
       className={
         props.index === 0 ? classes.container : classes.containerNoLabel
       }
     >
-      <CalendarOneInput
-        onShowCalendar={showCalendar}
-        onClickDay={calendarClickHandler}
-        value={dateValue}
-        index={props.index}
-        onClick={addDateHandler}
-        label="Kuupäev"
-        hasError={enteredDateIsValid}
-        errorMessage={errorMessages.date}
-      />
+      <div className={classes.inputWithLabel}>
+        <CalendarOneInput
+          onShowCalendar={showCalendar}
+          onClickDay={calendarClickHandler}
+          value={dateValue}
+          index={props.index}
+          onClick={addDateHandler}
+          label="Kuupäev"
+          hasError={enteredDateIsValid}
+          errorMessage={errorMessages.date}
+        />
+      </div>
+
       <div className={classes.inputWithLabel}>
         <InputWithLabel
           onChange={loadChangeHandler}
@@ -436,18 +439,25 @@ const DateOfOccurenceForm = (props) => {
         />
       </div>
 
-      <div className={classes.addIcon}>
-        {props.index === 0 && !props.editMode && (
-          <i onClick={props.onClick} className="bi bi-plus-lg"></i>
-        )}
-        {props.index > 0 && (
-          <i
-            onClick={deleteRowHandler}
-            className={`${classes.deleteRowBtn} bi bi-x`}
-          ></i>
-        )}
-      </div>
-    </form>
+      {!props.editMode && (
+        <div className={classes.addRemove}>
+          <div className={classes.iconRow}>
+            {props.index === props.occurenceLength - 1 && !props.editMode && (
+              <i
+                onClick={props.onClick}
+                className={`bi bi-plus-lg ${classes.addIcon}`}
+              ></i>
+            )}
+            {props.occurenceLength > 1 && (
+              <i
+                onClick={deleteRowHandler}
+                className={`${classes.deleteRowBtn} bi bi-x`}
+              ></i>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
