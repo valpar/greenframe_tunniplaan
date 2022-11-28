@@ -44,6 +44,7 @@
 .inputs {
   padding-left: 0.2rem;
   width: 70%;
+  font-size: 0.9em;
 }
 .icons {
   display: flex;
