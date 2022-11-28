@@ -3,6 +3,8 @@ import Calendar from "react-calendar";
 import "./Calendar.css";
 import classes from "./CalendarInput.module.css";
 import { formatDate } from "../../../utils/Format/Date";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 let now = new Date();
 
@@ -19,6 +21,7 @@ const CalendarInput = (props) => {
   const [pickStartDate, setPickStartDate] = useState(true);
   const [pickEndDate, setPickEndDate] = useState(false);
   const [showBtnModal, setShowBtnModal] = useState(true);
+  const [resetDate, setResetDate] = useState(false);
 
   const startDateHandler = () => {
     setShowBtnModal((prevState) => {
@@ -72,12 +75,14 @@ const CalendarInput = (props) => {
 
     setPickStartDate((prevState) => (prevState = !prevState));
     setPickEndDate((prevState) => (prevState = !prevState));
+    setResetDate(true);
   };
   const changeCalendarEndHandler = (e) => {
     setEndCalendar(new Date(new Date(e).setHours(new Date().getHours())));
 
     setPickStartDate((prevState) => (prevState = !prevState));
     setPickEndDate((prevState) => (prevState = !prevState));
+    setResetDate(true);
   };
   const buttonDateHandler = (event) => {
     event.preventDefault();
@@ -87,17 +92,20 @@ const CalendarInput = (props) => {
     if (btnType === "today") {
       setStartCalendar(now);
       setEndCalendar(now);
+      setResetDate(true);
     }
     if (btnType === "tomorrow") {
       setStartCalendar(new Date(now.setDate(now.getDate() + 1, now.getTime())));
       setEndCalendar(
         new Date(now2.setDate(now2.getDate() + 1, now2.getTime()))
       );
+      setResetDate(true);
     }
 
     if (btnType === "week") {
       setStartCalendar(now2);
       setEndCalendar(new Date(now.setDate(now.getDate() + 7, now.getTime())));
+      setResetDate(true);
     }
 
     if (btnType === "month") {
@@ -110,17 +118,46 @@ const CalendarInput = (props) => {
           now.getHours()
         )
       );
+      setResetDate(false);
     }
+  };
+
+  const resetDateHandler = () => {
+    const now = new Date();
+    const now2 = new Date();
+    setResetDate(false);
+    setStartCalendar(now2);
+    setEndCalendar(
+      new Date(
+        now.getFullYear(),
+        now.getMonth() + 1,
+        now.getDate(),
+        now.getHours()
+      )
+    );
   };
 
   return (
     <div className={classes.container}>
-      <div className={classes.calendarInput}>
-        <i
-          className={`bi bi-chevron-down ${classes.openIcon}`}
+      {!showBtnModal && <div className={classes.btnHover} />}
+      <div
+        className={
+          showBtnModal ? classes.calendarInput : classes.calendarInputNoBorder
+        }
+      >
+        <FontAwesomeIcon
+          icon={faAngleDown}
+          className={classes.openIcon}
           onClick={closeCalendarHandler}
-        ></i>
+        />
 
+        {resetDate && (
+          <FontAwesomeIcon
+            onClick={resetDateHandler}
+            className={classes.xmark}
+            icon={faXmark}
+          />
+        )}
         <input
           className={
             pickStartDate
@@ -176,6 +213,7 @@ const CalendarInput = (props) => {
             locale="et-EE"
             showWeekNumbers={true}
             className="filters"
+            // selectRange={true}
           />
         )}
         {pickEndDate && (

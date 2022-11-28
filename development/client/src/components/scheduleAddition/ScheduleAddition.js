@@ -640,15 +640,15 @@ const ScheduleAddition = (props) => {
           scheduled={props.scheduled}
         />
       )}
-      <h6>
-        {props.editMode
-          ? "LOENGU MUUTMINE TUNNIPLAANIS"
-          : "LOENGU LISAMINE TUNNIPLAANI"}
-      </h6>
-      <i
-        onClick={props.onClose}
-        className={`bi bi-x-lg ${classes.closeIcon}`}
-      ></i>
+      <div className={classes.headingRow}>
+        <h6>
+          {props.editMode
+            ? "LOENGU MUUTMINE TUNNIPLAANIS"
+            : "LOENGU LISAMINE TUNNIPLAANI"}
+        </h6>
+        <i onClick={props.onClose} className={`bi bi-x-lg`}></i>
+      </div>
+
       <div className={classes.dropdownsRow}>
         <AddDropdown
           onEdit={editItemHandler}
@@ -702,23 +702,30 @@ const ScheduleAddition = (props) => {
           value={addedLecture[0].rooms}
         />
       </div>
-      {newOccurence.map((occurence, i) => {
-        return (
-          <div key={i} className={classes.occurenceRow}>
-            <DateOfOccurenceForm
-              onChange={occurenceHandler}
-              onNewOccurence={[occurence]}
-              index={i}
-              onClick={newRowHandler}
-              onDelete={deleteRowHandler}
-              onNotValidFields={occurenesIsValid}
-              onAfterSubmit={clearOccurenceFields}
-              editMode={props.editMode}
-              editData={props.editData}
-            />
-          </div>
-        );
-      })}
+      <div
+        className={
+          props.editMode ? classes.editOccurenceRow : classes.occurenceRow
+        }
+      >
+        {newOccurence.map((occurence, i) => {
+          return (
+            <div key={i}>
+              <DateOfOccurenceForm
+                onChange={occurenceHandler}
+                onNewOccurence={[occurence]}
+                index={i}
+                onClick={newRowHandler}
+                onDelete={deleteRowHandler}
+                onNotValidFields={occurenesIsValid}
+                onAfterSubmit={clearOccurenceFields}
+                editMode={props.editMode}
+                editData={props.editData}
+                occurenceLength={newOccurence.length}
+              />
+            </div>
+          );
+        })}
+      </div>
 
       <div
         className={

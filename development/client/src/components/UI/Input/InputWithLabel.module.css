@@ -1,11 +1,12 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 8rem;
+  width: 100%;
 }
 .container label {
   text-align: start;
   font-weight: bold;
+  width: 100%;
   padding-bottom: 0.6rem;
   padding-left: 0.1rem;
 }
@@ -21,4 +22,25 @@
 }
 .errorHandling input:focus {
   outline: none;
+}
+.tooltip {
+  position: absolute;
+  margin-left: 0.65rem;
+}
+
+@media screen and (max-width: 1052px) {
+  .tooltip {
+    margin-left: 0.2rem;
+  }
+}
+@media screen and (max-width: 925px) {
+  .tooltip {
+    margin-left: -1rem;
+  }
+}
+
+@media screen and (max-width: 796px) {
+  .tooltip {
+    margin-left: -1.5rem;
+  }
 }

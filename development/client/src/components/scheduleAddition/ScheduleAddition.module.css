@@ -1,21 +1,45 @@
 .newScheduleItemModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 1.1rem;
-  margin-top: 3rem;
+  margin-top: 1rem;
   height: auto;
-  width: 50rem;
-  border: 0.1rem solid rgb(189, 189, 189);
-  border: none;
-  border-radius: 0.2rem;
+  width: 100%;
+  border: 0.1rem solid #cecece;
   font-size: 0.8em;
   text-align: center;
   align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 2px 0px;
+}
+.headingRow {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.headingRow h6 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-left: 3%;
+}
+.headingRow i {
+  width: 2%;
+  display: flex;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.headingRow i:hover {
+  color: black;
 }
 .editScheduleModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 1.1rem;
   margin-top: 3rem;
   height: auto;
-  width: 50rem;
+  width: 100%;
   font-size: 0.8em;
   text-align: center;
   align-items: center;
@@ -26,20 +50,24 @@
 .dropdownsRow {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-around !important;
+  width: 100%;
   padding: 2rem 0.2rem 2rem 0.2rem;
 }
 .occurenceRow {
-  padding: 0rem 0.2rem 0rem 0.2rem;
+  width: 100%;
+  padding: 0rem 0.4rem 0rem 0.6rem;
+}
+.editOccurenceRow {
+  width: 100%;
+  padding: 0rem 0.4rem 0rem 0.6rem;
 }
 .submitButton {
   width: 8rem;
   height: 2.4rem;
   background-color: rgba(255, 255, 255, 0);
-  border: 0.1rem solid rgb(177, 177, 177);
-  border: none;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border-radius: 0.2rem;
+  border: 0.1rem solid #cecece;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 2px 0px;
   font-weight: bold;
   font-size: 0.9em;
 }
@@ -47,11 +75,11 @@
   background-color: aliceblue;
 }
 .buttonRow {
-  padding: 4rem 0rem 1rem 0.9rem;
+  padding: 4rem 0.5rem 1rem 0.9rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  width: 46.8rem;
+  width: 100%;
 }
 .buttonRow.editMode {
   justify-content: space-between;
@@ -60,18 +88,10 @@
   position: absolute;
   margin: -2.1rem 0rem 0rem -37rem;
 }
-.closeIcon {
-  position: absolute;
-  font-size: 1.1rem;
-  margin: -1.85rem 0rem 0rem 22.5rem;
-  cursor: pointer;
-}
-.closeIcon:hover {
-  color: black;
-}
+
 .overLay {
   position: absolute;
-  width: 49.9rem;
+  width: 100%;
   height: 23.4rem;
   background-color: rgba(200, 200, 200, 0.667);
   margin: -22.2rem 0rem 0rem -1.05rem;
@@ -92,7 +112,7 @@
 }
 .message {
   position: absolute;
-  width: 49.9rem;
+  width: 100%;
   height: 23.4rem;
   background-color: white;
   margin: -22.2rem 0rem 0rem -1.05rem;
@@ -100,4 +120,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 1052px) {
+  .editOccurenceRow {
+    width: 42rem;
+  }
+}
+@media screen and (max-width: 925px) {
+  .editOccurenceRow {
+    width: 32.8rem;
+  }
+}
+
+@media screen and (max-width: 796px) {
+  .editOccurenceRow {
+    width: 24.5rem;
+  }
 }

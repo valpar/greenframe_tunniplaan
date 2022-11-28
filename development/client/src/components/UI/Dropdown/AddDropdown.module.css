@@ -1,12 +1,7 @@
-.dropdownFilters {
-  display: flex;
-  flex-direction: column;
-  width: 20rem;
-}
 .dropdownAddition {
   display: flex;
   flex-direction: column;
-  width: 10rem;
+  width: 12rem;
 }
 .dropdownOccurence {
   display: flex;
@@ -26,7 +21,7 @@
   position: absolute;
   margin-left: -0.01rem;
   margin-top: -0.05rem;
-  width: 10.02rem;
+  width: 12rem;
   height: 2.43rem;
   border: 0.14rem solid rgb(225, 44, 44);
   border-radius: 0.3rem;
@@ -35,9 +30,53 @@
 }
 .tooltip {
   position: absolute;
-  margin: -1.8rem 0rem 0rem 1rem;
+  margin: -1.8rem 0rem 0rem 2rem;
 }
 .confirmModal {
   position: absolute;
-  margin: 6.7rem 0rem 0rem -36rem;
+  margin: 6.7rem 0rem 0rem -35rem;
+}
+
+@media screen and (max-width: 1052px) {
+  .dropdownAddition {
+    width: 10rem;
+  }
+  .errorHandling {
+    width: 10rem;
+  }
+  .tooltip {
+    margin: -1.8rem 0rem 0rem 1rem;
+  }
+  .confirmModal {
+    margin: 6.7rem 0rem 0rem -36rem;
+  }
+}
+@media screen and (max-width: 925px) {
+  .dropdownAddition {
+    width: 8rem;
+  }
+  .errorHandling {
+    width: 8rem;
+  }
+  .tooltip {
+    margin: -1.8rem 0rem 0rem 0rem;
+  }
+  .confirmModal {
+    margin: 6.7rem 0rem 0rem -37rem;
+  }
+}
+
+@media screen and (max-width: 796px) {
+  .dropdownAddition {
+    width: 6rem;
+  }
+  .errorHandling {
+    width: 8rem;
+  }
+  .tooltip {
+    margin: -1.8rem 0rem 0rem -1rem;
+  }
+  .confirmModal {
+    margin: 6.7rem 0rem 0rem -38rem;
+  }
 }

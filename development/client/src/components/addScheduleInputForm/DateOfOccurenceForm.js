@@ -361,34 +361,39 @@ const DateOfOccurenceForm = (props) => {
   }, []);
 
   return (
-    <form
+    <div
       className={
         props.index === 0 ? classes.container : classes.containerNoLabel
       }
     >
-      <CalendarOneInput
-        onShowCalendar={showCalendar}
-        onClickDay={calendarClickHandler}
-        value={dateValue}
-        index={props.index}
-        onClick={addDateHandler}
-        label="Kuupäev"
-        hasError={enteredDateIsValid}
-        errorMessage={errorMessages.date}
-      />
-      <InputWithLabel
-        onChange={loadChangeHandler}
-        type="text"
-        name="workLoad"
-        label="Maht"
-        value={loadValue}
-        index={props.index}
-        hasError={enteredLoadIsValid}
-        readOnly={!dateValue ? true : false}
-        onErrorMessage={
-          !dateValue ? "MUUTMISEKS VALI KUUPÄEV" : errorMessages.load
-        }
-      />
+      <div className={classes.inputWithLabel}>
+        <CalendarOneInput
+          onShowCalendar={showCalendar}
+          onClickDay={calendarClickHandler}
+          value={dateValue}
+          index={props.index}
+          onClick={addDateHandler}
+          label="Kuupäev"
+          hasError={enteredDateIsValid}
+          errorMessage={errorMessages.date}
+        />
+      </div>
+
+      <div className={classes.inputWithLabel}>
+        <InputWithLabel
+          onChange={loadChangeHandler}
+          type="text"
+          name="workLoad"
+          label="Maht"
+          value={loadValue}
+          index={props.index}
+          hasError={enteredLoadIsValid}
+          readOnly={!dateValue ? true : false}
+          onErrorMessage={
+            !dateValue ? "MUUTMISEKS VALI KUUPÄEV" : errorMessages.load
+          }
+        />
+      </div>
 
       <DropdownInput
         onLoad={startTimeChangeHandler}
@@ -421,29 +426,38 @@ const DateOfOccurenceForm = (props) => {
           !dateValue ? "MUUTMISEKS VALI KUUPÄEV" : errorMessages.endTime
         }
       />
-      <InputWithLabel
-        readOnly={true}
-        onClick={lunchChangeHandler}
-        label="Lõuna"
-        cssClass="dropdownOccurence"
-        name="hasLunch"
-        value={lunchValue}
-        index={props.index}
-        onErrorMessage={!endTime ? "MUUTMISEKS SISESTA LOENGU LÕPP" : ""}
-      />
-
-      <div className={classes.addIcon}>
-        {props.index === 0 && !props.editMode && (
-          <i onClick={props.onClick} className="bi bi-plus-lg"></i>
-        )}
-        {props.index > 0 && (
-          <i
-            onClick={deleteRowHandler}
-            className={`${classes.deleteRowBtn} bi bi-x`}
-          ></i>
-        )}
+      <div className={classes.inputWithLabel}>
+        <InputWithLabel
+          readOnly={true}
+          onClick={lunchChangeHandler}
+          label="Lõuna"
+          cssClass="dropdownOccurence"
+          name="hasLunch"
+          value={lunchValue}
+          index={props.index}
+          onErrorMessage={!endTime ? "MUUTMISEKS SISESTA LOENGU LÕPP" : ""}
+        />
       </div>
-    </form>
+
+      {!props.editMode && (
+        <div className={classes.addRemove}>
+          <div className={classes.iconRow}>
+            {props.index === props.occurenceLength - 1 && !props.editMode && (
+              <i
+                onClick={props.onClick}
+                className={`bi bi-plus-lg ${classes.addIcon}`}
+              ></i>
+            )}
+            {props.occurenceLength > 1 && (
+              <i
+                onClick={deleteRowHandler}
+                className={`${classes.deleteRowBtn} bi bi-x`}
+              ></i>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

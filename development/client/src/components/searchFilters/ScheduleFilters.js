@@ -11,7 +11,6 @@ const ScheduleFilters = (props) => {
   const [subjectsData, setSubjectsData] = useState([]);
   const [isReset, setIsReset] = useState(false);
 
-
   const {
     response: courseResponse,
     isLoading: courseLoading,
@@ -109,13 +108,13 @@ const ScheduleFilters = (props) => {
   }, [workSubjectsData, subjectsResponse]);
 
   const filtersHandler = (filterObj) => {
-    if(isReset) setIsReset(prevState=>prevState=!prevState)
+    if (isReset) setIsReset((prevState) => (prevState = !prevState));
     props.onPassingFilters(filterObj);
   };
-  const emptyFiltersHandler=()=>{
-    setIsReset(prevState=>prevState =!prevState);
+  const emptyFiltersHandler = () => {
+    setIsReset((prevState) => (prevState = !prevState));
     props.onEmptyFilters();
-  }
+  };
 
   return (
     <div className={classes.scheduleFilters}>
@@ -159,7 +158,12 @@ const ScheduleFilters = (props) => {
         cssClass="dropdownFilters"
         isMulti={true}
       />
-      <button className={classes.emptyBtn} onClick={emptyFiltersHandler}>TÜHJENDA</button>
+      <div className={classes.emptyBtnContainer}>
+        <div className={classes.btnHover} />
+        <button className={classes.emptyBtn} onClick={emptyFiltersHandler}>
+          Tühjenda
+        </button>
+      </div>
     </div>
   );
 };

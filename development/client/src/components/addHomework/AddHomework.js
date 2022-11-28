@@ -86,7 +86,7 @@ const AddHomework = (props) => {
           : classes.homeworkAdd
       }
     >
-      <div className={classes.homeworkTextare}>
+      <div className={classes.homeworkTextarea}>
         {showTooltip && !props.onErrors?.descriptionValid.description && (
           <div className={classes.descriptionErrorMessage}>
             <TooltipLarge
@@ -109,40 +109,47 @@ const AddHomework = (props) => {
           value={props.homeworkData.description}
           name="description"
         />
-        {props.index === props.arrayLength - 1 && (
-          <i
-            onClick={props.onAddRow}
-            className={`bi bi-plus-lg ${classes.addIcon}`}
-          ></i>
-        )}
-        {
-          <>
-            {showCofirmationModal && (
-              <ConfirmModal
-                modalMessage="Kas soovid rea kustudada?"
-                onConfirm={confirmationHandler}
-                onDecline={declineHandler}
-              />
-            )}
+        <div className={classes.iconRow}>
+          {props.index === props.arrayLength - 1 && (
             <i
-              onClick={removeRowHandler}
-              className={`bi bi-x-lg ${classes.removeIcon}`}
+              onClick={props.onAddRow}
+              className={`bi bi-plus-lg ${classes.addIcon}`}
             ></i>
-          </>
-        }
+          )}
+          {
+            <>
+              {showCofirmationModal && (
+                <div className={classes.deleteConfirmation}>
+                  <ConfirmModal
+                    modalMessage="Kas soovid rea kustudada?"
+                    onConfirm={confirmationHandler}
+                    onDecline={declineHandler}
+                    homework={true}
+                  />
+                </div>
+              )}
+              <i
+                onClick={removeRowHandler}
+                className={`bi bi-x-lg ${classes.removeIcon}`}
+              ></i>
+            </>
+          }
+        </div>
       </div>
       <div className={classes.homeworkExtra}>
-        <CalendarOneInput
-          onClickDay={changeHandler}
-          onShowCalendar={showCalendar}
-          onClick={addDateHandler}
-          value={props.homeworkData.dueDate ? date : ""}
-          placeholder="Tähtaeg"
-          index="1"
-          name="dueDate"
-          errorMessage={props.onErrors?.dueDateValid.errorMessage}
-          hasError={!props.onErrors?.dueDateValid.dueDate}
-        />
+        <div className={classes.calendar}>
+          <CalendarOneInput
+            onClickDay={changeHandler}
+            onShowCalendar={showCalendar}
+            onClick={addDateHandler}
+            value={props.homeworkData.dueDate ? date : ""}
+            placeholder="Tähtaeg"
+            index="1"
+            name="dueDate"
+            errorMessage={props.onErrors?.dueDateValid.errorMessage}
+            hasError={!props.onErrors?.dueDateValid.dueDate}
+          />
+        </div>
         {dateValue && (
           <i
             id="removeDate"
@@ -150,14 +157,16 @@ const AddHomework = (props) => {
             className={`bi bi-x-lg ${classes.removeDateIcon}`}
           ></i>
         )}
-        <InputWithPlaceholder
-          onChange={changeHandler}
-          placeholder="Õppematerjalide link"
-          name="extraLink"
-          value={props.homeworkData.extrasLink}
-          errorMessage={props.onErrors?.extrasLinkValid.errorMessage}
-          hasErrors={props.onErrors?.extrasLinkValid.extrasLink}
-        />
+        <div className={classes.extrasLink}>
+          <InputWithPlaceholder
+            onChange={changeHandler}
+            placeholder="Õppematerjalide link"
+            name="extraLink"
+            value={props.homeworkData.extrasLink}
+            errorMessage={props.onErrors?.extrasLinkValid.errorMessage}
+            hasErrors={props.onErrors?.extrasLinkValid.extrasLink}
+          />
+        </div>
       </div>
     </div>
   );

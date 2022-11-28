@@ -1,23 +1,23 @@
 .scheduleTable {
-  width: 50rem;
+  width: 100%;
   border-collapse: collapse;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 2px 0px;
 }
 .tableHead th {
-  padding-left: 0.5rem;
-  font-size: 0.65em;
+  padding-left: 0.7rem;
+  font-size: 0.8em;
   text-align: left;
-  height: 2rem;
-  border: 0.12rem solid rgb(185, 183, 183);
+  height: 2.3rem;
+  border: 0.1rem solid #cecece;
 }
 .courseName {
-  padding-left: 0.5rem;
-  font-size: 0.65em;
+  padding-left: 0.7rem;
+  font-size: 0.75em;
   text-align: left;
   font-weight: bold;
-  height: 2rem;
+  height: 2.3rem;
   background-color: rgb(229, 229, 229);
-  border: 0.12rem solid rgb(185, 183, 183);
+  border: 0.1rem solid #cecece;
 }
 .extraRowInfo.rowInfo td {
   padding-left: 0.5rem;
@@ -25,8 +25,8 @@
   text-align: left;
   font-size: 0.65em;
   height: 0rem;
-  border-left: 0.12rem solid rgb(185, 183, 183);
-  border-right: 0.12rem solid rgb(185, 183, 183);
+  border-left: 0.1rem solid rgb(185, 183, 183);
+  border-right: 0.1rem solid rgb(185, 183, 183);
 }
 
 .extraRowInfo.rowHeading td {
@@ -37,8 +37,8 @@
   margin-bottom: 1rem;
   height: 1rem;
   font-size: 0.65em;
-  border-left: 0.12rem solid rgb(185, 183, 183);
-  border-right: 0.12rem solid rgb(185, 183, 183);
+  border-left: 0.1rem solid rgb(185, 183, 183);
+  border-right: 0.1rem solid rgb(185, 183, 183);
 }
 
 .headingPadding td {
@@ -46,7 +46,7 @@
 }
 .bottomRow {
   height: 0.3rem;
-  border-left: 0.12rem solid rgb(185, 183, 183);
-  border-right: 0.12rem solid rgb(185, 183, 183);
-  border-bottom: 0.12rem solid rgb(185, 183, 183);
+  border-left: 0.1rem solid rgb(185, 183, 183);
+  border-right: 0.1rem solid rgb(185, 183, 183);
+  border-bottom: 0.1rem solid rgb(185, 183, 183);
 }

@@ -1,34 +1,74 @@
 .container {
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-radius: 0.2rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 2px 0px;
+  border: 0.1rem solid #cecece;
+  background-color: #ffffff;
 }
 .calendarInput {
-  height: 2.35rem;
-  width: 20rem;
-  border-bottom: 0.1rem solid rgb(198, 197, 197);
-  border-radius: 0.2rem 0.2rem 0rem 0rem;
+  height: 2.3rem;
+  width: 100%;
+  border-bottom: 0.1rem solid #cecece;
   font-size: 0.8em;
   font-weight: bold;
   text-align: center;
 }
-
-.calendarInput i {
+.calendarInput .openIcon {
   position: absolute;
   color: rgb(183, 183, 183);
-  font-size: 1em;
-  margin-left: 15.89rem;
-  margin-top: 0.45rem;
+  font-size: 1.2em;
+  margin-left: 7.7rem;
+  margin-top: 0.6rem;
   -webkit-text-stroke: 0.1em;
 }
-.calendarInput i:hover {
-  color: rgb(97, 97, 97);
+.calendarInputNoBorder {
+  height: 2.3rem;
+  width: 100%;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-align: center;
+  background-color: #ffffff;
+}
+.calendarInputNoBorder .openIcon {
+  position: absolute;
+  color: rgb(183, 183, 183);
+  font-size: 1.2em;
+  margin-left: 7.7rem;
+  margin-top: 0.6rem;
+  -webkit-text-stroke: 0.1em;
+}
+.xmark {
+  position: absolute;
+  color: #cecece;
+  font-size: 1.25em;
+  margin: 0.65rem 0rem 0rem 5.65rem;
+}
+.xmark:hover {
+  color: rgb(146, 146, 146);
+}
+.btnHover {
+  position: absolute;
+  border: none;
+  height: 2.3rem;
+  width: 94%;
+  background-color: #a4d65e;
+  z-index: -1;
+  transition: 0.1s ease-in-out;
+}
+
+.container:hover .btnHover {
+  transition: 0.1s ease-in-out;
+  transform: rotate(3deg);
+  background-color: #a4d65e;
+  width: 96.5%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.calendarInput .openIcon:hover {
+  color: rgb(0, 0, 0);
   cursor: pointer;
 }
 .startDate {
   color: gray;
-  font-size: 1.2em;
-  margin-left: -2.4rem;
-  width: 8.4rem;
+  margin-left: -3.6rem;
+  width: 34%;
   height: 2.25rem;
   text-align: center;
   border: none;
@@ -38,12 +78,12 @@
 }
 .startDate.active {
   border-bottom: 0.1rem solid blue;
+  color: black;
 }
 .endDate {
   color: gray;
-  font-size: 1.2em;
-  margin-left: 0.7rem;
-  width: 8.4rem;
+  margin-left: -0.1rem;
+  width: 35%;
   height: 2.25rem;
   text-align: center;
   border: none;
@@ -53,15 +93,16 @@
 }
 .endDate.active {
   border-bottom: 0.1rem solid blue;
+  color: black;
 }
 .verticalStripe {
   margin-top: -1.75rem;
-  margin-left: 17.5rem;
+  margin-left: 10.8rem;
   position: absolute;
-  height: 1.2rem;
+  height: 1.3rem;
   width: 0rem;
   border-right: 0.1rem solid;
-  color: rgb(211, 211, 211);
+  color: rgb(203, 203, 203);
 }
 .dateBtnContainer {
   width: 100%;
@@ -73,9 +114,8 @@
   width: 8rem;
   height: 2.4rem;
   background-color: rgba(255, 255, 255, 0);
-  border: 0.1rem solid rgb(177, 177, 177);
-  border: none;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: 0.1rem solid #cecece;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 2px 0px;
   border-radius: 0.2rem;
 
   font-size: 0.9em;
@@ -93,8 +133,8 @@
   border-radius: 0rem 0rem 0.2rem 0.2rem;
 }
 .openIcon {
-  color: rgb(197, 197, 197) !important;
+  color: #cecece !important;
 }
-/* .calendar {
-  position: absolute;
-} */
+.openIcon:hover {
+  color: rgb(146, 146, 146);
+}

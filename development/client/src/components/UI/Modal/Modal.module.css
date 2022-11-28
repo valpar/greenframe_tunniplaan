@@ -11,8 +11,8 @@
 .modal {
   position: fixed;
   top: 15vh;
-  left: 40%;
-  width: auto;
+  left: 5%;
+  width: 90%;
   background-color: white;
   padding: 1rem;
   border-radius: 0.2rem;
@@ -22,12 +22,12 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* @media (min-width: 768px) {
+@media (min-width: 768px) {
   .modal {
     width: 30rem;
-    left: calc(50% - 20rem);
+    left: calc(50% - 10rem);
   }
-} */
+}
 
 @keyframes slide-down {
   from {
