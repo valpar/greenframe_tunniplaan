@@ -5,7 +5,9 @@ const ConfirmModal = (props) => {
   if (props.topArrow) arrow = classes.topArrow;
   if (props.bottomArrow) arrow = classes.bottomArrow;
   return (
-    <div className={classes.container}>
+    <div
+      className={props.homework ? classes.homeworkContainer : classes.container}
+    >
       <div className={arrow}></div>
       <div className={classes.message}>
         <p>{props.modalMessage}</p>

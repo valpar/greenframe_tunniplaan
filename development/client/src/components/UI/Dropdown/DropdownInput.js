@@ -54,7 +54,9 @@ const DropdownInput = (props) => {
     >
       {props.index === 0 && <label>{props.label ? props.label : ""}</label>}
       {props.onErrorMessage !== "" && showTooltip && (
-        <TooltipLarge index={props.index} message={props.onErrorMessage} />
+        <div className={classes.tooltip}>
+          <TooltipLarge index={props.index} message={props.onErrorMessage} />
+        </div>
       )}
       <input
         onMouseEnter={mouseEnterHandler}

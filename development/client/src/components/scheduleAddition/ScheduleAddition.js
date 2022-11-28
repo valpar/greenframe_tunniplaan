@@ -108,6 +108,7 @@ const ScheduleAddition = (props) => {
   const [itemToDelete, setItemToDelete] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editValues, setEditValues] = useState();
+  const [confirmdValues, setConfirmdValues] = useState([]);
 
   const workCourseData = useCallback(() => {
     if (!courseLoading && courseResponse !== undefined) {
@@ -321,19 +322,34 @@ const ScheduleAddition = (props) => {
             return lec.length > 0;
           });
         }
+
         for (let i = 0; i < newOccurence.length; i++) {
           if (
             lecturer.length > 0 &&
             e.startTime <= newOccurence[i].startTime &&
             e.endTime > newOccurence[i].startTime
           ) {
+            if (
+              confirmdValues.filter((e) => {
+                const lecturerArr = lecturer.filter(
+                  (lec) => lec.lecturerId === e
+                );
+                return lecturerArr.length > 0 ? e : false;
+              }).length > 0
+            ) {
+              return false;
+            }
+            setConfirmdValues((prevState) => [
+              ...prevState,
+              ...lecturer.map((e) => e.lecturerId),
+            ]);
             setItemToDelete((prevState) => [...prevState, ...lecturer]);
             return e;
           }
         }
         return false;
       });
-      if (lecturerOccupied.length > 0) {
+      if (lecturerOccupied.length > 0 && !props.editMode) {
         setShowConfirmModal({
           type: "lecturer",
           show: true,
@@ -341,7 +357,56 @@ const ScheduleAddition = (props) => {
         });
       }
     }
-  }, [newOccurence, addedLecture[0].lecturers]);
+    if (
+      (newOccurence || addedLecture[0].rooms?.length > 0) &&
+      props.scheduled
+    ) {
+      const roomOccupied = props.scheduled.filter((e) => {
+        let room = [];
+        if (e.rooms && addedLecture[0].rooms !== "") {
+          room = e.rooms?.filter((roomE) => {
+            let roomArr = addedLecture[0].rooms.filter((element) => {
+              return roomE.roomId === element.roomId;
+            });
+            return roomArr.length > 0;
+          });
+        }
+
+        for (let i = 0; i < newOccurence.length; i++) {
+          if (
+            room.length > 0 &&
+            e.startTime <= newOccurence[i].startTime &&
+            e.endTime > newOccurence[i].startTime
+          ) {
+            if (
+              confirmdValues.filter((e) => {
+                const roomArr = room.filter((r) => r.roomId === e);
+                console.log(roomArr);
+                return roomArr.length > 0 ? e : false;
+              }).length > 0
+            ) {
+              console.log("jee");
+              return false;
+            }
+            setConfirmdValues((prevState) => [
+              ...prevState,
+              ...room.map((e) => e.roomId),
+            ]);
+            setItemToDelete((prevState) => [...prevState, ...room]);
+            return e;
+          }
+        }
+        return false;
+      });
+      if (roomOccupied.length > 0 && !props.editMode) {
+        setShowConfirmModal({
+          type: "room",
+          show: true,
+          message: "RUUM ON HÕIVATUD",
+        });
+      }
+    }
+  }, [newOccurence, addedLecture[0].lecturers, addedLecture[0].rooms]);
 
   useEffect(() => {
     const occurenceValidator = validateOccurences(newOccurence);
@@ -476,24 +541,55 @@ const ScheduleAddition = (props) => {
       show: false,
       message: "",
     });
-    setAddedLecture((prevState) => {
-      let value = prevState[0][type + "s"];
-      if (prevState[0].lecturers?.length === 1) value = "";
-      if (prevState[0].lecturers?.length > 1) {
-        value = value.filter((e) => {
-          let arr = itemToDelete?.filter(
-            (item) => item[type + "Id"] === e[type + "Id"]
-          );
-          return arr.length === 0;
-        });
-      }
-      return [
-        {
-          ...prevState[0],
-          [type + "s"]: value,
-        },
-      ];
-    });
+    if (type === "room") {
+      setConfirmdValues((prevState) => {
+        const newArr = prevState.pop();
+        return [...prevState.filter((e) => e !== newArr)];
+      });
+      setAddedLecture((prevState) => {
+        let value = prevState[0][type + "s"];
+        if (prevState[0].rooms?.length === 1) value = "";
+        if (prevState[0].rooms?.length > 1) {
+          value = value.filter((e) => {
+            let arr = itemToDelete?.filter(
+              (item) => item[type + "Id"] === e[type + "Id"]
+            );
+            return arr.length === 0;
+          });
+        }
+        return [
+          {
+            ...prevState[0],
+            [type + "s"]: value,
+          },
+        ];
+      });
+    }
+    if (type === "lecturer") {
+      setConfirmdValues((prevState) => {
+        const newArr = prevState.pop();
+        return [...prevState.filter((e) => e !== newArr)];
+      });
+      setAddedLecture((prevState) => {
+        let value = prevState[0][type + "s"];
+        if (prevState[0].lecturers?.length === 1) value = "";
+        if (prevState[0].lecturers?.length > 1) {
+          value = value.filter((e) => {
+            let arr = itemToDelete?.filter(
+              (item) => item[type + "Id"] === e[type + "Id"]
+            );
+            return arr.length === 0;
+          });
+        }
+        return [
+          {
+            ...prevState[0],
+            [type + "s"]: value,
+          },
+        ];
+      });
+    }
+
     setItemToDelete([]);
   };
 
@@ -544,15 +640,15 @@ const ScheduleAddition = (props) => {
           scheduled={props.scheduled}
         />
       )}
-      <h6>
-        {props.editMode
-          ? "LOENGU MUUTMINE TUNNIPLAANIS"
-          : "LOENGU LISAMINE TUNNIPLAANI"}
-      </h6>
-      <i
-        onClick={props.onClose}
-        className={`bi bi-x-lg ${classes.closeIcon}`}
-      ></i>
+      <div className={classes.headingRow}>
+        <h6>
+          {props.editMode
+            ? "LOENGU MUUTMINE TUNNIPLAANIS"
+            : "LOENGU LISAMINE TUNNIPLAANI"}
+        </h6>
+        <i onClick={props.onClose} className={`bi bi-x-lg`}></i>
+      </div>
+
       <div className={classes.dropdownsRow}>
         <AddDropdown
           onEdit={editItemHandler}
@@ -598,26 +694,38 @@ const ScheduleAddition = (props) => {
           label="Ruum"
           name="room"
           isMulti={true}
+          modalMessage={
+            showConfirmModal.type === "room" ? showConfirmModal : null
+          }
+          onConfirm={dropdownConfirmHandler}
+          onDecline={dropdownDeclineHandler}
           value={addedLecture[0].rooms}
         />
       </div>
-      {newOccurence.map((occurence, i) => {
-        return (
-          <div key={i} className={classes.occurenceRow}>
-            <DateOfOccurenceForm
-              onChange={occurenceHandler}
-              onNewOccurence={[occurence]}
-              index={i}
-              onClick={newRowHandler}
-              onDelete={deleteRowHandler}
-              onNotValidFields={occurenesIsValid}
-              onAfterSubmit={clearOccurenceFields}
-              editMode={props.editMode}
-              editData={props.editData}
-            />
-          </div>
-        );
-      })}
+      <div
+        className={
+          props.editMode ? classes.editOccurenceRow : classes.occurenceRow
+        }
+      >
+        {newOccurence.map((occurence, i) => {
+          return (
+            <div key={i}>
+              <DateOfOccurenceForm
+                onChange={occurenceHandler}
+                onNewOccurence={[occurence]}
+                index={i}
+                onClick={newRowHandler}
+                onDelete={deleteRowHandler}
+                onNotValidFields={occurenesIsValid}
+                onAfterSubmit={clearOccurenceFields}
+                editMode={props.editMode}
+                editData={props.editData}
+                occurenceLength={newOccurence.length}
+              />
+            </div>
+          );
+        })}
+      </div>
 
       <div
         className={

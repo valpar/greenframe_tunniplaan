@@ -27,7 +27,7 @@ const SearchDropdown = (props) => {
       props.onInputChange(e);
     }
   };
-
+  console.log(props?.reset);
   return (
     <div
       className={
@@ -35,7 +35,9 @@ const SearchDropdown = (props) => {
       }
     >
       {props.topLabel && <label>{props.topLabel}</label>}
+      <div className={classes.btnHover} />
       <Select
+        value={props?.reset ? "" : undefined}
         placeholder={props.label}
         options={props.options}
         onChange={changeHandler}
@@ -45,18 +47,17 @@ const SearchDropdown = (props) => {
         styles={{
           control: (baseStyles, state) => ({
             ...baseStyles,
-            border: "none",
-            boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
+            borderRadius: "none",
+            boxShadow: "rgba(99, 99, 99, 0.2) 0px 1px 2px 0px",
           }),
           menu: (baseStyles, state) => ({
             ...baseStyles,
-            border: "none",
-            boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+            border: "0.1rem solid #CECECE",
+            boxShadow: "rgba(99, 99, 99, 0.2) 0px 1px 2px 0px",
           }),
           container: (baseStyles, state) => ({
             ...baseStyles,
-            border: "none",
-            boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+            boxShadow: "rgba(99, 99, 99, 0.2) 0px 1px 2px 0px",
           }),
         }}
       />

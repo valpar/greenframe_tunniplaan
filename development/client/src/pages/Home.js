@@ -7,6 +7,9 @@ import * as dateService from "../utils/Format/Date";
 import ScheduleFilters from "../components/searchFilters/ScheduleFilters";
 import ScheduleAddition from "../components/scheduleAddition/ScheduleAddition";
 import Table from "../components/UI/Table/Table";
+import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight, faSolid } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
   const now = new Date();
@@ -137,13 +140,20 @@ const Home = () => {
     }
 
     if (filterType === "startTime") {
+      const reverseDate = (str) => {
+        return str.split(".").reverse().join(".");
+      };
       filteredeData.push(
         ...rawData.filter((e) => {
-          let time1 = dateService.formatMilliseconds(e[objectKeys[0]]);
-          let time2 = dateService.formatMilliseconds(objectValues[0]);
-          let time3 =
-            dateService.formatMilliseconds(objectValues[1]) +
-            24 * 60 * 60 * 1000;
+          let time1 = dateService.formatMilliseconds(
+            reverseDate(dateService.formatDate(e[objectKeys[0]]))
+          );
+          let time2 = dateService.formatMilliseconds(
+            reverseDate(dateService.formatDate(objectValues[0]))
+          );
+          let time3 = dateService.formatMilliseconds(
+            reverseDate(dateService.formatDate(objectValues[1]))
+          );
           return time1 >= time2 && time1 <= time3;
         })
       );
@@ -264,7 +274,20 @@ const Home = () => {
   const showUserRollesHandler = () => {
     setShowUsersModal(true);
   };
-
+  const emptyFiltersHandler = () => {
+    setFilteredData(data);
+    setDropdownSelection([
+      {
+        startDate: new Date().toISOString(),
+        endDate: new Date(
+          now.getFullYear(),
+          now.getMonth() + 1,
+          now.getDate(),
+          now.getHours()
+        ).toISOString(),
+      },
+    ]);
+  };
   const userPicture = admin
     ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     : userLecturer
@@ -273,9 +296,9 @@ const Home = () => {
 
   return (
     <Fragment>
-      <div className={classes.mainContainer}>
-        <div className={classes.header}>
-          <div className={classes.headerItems}>
+      <div className={classes.container}>
+        <header className={classes.header}>
+          <div className={classes.headerContent}>
             <div className={classes.logo}>
               <a
                 href="https://www.tlu.ee/haapsalu"
@@ -283,10 +306,7 @@ const Home = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img
-                  src="https://www.tlu.ee/sites/default/files/2018-05/HK-est.svg"
-                  alt="Tallinna Ülikool"
-                ></img>
+                <Logo />
               </a>
             </div>
             <div className={classes.headerBtns}>
@@ -312,11 +332,12 @@ const Home = () => {
                 <img
                   onClick={showUserRollesHandler}
                   src={userPicture}
-                  alt="Homer"
+                  alt="User"
                 ></img>
               </div>
               {showUsersModal && (
-                <div>
+                <div className={classes.userContainer}>
+                  <div className={classes.boxArrow}></div>
                   <div className={classes.userInfoBox}>
                     <button
                       onClick={userRollHandler}
@@ -343,27 +364,37 @@ const Home = () => {
                       Õpilane
                     </button>
                   </div>
-                  <div className={classes.boxArrow}></div>
                 </div>
               )}
             </div>
           </div>
-
-          <hr></hr>
-        </div>
-        <div className={classes.container}>
+          <div className={classes.line} />
+        </header>
+        <div className={classes.mainContainer}>
           <div className={classes.scheduleFilters}>
             <div className={classes.fixedFilters}>
               {admin && (
-                <button
-                  onClick={addScheduleHandler}
-                  className={classes.addBtn}
-                  type="button"
-                >
-                  LISA
-                </button>
+                <div className={classes.addBtn}>
+                  <div className={classes.btnHover} />
+                  <button onClick={addScheduleHandler} type="button">
+                    LISA
+                  </button>
+                  <FontAwesomeIcon
+                    icon={faAngleRight}
+                    className={classes.faAngleRight}
+                  />
+                </div>
               )}
-              <ScheduleFilters onPassingFilters={dataFilterHandler} />
+              {!admin && !userLecturer && (
+                <div className={classes.loginInBtn}>
+                  <div className={classes.btnHover} />
+                  <button type="button">LOGI SISSE</button>
+                </div>
+              )}
+              <ScheduleFilters
+                onEmptyFilters={emptyFiltersHandler}
+                onPassingFilters={dataFilterHandler}
+              />
             </div>
           </div>
 

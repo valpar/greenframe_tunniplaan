@@ -160,7 +160,7 @@ const TableSubjectInfo = (props) => {
         const dueDate = enteredInfo.homeworks[i]?.dueDate;
         const extrasLink = enteredInfo.homeworks[i]?.extrasLink;
         const dateValid =
-          dueDate?.length === 0 || dueDate > new Date().toISOString();
+          dueDate?.length === 0 || dueDate.substring(0, 10) >= new Date().toISOString().substring(0, 10);
         return {
           descriptionValid:
             description?.length === 0 &&
@@ -309,7 +309,7 @@ const TableSubjectInfo = (props) => {
         }
       });
 
-      setEditMode(false);
+    
       setEnteredInfo({
         comment: "",
         homeworks: [{ id: null, description: "", dueDate: "", extrasLink: "" }],
@@ -325,6 +325,7 @@ const TableSubjectInfo = (props) => {
       setExtraInfoSaveConfirm(false);
       setUpdateRequest((prevState) => (prevState = !prevState));
       props.onUpdate();
+      setEditMode(false);
     }
   };
 
@@ -401,6 +402,7 @@ const TableSubjectInfo = (props) => {
           ? homeworkResponse.homework
           : enteredInfo.homeworks
         ).map((homework, i) => {
+
           return (
             <>
               {i === 0 && (
@@ -432,13 +434,11 @@ const TableSubjectInfo = (props) => {
                   )}`}</strong>
                 </td>
               </tr>
-              {i !== 0 && (
                 <tr key={i + 2000000} className={`${classes.line}`}>
                   <td colSpan={4}>
                     <hr></hr>
                   </td>
                 </tr>
-              )}
             </>
           );
         })}

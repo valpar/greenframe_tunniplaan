@@ -107,7 +107,7 @@ const TableBody = (props) => {
         </td>
       </tr>
       {showEditModal && props.admin && (
-        <tr>
+        <tr className={classes.editLectureRow}>
           <td colSpan={4} className={classes.editColumn}>
             <div className={classes.editSchedule}>
               <ScheduleAddition

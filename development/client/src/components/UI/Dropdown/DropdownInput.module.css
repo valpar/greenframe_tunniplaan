@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 8rem;
+  width: 18%;
 }
 .container label {
   text-align: start;
@@ -20,7 +20,7 @@
   background-color: white;
   border: 0.1rem solid rgb(213, 213, 213);
   border-radius: 0.3rem;
-  width: 8rem;
+  width: 14.5%;
   max-height: 7rem;
   margin-top: 4.5rem;
   overflow: scroll;
@@ -44,4 +44,30 @@
 }
 .errorHandling input:focus {
   outline: none;
+}
+.tooltip {
+  position: absolute;
+  margin-left: 0.65rem;
+}
+
+@media screen and (max-width: 1052px) {
+  .tooltip {
+    margin-left: 0.2rem;
+  }
+}
+@media screen and (max-width: 925px) {
+  .tooltip {
+    margin-left: -1rem;
+  }
+}
+
+@media screen and (max-width: 796px) {
+  .tooltip {
+    margin-left: -1.5rem;
+  }
+}
+@media screen and (max-width: 1052px) {
+  .container {
+    width: 16%;
+  }
 }
