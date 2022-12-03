@@ -128,7 +128,7 @@ const ScheduleFilters = (props) => {
         isMulti={true}
       />
       <div className={classes.calendar}>
-        <CalendarInput onChange={filtersHandler} />
+        <CalendarInput reset={isReset} onChange={filtersHandler} />
       </div>
 
       <SearchDropdown
