@@ -22,6 +22,19 @@ const CalendarInput = (props) => {
   const [pickEndDate, setPickEndDate] = useState(false);
   const [showBtnModal, setShowBtnModal] = useState(true);
   const [resetDate, setResetDate] = useState(false);
+  useEffect(() => {
+    if (props.reset) {
+      setStartCalendar(new Date());
+      setEndCalendar(
+        new Date(
+          now.getFullYear(),
+          now.getMonth() + 1,
+          now.getDate(),
+          now.getHours()
+        )
+      );
+    }
+  }, [props.reset]);
 
   const startDateHandler = () => {
     setShowBtnModal((prevState) => {

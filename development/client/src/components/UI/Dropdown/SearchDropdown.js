@@ -1,4 +1,5 @@
-import Select, { NonceProvider } from "react-select";
+import { useCallback } from "react";
+import Select, { CommonProps } from "react-select";
 import classes from "./SearchDropdown.module.css";
 
 const SearchDropdown = (props) => {
@@ -27,7 +28,14 @@ const SearchDropdown = (props) => {
       props.onInputChange(e);
     }
   };
-  console.log(props?.reset);
+  const refChangeHandler = useCallback(
+    (ref) => {
+      if (props.reset && ref) {
+        ref.clearValue();
+      }
+    },
+    [props.reset]
+  );
   return (
     <div
       className={
@@ -37,6 +45,7 @@ const SearchDropdown = (props) => {
       {props.topLabel && <label>{props.topLabel}</label>}
       <div className={classes.btnHover} />
       <Select
+        ref={refChangeHandler}
         value={props?.reset ? "" : undefined}
         placeholder={props.label}
         options={props.options}
