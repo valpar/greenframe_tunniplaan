@@ -1,6 +1,7 @@
 .container {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 2px 0px;
   border: 0.1rem solid #cecece;
+  width: 13.3rem;
   background-color: #ffffff;
 }
 .calendarInput {
@@ -14,14 +15,7 @@
   font-weight: bold;
   text-align: center;
 }
-/* .calendarInput .openIcon {
-  position: absolute;
-  color: rgb(183, 183, 183);
-  font-size: 1.2em;
-  margin-left: 7.7rem;
-  margin-top: 0.6rem;
-  -webkit-text-stroke: 0.1em;
-} */
+
 .calendarInputNoBorder {
   display: flex;
   flex-direction: row;
@@ -33,18 +27,15 @@
   text-align: center;
   background-color: #ffffff;
 }
-/* .calendarInputNoBorder .openIcon {
-  position: absolute;
-  color: rgb(183, 183, 183);
-  font-size: 1.2em;
-  margin-left: 7.7rem;
-  margin-top: 0.6rem;
-  -webkit-text-stroke: 0.1em;
-} */
-.inputs {
+
+.input {
   padding-left: 0.2rem;
   width: 70%;
   font-size: 0.9em;
+}
+.inputPlaceholder {
+  font-size: 1.3em;
+  width: 72%;
 }
 .icons {
   display: flex;
@@ -69,12 +60,12 @@
   color: rgb(203, 203, 203);
 }
 .openIcon {
-  width: 45%;
+  width: 53%;
   padding-left: 0.3rem;
   font-size: 1.2em;
   color: #cecece !important;
 }
-.openIcon:hover {
+.openIcon :hover {
   color: rgb(146, 146, 146);
 }
 .btnHover {
@@ -98,10 +89,9 @@
   color: rgb(0, 0, 0);
   cursor: pointer;
 }
-.startDate {
+.dateRange {
   color: gray;
-
-  width: 50%;
+  width: 100%;
   height: 2.25rem;
   text-align: center;
   border: none;
@@ -109,23 +99,8 @@
   background-color: rgba(240, 248, 255, 0);
   outline: none;
 }
-.startDate.active {
-  border-bottom: 0.1rem solid blue;
-  color: black;
-}
-.endDate {
-  color: gray;
 
-  width: 50%;
-  height: 2.25rem;
-  text-align: center;
-  border: none;
-  cursor: pointer;
-  background-color: rgba(240, 248, 255, 0);
-  outline: none;
-}
-.endDate.active {
-  border-bottom: 0.1rem solid blue;
+.dateRange:hover {
   color: black;
 }
 
@@ -133,17 +108,18 @@
   width: 100%;
   height: 3rem;
   border-radius: 0.2rem;
-  margin: 1.2rem 0rem 4rem 0rem;
+  margin: 0.9rem 0rem 3.7rem 0rem;
 }
 .dateBtnContainer button {
-  width: 8rem;
+  width: 5.5rem;
   height: 2.4rem;
   background-color: rgba(255, 255, 255, 0);
   border: 0.1rem solid #cecece;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 2px 0px;
-  border-radius: 0.2rem;
-
   font-size: 0.9em;
+}
+.dateBtnContainer button:focus {
+  border-color: black;
 }
 .btnRow {
   margin-left: 3%;
@@ -156,4 +132,11 @@
 .filters {
   border-top: 1px solid #d1d1cc;
   border-radius: 0rem 0rem 0.2rem 0.2rem;
+}
+.inputPlaceholder input {
+  padding-left: 2rem;
+}
+.inputPlaceholder input:hover {
+  padding-left: 2rem;
+  color: gray;
 }
