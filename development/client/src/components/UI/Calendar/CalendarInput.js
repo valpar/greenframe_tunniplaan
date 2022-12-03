@@ -9,6 +9,15 @@ import { faAngleDown, faXmark } from "@fortawesome/free-solid-svg-icons";
 let now = new Date();
 
 const CalendarInput = (props) => {
+  const [calendarRange, setCalendarRange] = useState([
+    new Date(),
+    new Date(
+      now.getFullYear(),
+      now.getMonth() + 1,
+      now.getDate(),
+      now.getHours()
+    ),
+  ]);
   const [startCalendar, setStartCalendar] = useState(new Date());
   const [endCalendar, setEndCalendar] = useState(
     new Date(
@@ -84,19 +93,10 @@ const CalendarInput = (props) => {
   }, [startCalendar, endCalendar]);
 
   const changeCalendarStartHandler = (e) => {
-    setStartCalendar(new Date(new Date(e).setHours(new Date().getHours())));
-
-    setPickStartDate((prevState) => (prevState = !prevState));
-    setPickEndDate((prevState) => (prevState = !prevState));
+    setCalendarRange([new Date(new Date(e).setHours(new Date().getHours()))]);
     setResetDate(true);
   };
-  const changeCalendarEndHandler = (e) => {
-    setEndCalendar(new Date(new Date(e).setHours(new Date().getHours())));
 
-    setPickStartDate((prevState) => (prevState = !prevState));
-    setPickEndDate((prevState) => (prevState = !prevState));
-    setResetDate(true);
-  };
   const buttonDateHandler = (event) => {
     event.preventDefault();
     const now = new Date();
@@ -148,6 +148,10 @@ const CalendarInput = (props) => {
         now.getHours()
       )
     );
+  };
+
+  const changeDateHandler = (date) => {
+    setCalendarRange(date);
   };
 
   return (
@@ -222,18 +226,17 @@ const CalendarInput = (props) => {
         </div>
       )}
       <div className={classes.calendar}>
-        {pickStartDate && (
-          <Calendar
-            onClickDay={changeCalendarStartHandler}
-            onChange={setStartCalendar}
-            value={startCalendar}
-            locale="et-EE"
-            showWeekNumbers={true}
-            className="filters"
-            // selectRange={true}
-          />
-        )}
-        {pickEndDate && (
+        <Calendar
+          onChange={changeDateHandler}
+          value={calendarRange}
+          locale="et-EE"
+          showWeekNumbers={true}
+          className="filters"
+          selectRange={true}
+          allowPartialRange={true}
+        />
+
+        {/* {pickEndDate && (
           <Calendar
             onClickDay={changeCalendarEndHandler}
             onChange={setEndCalendar}
@@ -243,7 +246,7 @@ const CalendarInput = (props) => {
             className="filters"
             minDate={startCalendar}
           />
-        )}
+        )} */}
       </div>
     </div>
   );
