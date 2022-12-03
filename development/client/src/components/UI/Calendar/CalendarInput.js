@@ -4,7 +4,11 @@ import "./Calendar.css";
 import classes from "./CalendarInput.module.css";
 import { formatDate } from "../../../utils/Format/Date";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleDown,
+  faXmark,
+  faAngleUp,
+} from "@fortawesome/free-solid-svg-icons";
 import { calculateSemesterDate } from "../../../utils/Calculate/Semester";
 
 const CalendarInput = (props) => {
@@ -170,10 +174,18 @@ const CalendarInput = (props) => {
           )}
           <div className={classes.verticalStripe} />
           <div className={classes.openIcon}>
-            <FontAwesomeIcon
-              icon={faAngleDown}
-              onClick={toggleCalendarHandler}
-            />
+            {!showBtnModal && (
+              <FontAwesomeIcon
+                icon={faAngleDown}
+                onClick={toggleCalendarHandler}
+              />
+            )}
+            {showBtnModal && (
+              <FontAwesomeIcon
+                icon={faAngleUp}
+                onClick={toggleCalendarHandler}
+              />
+            )}
           </div>
         </div>
       </div>
