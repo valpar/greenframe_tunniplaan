@@ -52,7 +52,7 @@ const scheduleController = {
         error: "startTime is missing",
       });
     } else {
-      startTime = formatDate.forSql(startTime);
+      startTime = formatDate.forSqlDateTime(startTime);
     }
 
     if (!endTime) {
@@ -60,7 +60,7 @@ const scheduleController = {
         error: "endTime is missing",
       });
     } else {
-      endTime = formatDate.forSql(endTime);
+      endTime = formatDate.forSqlDateTime(endTime);
     }
 
     const scheduleId = await scheduleService.createSchedule(
@@ -92,7 +92,7 @@ const scheduleController = {
         error: "startTime is missing",
       });
     } else {
-      startTime = formatDate.forSql(startTime);
+      startTime = formatDate.forSqlDateTime(startTime);
     }
 
     if (!endTime) {
@@ -100,7 +100,7 @@ const scheduleController = {
         error: "endTime is missing",
       });
     } else {
-      endTime = formatDate.forSql(endTime);
+      endTime = formatDate.forSqlDateTime(endTime);
     }
 
     if (!subjectCode && !subjectId) {
