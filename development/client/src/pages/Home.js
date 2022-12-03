@@ -9,18 +9,13 @@ import ScheduleAddition from "../components/scheduleAddition/ScheduleAddition";
 import Table from "../components/UI/Table/Table";
 import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight, faSolid } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { calculateSemesterDate } from "../utils/Calculate/Semester";
 
 const Home = () => {
-  const now = new Date();
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
-    startDate: new Date().toISOString(),
-    endDate: new Date(
-      now.getFullYear(),
-      now.getMonth() + 1,
-      now.getDate(),
-      now.getHours()
-    ).toISOString(),
+    startDate: new Date(1).toISOString(),
+    endDate: new Date(1).toISOString(),
   });
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -171,6 +166,7 @@ const Home = () => {
         startDate: new Date(dropdownValues[0].startTime).toISOString(),
         endDate: new Date(dropdownValues[0]?.endTime).toISOString(),
       });
+
       setNewOccurenceAdded((prevState) => (prevState = !prevState));
     }
     setDropdownSelection((prevState) => {
@@ -276,15 +272,11 @@ const Home = () => {
   };
   const emptyFiltersHandler = () => {
     setFilteredData(data);
+    const defaultDate = calculateSemesterDate(true);
     setDropdownSelection([
       {
-        startDate: new Date().toISOString(),
-        endDate: new Date(
-          now.getFullYear(),
-          now.getMonth() + 1,
-          now.getDate(),
-          now.getHours()
-        ).toISOString(),
+        startDate: defaultDate[0],
+        endDate: defaultDate[1],
       },
     ]);
   };

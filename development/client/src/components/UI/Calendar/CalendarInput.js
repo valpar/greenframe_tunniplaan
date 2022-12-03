@@ -5,149 +5,132 @@ import classes from "./CalendarInput.module.css";
 import { formatDate } from "../../../utils/Format/Date";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faXmark } from "@fortawesome/free-solid-svg-icons";
-
-let now = new Date();
+import { calculateSemesterDate } from "../../../utils/Calculate/Semester";
 
 const CalendarInput = (props) => {
-  const [startCalendar, setStartCalendar] = useState(new Date());
-  const [endCalendar, setEndCalendar] = useState(
-    new Date(
-      now.getFullYear(),
-      now.getMonth() + 1,
-      now.getDate(),
-      now.getHours()
-    )
+  const [calendarRange, setCalendarRange] = useState(
+    calculateSemesterDate(true)
   );
-  const [pickStartDate, setPickStartDate] = useState(true);
-  const [pickEndDate, setPickEndDate] = useState(false);
   const [showBtnModal, setShowBtnModal] = useState(true);
   const [resetDate, setResetDate] = useState(false);
+
   useEffect(() => {
     if (props.reset) {
-      setStartCalendar(new Date());
-      setEndCalendar(
-        new Date(
-          now.getFullYear(),
-          now.getMonth() + 1,
-          now.getDate(),
-          now.getHours()
-        )
-      );
+      setCalendarRange(calculateSemesterDate(true));
     }
   }, [props.reset]);
 
-  const startDateHandler = () => {
-    setShowBtnModal((prevState) => {
-      return pickStartDate ? false : true;
-    });
-    setPickStartDate((prevState) => (prevState = !prevState));
-
-    setPickEndDate((prevState) => {
-      if (prevState) {
-        return (prevState = !prevState);
-      }
-    });
-  };
-  const endDateHandler = () => {
-    setShowBtnModal((prevState) => {
-      return pickEndDate ? false : true;
-    });
-    setPickEndDate((prevState) => (prevState = !prevState));
-    setPickStartDate((prevState) => {
-      if (prevState) {
-        return (prevState = !prevState);
-      }
-    });
-  };
-
-  const closeCalendarHandler = () => {
-    setStartCalendar(new Date());
-
-    if (showBtnModal) {
-      setPickStartDate(false);
-      setPickEndDate(false);
-      setShowBtnModal(false);
-    }
-    if (!showBtnModal) {
-      setPickStartDate(true);
-      setShowBtnModal(true);
-    }
+  const toggleCalendarHandler = () => {
+    setShowBtnModal((prevState) => (prevState = !prevState));
   };
 
   useEffect(() => {
     props.onChange([
       {
-        startTime: `${startCalendar}`,
-        endTime: `${endCalendar}`,
+        startTime: `${calendarRange[0]}`,
+        endTime: `${calendarRange[1]}`,
       },
     ]);
-  }, [startCalendar, endCalendar]);
+  }, [calendarRange]);
 
-  const changeCalendarStartHandler = (e) => {
-    setStartCalendar(new Date(new Date(e).setHours(new Date().getHours())));
-
-    setPickStartDate((prevState) => (prevState = !prevState));
-    setPickEndDate((prevState) => (prevState = !prevState));
-    setResetDate(true);
-  };
-  const changeCalendarEndHandler = (e) => {
-    setEndCalendar(new Date(new Date(e).setHours(new Date().getHours())));
-
-    setPickStartDate((prevState) => (prevState = !prevState));
-    setPickEndDate((prevState) => (prevState = !prevState));
-    setResetDate(true);
-  };
   const buttonDateHandler = (event) => {
     event.preventDefault();
     const now = new Date();
     const now2 = new Date();
+    const today = new Date(
+      now2.setDate(
+        now2.getDate(),
+        now2.setHours(0),
+        now2.setMinutes(0),
+        now2.setSeconds(0),
+        now2.setMilliseconds(0)
+      )
+    );
     const btnType = event.target.name;
     if (btnType === "today") {
-      setStartCalendar(now);
-      setEndCalendar(now);
+      setCalendarRange([
+        today,
+        new Date(
+          now.setDate(
+            now.getDate(),
+            now.setHours(23),
+            now.setMinutes(59),
+            now.setSeconds(59),
+            now.setMilliseconds(999)
+          )
+        ),
+      ]);
       setResetDate(true);
     }
     if (btnType === "tomorrow") {
-      setStartCalendar(new Date(now.setDate(now.getDate() + 1, now.getTime())));
-      setEndCalendar(
-        new Date(now2.setDate(now2.getDate() + 1, now2.getTime()))
-      );
+      setCalendarRange([
+        new Date(
+          now2.setDate(
+            now2.getDate() + 1,
+            now2.setHours(0),
+            now2.setMinutes(0),
+            now2.setSeconds(0),
+            now2.setMilliseconds(0)
+          )
+        ),
+        new Date(
+          now.setDate(
+            now.getDate() + 1,
+            now.setHours(23),
+            now.setMinutes(59),
+            now.setSeconds(59),
+            now.setMilliseconds(999)
+          )
+        ),
+      ]);
       setResetDate(true);
     }
 
     if (btnType === "week") {
-      setStartCalendar(now2);
-      setEndCalendar(new Date(now.setDate(now.getDate() + 7, now.getTime())));
+      setCalendarRange([
+        today,
+        new Date(
+          now.setDate(
+            now.getDate() +
+              (now.getDay() === 0 ? now.getDay() : 7 - now.getDay()),
+            now.setHours(23),
+            now.setMinutes(59),
+            now.setSeconds(59),
+            now.setMilliseconds(999)
+          )
+        ),
+      ]);
       setResetDate(true);
     }
 
-    if (btnType === "month") {
-      setStartCalendar(now2);
-      setEndCalendar(
-        new Date(
-          now.getFullYear(),
-          now.getMonth() + 1,
-          now.getDate(),
-          now.getHours()
-        )
-      );
-      setResetDate(false);
+    if (btnType === "semester") {
+      setCalendarRange([...calculateSemesterDate()]);
+      setResetDate(true);
     }
   };
 
   const resetDateHandler = () => {
-    const now = new Date();
-    const now2 = new Date();
     setResetDate(false);
-    setStartCalendar(now2);
-    setEndCalendar(
-      new Date(
-        now.getFullYear(),
-        now.getMonth() + 1,
-        now.getDate(),
-        now.getHours()
-      )
-    );
+    setCalendarRange(calculateSemesterDate(true));
+  };
+
+  const changeDateHandler = (date) => {
+    if (date.length === 1) {
+      let calendarDate = new Date(date);
+      date.push(
+        new Date(
+          calendarDate.setDate(
+            calendarDate.getDate(),
+            calendarDate.setHours(23),
+            calendarDate.setMinutes(59),
+            calendarDate.setSeconds(59),
+            calendarDate.setMilliseconds(999)
+          )
+        )
+      );
+    }
+    setCalendarRange(date);
+    setResetDate(true);
   };
 
   return (
@@ -158,35 +141,27 @@ const CalendarInput = (props) => {
           showBtnModal ? classes.calendarInput : classes.calendarInputNoBorder
         }
       >
-        <div className={classes.inputs}>
+        <div
+          className={showBtnModal ? classes.input : classes.inputPlaceholder}
+        >
           <input
-            className={
-              pickStartDate
-                ? `${classes.startDate} ${classes.active}`
-                : classes.startDate
-            }
+            className={classes.dateRange}
             type="text"
-            name="startDate"
-            value={formatDate(startCalendar)}
-            readOnly
-            onClick={startDateHandler}
-          />
-          <input
-            className={
-              pickEndDate
-                ? `${classes.endDate} ${classes.active}`
-                : classes.endDate
+            name="dateRange"
+            value={
+              showBtnModal
+                ? `${formatDate(calendarRange[0])} - ${formatDate(
+                    calendarRange[1]
+                  )}`
+                : "Ajavahemik"
             }
-            type="text"
-            name="endDate"
-            value={formatDate(endCalendar)}
             readOnly
-            onClick={endDateHandler}
+            onClick={toggleCalendarHandler}
           />
         </div>
 
         <div className={classes.icons}>
-          {resetDate && (
+          {showBtnModal && resetDate && (
             <FontAwesomeIcon
               onClick={resetDateHandler}
               className={classes.xmark}
@@ -194,57 +169,47 @@ const CalendarInput = (props) => {
             />
           )}
           <div className={classes.verticalStripe} />
-          <FontAwesomeIcon
-            icon={faAngleDown}
-            className={classes.openIcon}
-            onClick={closeCalendarHandler}
-          />
+          <div className={classes.openIcon}>
+            <FontAwesomeIcon
+              icon={faAngleDown}
+              onClick={toggleCalendarHandler}
+            />
+          </div>
         </div>
       </div>
       {showBtnModal && (
-        <div className={classes.dateBtnContainer}>
-          <div className={classes.btnRow}>
-            <button onClick={buttonDateHandler} name="today">
-              Täna
-            </button>
-            <button onClick={buttonDateHandler} name="tomorrow">
-              Homme
-            </button>
+        <>
+          <div className={classes.calendar}>
+            <Calendar
+              onChange={changeDateHandler}
+              value={calendarRange}
+              locale="et-EE"
+              showWeekNumbers={true}
+              className="filters"
+              selectRange={true}
+              allowPartialRange={true}
+            />
           </div>
-          <div className={classes.btnRow}>
-            <button onClick={buttonDateHandler} name="week">
-              Nädal
-            </button>
-            <button onClick={buttonDateHandler} name="month">
-              Kuu
-            </button>
+          <div className={classes.dateBtnContainer}>
+            <div className={classes.btnRow}>
+              <button onClick={buttonDateHandler} name="today">
+                Täna
+              </button>
+              <button onClick={buttonDateHandler} name="tomorrow">
+                Homme
+              </button>
+            </div>
+            <div className={classes.btnRow}>
+              <button onClick={buttonDateHandler} name="week">
+                Nädal
+              </button>
+              <button onClick={buttonDateHandler} name="semester">
+                Semester
+              </button>
+            </div>
           </div>
-        </div>
+        </>
       )}
-      <div className={classes.calendar}>
-        {pickStartDate && (
-          <Calendar
-            onClickDay={changeCalendarStartHandler}
-            onChange={setStartCalendar}
-            value={startCalendar}
-            locale="et-EE"
-            showWeekNumbers={true}
-            className="filters"
-            // selectRange={true}
-          />
-        )}
-        {pickEndDate && (
-          <Calendar
-            onClickDay={changeCalendarEndHandler}
-            onChange={setEndCalendar}
-            value={endCalendar}
-            locale="et-EE"
-            showWeekNumbers={true}
-            className="filters"
-            minDate={startCalendar}
-          />
-        )}
-      </div>
     </div>
   );
 };
