@@ -413,7 +413,10 @@ const Home = () => {
                       {dateService.formatWeekday(e)}
                     </div>
                     <div className={classes.scheduleDate}>
-                      {dateService.formatDate(e)}
+                      {dateService.formatDayLongMonth(e)}
+                    </div>
+                    <div className={classes.scheduleYear}>
+                      {dateService.formatYear(e)}
                     </div>
                   </div>
                   <Table

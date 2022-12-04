@@ -33,6 +33,21 @@ export const formatDate = (date) => {
   }).format(new Date(date));
 };
 
+export const formatDayLongMonth = (date) => {
+  return new Intl.DateTimeFormat("et-EE", {
+    month: "long",
+    day: "2-digit",
+    timeZone: "Europe/Riga",
+  }).format(new Date(date));
+};
+
+export const formatYear = (date) => {
+  return new Intl.DateTimeFormat("et-EE", {
+    year: "numeric",
+    timeZone: "Europe/Riga",
+  }).format(new Date(date));
+};
+
 export const formatWeekday = (date) => {
   return new Intl.DateTimeFormat("et-EE", {
     weekday: "long",
