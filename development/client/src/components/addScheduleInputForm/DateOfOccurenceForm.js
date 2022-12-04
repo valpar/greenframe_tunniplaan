@@ -161,6 +161,10 @@ const DateOfOccurenceForm = (props) => {
     }
   };
   const calendarClickHandler = (date) => {
+    if (!date) {
+      setDateValue(undefined);
+      return;
+    }
     setEnteredDateIsValid(false);
     setErrorMessages((prevState) => {
       return {
@@ -199,7 +203,7 @@ const DateOfOccurenceForm = (props) => {
         props.index
       );
     }
-    setShowCalendar((prevState) => (prevState = !prevState));
+    setShowCalendar(false);
   };
 
   const startTimeChangeHandler = (value) => {
