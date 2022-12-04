@@ -65,7 +65,6 @@ const Home = () => {
     ) {
       return [...data.filter((e) => e[obj[0].value] === undefined)];
     }
-
     return [...obj, ...filteredObj];
   };
 
@@ -136,7 +135,7 @@ const Home = () => {
 
     if (filterType === "startTime") {
       const reverseDate = (str) => {
-        return str.split(".").reverse().join(".");
+        return str.split(".").reverse().join("-");
       };
       filteredeData.push(
         ...rawData.filter((e) => {
@@ -157,6 +156,7 @@ const Home = () => {
     filteredeData = filteredeData.filter(
       (value, index, self) => index === self.findIndex((t) => t.id === value.id)
     );
+
     return filteredeData;
   };
 
@@ -218,6 +218,7 @@ const Home = () => {
     }
     if (hasStartTime) {
       setFilteredData((prevState) => {
+        // console.log(scheduleFilter(dropdownsSelection, data, "startTime"));
         return [
           ...scheduleFilter(
             dropdownsSelection,
@@ -285,6 +286,10 @@ const Home = () => {
     : userLecturer
     ? "https://images.pexels.com/photos/4342401/pexels-photo-4342401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     : "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600";
+
+  // useEffect(() => {
+  //   console.log(filteredData);
+  // }, [filteredData]);
 
   return (
     <Fragment>
