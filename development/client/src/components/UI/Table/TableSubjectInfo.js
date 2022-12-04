@@ -7,6 +7,8 @@ import AddHomework from "../../addHomework/AddHomework";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import axios from "axios";
 import config from "../../../config.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
 const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(
@@ -335,11 +337,13 @@ const TableSubjectInfo = (props) => {
 
   return (
     <Fragment>
-      <tr
-        className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
-      >
-        <td colSpan={3} style={{ borderRight: "0rem" }}>
-          {editMode ? "Kommentaar:" : "Õppeinfo:"}
+      <tr className={classes.lectureInfoHeading}>
+        <td
+          colSpan={3}
+          style={{ borderRight: "0rem" }}
+          className={classes.subjectInfoHeading}
+        >
+          <h6> {editMode ? "ÕPPEINFO MUUTMINE" : "ÕPPEINFO"}</h6>
         </td>
         <td colSpan={4} className={classes.actions}>
           {(props.userLecturer || props.admin) && !editMode && (
@@ -359,10 +363,11 @@ const TableSubjectInfo = (props) => {
                   />
                 </div>
               )}
-              <i
+              <FontAwesomeIcon
                 onClick={showSaveConfirmHandler}
-                className={`${classes.confirmIcon} bi bi-check-lg`}
-              ></i>
+                icon={faFloppyDisk}
+                className={classes.confirmIcon}
+              />
             </>
           )}
           {editMode && extraInfoCloseConfirm && (
@@ -380,6 +385,13 @@ const TableSubjectInfo = (props) => {
           ></i>
         </td>
       </tr>
+      {editMode && (
+        <tr
+          className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
+        >
+          <td colSpan={4}>Kommentaar:</td>
+        </tr>
+      )}
       {editMode && (
         <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
           <td colSpan={4}>
@@ -444,7 +456,9 @@ const TableSubjectInfo = (props) => {
 
       {editMode && (
         <>
-          <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
+          <tr
+            className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
+          >
             <td colSpan={4}>{`Iseseisev töö:`}</td>
           </tr>
           <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
@@ -486,7 +500,9 @@ const TableSubjectInfo = (props) => {
 
       {editMode && (
         <>
-          <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
+          <tr
+            className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
+          >
             <td colSpan={4}>{`Videoloengu link:`}</td>
           </tr>
           <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
