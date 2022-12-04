@@ -115,15 +115,14 @@ const TableSubjectInfo = (props) => {
   }, [homeworkResponse, homeworkError, homeworkLoading, editMode]);
 
   const addExtraInfoHandler = (event, index) => {
-    console.log(event.value);
     let fieldName = "";
     let newValue = "";
-    if (event.target) {
+    if (event?.target) {
       fieldName = event.target.name;
       newValue = event.target.value;
     }
-    const removeDate = event.target?.id === "removeDate" ? true : false;
-    const isDueDate = !event.target && !event.name ? true : false;
+    const removeDate = event?.target?.id === "removeDate" ? true : false;
+    const isDueDate = !event?.target && !event?.name && event ? true : false;
 
     if (event?.name === "comment") {
       const commentLenghtValid = event?.value?.length < 50;
@@ -133,8 +132,9 @@ const TableSubjectInfo = (props) => {
     const homework =
       fieldName === "description" ||
       isDueDate ||
-      event.name === "extraLink" ||
-      event.target?.id === "removeDate";
+      event?.name === "extraLink" ||
+      event?.target?.id === "removeDate" ||
+      !event;
 
     setEnteredInfo((prevState) => ({
       comment: event?.name === "comment" ? event.value : prevState.comment,
@@ -149,9 +149,11 @@ const TableSubjectInfo = (props) => {
                   ? new Date(event).toISOString()
                   : removeDate
                   ? ""
+                  : !event
+                  ? ""
                   : obj.dueDate,
                 extrasLink:
-                  event.name === "extraLink" ? event.value : obj.extrasLink,
+                  event?.name === "extraLink" ? event?.value : obj.extrasLink,
               };
             return obj;
           })

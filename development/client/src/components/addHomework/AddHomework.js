@@ -42,7 +42,7 @@ const AddHomework = (props) => {
   };
 
   const changeHandler = (event) => {
-    if (event.target) {
+    if (event?.target) {
       event.preventDefault();
     }
     if (event?.name === "extraLink") {
@@ -51,9 +51,13 @@ const AddHomework = (props) => {
         props.index
       );
     }
-    if (!event.target && !event.name) {
-      setShowCalendar((prevState) => (prevState = !prevState));
-      setDateValue(event);
+    if (!event?.target && !event?.name) {
+      if (event) {
+        setShowCalendar(false);
+        setDateValue(event);
+      } else {
+        setDateValue(undefined);
+      }
     }
     props.onChange(event, props.index);
   };
