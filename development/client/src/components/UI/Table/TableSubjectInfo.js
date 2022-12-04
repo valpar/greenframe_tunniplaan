@@ -160,7 +160,8 @@ const TableSubjectInfo = (props) => {
         const dueDate = enteredInfo.homeworks[i]?.dueDate;
         const extrasLink = enteredInfo.homeworks[i]?.extrasLink;
         const dateValid =
-          dueDate?.length === 0 || dueDate.substring(0, 10) >= new Date().toISOString().substring(0, 10);
+          dueDate?.length === 0 ||
+          dueDate.substring(0, 10) >= new Date().toISOString().substring(0, 10);
         return {
           descriptionValid:
             description?.length === 0 &&
@@ -309,7 +310,6 @@ const TableSubjectInfo = (props) => {
         }
       });
 
-    
       setEnteredInfo({
         comment: "",
         homeworks: [{ id: null, description: "", dueDate: "", extrasLink: "" }],
@@ -402,7 +402,6 @@ const TableSubjectInfo = (props) => {
           ? homeworkResponse.homework
           : enteredInfo.homeworks
         ).map((homework, i) => {
-
           return (
             <>
               {i === 0 && (
@@ -434,11 +433,11 @@ const TableSubjectInfo = (props) => {
                   )}`}</strong>
                 </td>
               </tr>
-                <tr key={i + 2000000} className={`${classes.line}`}>
-                  <td colSpan={4}>
-                    <hr></hr>
-                  </td>
-                </tr>
+              <tr key={i + 2000000} className={`${classes.line}`}>
+                <td colSpan={4}>
+                  <hr></hr>
+                </td>
+              </tr>
             </>
           );
         })}
@@ -508,12 +507,13 @@ const TableSubjectInfo = (props) => {
         <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
           <td colSpan={4}>
             <div className={classes.btnSubjectCard}>
+              {`AINEKAART: `}
               <a
                 href={`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                AINEKAART
+                {props.item.subject.subjectCode}
               </a>
             </div>
           </td>
