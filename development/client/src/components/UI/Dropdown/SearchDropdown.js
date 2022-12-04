@@ -1,8 +1,11 @@
-import { useCallback } from "react";
-import Select, { CommonProps } from "react-select";
+import { useCallback, useState } from "react";
+import Select, { components } from "react-select";
 import classes from "./SearchDropdown.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 const SearchDropdown = (props) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const changeHandler = (choice) => {
     let newArrayOfObj;
     if (props.isMulti) {
@@ -36,6 +39,27 @@ const SearchDropdown = (props) => {
     },
     [props.reset]
   );
+
+  const DropdownIndicator = (props) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        {!isMenuOpen && (
+          <FontAwesomeIcon icon={faAngleDown} className={classes.arrowIcon} />
+        )}
+        {isMenuOpen && (
+          <FontAwesomeIcon icon={faAngleUp} className={classes.arrowIcon} />
+        )}
+      </components.DropdownIndicator>
+    );
+  };
+
+  const menuOpenHandler = () => {
+    setIsMenuOpen(true);
+  };
+  const menuCloseHandler = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <div
       className={
@@ -45,6 +69,9 @@ const SearchDropdown = (props) => {
       {props.topLabel && <label>{props.topLabel}</label>}
       <div className={classes.btnHover} />
       <Select
+        onMenuClose={menuCloseHandler}
+        onMenuOpen={menuOpenHandler}
+        components={{ DropdownIndicator }}
         ref={refChangeHandler}
         value={props?.reset ? "" : undefined}
         placeholder={props.label}

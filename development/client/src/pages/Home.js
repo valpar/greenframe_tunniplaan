@@ -9,7 +9,7 @@ import ScheduleAddition from "../components/scheduleAddition/ScheduleAddition";
 import Table from "../components/UI/Table/Table";
 import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { calculateSemesterDate } from "../utils/Calculate/Semester";
 
 const Home = () => {
@@ -371,10 +371,18 @@ const Home = () => {
                   <button onClick={addScheduleHandler} type="button">
                     LISA
                   </button>
-                  <FontAwesomeIcon
-                    icon={faAngleRight}
-                    className={classes.faAngleRight}
-                  />
+                  {!addSchedule && (
+                    <FontAwesomeIcon
+                      icon={faAngleRight}
+                      className={classes.faAngleRight}
+                    />
+                  )}
+                  {addSchedule && (
+                    <FontAwesomeIcon
+                      icon={faAngleLeft}
+                      className={classes.faAngleRight}
+                    />
+                  )}
                 </div>
               )}
               {!admin && !userLecturer && (
