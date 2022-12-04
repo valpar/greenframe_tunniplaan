@@ -338,8 +338,12 @@ const TableSubjectInfo = (props) => {
       <tr
         className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
       >
-        <td colSpan={3} style={{ borderRight: "0rem" }}>
-          {editMode ? "Kommentaar:" : "Õppeinfo:"}
+        <td
+          colSpan={3}
+          style={{ borderRight: "0rem" }}
+          className={classes.subjectInfoHeading}
+        >
+          <h6> {editMode ? "ÕPPEINFO MUUTMINE" : "ÕPPEINFO"}</h6>
         </td>
         <td colSpan={4} className={classes.actions}>
           {(props.userLecturer || props.admin) && !editMode && (
@@ -380,6 +384,13 @@ const TableSubjectInfo = (props) => {
           ></i>
         </td>
       </tr>
+      {editMode && (
+        <tr
+          className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
+        >
+          <td colSpan={4}>Kommentaar:</td>
+        </tr>
+      )}
       {editMode && (
         <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
           <td colSpan={4}>
@@ -444,7 +455,9 @@ const TableSubjectInfo = (props) => {
 
       {editMode && (
         <>
-          <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
+          <tr
+            className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
+          >
             <td colSpan={4}>{`Iseseisev töö:`}</td>
           </tr>
           <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
@@ -486,7 +499,9 @@ const TableSubjectInfo = (props) => {
 
       {editMode && (
         <>
-          <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
+          <tr
+            className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
+          >
             <td colSpan={4}>{`Videoloengu link:`}</td>
           </tr>
           <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
