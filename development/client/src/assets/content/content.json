@@ -1,0 +1,66 @@
+{
+  "errorMessages": {
+    "mandatoryField": "Kohutuslik väli!",
+    "mandatoryFields": "Täitmata väljad!",
+    "requiresDate": "Muutmiseks vali kuupäev!",
+    "requiresEndDate": "Muutmiseks sisesta loengu lõpp!",
+    "notUniqueDate": "Kuupäev ei ole unikaalne",
+    "brokenLink": "Vigane link!",
+    "brokenEmail": "Vigane email",
+    "maxCommentSize": "MAX PIKKUS 50 TÄHEMÄRKI!",
+    "datePassed": "KUUPÄEV ON MÖÖDAS",
+    "lecturerExists": "Õppejõud olemas",
+    "courseExists": "Kursus eksisteerib",
+    "courseShortExists": "Lühend eksisteerib",
+    "roomExists": "Ruum on olemas",
+    "subjectCodeExists": "Kood eksisteerib",
+    "workLoadMessage": "Maht numbrites"
+  },
+  "confirmModalMessages": {
+    "withoutSaveMessage": "SULGE ILMA SALVESTAMATA?",
+    "saveMessage": "SALVESTA?",
+    "deleteRowMessage": "KAS SOOVID REA KUSTUDADA?",
+    "lecturerOccupiedMessage": "ÕPPEJÕUD ON HÕIVATUD",
+    "roomOccuiedMessage": "RUUM ON HÕIVATUD",
+    "deleteMessage": "KINNITA KUSTUTAMINE",
+    "updateConfirmMessage": "KAS SOOVID MUUTA?",
+    "roomHasActiveLectures": "RUUM EKSISTEERIB TUNNIPLAANIS. KAS SOOVID KUSTUDADA?",
+    "courseHasActiveLectures": "KURSUS EKSISTEERIB TUNNIPLAANIS. KAS SOOVID KUSTUDADA?",
+    "lecturerHasActiveLectures": "ÕPPEJÕUD EKSISTEERIB TUNNIPLAANIS. KAS SOOVID KUSTUDADA?",
+    "subjectHasActiveLectures": "ÕPPEAINE EKSISTEERIB TUNNIPLAANIS. KAS SOOVID KUSTUDADA?"
+  },
+  "successMessages": {
+    "create": "Lisamine õnnestus!",
+    "update": "Muutmine õnnestus!",
+    "delete": "Kustutamine õnnestus!"
+  },
+  "lectureInformation": {
+    "lectureInfo": {
+      "name": "ÕPPEINFO",
+      "editName": "ÕPPEINFO MUUTMINE"
+    },
+    "homeworkContent": {
+      "name": "Iseseisev töö:",
+      "placeholder": "Iseseisva töö kirjeldus..."
+    },
+    "studyMaterials": {
+      "name": "Õppematerjalid",
+      "placeholder": "Õppematerjalide link"
+    },
+    "deadline": {
+      "name": "Tähtaeg:",
+      "placeholder": "Tähtaeg:"
+    },
+    "comment": {
+      "name": "Kommentaar:",
+      "placeholder": "Kommentaar tunniplaani"
+    },
+    "videoLecture": {
+      "name": "VIDEOLOENG",
+      "editName": "Videoloengu link:",
+      "placeholder": "URL kujul"
+    },
+    "subjectCard": "AINEKAART:",
+    "nextLectures": "Järgmised toimumisajad:"
+  }
+}

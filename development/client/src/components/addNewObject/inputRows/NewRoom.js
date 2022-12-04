@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import InputWithPlaceholder from "../../UI/Input/InputWithPlaceholder";
 import classes from "./NewRoom.module.css";
+import content from "../../../assets/content/content.json";
 
 const NewRoom = (props) => {
   const { onChange, index } = props;
@@ -11,6 +12,9 @@ const NewRoom = (props) => {
   const [errorMessage, setErrorMessages] = useState({
     room: "",
   });
+
+  const { roomExists, mandatoryField } = content.errorMessages;
+
   useEffect(() => {
     if (props.editMode) {
       setEnteredRoomData(
@@ -33,7 +37,7 @@ const NewRoom = (props) => {
         ? setErrorMessages((prevState) => {
             return {
               ...prevState,
-              room: roomExists ? "RUUM ON OLEMAS" : "KOHUSTUSLIK",
+              room: roomExists ? roomExists : mandatoryField,
             };
           })
         : setErrorMessages((prevState) => {

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import InputWithPlaceholder from "../../UI/Input/InputWithPlaceholder";
 import classes from "./NewSubject.module.css";
+import content from "../../../assets/content/content.json";
 
 const NewSubject = (props) => {
   const { onChange, index } = props;
@@ -15,6 +16,9 @@ const NewSubject = (props) => {
     subjectCode: "",
     creditPoint: "",
   });
+
+  const { subjectCodeExists, mandatoryField, workLoadMessage } =
+    content.errorMessages;
 
   useEffect(() => {
     if (props.editMode) {
@@ -43,7 +47,7 @@ const NewSubject = (props) => {
         ? setErrorMessages((prevState) => {
             return {
               ...prevState,
-              subject: "KOHUSTUSLIK",
+              subject: mandatoryField,
             };
           })
         : setErrorMessages((prevState) => {
@@ -62,7 +66,7 @@ const NewSubject = (props) => {
         ? setErrorMessages((prevState) => {
             return {
               ...prevState,
-              subjectCode: codeExists ? "KOOD EKSISTEERIB" : "KOHUSTUSLIK",
+              subjectCode: codeExists ? subjectCodeExists : mandatoryField,
             };
           })
         : setErrorMessages((prevState) => {
@@ -78,7 +82,7 @@ const NewSubject = (props) => {
         setErrorMessages((prevState) => {
           return {
             ...prevState,
-            creditPoint: "MAHT NUMBRITES",
+            creditPoint: workLoadMessage,
           };
         });
       } else {

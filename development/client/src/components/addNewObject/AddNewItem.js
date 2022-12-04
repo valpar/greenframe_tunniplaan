@@ -11,41 +11,28 @@ import NewCourse from "./inputRows/NewCourse";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
 import config from "../../config.json";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
+import content from "../../assets/content/content.json";
 
 axios.defaults.baseURL = config.api.url;
 
 const AddNewItem = (props) => {
+  const {
+    deleteMessage,
+    roomHasActiveLecturers,
+    courseHasActiveLecturers,
+    lecturerHasActiveLecturers,
+    subjectHasActiveLecturers,
+    saveMessage,
+  } = content.confirmModalMessages;
+  const { mandatoryFields } = content.errorMessages;
+
   const [inputsState, setInputsState] = useState([{}]);
   const [inputsAreValid, setInputsAreValid] = useState([{ inputs: false }]);
   const [validSubmit, setValidSubmit] = useState(true);
   const [responseId, setResponseId] = useState();
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [showUpdateConfirmModal, setShowUpdateConfirmModal] = useState(false);
-  const [deleteModalMessage, setDeleteModalMessage] = useState("KUSTUTA");
-
-  console.log(props.editValues);
-  console.log(props.modalFor);
-  // useEffect(() => {
-  //   if (props.modalFor === "rooms" && props.editMode) {
-  //     setInputsState(
-  //       props.roomsData.rooms.filter((e) => {
-  //         let arr = props.editValues.filter((room) => room.roomId === e.id);
-  //         return arr.length !== 0 ? { room: e.room } : false;
-  //       })
-  //     );
-  //   }
-  //   if (props.modalFor === "lecturers" && props.editMode) {
-  //     setInputsState(
-  //       props.lecturerData.lecturers.filter((e) => {
-  //         let arr = props.editValues.filter(
-  //           (lecturer) => lecturer.lecturerId === e.id
-  //         );
-  //         console.log(arr);
-  //         return arr.length !== 0 ? { lecturer: e.lecturer } : false;
-  //       })
-  //     );
-  //   }
-  // }, []);
+  const [deleteModalMessage, setDeleteModalMessage] = useState(deleteMessage);
 
   const inputsChangeHandler = (inputsObj, rowIndex, validInputs) => {
     setInputsState((prevState) =>
@@ -155,21 +142,13 @@ const AddNewItem = (props) => {
       });
 
       if (props.modalFor === "rooms" && roomBooked.length > 0)
-        setDeleteModalMessage(
-          "RUUM EKSISTEERIB TUNNIPLAANIS. KAS SOOVID KUSTUDADA?"
-        );
+        setDeleteModalMessage(roomHasActiveLecturers);
       if (props.modalFor === "courses" && courseBooked.length > 0)
-        setDeleteModalMessage(
-          "KURSUS EKSISTEERIB TUNNIPLAANIS. KAS SOOVID KUSTUDADA?"
-        );
+        setDeleteModalMessage(courseHasActiveLecturers);
       if (props.modalFor === "lecturers" && lecturerBooked.length > 0)
-        setDeleteModalMessage(
-          "ÕPPEJÕUD EKSISTEERIB TUNNIPLAANIS. KAS SOOVID KUSTUDADA?"
-        );
+        setDeleteModalMessage(lecturerHasActiveLecturers);
       if (props.modalFor === "subject" && subjectBooked.length > 0)
-        setDeleteModalMessage(
-          "ÕPPEAINE EKSISTEERIB TUNNIPLAANIS. KAS SOOVID KUSTUDADA?"
-        );
+        setDeleteModalMessage(subjectHasActiveLecturers);
       setShowDeleteConfirmModal(true);
     }
 
@@ -360,7 +339,7 @@ const AddNewItem = (props) => {
                 : classes.confirmErrorAdd
             }
           >
-            <TooltipLarge message={"TÄITMATA VÄLJAD"} />
+            <TooltipLarge message={mandatoryFields} />
           </div>
         )}
 
@@ -385,7 +364,7 @@ const AddNewItem = (props) => {
             <ConfirmModal
               onDecline={declineUpdateHandler}
               onConfirm={props.editMode ? updateItemHandler : submitItemHandler}
-              modalMessage="KINNITA"
+              modalMessage={saveMessage}
               bottomArrow={true}
             />
           </div>
