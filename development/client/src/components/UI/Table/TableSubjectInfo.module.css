@@ -1,3 +1,19 @@
+.lectureInfoHeading {
+  border-left: 0.1rem solid #cecece;
+  border-right: 0.1rem solid #cecece;
+}
+.subjectInfoHeading {
+  text-align: right !important;
+  padding-top: 0.5rem;
+  padding-right: 30%;
+  padding-left: 41% !important;
+}
+.subjectInfoHeading h6 {
+  text-align: center;
+  height: 0.8rem;
+  font-weight: bold;
+  min-width: 11rem !important;
+}
 .extraRowInfo.rowInfo td {
   padding-left: 0.5rem;
   padding-bottom: 1rem;
@@ -42,35 +58,23 @@
   border-right: 0.1rem solid #cecece;
   border-bottom: 0.1rem solid #cecece;
 }
-.subjectInfoHeading {
-  text-align: right !important;
-  padding-right: 30%;
-  padding-left: 41% !important;
-}
-.subjectInfoHeading h6 {
-  text-align: center;
-  font-weight: bold;
-  min-width: 11rem !important;
-}
-.actions {
-  border-left: 0rem solid !important;
-  text-align: end !important;
-}
+
 .editIcon {
   cursor: pointer;
   margin-right: 0.3rem;
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
 .confirmIcon {
   cursor: pointer;
   margin-right: 0.3rem;
-  font-size: 1.8em;
+  font-size: 1.3em;
 }
 .closeIcon {
   cursor: pointer;
   z-index: 1;
   margin-right: 0.5rem;
-  font-size: 1.5em;
+  height: 1rem;
+  font-size: 1.2em;
 }
 .closeConfirmInfo {
   position: absolute;
@@ -108,4 +112,9 @@
 .line hr {
   margin-left: 1%;
   width: 98%;
+}
+.actions {
+  padding-top: 0.5rem;
+  border-left: 0rem solid !important;
+  text-align: end !important;
 }

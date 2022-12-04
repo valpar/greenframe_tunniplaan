@@ -7,6 +7,8 @@ import AddHomework from "../../addHomework/AddHomework";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import axios from "axios";
 import config from "../../../config.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
 const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(
@@ -335,9 +337,7 @@ const TableSubjectInfo = (props) => {
 
   return (
     <Fragment>
-      <tr
-        className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
-      >
+      <tr className={classes.lectureInfoHeading}>
         <td
           colSpan={3}
           style={{ borderRight: "0rem" }}
@@ -363,10 +363,11 @@ const TableSubjectInfo = (props) => {
                   />
                 </div>
               )}
-              <i
+              <FontAwesomeIcon
                 onClick={showSaveConfirmHandler}
-                className={`${classes.confirmIcon} bi bi-check-lg`}
-              ></i>
+                icon={faFloppyDisk}
+                className={classes.confirmIcon}
+              />
             </>
           )}
           {editMode && extraInfoCloseConfirm && (
