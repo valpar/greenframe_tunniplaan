@@ -8,6 +8,8 @@ import Select, {
 import classes from "./AddDropdown.module.css";
 import TooltipLarge from "../Tooltip/TooltipLarge";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 const Control = ({ children, ...props }) => {
   const { icon, onEdit, showPencil } = props.selectProps;
@@ -25,6 +27,7 @@ const Control = ({ children, ...props }) => {
 };
 
 const AddDropdown = (props) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [menuIsOpen, setMenuIsOpen] = useState(undefined);
   const [showPencil, setShowPencil] = useState(false);
@@ -32,7 +35,7 @@ const AddDropdown = (props) => {
   const icon = <i className="bi bi-pencil-fill"></i>;
 
   const styles = {
-    control: (css) => ({ ...css, paddingLeft: "0.6rem" }),
+    control: (css) => ({ ...css, paddingLeft: "0.6rem", borderRadius: "none" }),
   };
 
   const changeHandler = (choice) => {
@@ -92,6 +95,25 @@ const AddDropdown = (props) => {
     setShowConfirmModal(false);
     props.onEdit(props.value);
   };
+  const DropdownIndicator = (props) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        {!isMenuOpen && (
+          <FontAwesomeIcon icon={faAngleDown} className={classes.arrowIcon} />
+        )}
+        {isMenuOpen && (
+          <FontAwesomeIcon icon={faAngleUp} className={classes.arrowIcon} />
+        )}
+      </components.DropdownIndicator>
+    );
+  };
+
+  const menuOpenHandler = () => {
+    setIsMenuOpen(true);
+  };
+  const menuCloseHandler = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
     <div
@@ -109,12 +131,14 @@ const AddDropdown = (props) => {
       )}
 
       <Select
+        onMenuClose={menuCloseHandler}
+        onMenuOpen={menuOpenHandler}
         showPencil={showPencil}
         menuIsOpen={menuIsOpen}
         isSearchable
         icon={icon}
         onEdit={editHandler}
-        components={{ Control }}
+        components={{ Control, DropdownIndicator }}
         styles={styles}
         placeholder={props.label}
         options={props.options}

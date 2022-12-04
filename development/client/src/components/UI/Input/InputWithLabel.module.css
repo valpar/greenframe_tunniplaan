@@ -11,10 +11,16 @@
   padding-left: 0.1rem;
 }
 .container input {
-  border-radius: 0.2rem;
-  border: 0.1rem solid rgb(202, 202, 202);
+  border: 0.1rem solid #cecece8c;
   height: 2.36rem;
   padding-left: 0.4rem;
+}
+.container input:focus {
+  outline-style: solid;
+  outline-color: black;
+}
+.container input:active {
+  color: black;
 }
 
 .errorHandling input {
