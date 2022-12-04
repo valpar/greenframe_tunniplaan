@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import InputWithPlaceholder from "../../UI/Input/InputWithPlaceholder";
 import classes from "./NewCourse.module.css";
+import content from "../../../assets/content/content.json";
 
 const NewCourse = (props) => {
   const { onChange, index } = props;
@@ -13,6 +14,9 @@ const NewCourse = (props) => {
     courseName: "",
     courseCode: "",
   });
+
+  const { courseExists, mandatoryField, courseShortExists } =
+    content.errorMessages;
 
   useEffect(() => {
     if (props.editMode) {
@@ -47,9 +51,7 @@ const NewCourse = (props) => {
         ? setErrorMessages((prevState) => {
             return {
               ...prevState,
-              courseName: courseNameExists
-                ? "LÜHEND EKSISTEERIB"
-                : "KOHUSTUSLIK",
+              courseName: courseNameExists ? courseShortExists : mandatoryField,
             };
           })
         : setErrorMessages((prevState) => {
@@ -68,9 +70,7 @@ const NewCourse = (props) => {
         ? setErrorMessages((prevState) => {
             return {
               ...prevState,
-              courseCode: courseCodeExists
-                ? "KURSUS EKSISTEERIB"
-                : "KOHUSTUSLIK",
+              courseCode: courseCodeExists ? courseExists : mandatoryField,
             };
           })
         : setErrorMessages((prevState) => {

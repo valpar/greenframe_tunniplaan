@@ -8,6 +8,7 @@ import AddNewItem from "../addNewObject/AddNewItem";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
 import config from "../../config.json";
+import content from "../../assets/content/content.json";
 
 axios.defaults.baseURL = config.api.url;
 
@@ -32,6 +33,11 @@ const ScheduleAddition = (props) => {
       distanceLink: "",
     },
   ]);
+
+  const { lecturerOccupiedMessage, roomOccupiedMessage, deleteMessage } =
+    content.confirmModalMessages;
+  const { mandatoryField } = content.errorMessages;
+
   useEffect(() => {
     if (props.editMode) {
       setAddedLecture([
@@ -353,7 +359,7 @@ const ScheduleAddition = (props) => {
         setShowConfirmModal({
           type: "lecturer",
           show: true,
-          message: "ÕPPEJÕUD ON HÕIVATUD",
+          message: lecturerOccupiedMessage,
         });
       }
     }
@@ -402,7 +408,7 @@ const ScheduleAddition = (props) => {
         setShowConfirmModal({
           type: "room",
           show: true,
-          message: "RUUM ON HÕIVATUD",
+          message: roomOccupiedMessage,
         });
       }
     }
@@ -471,7 +477,7 @@ const ScheduleAddition = (props) => {
       setErrorMessages((prevState) => {
         return {
           ...prevState,
-          subject: "ÕPPEAINE ON KOHUSTUSLIK",
+          subject: mandatoryField,
         };
       });
     }
@@ -740,7 +746,7 @@ const ScheduleAddition = (props) => {
               <div className={classes.deleteConfirm}>
                 <ConfirmModal
                   bottomArrow={true}
-                  modalMessage="KINNITA KUSTUTAMINE"
+                  modalMessage={deleteMessage}
                   onDecline={closeDeleteConfirm}
                   onConfirm={deleteScheduleRowHandler}
                 />

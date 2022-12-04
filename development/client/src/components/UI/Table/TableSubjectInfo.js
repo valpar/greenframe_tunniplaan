@@ -7,6 +7,7 @@ import AddHomework from "../../addHomework/AddHomework";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import axios from "axios";
 import config from "../../../config.json";
+import content from "../../../assets/content/content.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
@@ -44,6 +45,19 @@ const TableSubjectInfo = (props) => {
   const [extraInfoSaveConfirm, setExtraInfoSaveConfirm] = useState(false);
   const [commentValid, setCommentValid] = useState(true);
   const [updateRequest, setUpdateRequest] = useState(true);
+  const {
+    lectureInfo,
+    homeworkContent,
+    studyMaterials,
+    deadline,
+    comment,
+    videoLecture,
+    subjectCard,
+    nextLectures,
+  } = content.lectureInformation;
+  const { brokenLink, maxCommentSize, mandatoryField, datePassed } =
+    content.errorMessages;
+  const { withoutSaveMessage, saveMessage } = content.confirmModalMessages;
 
   useEffect(() => {
     setEnteredInfo((prevState) => {
@@ -168,20 +182,18 @@ const TableSubjectInfo = (props) => {
           descriptionValid:
             description?.length === 0 &&
             (dueDate?.length > 0 || extrasLink?.length > 0)
-              ? { description: false, errorMessage: "KIRJELDUS LISAMATA" }
+              ? { description: false, errorMessage: mandatoryField }
               : { description: true, errorMessage: "" },
           dueDateValid:
             (description?.length > 0 && dueDate.length === 0) || !dateValid
               ? {
                   dueDate: false,
-                  errorMessage: !dateValid
-                    ? "KUUPÄEV MÖÖDAS"
-                    : "TÄHTAEG LISAMATA",
+                  errorMessage: !dateValid ? datePassed : mandatoryField,
                 }
               : { dueDate: true, errorMessage: "" },
           extrasLinkValid:
             extrasLink?.length > 0 && !isValidUrl(extrasLink)
-              ? { extrasLink: false, errorMessage: "VIGANE LINK" }
+              ? { extrasLink: false, errorMessage: brokenLink }
               : { extrasLink: true, errorMessage: "" },
         };
       })
@@ -343,7 +355,7 @@ const TableSubjectInfo = (props) => {
           style={{ borderRight: "0rem" }}
           className={classes.subjectInfoHeading}
         >
-          <h6> {editMode ? "ÕPPEINFO MUUTMINE" : "ÕPPEINFO"}</h6>
+          <h6> {editMode ? lectureInfo.editName : lectureInfo.name}</h6>
         </td>
         <td colSpan={4} className={classes.actions}>
           {(props.userLecturer || props.admin) && !editMode && (
@@ -357,7 +369,7 @@ const TableSubjectInfo = (props) => {
               {editMode && extraInfoSaveConfirm && (
                 <div className={classes.saveConfirmInfo}>
                   <ConfirmModal
-                    modalMessage="SALVESTA?"
+                    modalMessage={saveMessage}
                     onConfirm={saveInformationHandler}
                     onDecline={declineHandler}
                   />
@@ -373,7 +385,7 @@ const TableSubjectInfo = (props) => {
           {editMode && extraInfoCloseConfirm && (
             <div className={classes.closeConfirmInfo}>
               <ConfirmModal
-                modalMessage="Sulge ilma salvestamata?"
+                modalMessage={withoutSaveMessage}
                 onConfirm={confirmationHandler}
                 onDecline={declineHandler}
               />
@@ -389,7 +401,7 @@ const TableSubjectInfo = (props) => {
         <tr
           className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
         >
-          <td colSpan={4}>Kommentaar:</td>
+          <td colSpan={4}>{comment.name}</td>
         </tr>
       )}
       {editMode && (
@@ -400,9 +412,9 @@ const TableSubjectInfo = (props) => {
               name="comment"
               value={enteredInfo.comment}
               hasErrors={!commentValid}
-              errorMessage={!commentValid ? "MAX PIKKUS 50 TÄHEMÄRKI" : ""}
+              errorMessage={!commentValid ? maxCommentSize : ""}
               maxLength={50}
-              placeholder="Kommentaar tunniplaanis"
+              placeholder={comment.placeholder}
             />
           </td>
         </tr>
@@ -421,7 +433,7 @@ const TableSubjectInfo = (props) => {
                   key={i + 1000000}
                   className={`${classes.extraRowInfo} ${classes.rowHeading}`}
                 >
-                  <td colSpan={4}>{`Iseseisev töö:`}</td>
+                  <td colSpan={4}>{homeworkContent.name}</td>
                 </tr>
               )}
               <tr
@@ -437,10 +449,10 @@ const TableSubjectInfo = (props) => {
                       href={homework.extrasLink}
                       className={classes.homeworksLink}
                     >
-                      Õppematerjalid
+                      {studyMaterials.name}
                     </a>
                   )}
-                  <strong>{`Tähtaeg: ${dateService.formatDate(
+                  <strong>{`${deadline.name} ${dateService.formatDate(
                     homework.dueDate
                   )}`}</strong>
                 </td>
@@ -459,7 +471,7 @@ const TableSubjectInfo = (props) => {
           <tr
             className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
           >
-            <td colSpan={4}>{`Iseseisev töö:`}</td>
+            <td colSpan={4}>{deadline.name}</td>
           </tr>
           <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
             <td colSpan={4}>
@@ -491,7 +503,7 @@ const TableSubjectInfo = (props) => {
                 target="_blank"
                 href={props.item.distanceLink}
               >
-                VIDEOLOENG
+                {videoLecture.name}
               </a>
             </div>
           </td>
@@ -503,7 +515,7 @@ const TableSubjectInfo = (props) => {
           <tr
             className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
           >
-            <td colSpan={4}>{`Videoloengu link:`}</td>
+            <td colSpan={4}>{videoLecture.editName}</td>
           </tr>
           <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
             <td colSpan={4}>
@@ -511,9 +523,9 @@ const TableSubjectInfo = (props) => {
                 onChange={addExtraInfoHandler}
                 name="distanceLink"
                 value={enteredInfo.distanceLink}
-                placeholder="URL kujul"
+                placeholder={videoLecture.placeholder}
                 hasErrors={!distanceLinkIsValid}
-                errorMessage={!distanceLinkIsValid ? "VIGANE LINK" : ""}
+                errorMessage={!distanceLinkIsValid ? brokenLink : ""}
               />
             </td>
           </tr>
@@ -523,7 +535,7 @@ const TableSubjectInfo = (props) => {
         <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
           <td colSpan={4}>
             <div className={classes.btnSubjectCard}>
-              {`AINEKAART: `}
+              {`${subjectCard} `}
               <a
                 href={`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
                 target="_blank"
@@ -535,8 +547,8 @@ const TableSubjectInfo = (props) => {
           </td>
         </tr>
       )}
-      <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
-        <td colSpan={4}>{`Järgmised toimumisajad:`}</td>
+      <tr className={classes.nextLecturesHeading}>
+        <td colSpan={4}>{nextLectures}</td>
       </tr>
       {props.rawData.map((e, i) => {
         let time1 = dateService.formatMilliseconds(e.startTime);
@@ -560,11 +572,7 @@ const TableSubjectInfo = (props) => {
           arr?.length > 0
         ) {
           return (
-            <tr
-              key={i}
-              className={`
-      ${classes.extraRowInfo} ${classes.rowInfo}`}
-            >
+            <tr key={i} className={classes.nextLectures}>
               <td colSpan={4}>{`${dateService
                 .formatDateTime(e.startTime)
                 .toString()}-${dateService

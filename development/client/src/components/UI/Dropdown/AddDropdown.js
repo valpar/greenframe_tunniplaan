@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
-import Select, {
-  components,
-  ControlProps,
-  Props,
-  StylesConfig,
-} from "react-select";
+import { useState } from "react";
+import Select, { components } from "react-select";
 import classes from "./AddDropdown.module.css";
 import TooltipLarge from "../Tooltip/TooltipLarge";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import content from "../../../assets/content/content.json";
 
 const Control = ({ children, ...props }) => {
   const { icon, onEdit, showPencil } = props.selectProps;
@@ -32,6 +28,9 @@ const AddDropdown = (props) => {
   const [menuIsOpen, setMenuIsOpen] = useState(undefined);
   const [showPencil, setShowPencil] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const { updateConfirmMessage } = content.confirmModalMessages;
+
   const icon = <i className="bi bi-pencil-fill"></i>;
 
   const styles = {
@@ -164,7 +163,7 @@ const AddDropdown = (props) => {
           <ConfirmModal
             modalMessage={
               showConfirmModal
-                ? `KAS SOOVID MUUTA`
+                ? updateConfirmMessage
                 : props.modalMessage?.message
             }
             topArrow={true}

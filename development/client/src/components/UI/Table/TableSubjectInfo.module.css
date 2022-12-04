@@ -35,6 +35,23 @@
   border-left: 0.1rem solid #cecece;
   border-right: 0.1rem solid #cecece;
 }
+.nextLecturesHeading td {
+  font-weight: bold;
+  padding-left: 0.5rem;
+  padding-bottom: 0.1rem;
+  text-align: left;
+  font-size: 0.65em;
+  border-left: 0.1rem solid #cecece;
+  border-right: 0.1rem solid #cecece;
+}
+.nextLectures td {
+  padding-left: 0.5rem;
+  padding-bottom: 0.1rem;
+  text-align: left;
+  font-size: 0.65em;
+  border-left: 0.1rem solid #cecece;
+  border-right: 0.1rem solid #cecece;
+}
 .extraRowInfo.rowHeading td:nth-child(1) {
   padding-left: 0.5rem;
   padding-bottom: 1rem;

@@ -3,10 +3,10 @@ import classes from "./AddHomework.module.css";
 import InputWithPlaceholder from "../UI/Input/InputWithPlaceholder";
 import CalendarOneInput from "../UI/Calendar/CalendarOneInput";
 import useAutosizeTextArea from "../../hooks/useAutosizeTextArea";
-import TooltipTop from "../UI/Tooltip/TooltipTop";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
-import { formatDate, formatMilliseconds } from "../../utils/Format/Date";
+import { formatMilliseconds } from "../../utils/Format/Date";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
+import content from "../../assets/content/content.json";
 
 const addPrefix = (link) => {
   console.log(link?.includes("http://") || link?.includes("https://"));
@@ -22,6 +22,11 @@ const AddHomework = (props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [showCofirmationModal, setShowConfirmationModal] = useState(false);
+
+  const { homeworkContent, deadline, studyMaterials } =
+    content.lectureInformation;
+  const { deleteRowMessage } = content.confirmModalMessages;
+
   const addDateHandler = (event) => {
     event.preventDefault();
     setDateValue(new Date());
@@ -102,7 +107,7 @@ const AddHomework = (props) => {
           }
           onMouseEnter={mouseEnterHandler}
           onMouseLeave={mouseLeaveHandler}
-          placeholder="Iseseisva töö kirjeldus..."
+          placeholder={homeworkContent.placeholder}
           onChange={changeHandler}
           maxLength={2500}
           ref={textAreaRef}
@@ -121,7 +126,7 @@ const AddHomework = (props) => {
               {showCofirmationModal && (
                 <div className={classes.deleteConfirmation}>
                   <ConfirmModal
-                    modalMessage="Kas soovid rea kustudada?"
+                    modalMessage={deleteRowMessage}
                     onConfirm={confirmationHandler}
                     onDecline={declineHandler}
                     homework={true}
@@ -143,7 +148,7 @@ const AddHomework = (props) => {
             onShowCalendar={showCalendar}
             onClick={addDateHandler}
             value={props.homeworkData.dueDate ? date : ""}
-            placeholder="Tähtaeg"
+            placeholder={deadline.placeholder}
             index="1"
             name="dueDate"
             errorMessage={props.onErrors?.dueDateValid.errorMessage}
@@ -160,7 +165,7 @@ const AddHomework = (props) => {
         <div className={classes.extrasLink}>
           <InputWithPlaceholder
             onChange={changeHandler}
-            placeholder="Õppematerjalide link"
+            placeholder={studyMaterials.placeholder}
             name="extraLink"
             value={props.homeworkData.extrasLink}
             errorMessage={props.onErrors?.extrasLinkValid.errorMessage}

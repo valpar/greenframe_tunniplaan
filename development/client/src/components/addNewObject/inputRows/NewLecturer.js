@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import InputWithPlaceholder from "../../UI/Input/InputWithPlaceholder";
 import classes from "./NewLecturer.module.css";
+import content from "../../../assets/content/content.json";
 
 const NewLecturer = (props) => {
   const { onChange, index } = props;
@@ -15,6 +16,8 @@ const NewLecturer = (props) => {
     lastName: "",
     email: "",
   });
+
+  const { mandatoryField, brokenEmail, lecturerExists } = content.errorMessages;
 
   useEffect(() => {
     if (props.editMode) {
@@ -31,7 +34,7 @@ const NewLecturer = (props) => {
         return setErrorMessages({
           firstName: null,
           lastName: null,
-          email: "EMAIL PUUDU",
+          email: mandatoryField,
         });
       }
     }
@@ -52,7 +55,7 @@ const NewLecturer = (props) => {
         ? setErrorMessages((prevState) => {
             return {
               ...prevState,
-              firstName: "KOHUSTUSLIK",
+              firstName: mandatoryField,
             };
           })
         : setErrorMessages((prevState) => {
@@ -67,7 +70,7 @@ const NewLecturer = (props) => {
         ? setErrorMessages((prevState) => {
             return {
               ...prevState,
-              lastName: "KOHUSTUSLIK",
+              lastName: mandatoryField,
             };
           })
         : setErrorMessages((prevState) => {
@@ -95,7 +98,7 @@ const NewLecturer = (props) => {
             ? setErrorMessages((prevState) => {
                 return {
                   ...prevState,
-                  email: emailExists ? "ÕPPEJÕUD OLEMAS" : "EMAIL ON VIGANE",
+                  email: emailExists ? lecturerExists : brokenEmail,
                 };
               })
             : setErrorMessages((prevState) => {
@@ -110,7 +113,7 @@ const NewLecturer = (props) => {
             ? setErrorMessages((prevState) => {
                 return {
                   ...prevState,
-                  email: "EMAIL ON VIGANE",
+                  email: brokenEmail,
                 };
               })
             : setErrorMessages((prevState) => {
@@ -122,7 +125,7 @@ const NewLecturer = (props) => {
         setErrorMessages((prevState) => {
           return {
             ...prevState,
-            email: "KOHUSTUSLIK",
+            email: mandatoryField,
           };
         });
       }
