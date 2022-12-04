@@ -124,6 +124,9 @@
   overflow-x: hidden;
   z-index: 1;
 }
+.scheduleFilters::-webkit-scrollbar {
+  width: 0rem;
+}
 
 .addBtn button {
   background-color: #666666;
