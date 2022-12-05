@@ -22,6 +22,7 @@ const AddHomework = (props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [showCofirmationModal, setShowConfirmationModal] = useState(false);
+  const [dateIsRemoved, setDateIsRemoved] = useState(false);
 
   const { homeworkContent, deadline, studyMaterials } =
     content.lectureInformation;
@@ -67,6 +68,7 @@ const AddHomework = (props) => {
     setShowCalendar((prevState) => (prevState = false));
     setDateValue("");
     props.onChange(event, props.index);
+    setDateIsRemoved((prevState) => (prevState = !prevState));
   };
   const removeRowHandler = () => {
     setShowConfirmationModal(true);
@@ -157,6 +159,7 @@ const AddHomework = (props) => {
             name="dueDate"
             errorMessage={props.onErrors?.dueDateValid.errorMessage}
             hasError={!props.onErrors?.dueDateValid.dueDate}
+            onReset={dateIsRemoved}
           />
         </div>
         {dateValue && (

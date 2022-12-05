@@ -20,13 +20,17 @@ const CalendarOneInput = (props) => {
     );
   }, [props.value]);
 
+  useEffect(() => {
+    setInputValue();
+  }, [props.onReset]);
+
   const inputDateHandler = (inputVal) => {
     let newInput = "";
 
     const reverseDate = (str) => {
       return str.split(".").reverse().join("-");
     };
-    if (inputValue.length > inputVal.length) newInput = inputVal;
+    if (inputValue?.length > inputVal?.length) newInput = inputVal;
     else if (inputVal.match(/^(0[1-9]|[12][0-9]|3[01])$/) !== null)
       newInput = inputVal + ".";
     else if (inputVal.match(/^(0[1-9]|[12][0-9]|3[01])[.][.]$/) !== null)
