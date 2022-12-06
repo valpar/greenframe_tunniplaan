@@ -444,7 +444,7 @@ const Home = () => {
                   />
                   {noSchoolWork && (
                     <p className={classes.betweenTables}>
-                      Loengu vabad päevad!
+                      Loengutest vabad päevad!
                     </p>
                   )}
                 </div>
