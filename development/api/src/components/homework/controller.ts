@@ -94,7 +94,7 @@ const homeworkController = {
         error: "homework dueDate is missing",
       });
     } else {
-      dueDate = formatDate.forSql(dueDate);
+      dueDate = formatDate.forSqlDateTime(dueDate);
     }
 
     if (!subjectCode && !subjects_id) {
@@ -159,7 +159,7 @@ const homeworkController = {
         error: "homework dueDate is missing",
       });
     } else {
-      dueDate = formatDate.forSql(dueDate);
+      dueDate = formatDate.forSqlDateTime(dueDate);
     }
 
 
