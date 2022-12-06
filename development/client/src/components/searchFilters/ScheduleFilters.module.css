@@ -6,23 +6,20 @@
 }
 .emptyBtn {
   width: 50%;
-  height: 2.4rem;
-  background-color: #666666;
-  color: #ffffff;
-  font-weight: bold;
-  border: 0.1rem solid rgb(203, 203, 203);
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  height: 2rem;
+  background-color: #cecece00;
+  color: rgb(100, 100, 100);
+  border: 1px solid rgb(197, 197, 197);
   font-size: 0.9em;
 }
-.btnHover {
-  position: absolute;
+
+.emptyBtn:hover {
+  width: 50%;
+  height: 2rem;
+  color: black;
+  font-size: 0.9em;
+  background-color: rgb(230, 230, 230);
   border: none;
-  height: 2.3rem;
-  margin-left: 3.4rem;
-  width: 40%;
-  background-color: #a4d65e;
-  z-index: -1;
-  transition: 0.1s ease-in-out;
 }
 
 .emptyBtnContainer:hover .btnHover {

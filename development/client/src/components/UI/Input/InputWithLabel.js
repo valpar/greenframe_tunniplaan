@@ -27,7 +27,11 @@ const InputWithLabel = (props) => {
     >
       {props.index === 0 && <label>{props.label ? props.label : ""}</label>}
       {props.onErrorMessage !== "" && showTooltip && (
-        <div className={classes.tooltip}>
+        <div
+          className={
+            props.index === 0 ? classes.tooltip : classes.tooltipNextRow
+          }
+        >
           <TooltipLarge index={props.index} message={props.onErrorMessage} />
         </div>
       )}

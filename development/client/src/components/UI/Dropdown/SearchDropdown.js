@@ -6,6 +6,7 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 const SearchDropdown = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [placeholderColor, setPlaceHolderColor] = useState("gray");
   const changeHandler = (choice) => {
     let newArrayOfObj;
     if (props.isMulti) {
@@ -59,9 +60,17 @@ const SearchDropdown = (props) => {
   const menuCloseHandler = () => {
     setIsMenuOpen(false);
   };
+  const mouseEnterHandler = () => {
+    setPlaceHolderColor("black");
+  };
+  const mouseLeaveHandler = () => {
+    setPlaceHolderColor("gray");
+  };
 
   return (
     <div
+      onMouseEnter={mouseEnterHandler}
+      onMouseLeave={mouseLeaveHandler}
       className={
         props.cssClass ? classes[props.cssClass] : classes.dropdownFilters
       }
@@ -85,6 +94,7 @@ const SearchDropdown = (props) => {
             ...baseStyles,
             borderRadius: "none",
             boxShadow: "rgba(99, 99, 99, 0.2) 0px 1px 2px 0px",
+            minHeight: "2.8rem",
           }),
           menu: (baseStyles, state) => ({
             ...baseStyles,
@@ -94,6 +104,10 @@ const SearchDropdown = (props) => {
           container: (baseStyles, state) => ({
             ...baseStyles,
             boxShadow: "rgba(99, 99, 99, 0.2) 0px 1px 2px 0px",
+          }),
+          placeholder: (baseStyles, state) => ({
+            ...baseStyles,
+            color: placeholderColor,
           }),
         }}
       />

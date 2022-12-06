@@ -43,7 +43,7 @@
   background-color: rgb(221, 237, 255);
 }
 .errorHandling input {
-  border: 0.13rem solid rgb(225, 44, 44);
+  border: 0.1rem solid rgb(225, 44, 44);
 }
 .errorHandling input:focus {
   outline: none;
@@ -51,6 +51,10 @@
 .tooltip {
   position: absolute;
   margin-left: 0.65rem;
+}
+.tooltipFirstRow {
+  position: absolute;
+  margin: -4rem 0rem 0rem -0.5rem;
 }
 
 @media screen and (max-width: 1052px) {

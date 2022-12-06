@@ -9,13 +9,10 @@ const TooltipLarge = (props) => {
           : classes.container
       }
     >
-      <div className={classes.containerBackground}></div>
-      <div className={classes.bottomArrow}></div>
-      <div className={classes.textContainer}>
-        <div>
-          <p>{props.message}</p>
-        </div>
+      <div className={classes.containerBackground}>
+        <p>{props.message}</p>
       </div>
+      <div className={classes.bottomArrow}></div>
     </div>
   );
 };

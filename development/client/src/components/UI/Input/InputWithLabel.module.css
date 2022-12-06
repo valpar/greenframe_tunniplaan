@@ -24,14 +24,18 @@
 }
 
 .errorHandling input {
-  border: 0.13rem solid rgb(225, 44, 44);
+  border: 0.1rem solid rgb(225, 44, 44);
 }
 .errorHandling input:focus {
   outline: none;
 }
 .tooltip {
   position: absolute;
-  margin-left: 0.65rem;
+  margin: -4rem 0rem 0rem -0.5rem;
+}
+.tooltipNextRow {
+  position: absolute;
+  margin: 0rem 0rem 0rem 0.65rem;
 }
 
 @media screen and (max-width: 1052px) {

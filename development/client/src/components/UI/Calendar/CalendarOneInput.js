@@ -8,11 +8,16 @@ import {
 } from "../../../utils/Format/Date";
 import { useEffect, useState } from "react";
 
+const reverseDate = (str) => {
+  return str.split(".").reverse().join("-");
+};
+
 const CalendarOneInput = (props) => {
   const [date, setDate] = useState(
     new Date(new Date().setDate(new Date().getDate() + 1))
   );
   const [inputValue, setInputValue] = useState();
+  const [newInputValue, setNewInputValue] = useState();
 
   useEffect(() => {
     setInputValue((prevState) =>
@@ -25,48 +30,56 @@ const CalendarOneInput = (props) => {
   }, [props.onReset]);
 
   const inputDateHandler = (inputVal) => {
-    let newInput = "";
-
-    const reverseDate = (str) => {
-      return str.split(".").reverse().join("-");
-    };
-    if (inputValue?.length > inputVal?.length) newInput = inputVal;
-    else if (inputVal.match(/^(0[1-9]|[12][0-9]|3[01])$/) !== null)
-      newInput = inputVal + ".";
-    else if (inputVal.match(/^(0[1-9]|[12][0-9]|3[01])[.][.]$/) !== null)
-      newInput = inputVal.substr(0, inputVal.length - 1);
+    if (inputValue?.length > inputVal?.length) setNewInputValue(inputVal);
     else if (
+      inputValue &&
+      inputValue.match(/^(0[1-9]|[12][0-9]|3[01])$/) !== null
+    )
+      setNewInputValue((prevState) => (prevState = prevState + "."));
+    else if (inputVal.match(/^(0[1-9]|[12][0-9]|3[01])$/) !== null)
+      setNewInputValue(inputVal + ".");
+    else if (inputVal.match(/^(0[1-9]|[12][0-9]|3[01])[.][.]$/) !== null)
+      setNewInputValue(inputVal.substr(0, inputVal.length - 1));
+    else if (
+      inputValue &&
+      inputValue.match(/^(0[1-9]|[12][0-9]|3[01])[.](0[1-9]|1[012])$/) !== null
+    ) {
+      setNewInputValue((prevState) => (prevState = prevState + "."));
+    } else if (
       inputVal.match(/^(0[1-9]|[12][0-9]|3[01])[.](0[1-9]|1[012])$/) !== null
     )
-      newInput = inputVal + ".";
+      setNewInputValue(inputVal + ".");
     else if (
       inputVal.match(/^(0[1-9]|[12][0-9]|3[01])[.](0[1-9]|1[012])[.][.]$/) !==
       null
     )
-      newInput = inputVal.substr(0, inputVal.length - 1);
+      setNewInputValue(inputVal.substr(0, inputVal.length - 1));
     else if (
       inputVal.match(
         /^(0[1-9]|[12][0-9]|3[01])[.](0[1-9]|1[012])[.](19|20)\d\d$/
       ) !== null
     )
-      newInput = inputVal;
+      setNewInputValue(inputVal);
     else if (inputVal.length > 10)
-      newInput = inputVal.substr(0, inputVal.length - 1);
+      setNewInputValue(inputVal.substr(0, inputVal.length - 1));
     else {
-      newInput = inputVal;
+      setNewInputValue(inputVal);
     }
+  };
 
+  useEffect(() => {
     if (
-      newInput.match(
+      newInputValue &&
+      newInputValue.match(
         /^(0[1-9]|[12][0-9]|3[01])[.](0[1-9]|1[012])[.](19|20)\d\d$/
       ) !== null
     ) {
-      props.onClickDay(new Date(reverseDate(newInput)));
+      props.onClickDay(new Date(reverseDate(newInputValue)));
     } else {
       props.onClickDay(undefined);
     }
-    setInputValue((prevState) => (prevState = newInput));
-  };
+    setInputValue((prevState) => (prevState = newInputValue));
+  }, [newInputValue]);
 
   return (
     <div className={classes.calendar}>

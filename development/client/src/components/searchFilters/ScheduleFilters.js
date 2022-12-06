@@ -3,6 +3,8 @@ import useAxios from "../../hooks/useAxios";
 import SearchDropdown from "../UI/Dropdown/SearchDropdown";
 import CalendarInput from "../UI/Calendar/CalendarInput";
 import classes from "./ScheduleFilters.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 
 const ScheduleFilters = (props) => {
   const [courseData, setCourseData] = useState([]);
@@ -159,7 +161,6 @@ const ScheduleFilters = (props) => {
         isMulti={true}
       />
       <div className={classes.emptyBtnContainer}>
-        <div className={classes.btnHover} />
         <button className={classes.emptyBtn} onClick={emptyFiltersHandler}>
           Tühjenda
         </button>

@@ -16,14 +16,15 @@
   height: 2.4rem;
   background-color: rgba(255, 255, 255, 0);
   border: 0.1rem solid rgb(177, 177, 177);
-  border-radius: 0.2rem;
+
   font-weight: bold;
   font-size: 0.9em;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 .submitButton:hover {
-  background-color: aliceblue;
+  background-color: rgb(230, 230, 230);
+  border: none;
 }
 .btnRow {
   margin-top: 2rem;
@@ -36,7 +37,7 @@
 }
 .confirmModal {
   position: absolute;
-  margin: -2.1rem 0rem 0rem -37rem;
+  margin: -6.1rem 0rem 0rem -39.5rem;
 }
 
 .confirmError {
@@ -45,22 +46,22 @@
 }
 .lecturerError {
   position: absolute;
-  margin: -1.8rem 0rem 0rem 22rem;
+  margin: -6rem 0rem 0rem 19rem;
 }
 .lecturerPadding {
   padding-top: 4.5rem;
 }
 .confirmErrorAdd {
-  margin-top: -1.8rem;
+  margin: -5.8rem 1rem 0rem 0rem;
 }
 .confirmModalRow {
   position: absolute;
 }
 .confirmModalAdd {
   position: absolute;
-  margin: -4.5rem 0rem 0rem -13rem;
+  margin: -8.5rem 0rem 0rem -19.5rem;
 }
 .confirmModalUpdate {
   position: absolute;
-  margin: -4.5rem 0rem 0rem -15rem;
+  margin: -8.5rem 0rem 0rem -19.5rem;
 }

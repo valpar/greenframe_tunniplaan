@@ -5,17 +5,17 @@
 }
 .tableHead th {
   padding-left: 0.7rem;
-  font-size: 0.8em;
+  font-size: 0.9em;
   text-align: left;
-  height: 2.3rem;
+  height: 2.8rem;
   border: 0.1rem solid #cecece;
 }
 .courseName {
   padding-left: 0.7rem;
-  font-size: 0.75em;
+  font-size: 1em;
   text-align: left;
   font-weight: bold;
-  height: 2.3rem;
+  height: 2.8rem;
   background-color: rgb(229, 229, 229);
   border: 0.1rem solid #cecece;
 }
