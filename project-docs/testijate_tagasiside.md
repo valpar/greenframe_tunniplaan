@@ -20,3 +20,9 @@ _ Konkreetse päeva valimiseks peab kaks korda klikkima ühel päeval (algus ja 
 - Tervisejuhid lühend TJ on okei - võib kasutusse võtta. 
 
 # Õppejõud
+- Kalendris ei näe vajadust aasta noolte jaoks
+- kalendri tööpõhimõte jäi segaseks
+- kalendri kiirnupud kas käesolev nädal või hetkest nädal oli segane
+- kalendris värvid häirivad
+- sühjenda nupp tundub liialt silmatorkav
+- logi sissse nupp tundub hajumatult silmatorkav ja vale koha peal
