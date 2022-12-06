@@ -58,8 +58,8 @@
 .removeDateIcon {
   position: absolute;
   font-size: 1.5em;
-  margin-top: 0.5rem;
-  margin-left: 6.5rem;
+  margin-top: 0.4rem;
+  margin-left: 7.3rem;
 }
 .removeDateIcon:hover {
   cursor: pointer;
@@ -70,6 +70,7 @@
 }
 .deleteConfirmation {
   position: absolute;
+  margin: -1.2rem 7rem 0rem 0rem;
 }
 .calendar {
   width: 70%;

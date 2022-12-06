@@ -2,8 +2,9 @@ import { Fragment, useState } from "react";
 import classes from "./TableRow.module.css";
 import TableSubjectInfo from "./TableSubjectInfo";
 import { formatHoursMinutes } from "../../../utils/Format/Date";
-import useAxios from "../../../hooks/useAxios";
 import ScheduleAddition from "../../scheduleAddition/ScheduleAddition";
+import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg";
+import { ReactComponent as InfoIcon } from "../../../assets/icons/info.svg";
 
 const TableBody = (props) => {
   const subjectCode =
@@ -70,7 +71,7 @@ const TableBody = (props) => {
             </div>
 
             {(props.item.comment || props.item?.homeworks) && (
-              <i className={`bi bi-info-circle ${classes.infoIcon}`}></i>
+              <InfoIcon className={classes.infoIcon} />
             )}
           </div>
         </td>
@@ -91,10 +92,7 @@ const TableBody = (props) => {
                 href={props.item.distanceLink}
                 className={classes.videoLink}
               >
-                {" "}
-                <i
-                  className={`bi bi-camera-video-fill ${classes.meetingIcon}`}
-                ></i>
+                <CameraIcon className={classes.meetingIcon} />
               </a>
             )}
             {showEdit && props.admin && (

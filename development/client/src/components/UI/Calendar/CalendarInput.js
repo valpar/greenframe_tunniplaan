@@ -165,13 +165,6 @@ const CalendarInput = (props) => {
         </div>
 
         <div className={classes.icons}>
-          {showBtnModal && resetDate && (
-            <FontAwesomeIcon
-              onClick={resetDateHandler}
-              className={classes.xmark}
-              icon={faXmark}
-            />
-          )}
           <div className={classes.verticalStripe} />
           <div className={classes.openIcon}>
             {!showBtnModal && (
@@ -193,6 +186,7 @@ const CalendarInput = (props) => {
         <>
           <div className={classes.calendar}>
             <Calendar
+              minDate={new Date("2015-01-01")}
               onChange={changeDateHandler}
               value={calendarRange}
               locale="et-EE"

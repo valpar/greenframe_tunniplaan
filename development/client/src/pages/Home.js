@@ -126,9 +126,7 @@ const Home = () => {
     if (type === "subject") {
       for (let i = 0; i < objectValues.length; i++) {
         filteredeData.push(
-          ...rawData.filter((e) =>
-            e.subject[objectKeys[i]].includes(objectValues[i])
-          )
+          ...rawData.filter((e) => e.subject[objectKeys[i]] === objectValues[i])
         );
       }
     }
@@ -324,14 +322,18 @@ const Home = () => {
                 <i>RIIUL</i>
               </a>
             </div>
-            <div className={classes.login}>
-              <div className={classes.userInfo}>
-                <img
-                  onClick={showUserRollesHandler}
-                  src={userPicture}
-                  alt="User"
-                ></img>
+            <div className={classes.containerLogin}>
+              <div className={classes.login}>
+                <div className={classes.userInfo}>
+                  <img
+                    onClick={showUserRollesHandler}
+                    src={userPicture}
+                    alt="User"
+                  ></img>
+                </div>
+                <div className={classes.loginRole}>LOGI SISSE</div>
               </div>
+
               {showUsersModal && (
                 <div className={classes.userContainer}>
                   <div className={classes.boxArrow}></div>
@@ -442,16 +444,14 @@ const Home = () => {
                   />
                   {noSchoolWork && (
                     <p className={classes.betweenTables}>
-                      Tudengitele eraldatud aeg stressamiseks 🥸
+                      Loengu vabad päevad!
                     </p>
                   )}
                 </div>
               );
             })}
             {filteredData.length === 0 && (
-              <p className={classes.betweenTables}>
-                Tudengitele eraldatud aeg stressamiseks 🥸
-              </p>
+              <p className={classes.betweenTables}>Loenguid ei leitud!</p>
             )}
           </div>
         </div>

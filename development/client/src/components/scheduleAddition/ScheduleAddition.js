@@ -5,7 +5,6 @@ import AddDropdown from "../UI/Dropdown/AddDropdown";
 import classes from "./ScheduleAddition.module.css";
 import axios from "axios";
 import AddNewItem from "../addNewObject/AddNewItem";
-import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
 import config from "../../config.json";
 import content from "../../assets/content/content.json";

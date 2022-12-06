@@ -221,7 +221,14 @@ const AddNewItem = (props) => {
     props.onDelete();
     props.onClose();
   };
-  console.log(validSubmit);
+  useEffect(() => {
+    if (!validSubmit) {
+      const timer = setTimeout(() => {
+        setValidSubmit(true);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [validSubmit]);
   return (
     <Modal onClose={closeHandler}>
       <div className={classes.closeRow}>

@@ -9,7 +9,7 @@ import axios from "axios";
 import config from "../../../config.json";
 import content from "../../../assets/content/content.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk } from "@fortawesome/free-regular-svg-icons";
 
 const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(

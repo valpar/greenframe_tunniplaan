@@ -26,6 +26,8 @@
   padding: 0rem 0rem 0.5rem 0.5rem;
 }
 .headerBtns {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.2em;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -53,15 +55,33 @@
   background-color: #6c8298;
   border: 0.1rem solid #d4d4d4;
 }
-.login {
-  padding: 2.7rem 0rem 0rem 1.5rem;
+.containerLogin {
+  padding: 2.6rem 0rem 0rem 1.5rem;
 }
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
+  padding: 0.2rem;
+  width: auto;
+  min-width: 8.4rem;
+}
+.loginRole {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1em;
+  width: 100%;
+  padding: 0.2rem 0rem 0rem 0rem;
+}
 .userInfo {
-  height: 5rem;
-  width: 5rem;
+  height: 3rem;
+  width: 3rem;
   border-radius: 3rem;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  /* box-shadow: rgba(0, 0, 0, 0.19) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 6px; */
 }
 .userInfo img {
   width: 100%;
@@ -73,6 +93,7 @@
 .userContainer {
   position: absolute;
   z-index: 2;
+  margin-left: 1.6rem;
 }
 .userInfoBox {
   display: flex;
@@ -96,7 +117,7 @@
   margin: 0.2rem 0rem 0rem 1.8rem;
 }
 .adminBtn {
-  height: 2.3rem;
+  height: 2.8rem;
   width: 90%;
   border-radius: 0.2rem;
   border: 0.1rem solid rgba(198, 198, 198, 0.879);
@@ -130,7 +151,7 @@
 
 .addBtn button {
   background-color: #666666;
-  height: 2.3rem;
+  height: 2.8rem;
   width: 100%;
   border: none;
   color: #ffffff;
@@ -141,7 +162,7 @@
 .btnHover {
   position: absolute;
   border: none;
-  height: 2.3rem;
+  height: 2.8rem;
   width: 95%;
   background-color: #a4d65e;
   z-index: -1;
@@ -157,7 +178,7 @@
 }
 .loginInBtn button {
   background-color: #ffffff;
-  height: 2.3rem;
+  height: 2.8rem;
   width: 100%;
   border: 0.1rem solid rgb(203, 203, 203);
   color: black;
@@ -169,7 +190,7 @@
 .btnHover {
   position: absolute;
   border: none;
-  height: 2.3rem;
+  height: 2.8rem;
   width: 95%;
   background-color: #a4d65e;
   z-index: -1;
@@ -186,7 +207,7 @@
 .faAngleRight {
   color: #ffffff;
   position: absolute;
-  margin: 0.6rem 0rem 0rem -1.5rem;
+  margin: 0.8rem 0rem 0rem -1.5rem;
   font-size: 1em;
 }
 .schedule {
@@ -206,9 +227,9 @@
   padding: 0.2rem 0.7rem 0rem 0.7rem;
   background-color: #a4d65e;
   width: 100%;
-  height: 2.3rem;
+  height: 2.8rem;
   margin-top: 1rem;
-  font-size: 1em;
+  font-size: 1.2em;
 }
 .scheduleDay {
   font-weight: bold;
