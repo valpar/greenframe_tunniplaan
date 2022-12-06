@@ -1,6 +1,6 @@
 # Vearaport
 
-## 1
+## 1 https://github.com/tluhk/rif20-valikpraktika-2/issues/190
 #### Pealkiri
 Ajavahemikul pole tühjendamise võimalust
 #### Kirjeldus
@@ -10,7 +10,7 @@ Kasutaja saab ajavahemiku filtri tühjendada.
 #### Tegelikkus
 Kasutaja ei saa tühjendab ajavahemiku filtri.
 
-## 2
+## 2 https://github.com/tluhk/rif20-valikpraktika-2/issues/186
 #### Pealkiri
 Programmeerimine II valik aktiveerib ka Programmeerimine III loengud.
 #### Kirjeldus
@@ -20,7 +20,7 @@ Tunniplaani ilmuvad vaid Programmeerimine II loengud.
 #### Tegelikkus
 Õppeaine programmeerimine II filtri valikuga kuvatakse ka programmeerimine III loengud.
 
-## 3
+## 3 https://github.com/tluhk/rif20-valikpraktika-2/issues/189
 #### Pealkiri
 Admin ei saa kuupäeva manuaalselt sisestada.
 #### Kirjeldus
@@ -30,7 +30,7 @@ Kasutaja saab kuupäeva valida ka selle manuaalselt trükkides.
 #### Tegelikkus
 Kasutajal ei ole võimalust kuupäeva ise sisestada.
 
-## 4
+## 4 https://github.com/tluhk/rif20-valikpraktika-2/issues/188
 #### Pealkiri
 Admin ei saa loengu kellaaega muuta
 #### Kirjeldus
@@ -40,7 +40,7 @@ Loengut muutes saab muuta ka kellaaega.
 #### Tegelikkus
 Loengut muutes ei saa kellaaega muuta.
 
-## 5 
+## 5 https://github.com/tluhk/rif20-valikpraktika-2/issues/187
 #### Pealkiri
 Kustutatud õppejõud ei kao tunniplaanist.
 #### Kirjeldus
