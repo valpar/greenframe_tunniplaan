@@ -70,9 +70,8 @@ const TableBody = (props) => {
               <i>{props.item.comment}</i>
             </div>
 
-            {(props.item.comment || props.item?.homeworks) && (
-              <InfoIcon className={classes.infoIcon} />
-            )}
+            {(props.item.comment || props.item?.homeworks) &&
+              props.isLoggedIn && <InfoIcon className={classes.infoIcon} />}
           </div>
         </td>
         <td>{joinLecturers(props.item)}</td>
@@ -85,7 +84,7 @@ const TableBody = (props) => {
             }
           >
             {joinRooms(props.item)}
-            {props.item.distanceLink && (
+            {props.item.distanceLink && props.isLoggedIn && (
               <a
                 rel="noreferrer"
                 target="_blank"
@@ -128,6 +127,7 @@ const TableBody = (props) => {
           data={props.data}
           rawData={props.rawData}
           onUpdate={props.onUpdate}
+          isLoggedIn={props.isLoggedIn}
         />
       )}
     </Fragment>
