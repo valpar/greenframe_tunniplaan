@@ -14,14 +14,17 @@
     "courseShortExists": "Lühend eksisteerib",
     "roomExists": "Ruum on olemas",
     "subjectCodeExists": "Kood eksisteerib",
-    "workLoadMessage": "Maht numbrites"
+    "workLoadMessage": "Maht numbrites",
+    "requestAddError": "Lisamine ebaõnnestus!",
+    "requestUpdateError": "Muutmine ebaõnnestus!",
+    "requestDeleteError": "Kustutamine ebaõnnestus!"
   },
   "confirmModalMessages": {
     "withoutSaveMessage": "Sulge ilma salvestamata?",
     "saveMessage": "Salvesta?",
     "deleteRowMessage": "Kas soovid rea kustudada?",
     "lecturerOccupiedMessage": "Õppejõud on hõivatud",
-    "roomOccuiedMessage": "Õppejõud on hõivatud",
+    "roomOccupiedMessage": "Ruum on hõivatud",
     "deleteMessage": "Kinnita kustutamine",
     "updateConfirmMessage": "Kas soovid muuta?",
     "roomHasActiveLectures": "Ruum eksisteerib tunniplaanis, kustuta?",
