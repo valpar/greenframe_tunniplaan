@@ -11,6 +11,7 @@ import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { calculateSemesterDate } from "../utils/Calculate/Semester";
+import GoTopButton from "../components/UI/Button/GoTopButton";
 
 const Home = () => {
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
@@ -265,6 +266,7 @@ const Home = () => {
   };
 
   const addScheduleHandler = () => {
+    if (!addSchedule) window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
     setAddSchedule((prevState) => (prevState = !prevState));
   };
 
@@ -476,6 +478,7 @@ const Home = () => {
             )}
           </div>
         </div>
+        <GoTopButton />
       </div>
     </Fragment>
   );
