@@ -430,6 +430,7 @@ const ScheduleAddition = (props) => {
       addedLecture[0].subjectId !== null && addedLecture[0].subjectId !== "";
     const occurenceValidator = validateOccurences(newOccurence);
     if (!valitationFailed(occurenceValidator) && hasSubject) {
+      console.log(newOccurence);
       setRequestLoading(true);
       setShowRequestModal(true);
       if (!props.editMode) {
@@ -464,6 +465,7 @@ const ScheduleAddition = (props) => {
                 setRequestSuccess(true);
                 setRequestLoading(false);
                 setRequestMessage(content.successMessages.update);
+                console.log("silo", res);
               } else {
                 setRequestLoading(false);
                 setRequestError(true);
@@ -471,8 +473,6 @@ const ScheduleAddition = (props) => {
               }
             });
         });
-        props.onUpdate();
-        props.onClose();
         return;
       }
 
@@ -635,7 +635,7 @@ const ScheduleAddition = (props) => {
     setRequestLoading(true);
     setShowRequestModal(true);
     await axios.delete(`/schedule/${props.editData.id}`).then((res) => {
-      console.log(res);
+      console.log(res.status);
       if (res.status === 200) {
         console.log("jee");
         setRequestSuccess(true);
@@ -647,9 +647,8 @@ const ScheduleAddition = (props) => {
         setRequestMessage(content.errorMessages.requestAddError);
       }
     });
-    props.onUpdate();
-    props.onClose();
   };
+
   const editItemHandler = (value) => {
     setIsEditMode(true);
     setShowAddModal(true);
@@ -663,8 +662,14 @@ const ScheduleAddition = (props) => {
 
   useEffect(() => {
     if (requestSuccess) {
-      console.log("hei");
       const timer = setTimeout(() => {
+        if (
+          requestMessage === content.successMessages.delete ||
+          requestMessage === content.successMessages.update
+        ) {
+          props.onUpdate();
+          props.onClose();
+        }
         setShowRequestModal(false);
         setRequestSuccess(false);
         setRequestMessage("");
