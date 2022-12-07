@@ -63,7 +63,15 @@ const CalendarOneInput = (props) => {
     else if (inputVal.length > 10)
       setNewInputValue(inputVal.substr(0, inputVal.length - 1));
     else {
-      setNewInputValue(inputVal);
+      if (inputVal.match(/^([0-1]?[0-9]|31)$/)) {
+        setNewInputValue(inputVal);
+      }
+      if (inputVal.match(/^([0-1]?[0-9]|31)[.]([0-9]|1[0-2])$/)) {
+        setNewInputValue(inputVal);
+      }
+      if (inputValue?.length >= 6 && inputVal.match(/^\d+(\.\d+)*$/)) {
+        setNewInputValue(inputVal);
+      }
     }
   };
 
