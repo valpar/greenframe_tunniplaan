@@ -8,6 +8,7 @@ import AddNewItem from "../addNewObject/AddNewItem";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
 import config from "../../config.json";
 import content from "../../assets/content/content.json";
+import RequestModal from "../UI/RequestModal/RequestModal";
 
 axios.defaults.baseURL = config.api.url;
 
@@ -114,6 +115,11 @@ const ScheduleAddition = (props) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editValues, setEditValues] = useState();
   const [confirmdValues, setConfirmdValues] = useState([]);
+  const [requestError, setRequestError] = useState(false);
+  const [requestSuccess, setRequestSuccess] = useState(false);
+  const [requestLoading, setRequestLoading] = useState(false);
+  const [requestMessage, setRequestMessage] = useState("");
+  const [showRequestModal, setShowRequestModal] = useState(false);
 
   const workCourseData = useCallback(() => {
     if (!courseLoading && courseResponse !== undefined) {
@@ -386,11 +392,9 @@ const ScheduleAddition = (props) => {
             if (
               confirmdValues.filter((e) => {
                 const roomArr = room.filter((r) => r.roomId === e);
-                console.log(roomArr);
                 return roomArr.length > 0 ? e : false;
               }).length > 0
             ) {
-              console.log("jee");
               return false;
             }
             setConfirmdValues((prevState) => [
@@ -426,24 +430,46 @@ const ScheduleAddition = (props) => {
       addedLecture[0].subjectId !== null && addedLecture[0].subjectId !== "";
     const occurenceValidator = validateOccurences(newOccurence);
     if (!valitationFailed(occurenceValidator) && hasSubject) {
+      setRequestLoading(true);
+      setShowRequestModal(true);
       if (!props.editMode) {
-        newOccurence.forEach(async (element) => {
+        newOccurence.every(async (element) => {
           await axios
             .post(`/schedule`, {
               ...addedLecture[0],
               ...element,
             })
-            .then((res) => console.log(res));
+            .then((res) => {
+              if (res.status === 200) {
+                setRequestSuccess(true);
+                setRequestLoading(false);
+                setRequestMessage(content.successMessages.create);
+              } else {
+                setRequestLoading(false);
+                setRequestError(true);
+                setRequestMessage(content.errorMessages.requestAddError);
+              }
+            });
         });
       }
       if (props.editMode) {
-        newOccurence.forEach(async (element) => {
+        newOccurence.every(async (element) => {
           await axios
             .patch(`/schedule/${props.editData.id}`, {
               ...addedLecture[0],
               ...element,
             })
-            .then((res) => console.log(res));
+            .then((res) => {
+              if (res.status === 200) {
+                setRequestSuccess(true);
+                setRequestLoading(false);
+                setRequestMessage(content.successMessages.update);
+              } else {
+                setRequestLoading(false);
+                setRequestError(true);
+                setRequestMessage(content.errorMessages.requestUpdateError);
+              }
+            });
         });
         props.onUpdate();
         props.onClose();
@@ -606,8 +632,20 @@ const ScheduleAddition = (props) => {
   };
   const deleteScheduleRowHandler = async () => {
     setShowDeleteConfirmModal(false);
-    await axios.delete(`/schedule/${props.editData.id}`).then((response) => {
-      console.log(response);
+    setRequestLoading(true);
+    setShowRequestModal(true);
+    await axios.delete(`/schedule/${props.editData.id}`).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        console.log("jee");
+        setRequestSuccess(true);
+        setRequestLoading(false);
+        setRequestMessage(content.successMessages.delete);
+      } else {
+        setRequestLoading(false);
+        setRequestError(true);
+        setRequestMessage(content.errorMessages.requestAddError);
+      }
     });
     props.onUpdate();
     props.onClose();
@@ -622,6 +660,19 @@ const ScheduleAddition = (props) => {
     if (typeof value === "number") setModalContent("subjects");
     setEditValues(value);
   };
+
+  useEffect(() => {
+    if (requestSuccess) {
+      console.log("hei");
+      const timer = setTimeout(() => {
+        setShowRequestModal(false);
+        setRequestSuccess(false);
+        setRequestMessage("");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [requestSuccess]);
+
   return (
     <div
       className={
@@ -768,11 +819,14 @@ const ScheduleAddition = (props) => {
           SALVESTA
         </button>
       </div>
-      {/* <div className={classes.overLay}>
-        <div class={`spinner-border ${classes.spinner}`} role="status"></div>
-        <span class={`sr-only ${classes.spinnerMessage}`}>Laeb...</span>
-      </div>
-      <div className={classes.message}>Greate succsess</div> */}
+      {showRequestModal && (
+        <RequestModal
+          error={requestError}
+          success={requestSuccess}
+          loading={requestLoading}
+          modalMessage={requestMessage}
+        />
+      )}
     </div>
   );
 };
