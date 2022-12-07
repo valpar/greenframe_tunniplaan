@@ -1,18 +1,21 @@
+import React, { Fragment } from "react";
+import ReactDOM from "react-dom";
 import classes from "./ConfirmModal.module.css";
 
-const ConfirmModal = (props) => {
+const Backdrop = (props) => {
+  return <div className={classes.backdrop} onClick={props.onClose} />;
+};
+
+const ConfirmModalOverlay = (props) => {
   let arrow = classes.leftArrow;
-  // let arrowCover = classes.leftArrowCover;
   if (props.topArrow) arrow = classes.topArrow;
   if (props.bottomArrow) arrow = classes.bottomArrow;
-  // if (props.topArrow) arrowCover = classes.topArrowCover;
-  // if (props.bottomArrow) arrowCover = classes.bottomArrowCover;
+
   return (
     <div
       className={props.homework ? classes.homeworkContainer : classes.container}
     >
       <div className={arrow}></div>
-      {/* <div className={arrowCover}></div> */}
       <div className={classes.message}>
         <p>{props.modalMessage}</p>
       </div>
@@ -25,6 +28,17 @@ const ConfirmModal = (props) => {
         </button>
       </div>
     </div>
+  );
+};
+
+const portalElement = document.getElementById("overlays");
+
+const ConfirmModal = (props) => {
+  return (
+    <Fragment>
+      {ReactDOM.createPortal(<Backdrop />, portalElement)}
+      <ConfirmModalOverlay {...props} />
+    </Fragment>
   );
 };
 
