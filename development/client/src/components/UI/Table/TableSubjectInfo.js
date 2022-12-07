@@ -82,7 +82,6 @@ const TableSubjectInfo = (props) => {
   );
 
   useEffect(() => {
-    console.log(homeworkResponse);
     if (
       !homeworkLoading &&
       homeworkError === "" &&
@@ -423,6 +422,7 @@ const TableSubjectInfo = (props) => {
       )}
 
       {!editMode &&
+        props.isLoggedIn &&
         homework?.description &&
         (homeworkResponse?.homework
           ? homeworkResponse.homework
@@ -496,7 +496,7 @@ const TableSubjectInfo = (props) => {
         </>
       )}
 
-      {!editMode && props.item.comment.length > 0 && (
+      {!editMode && props.item.comment.length > 0 && props.isLoggedIn && (
         <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
           <td colSpan={4}>
             <div className={classes.btnSubjectCard}>

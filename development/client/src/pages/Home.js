@@ -31,6 +31,7 @@ const Home = () => {
   const [dropdownsSelection, setDropdownSelection] = useState([]);
   const [admin, setAdmin] = useState(false);
   const [userLecturer, setUserLecturer] = useState(false);
+  const [userStudent, setUserStudent] = useState(false);
   const [addSchedule, setAddSchedule] = useState(false);
   const [showUsersModal, setShowUsersModal] = useState(false);
 
@@ -242,15 +243,23 @@ const Home = () => {
     event.preventDefault();
     if (event.target.name === "admin") {
       setAdmin(true);
+      setUserStudent(false);
       setUserLecturer(false);
     }
     if (event.target.name === "lecturer") {
       setAdmin(false);
+      setUserStudent(false);
       setUserLecturer(true);
     }
     if (event.target.name === "student") {
       setAdmin(false);
       setUserLecturer(false);
+      setUserStudent(true);
+    }
+    if (event.target.name === "logout") {
+      setAdmin(false);
+      setUserLecturer(false);
+      setUserStudent(false);
     }
     setShowUsersModal(false);
   };
@@ -267,7 +276,7 @@ const Home = () => {
     setAddSchedule(false);
   };
   const showUserRollesHandler = () => {
-    setShowUsersModal(true);
+    setShowUsersModal((prevState) => (prevState = !prevState));
   };
   const emptyFiltersHandler = () => {
     setFilteredData(data);
@@ -283,7 +292,16 @@ const Home = () => {
     ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     : userLecturer
     ? "https://images.pexels.com/photos/4342401/pexels-photo-4342401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-    : "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600";
+    : userStudent
+    ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"
+    : require("../assets/icons/user.png");
+  const userRole = admin
+    ? "HALDUS"
+    : userLecturer
+    ? "ÕPPEJÕUD"
+    : userStudent
+    ? "ÕPILANE"
+    : "LOGI SISSE";
 
   // useEffect(() => {
   //   console.log(filteredData);
@@ -331,11 +349,11 @@ const Home = () => {
                     alt="User"
                   ></img>
                 </div>
-                <div className={classes.loginRole}>LOGI SISSE</div>
+                <div className={classes.loginRole}>{userRole}</div>
               </div>
 
               {showUsersModal && (
-                <div className={classes.userContainer}>
+                <div onm className={classes.userContainer}>
                   <div className={classes.boxArrow}></div>
                   <div className={classes.userInfoBox}>
                     <button
@@ -361,6 +379,14 @@ const Home = () => {
                       name="student"
                     >
                       Õpilane
+                    </button>
+                    <button
+                      onClick={userRollHandler}
+                      className={classes.adminBtn}
+                      type="button"
+                      name="logout"
+                    >
+                      Logi välja
                     </button>
                   </div>
                 </div>
@@ -431,6 +457,7 @@ const Home = () => {
                   <Table
                     userLecturer={userLecturer}
                     admin={admin}
+                    isLoggedIn={admin || userLecturer || userStudent}
                     day={e}
                     filteredData={filteredData}
                     rawData={data}
