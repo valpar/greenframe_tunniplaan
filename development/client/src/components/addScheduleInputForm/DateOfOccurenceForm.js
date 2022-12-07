@@ -83,6 +83,7 @@ const DateOfOccurenceForm = (props) => {
   const [startTime, setStartTime] = useState("10:00");
   const [endTime, setEndTime] = useState("");
   const [lunchValue, setLunchValue] = useState("");
+  const [calendarReset, setCalendarReset] = useState(false);
   const [enteredDateIsValid, setEnteredDateIsValid] = useState(false);
   const [enteredLoadIsValid, setEnteredLoadIsValid] = useState(false);
   const [enteredStartTimeIsValid, setEnteredStartTimeIsValid] = useState(false);
@@ -94,7 +95,7 @@ const DateOfOccurenceForm = (props) => {
     endTime: "",
   });
 
-  const { mandatoryField, requiresDate, requiresEndDate, notUniqueDate } =
+  const { requiresDate, requiresEndDate, notUniqueDate } =
     content.errorMessages;
 
   useEffect(() => {
@@ -144,8 +145,9 @@ const DateOfOccurenceForm = (props) => {
       setLoadValue("");
       setStartTime("10:00");
       setEndTime("");
-      setDateValue(new Date());
+      setDateValue(undefined);
       setLunchValue("");
+      setCalendarReset(true);
     }
   }, [props.onAfterSubmit]);
 
@@ -165,6 +167,7 @@ const DateOfOccurenceForm = (props) => {
       setDateValue(undefined);
       return;
     }
+    setCalendarReset(false);
     setEnteredDateIsValid(false);
     setErrorMessages((prevState) => {
       return {
@@ -207,6 +210,7 @@ const DateOfOccurenceForm = (props) => {
   };
 
   const startTimeChangeHandler = (value) => {
+    setCalendarReset(false);
     setEnteredStartTimeIsValid(false);
     if (value.match(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)) {
       let valueArr = value.split(":");
@@ -384,6 +388,7 @@ const DateOfOccurenceForm = (props) => {
           label="Kuupäev"
           hasError={enteredDateIsValid}
           errorMessage={errorMessages.date}
+          reset={calendarReset}
         />
       </div>
 

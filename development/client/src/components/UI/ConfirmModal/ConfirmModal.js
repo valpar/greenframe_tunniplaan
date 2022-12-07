@@ -21,10 +21,10 @@ const ConfirmModalOverlay = (props) => {
       </div>
       <div className={classes.buttonRow}>
         <button onClick={props.onDecline} type="button">
-          EI
+          {props.modalButtons ? props.modalButtons[0] : `EI`}
         </button>
         <button onClick={props.onConfirm} type="button">
-          JAH
+          {props.modalButtons ? props.modalButtons[1] : `JAH`}
         </button>
       </div>
     </div>
