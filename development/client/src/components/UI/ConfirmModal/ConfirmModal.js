@@ -10,7 +10,6 @@ const ConfirmModalOverlay = (props) => {
   let arrow = classes.leftArrow;
   if (props.topArrow) arrow = classes.topArrow;
   if (props.bottomArrow) arrow = classes.bottomArrow;
-  console.log(props.props);
 
   return (
     <div
