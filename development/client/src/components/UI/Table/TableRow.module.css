@@ -26,8 +26,11 @@
   width: 17rem;
 }
 .tableHead td:nth-child(4) {
-  width: 7rem;
+  width: 11rem;
   padding-right: 0.4rem;
+}
+.roomIcons {
+  max-width: 4rem;
 }
 .infoIcon {
   cursor: pointer;
@@ -54,7 +57,7 @@
 .editIcon {
   cursor: pointer;
   margin-left: 0.5rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 .editSchedule {
   margin-top: -3rem;

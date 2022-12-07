@@ -84,22 +84,24 @@ const TableBody = (props) => {
             }
           >
             {joinRooms(props.item)}
-            {props.item.distanceLink && props.isLoggedIn && (
-              <a
-                rel="noreferrer"
-                target="_blank"
-                href={props.item.distanceLink}
-                className={classes.videoLink}
-              >
-                <CameraIcon className={classes.meetingIcon} />
-              </a>
-            )}
-            {showEdit && props.admin && (
-              <i
-                onClick={lectureEditHandler}
-                className={`bi bi-pencil-fill ${classes.editIcon}`}
-              ></i>
-            )}
+            <div className={classes.roomIcons}>
+              {props.item.distanceLink && props.isLoggedIn && (
+                <a
+                  rel="noreferrer"
+                  target="_blank"
+                  href={props.item.distanceLink}
+                  className={classes.videoLink}
+                >
+                  <CameraIcon className={classes.meetingIcon} />
+                </a>
+              )}
+              {showEdit && props.admin && (
+                <i
+                  onClick={lectureEditHandler}
+                  className={`bi bi-pencil-fill ${classes.editIcon}`}
+                ></i>
+              )}
+            </div>
           </div>
         </td>
       </tr>
