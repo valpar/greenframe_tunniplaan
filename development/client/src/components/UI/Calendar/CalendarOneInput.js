@@ -26,6 +26,10 @@ const CalendarOneInput = (props) => {
   }, [props.value]);
 
   useEffect(() => {
+    if (props.reset) setInputValue(undefined);
+  }, [props.reset]);
+
+  useEffect(() => {
     setInputValue();
   }, [props.onReset]);
 

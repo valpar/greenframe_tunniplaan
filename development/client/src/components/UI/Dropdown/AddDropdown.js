@@ -169,6 +169,7 @@ const AddDropdown = (props) => {
             topArrow={true}
             onConfirm={showConfirmModal ? confirmHandler : props.onConfirm}
             onDecline={declineHandler}
+            modalButtons={props.modalButtons}
           />
         </div>
       )}

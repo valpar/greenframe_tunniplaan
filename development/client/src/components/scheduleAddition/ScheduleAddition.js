@@ -734,6 +734,7 @@ const ScheduleAddition = (props) => {
           modalMessage={
             showConfirmModal.type === "lecturer" ? showConfirmModal : null
           }
+          modalButtons={["EEMALDA", "KINNITA"]}
           onConfirm={dropdownConfirmHandler}
           onDecline={dropdownDeclineHandler}
         />
@@ -758,6 +759,7 @@ const ScheduleAddition = (props) => {
           modalMessage={
             showConfirmModal.type === "room" ? showConfirmModal : null
           }
+          modalButtons={["EEMALDA", "KINNITA"]}
           onConfirm={dropdownConfirmHandler}
           onDecline={dropdownDeclineHandler}
           value={addedLecture[0].rooms}
