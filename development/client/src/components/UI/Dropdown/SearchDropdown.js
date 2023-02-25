@@ -1,11 +1,9 @@
 import { useCallback, useState } from "react";
 import Select, { components } from "react-select";
-import classes from "./SearchDropdown.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 const SearchDropdown = (props) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [placeholderColor, setPlaceHolderColor] = useState("gray");
   const changeHandler = (choice) => {
     let newArrayOfObj;
@@ -41,25 +39,23 @@ const SearchDropdown = (props) => {
     [props.reset]
   );
 
-  const DropdownIndicator = (props) => {
+  const { DropdownIndicator } = components;
+
+  const CustomDropdownIndicator = (props) => {
+    const {
+      selectProps: { menuIsOpen },
+    } = props;
     return (
-      <components.DropdownIndicator {...props}>
-        {!isMenuOpen && (
-          <FontAwesomeIcon icon={faAngleDown} className={classes.arrowIcon} />
+      <DropdownIndicator {...props}>
+        {menuIsOpen ? (
+          <FontAwesomeIcon icon={faAngleUp} className="px-1" />
+        ) : (
+          <FontAwesomeIcon icon={faAngleDown} className="px-1" />
         )}
-        {isMenuOpen && (
-          <FontAwesomeIcon icon={faAngleUp} className={classes.arrowIcon} />
-        )}
-      </components.DropdownIndicator>
+      </DropdownIndicator>
     );
   };
 
-  const menuOpenHandler = () => {
-    setIsMenuOpen(true);
-  };
-  const menuCloseHandler = () => {
-    setIsMenuOpen(false);
-  };
   const mouseEnterHandler = () => {
     setPlaceHolderColor("black");
   };
@@ -71,16 +67,12 @@ const SearchDropdown = (props) => {
     <div
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
-      className={
-        props.cssClass ? classes[props.cssClass] : classes.dropdownFilters
-      }
+      className="relative group"
     >
       {props.topLabel && <label>{props.topLabel}</label>}
-      <div className={classes.btnHover} />
+      <div className="green-peeper" />
       <Select
-        onMenuClose={menuCloseHandler}
-        onMenuOpen={menuOpenHandler}
-        components={{ DropdownIndicator }}
+        components={{ DropdownIndicator: CustomDropdownIndicator }}
         ref={refChangeHandler}
         value={props?.reset ? "" : undefined}
         placeholder={props.label}

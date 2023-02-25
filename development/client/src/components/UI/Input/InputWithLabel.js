@@ -1,7 +1,5 @@
 import { useState } from "react";
-import TooltipTop from "../Tooltip/TooltipTop";
 import TooltipLarge from "../Tooltip/TooltipLarge";
-import classes from "./InputWithLabel.module.css";
 
 const InputWithLabel = (props) => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -18,20 +16,10 @@ const InputWithLabel = (props) => {
   };
 
   return (
-    <div
-      className={
-        props.hasError
-          ? `${classes.container} ${classes.errorHandling}`
-          : classes.container
-      }
-    >
+    <div className="relative flex flex-col w-full">
       {props.index === 0 && <label>{props.label ? props.label : ""}</label>}
       {props.onErrorMessage !== "" && showTooltip && (
-        <div
-          className={
-            props.index === 0 ? classes.tooltip : classes.tooltipNextRow
-          }
-        >
+        <div className="absolute left-1/2 -translate-x-1/2 -top-16 lg:-top-24">
           <TooltipLarge index={props.index} message={props.onErrorMessage} />
         </div>
       )}
@@ -44,7 +32,11 @@ const InputWithLabel = (props) => {
         name={props.name ? props.name : ""}
         value={props.value ? props.value : ""}
         readOnly={props.readOnly ? true : false}
-        className={props.hasError ? classes.errorHandling : ""}
+        className={`p-2 border ${
+          props.hasError || props.errorMessage
+            ? "border-red-500"
+            : "border-borderGray "
+        } rounded-none font-normal focus:outline-none focus:border-black`}
         autoComplete="off"
         placeholder={props.placeholder}
       />

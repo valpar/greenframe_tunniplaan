@@ -1,10 +1,7 @@
 import { useState } from "react";
 import TooltipLarge from "../Tooltip/TooltipLarge";
-import TooltipTop from "../Tooltip/TooltipTop";
-import classes from "./InputWithPlaceholder.module.css";
 
 const addPrefix = (link) => {
-  console.log(link?.includes("http://") || link?.includes("https://"));
   return link.length > 5
     ? link?.includes("http")
       ? link
@@ -16,7 +13,6 @@ const InputWithPlaceholder = (props) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const inputChangeHandler = (event) => {
     event.preventDefault();
-    console.log(event.target.name);
     props.onChange({
       name: props.name,
       value:
@@ -34,15 +30,9 @@ const InputWithPlaceholder = (props) => {
   };
 
   return (
-    <div
-      className={
-        props.hasError || props.errorMessage > ""
-          ? `${classes.container} ${classes.errorHandling}`
-          : classes.container
-      }
-    >
+    <div className="relative flex flex-col w-full">
       {(props.hasError || (props.errorMessage > "" && showTooltip)) && (
-        <div className={classes.tooltip}>
+        <div className="absolute left-1/2 -translate-x-1/2 -top-16">
           <TooltipLarge message={props.errorMessage} />
         </div>
       )}
@@ -57,7 +47,11 @@ const InputWithPlaceholder = (props) => {
         name={props.name ? props.name : ""}
         value={props.value ? props.value : ""}
         readOnly={props.readOnly ? true : false}
-        className={props.hasError ? classes.errorHandling : ""}
+        className={`p-2 border ${
+          props.hasError || props.errorMessage
+            ? "border-red-500"
+            : "border-borderGray "
+        } rounded-none font-normal focus:outline-none focus:border-black`}
         autoComplete="off"
         placeholder={props.placeholder}
         maxLength={props.maxLength}

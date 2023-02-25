@@ -1,6 +1,5 @@
 import useAxios from "../../../hooks/useAxios";
 import { Fragment, useState, useEffect, useCallback } from "react";
-import classes from "./TableSubjectInfo.module.css";
 import * as dateService from "../../../utils/Format/Date";
 import InputWithPlaceholder from "../Input/InputWithPlaceholder";
 import AddHomework from "../../addHomework/AddHomework";
@@ -350,73 +349,77 @@ const TableSubjectInfo = (props) => {
 
   return (
     <Fragment>
-      <tr className={classes.lectureInfoHeading}>
-        <td
-          colSpan={3}
-          style={{ borderRight: "0rem" }}
-          className={classes.subjectInfoHeading}
-        >
-          <h6> {editMode ? lectureInfo.editName : lectureInfo.name}</h6>
-        </td>
-        <td colSpan={4} className={classes.actions}>
-          {(props.userLecturer || props.admin) && !editMode && (
-            <i
-              onClick={editInfoHandler}
-              className={`${classes.editIcon} bi bi-pencil-fill`}
-            ></i>
-          )}
-          {editMode && (
-            <>
-              {editMode && extraInfoSaveConfirm && (
-                <div className={classes.saveConfirmInfo}>
+      <tr className="border-x border-borderGray">
+        <td colSpan={4} className="">
+          <div className="relative flex justify-center items-center w-full p-2">
+            <div>
+              <h6 className="font-semibold">
+                {editMode ? lectureInfo.editName : lectureInfo.name}
+              </h6>
+            </div>
+            <div className="absolute right-0 space-x-3 px-2">
+              {(props.userLecturer || props.admin) && !editMode && (
+                <i
+                  onClick={editInfoHandler}
+                  className="bi bi-pencil-fill cursor-pointer text-lg"
+                ></i>
+              )}
+              {editMode && (
+                <>
+                  {editMode && extraInfoSaveConfirm && (
+                    <div className="absolute right-20 -top-12">
+                      <ConfirmModal
+                        modalMessage={saveMessage}
+                        onConfirm={saveInformationHandler}
+                        onDecline={declineHandler}
+                      />
+                    </div>
+                  )}
+                  <FontAwesomeIcon
+                    onClick={showSaveConfirmHandler}
+                    icon={faFloppyDisk}
+                    className="cursor-pointer text-xl"
+                  />
+                </>
+              )}
+              {editMode && extraInfoCloseConfirm && (
+                <div className="absolute right-12 -top-12">
                   <ConfirmModal
-                    modalMessage={saveMessage}
-                    onConfirm={saveInformationHandler}
+                    modalMessage={withoutSaveMessage}
+                    onConfirm={confirmationHandler}
                     onDecline={declineHandler}
                   />
                 </div>
               )}
-              <FontAwesomeIcon
-                onClick={showSaveConfirmHandler}
-                icon={faFloppyDisk}
-                className={classes.confirmIcon}
-              />
-            </>
-          )}
-          {editMode && extraInfoCloseConfirm && (
-            <div className={classes.closeConfirmInfo}>
-              <ConfirmModal
-                modalMessage={withoutSaveMessage}
-                onConfirm={confirmationHandler}
-                onDecline={declineHandler}
-              />
+              <i
+                onClick={showConfirmationHandler}
+                className="bi bi-x-lg cursor-pointer text-xl"
+              ></i>
             </div>
-          )}
-          <i
-            onClick={showConfirmationHandler}
-            className={`bi bi-x-lg ${classes.closeIcon}`}
-          ></i>
+          </div>
         </td>
       </tr>
       {editMode && (
-        <tr
-          className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
-        >
-          <td colSpan={4}>{comment.name}</td>
+        <tr className="subject-info-tr">
+          <td colSpan={4} className="pl-2">
+            {comment.name}
+          </td>
         </tr>
       )}
       {editMode && (
-        <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
-          <td colSpan={4}>
-            <InputWithPlaceholder
-              onChange={addExtraInfoHandler}
-              name="comment"
-              value={enteredInfo.comment}
-              hasErrors={!commentValid}
-              errorMessage={!commentValid ? maxCommentSize : ""}
-              maxLength={50}
-              placeholder={comment.placeholder}
-            />
+        <tr className="subject-info-tr">
+          <td colSpan={4} className="px-2 pt-1 pb-4">
+            <div className="m-4">
+              <InputWithPlaceholder
+                onChange={addExtraInfoHandler}
+                name="comment"
+                value={enteredInfo.comment}
+                hasErrors={!commentValid}
+                errorMessage={!commentValid ? maxCommentSize : ""}
+                maxLength={50}
+                placeholder={comment.placeholder}
+              />
+            </div>
           </td>
         </tr>
       )}
@@ -431,37 +434,36 @@ const TableSubjectInfo = (props) => {
           return (
             <>
               {i === 0 && (
-                <tr
-                  key={i + 1000000}
-                  className={`${classes.extraRowInfo} ${classes.rowHeading}`}
-                >
-                  <td colSpan={4}>{homeworkContent.name}</td>
+                <tr key={i + 1000000} className="subject-info-tr">
+                  <td colSpan={4} className="px-2 pb-4">
+                    {homeworkContent.name}
+                  </td>
                 </tr>
               )}
               <tr
                 key={i}
-                className={`${classes.extraRowInfo} ${classes.rowInfo}`}
+                className="border-x border-borderGray text-left text-sm"
               >
-                <td colSpan={4}>
-                  {homework.description} <br />
-                  {homework.extrasLink && (
-                    <a
-                      rel="noreferrer"
-                      target="_blank"
-                      href={homework.extrasLink}
-                      className={classes.homeworksLink}
-                    >
-                      {studyMaterials.name}
-                    </a>
-                  )}
-                  <strong>{`${deadline.name} ${dateService.formatDate(
-                    homework.dueDate
-                  )}`}</strong>
-                </td>
-              </tr>
-              <tr key={i + 2000000} className={`${classes.line}`}>
-                <td colSpan={4}>
-                  <hr></hr>
+                <td colSpan={4} className="px-2 pb-4">
+                  <div className="p-4 border shadow shadow-borderGray">
+                    <div className="md:text-base">{homework.description}</div>{" "}
+                    <br />
+                    <div className="flex justify-between md:justify-start space-x-4 font-bold">
+                      {homework.extrasLink && (
+                        <a
+                          rel="noreferrer"
+                          target="_blank"
+                          href={homework.extrasLink}
+                          className="hover:text-collegeRed duration-150"
+                        >
+                          {studyMaterials.name}
+                        </a>
+                      )}
+                      <div>{`${deadline.name} ${dateService.formatDate(
+                        homework.dueDate
+                      )}`}</div>
+                    </div>
+                  </div>
                 </td>
               </tr>
             </>
@@ -470,13 +472,13 @@ const TableSubjectInfo = (props) => {
 
       {editMode && (
         <>
-          <tr
-            className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
-          >
-            <td colSpan={4}>{deadline.name}</td>
+          <tr className="subject-info-tr">
+            <td colSpan={4} className="px-2">
+              {homeworkContent.name}
+            </td>
           </tr>
-          <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
-            <td colSpan={4}>
+          <tr className="border-x border-borderGray">
+            <td colSpan={4} className="px-2">
               {enteredInfo.homeworks.map((e, i, s) => {
                 return (
                   <AddHomework
@@ -497,13 +499,14 @@ const TableSubjectInfo = (props) => {
       )}
 
       {!editMode && props.item.comment.length > 0 && props.isLoggedIn && (
-        <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
+        <tr className="subject-info-tr">
           <td colSpan={4}>
-            <div className={classes.btnSubjectCard}>
+            <div className="px-2 pb-4">
               <a
                 rel="noreferrer"
                 target="_blank"
                 href={props.item.distanceLink}
+                className="hover:text-collegeRed duration-150"
               >
                 {videoLecture.name}
               </a>
@@ -514,34 +517,37 @@ const TableSubjectInfo = (props) => {
 
       {editMode && (
         <>
-          <tr
-            className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
-          >
-            <td colSpan={4}>{videoLecture.editName}</td>
+          <tr className="subject-info-tr">
+            <td colSpan={4} className="pl-2 pt-4">
+              {videoLecture.editName}
+            </td>
           </tr>
-          <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
-            <td colSpan={4}>
-              <InputWithPlaceholder
-                onChange={addExtraInfoHandler}
-                name="distanceLink"
-                value={enteredInfo.distanceLink}
-                placeholder={videoLecture.placeholder}
-                hasErrors={!distanceLinkIsValid}
-                errorMessage={!distanceLinkIsValid ? brokenLink : ""}
-              />
+          <tr className="border-x border-borderGray">
+            <td colSpan={4} className="px-2 pb-4">
+              <div className="m-4">
+                <InputWithPlaceholder
+                  onChange={addExtraInfoHandler}
+                  name="distanceLink"
+                  value={enteredInfo.distanceLink}
+                  placeholder={videoLecture.placeholder}
+                  hasErrors={!distanceLinkIsValid}
+                  errorMessage={!distanceLinkIsValid ? brokenLink : ""}
+                />
+              </div>
             </td>
           </tr>
         </>
       )}
       {props.item.subject.subjectCode.length > 4 && (
-        <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
+        <tr className="subject-info-tr">
           <td colSpan={4}>
-            <div className={classes.btnSubjectCard}>
+            <div className="px-2 pb-4">
               {`${subjectCard} `}
               <a
                 href={`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="hover:text-collegeRed duration-150"
               >
                 {props.item.subject.subjectCode}
               </a>
@@ -549,8 +555,10 @@ const TableSubjectInfo = (props) => {
           </td>
         </tr>
       )}
-      <tr className={classes.nextLecturesHeading}>
-        <td colSpan={4}>{nextLectures}</td>
+      <tr className="subject-info-tr">
+        <td colSpan={4} className="px-2">
+          {nextLectures}
+        </td>
       </tr>
       {props.rawData.map((e, i) => {
         let time1 = dateService.formatMilliseconds(e.startTime);
@@ -574,8 +582,11 @@ const TableSubjectInfo = (props) => {
           arr?.length > 0
         ) {
           return (
-            <tr key={i} className={classes.nextLectures}>
-              <td colSpan={4}>{`${dateService
+            <tr
+              key={i}
+              className="text-left text-sm md:text-base border-x border-borderGray"
+            >
+              <td colSpan={4} className="px-2">{`${dateService
                 .formatDateTime(e.startTime)
                 .toString()}-${dateService
                 .formatHoursMinutes(e.endTime)
@@ -586,7 +597,10 @@ const TableSubjectInfo = (props) => {
         return null;
       })}
       <tr>
-        <td colSpan={4} className={classes.bottomRow}></td>
+        <td
+          colSpan={4}
+          className="py-1 border-x border-b border-borderGray"
+        ></td>
       </tr>
     </Fragment>
   );

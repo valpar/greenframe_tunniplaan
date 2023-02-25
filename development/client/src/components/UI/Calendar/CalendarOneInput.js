@@ -1,11 +1,6 @@
 import { Calendar } from "react-calendar";
-import classes from "./CalendarOneInput.module.css";
 import InputWithLabel from "../Input/InputWithLabel";
-import {
-  dateParser,
-  formatDate,
-  formatMilliseconds,
-} from "../../../utils/Format/Date";
+import { dateParser, formatDate } from "../../../utils/Format/Date";
 import { useEffect, useState } from "react";
 
 const reverseDate = (str) => {
@@ -94,19 +89,17 @@ const CalendarOneInput = (props) => {
   }, [newInputValue]);
 
   return (
-    <div className={classes.calendar}>
+    <div className="relative">
       {props.onShowCalendar && (
-        <Calendar
-          minDate={date}
-          onClickDay={props.onClickDay}
-          value={props.value ? dateParser(props.value) : date}
-          className={
-            props.index === 0
-              ? classes.reactCalendar
-              : classes.reactCalendarAfter
-          }
-          locale="et-EE"
-        />
+        <div className="absolute w-full h-auto z-20 top-12 border border-borderGray shadow">
+          <Calendar
+            minDate={date}
+            onClickDay={props.onClickDay}
+            value={props.value ? dateParser(props.value) : date}
+            locale="et-EE"
+            className="filters"
+          />
+        </div>
       )}
 
       <InputWithLabel

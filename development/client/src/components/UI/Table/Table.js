@@ -1,6 +1,5 @@
 import TableRow from "./TableRow";
-import classes from "./Table.module.css";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 const Table = (props) => {
   const today = props.filteredData.filter((e) =>
@@ -19,13 +18,13 @@ const Table = (props) => {
   const data = [...hasCourses, ...noCourse];
 
   return (
-    <table className={classes.scheduleTable}>
+    <table className="table-auto w-full shadow">
       <thead>
-        <tr className={classes.tableHead}>
-          <th>AEG</th>
-          <th>ÕPPEAINE</th>
-          <th>ÕPPEJÕUD</th>
-          <th>RUUM</th>
+        <tr className="text-xs md:text-base border h-12 border-borderGray divide-x divide-borderGray text-left">
+          <th className="px-2 md:px-3">AEG</th>
+          <th className="px-2 md:px-3">ÕPPEAINE</th>
+          <th className="px-2 md:px-3">ÕPPEJÕUD</th>
+          <th className="px-2 md:px-3">RUUM</th>
         </tr>
       </thead>
       <tbody>
@@ -35,8 +34,8 @@ const Table = (props) => {
               {(index === 0 ||
                 item.courses[0]?.courseId !==
                   self[index - 1].courses[0]?.courseId) && (
-                <tr className={classes.courseRow}>
-                  <td colSpan={4} className={classes.courseName}>
+                <tr className="text-xs md:text-base border border-borderGray text-left font-bold h-12 bg-lightGray">
+                  <td colSpan={4} className="pl-2 md:pl-3">
                     {item.courses !== ""
                       ? item.courses[0].courseName
                       : item.courses}

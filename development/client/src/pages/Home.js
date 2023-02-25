@@ -12,6 +12,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { calculateSemesterDate } from "../utils/Calculate/Semester";
 import GoTopButton from "../components/UI/Button/GoTopButton";
+import { faSliders } from "@fortawesome/free-solid-svg-icons";
+import MobileMenu from "../components/nav/MobileMenu";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
@@ -35,6 +38,8 @@ const Home = () => {
   const [userStudent, setUserStudent] = useState(false);
   const [addSchedule, setAddSchedule] = useState(false);
   const [showUsersModal, setShowUsersModal] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const work_Data = useCallback(() => {
     if (!loading && response !== undefined) {
@@ -305,16 +310,33 @@ const Home = () => {
     ? "ÕPILANE"
     : "LOGI SISSE";
 
-  // useEffect(() => {
-  //   console.log(filteredData);
-  // }, [filteredData]);
+  const mobileMenuHandler = () => {
+    setShowMobileMenu((prevState) => (prevState = !prevState));
+  };
+
+  const mobileFiltersHandler = () => {
+    setShowMobileFilters((prevState) => (prevState = !prevState));
+  };
+
+  const handleResize = () => {
+    if (window.innerWidth >= 1024) {
+      setShowMobileFilters(true);
+    } else {
+      setShowMobileFilters(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("load", handleResize);
+  });
 
   return (
-    <Fragment>
-      <div className={classes.container}>
-        <header className={classes.header}>
-          <div className={classes.headerContent}>
-            <div className={classes.logo}>
+    <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
+      <div className="mx-auto w-full ">
+        <header className="flex flex-col fixed left-1/2 -translate-x-1/2 max-w-6xl w-full z-10 bg-white">
+          <div className="flex items-center lg:items-end justify-between py-4 px-4 lg:py-0 lg:pt-4">
+            {/* Logo */}
+            <div className="w-40 h-full lg:w-80 lg:mb-4">
               <a
                 href="https://www.tlu.ee/haapsalu"
                 title="Avaleht"
@@ -324,102 +346,137 @@ const Home = () => {
                 <Logo />
               </a>
             </div>
-            <div className={classes.headerBtns}>
-              <div className={classes.slash}></div>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://start.hk.tlu.ee/sahtelbeta/sahtel/index.php"
-              >
-                <i>SAHTEL</i>
-              </a>
-              <div className={classes.slash}></div>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              >
-                <i>RIIUL</i>
-              </a>
-            </div>
-            <div className={classes.containerLogin}>
-              <div className={classes.login}>
-                <div className={classes.userInfo}>
-                  <img
-                    onClick={showUserRollesHandler}
-                    src={userPicture}
-                    alt="User"
-                  ></img>
-                </div>
-                <div className={classes.loginRole}>{userRole}</div>
+            <div className="flex flex-row space-x-12">
+              {/* Desktop menu */}
+              <div className="hidden lg:flex flex-row justify-end items-end h-full font-serif mt-16">
+                <div className="w-[0.1rem] h-7 bg-collegeGreen rotate-[15deg] mr-2 ml-3"></div>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://start.hk.tlu.ee/sahtelbeta/sahtel/index.php"
+                  className="text-xl"
+                >
+                  <i>SAHTEL</i>
+                </a>
+                <div className="w-[0.1rem] h-7 bg-collegeGreen rotate-[15deg] mr-2 ml-3"></div>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  className="text-xl"
+                >
+                  <i>RIIUL</i>
+                </a>
               </div>
-
-              {showUsersModal && (
-                <div onm className={classes.userContainer}>
-                  <div className={classes.boxArrow}></div>
-                  <div className={classes.userInfoBox}>
-                    <button
-                      onClick={userRollHandler}
-                      className={classes.adminBtn}
-                      type="button"
-                      name="admin"
-                    >
-                      Haldus
-                    </button>
-                    <button
-                      onClick={userRollHandler}
-                      className={classes.adminBtn}
-                      type="button"
-                      name="lecturer"
-                    >
-                      Õppejõud
-                    </button>
-                    <button
-                      onClick={userRollHandler}
-                      className={classes.adminBtn}
-                      type="button"
-                      name="student"
-                    >
-                      Õpilane
-                    </button>
-                    <button
-                      onClick={userRollHandler}
-                      className={classes.adminBtn}
-                      type="button"
-                      name="logout"
-                    >
-                      Logi välja
-                    </button>
+              {/* Desktop login */}
+              <div className="hidden relative lg:flex flex-col justify-end mb-1">
+                <div className="mt-4 w-28">
+                  <div className="mx-auto w-12 h-12">
+                    <img
+                      onClick={showUserRollesHandler}
+                      src={userPicture}
+                      alt="User"
+                      className="w-full h-full rounded-full object-cover"
+                    ></img>
                   </div>
+                  <div className="text-lg mx-auto text-center">{userRole}</div>
                 </div>
-              )}
+
+                {showUsersModal && (
+                  <div className="absolute top-24 left-4 z-10">
+                    <div className={classes.boxArrow}></div>
+                    <div className={classes.userInfoBox}>
+                      <button
+                        onClick={userRollHandler}
+                        className={classes.adminBtn}
+                        type="button"
+                        name="admin"
+                      >
+                        Haldus
+                      </button>
+                      <button
+                        onClick={userRollHandler}
+                        className={classes.adminBtn}
+                        type="button"
+                        name="lecturer"
+                      >
+                        Õppejõud
+                      </button>
+                      <button
+                        onClick={userRollHandler}
+                        className={classes.adminBtn}
+                        type="button"
+                        name="student"
+                      >
+                        Õpilane
+                      </button>
+                      <button
+                        onClick={userRollHandler}
+                        className={classes.adminBtn}
+                        type="button"
+                        name="logout"
+                      >
+                        Logi välja
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="lg:hidden flex flex-row w-24 justify-between">
+              {/* Mobile filters */}
+              <FontAwesomeIcon
+                icon={faSliders}
+                className={`w-7 h-auto ${
+                  showMobileFilters ? "text-darkGray" : ""
+                }`}
+                onClick={mobileFiltersHandler}
+              />
+              {/* Hamburger menu */}
+              <FontAwesomeIcon
+                icon={faBars}
+                className="w-7 h-auto pr-3"
+                onClick={mobileMenuHandler}
+              />
             </div>
           </div>
-          <div className={classes.line} />
+          <div className="w-full h-[0.2rem] bg-[#6c8298] border-solid border-1 border-[#d4d4d4] " />
         </header>
-        <div className={classes.mainContainer}>
-          <div className={classes.scheduleFilters}>
-            <div className={classes.fixedFilters}>
-              {admin && (
-                <div className={classes.addBtn}>
-                  <div className={classes.btnHover} />
-                  <button onClick={addScheduleHandler} type="button">
-                    LISA
-                  </button>
-                  {!addSchedule && (
-                    <FontAwesomeIcon
-                      icon={faAngleRight}
-                      className={classes.faAngleRight}
-                    />
-                  )}
-                  {addSchedule && (
-                    <FontAwesomeIcon
-                      icon={faAngleLeft}
-                      className={classes.faAngleRight}
-                    />
-                  )}
-                </div>
-              )}
+        {showMobileMenu && (
+          <MobileMenu
+            onClose={mobileMenuHandler}
+            userInfo={userPicture}
+            userRollHandler={userRollHandler}
+            userRoll={userRole}
+          />
+        )}
+        <div className="flex flex-1 flex-col lg:flex-row lg:justify-between mt-20 lg:mt-32">
+          <div className="flex-1 px-2 lg:fixed bg-white lg:w-60 pt-1 lg:pt-4 lg:px-0 lg:pr-2 lg:overflow-y-scroll lg:overflow-x-hidden lg:top-32 lg:bottom-0 no-scrollbar">
+            {admin && (
+              <div
+                onClick={addScheduleHandler}
+                className="flex justify-between items-center group relative mx-auto mb-1 w-1/3 h-11 font-bold bg-darkGray text-white shadow lg:w-full lg:mb-3"
+              >
+                <div className="green-peeper" />
+                <button type="button" className="w-11/12">
+                  LISA
+                </button>
+                {!addSchedule && (
+                  <FontAwesomeIcon
+                    icon={faAngleRight}
+                    className="text-base text-white pt-7 rotate-90 lg:rotate-0 lg:pr-4 lg:pt-0"
+                  />
+                )}
+                {addSchedule && (
+                  <FontAwesomeIcon
+                    icon={faAngleLeft}
+                    className="text-base text-white pt-7 rotate-90 lg:rotate-0 lg:pr-4 lg:pt-0"
+                  />
+                )}
+              </div>
+            )}
+            <div className={`${!showMobileFilters ? "hidden" : ""}`}>
               <ScheduleFilters
                 onEmptyFilters={emptyFiltersHandler}
                 onPassingFilters={dataFilterHandler}
@@ -427,7 +484,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className={classes.schedule}>
+          <div className="w-full px-2 lg:px-0 lg:pl-64 ">
             {admin && addSchedule && (
               <ScheduleAddition
                 scheduled={data}
@@ -445,16 +502,18 @@ const Home = () => {
 
               return (
                 <div key={i}>
-                  <div className={classes.scheduleDays}>
-                    <div className={classes.scheduleDay}>
-                      {dateService.formatWeekday(e)}
+                  <div
+                    className={`flex items-center justify-between bg-collegeGreen w-full px-3 h-12 ${
+                      i === 0 ? "mt-1" : "mt-5"
+                    } text-base md:text-lg`}
+                  >
+                    <div className="flex">
+                      <div className="font-bold pr-2 capitalize -ml-1 md:ml-0">
+                        {dateService.formatWeekday(e)}
+                      </div>
+                      <div>{dateService.formatDayLongMonth(e)}</div>
                     </div>
-                    <div className={classes.scheduleDate}>
-                      {dateService.formatDayLongMonth(e)}
-                    </div>
-                    <div className={classes.scheduleYear}>
-                      {dateService.formatYear(e)}
-                    </div>
+                    <div>{dateService.formatYear(e)}</div>
                   </div>
                   <Table
                     userLecturer={userLecturer}
@@ -466,21 +525,19 @@ const Home = () => {
                     onUpdate={newOccurenceHandler}
                   />
                   {noSchoolWork && (
-                    <p className={classes.betweenTables}>
-                      Loengutest vabad päevad!
-                    </p>
+                    <p className="my-8">Loengutest vabad päevad!</p>
                   )}
                 </div>
               );
             })}
             {filteredData.length === 0 && (
-              <p className={classes.betweenTables}>Loenguid ei leitud!</p>
+              <p className="mt-8">Loenguid ei leitud!</p>
             )}
           </div>
         </div>
-        <GoTopButton />
       </div>
-    </Fragment>
+      <GoTopButton />
+    </div>
   );
 };
 
