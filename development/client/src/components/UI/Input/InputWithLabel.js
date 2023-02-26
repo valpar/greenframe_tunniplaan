@@ -17,7 +17,11 @@ const InputWithLabel = (props) => {
 
   return (
     <div className="relative flex flex-col w-full">
-      {props.index === 0 && <label>{props.label ? props.label : ""}</label>}
+      {props.index === 0 && (
+        <label className="font-bold w-full text-left pb-3">
+          {props.label ? props.label : ""}
+        </label>
+      )}
       {props.onErrorMessage !== "" && showTooltip && (
         <div className="absolute left-1/2 -translate-x-1/2 -top-16 lg:-top-24">
           <TooltipLarge index={props.index} message={props.onErrorMessage} />
@@ -32,7 +36,7 @@ const InputWithLabel = (props) => {
         name={props.name ? props.name : ""}
         value={props.value ? props.value : ""}
         readOnly={props.readOnly ? true : false}
-        className={`p-2 border ${
+        className={`p-2 w-full border ${
           props.hasError || props.errorMessage
             ? "border-red-500"
             : "border-borderGray "

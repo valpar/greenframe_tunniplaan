@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import TooltipLarge from "../Tooltip/TooltipLarge";
-import classes from "./DropdownInput.module.css";
 const DropdownInput = (props) => {
   const [options, setOptions] = useState();
   const [showTooltip, setShowTooltip] = useState(false);
@@ -45,20 +44,14 @@ const DropdownInput = (props) => {
   };
 
   return (
-    <div
-      className={
-        props.hasError
-          ? `${classes.container} ${classes.errorHandling}`
-          : classes.container
-      }
-    >
-      {props.index === 0 && <label>{props.label ? props.label : ""}</label>}
+    <div className="relative w-full flex flex-col">
+      {props.index === 0 && (
+        <label className="font-bold text-left pb-3">
+          {props.label ? props.label : ""}
+        </label>
+      )}
       {props.onErrorMessage !== "" && showTooltip && (
-        <div
-          className={
-            props.index === 0 ? classes.tooltipFirstRow : classes.tooltip
-          }
-        >
+        <div className="absolute -top-14">
           <TooltipLarge index={props.index} message={props.onErrorMessage} />
         </div>
       )}
@@ -73,19 +66,23 @@ const DropdownInput = (props) => {
         readOnly={props.readOnly ? true : false}
         onBlur={loseFocusHandler}
         autoComplete="off"
+        className={`p-2 border w-full ${
+          props.hasError || props.errorMessage
+            ? "border-red-500"
+            : "border-borderGray "
+        } rounded-none font-normal focus:outline-none focus:border-black`}
       />
 
       {props.showOptions && showOptions && options.length !== 0 && (
-        <div
-          className={
-            props.index > 0
-              ? `${classes.optionContainer} ${classes.nextRow}`
-              : classes.optionContainer
-          }
-        >
+        <div className="absolute top-20 w-full bg-white border border-black/50 shadow">
           {options.map((e, i) => {
             return (
-              <option key={i} value={e.value} onClick={optionClickHandler}>
+              <option
+                key={i}
+                value={e.value}
+                onClick={optionClickHandler}
+                className="p-2 hover:bg-sky-100 duration-150"
+              >
                 {e.label}
               </option>
             );

@@ -373,12 +373,8 @@ const DateOfOccurenceForm = (props) => {
   }, []);
 
   return (
-    <div
-      className={
-        props.index === 0 ? classes.container : classes.containerNoLabel
-      }
-    >
-      <div className={classes.inputWithLabel}>
+    <div className="flex flex-col w-full items-center lg:items-end lg:flex-row lg:space-x-4">
+      <div className="flex flex-col lg:flex-row w-full lg:space-x-4">
         <CalendarOneInput
           onShowCalendar={showCalendar}
           onClickDay={calendarClickHandler}
@@ -390,9 +386,7 @@ const DateOfOccurenceForm = (props) => {
           errorMessage={errorMessages.date}
           reset={calendarReset}
         />
-      </div>
 
-      <div className={classes.inputWithLabel}>
         <InputWithLabel
           onChange={loadChangeHandler}
           type="text"
@@ -404,36 +398,35 @@ const DateOfOccurenceForm = (props) => {
           readOnly={!dateValue ? true : false}
           onErrorMessage={!dateValue ? requiresDate : errorMessages.load}
         />
-      </div>
 
-      <DropdownInput
-        onLoad={startTimeChangeHandler}
-        onChange={startTimeChangeHandler}
-        options={beginValues}
-        value={startTime}
-        label="Algus"
-        name="startTime"
-        cssClass="dropdownOccurence"
-        index={props.index}
-        hasError={enteredStartTimeIsValid}
-        readOnly={!dateValue ? true : false}
-        showOptions={dateValue ? true : false}
-        onErrorMessage={!dateValue ? requiresDate : errorMessages.startTime}
-      />
-      <DropdownInput
-        onChange={endTimeChangeHandler}
-        options={endValues}
-        label="Lõpp"
-        cssClass="dropdownOccurence"
-        name="endTime"
-        value={endTime}
-        index={props.index}
-        hasError={enteredEndTimeIsValid}
-        readOnly={!dateValue ? true : false}
-        showOptions={dateValue ? true : false}
-        onErrorMessage={!dateValue ? requiresDate : errorMessages.endTime}
-      />
-      <div className={classes.inputWithLabel}>
+        <DropdownInput
+          onLoad={startTimeChangeHandler}
+          onChange={startTimeChangeHandler}
+          options={beginValues}
+          value={startTime}
+          label="Algus"
+          name="startTime"
+          cssClass="dropdownOccurence"
+          index={props.index}
+          hasError={enteredStartTimeIsValid}
+          readOnly={!dateValue ? true : false}
+          showOptions={dateValue ? true : false}
+          onErrorMessage={!dateValue ? requiresDate : errorMessages.startTime}
+        />
+        <DropdownInput
+          onChange={endTimeChangeHandler}
+          options={endValues}
+          label="Lõpp"
+          cssClass="dropdownOccurence"
+          name="endTime"
+          value={endTime}
+          index={props.index}
+          hasError={enteredEndTimeIsValid}
+          readOnly={!dateValue ? true : false}
+          showOptions={dateValue ? true : false}
+          onErrorMessage={!dateValue ? requiresDate : errorMessages.endTime}
+        />
+
         <InputWithLabel
           readOnly={true}
           onClick={lunchChangeHandler}
@@ -447,21 +440,19 @@ const DateOfOccurenceForm = (props) => {
       </div>
 
       {!props.editMode && (
-        <div className={classes.addRemove}>
-          <div className={classes.iconRow}>
-            {props.index === props.occurenceLength - 1 && !props.editMode && (
-              <i
-                onClick={props.onClick}
-                className={`bi bi-plus-lg ${classes.addIcon}`}
-              ></i>
-            )}
-            {props.occurenceLength > 1 && (
-              <i
-                onClick={deleteRowHandler}
-                className={`${classes.deleteRowBtn} bi bi-x`}
-              ></i>
-            )}
-          </div>
+        <div className="flex flex-col justify-center items-center pt-2 lg:pt-0 lg:justify-end !lg:items-end lg:flex-row w-20 lg:space-x-4">
+          {props.index === props.occurenceLength - 1 && !props.editMode && (
+            <i
+              onClick={props.onClick}
+              className={`bi bi-plus-lg text-2xl text-right`}
+            ></i>
+          )}
+          {props.occurenceLength > 1 && (
+            <i
+              onClick={deleteRowHandler}
+              className={` bi bi-x-lg text-2xl text-center`}
+            ></i>
+          )}
         </div>
       )}
     </div>

@@ -299,7 +299,6 @@ const ScheduleAddition = (props) => {
   };
 
   const occurenceHandler = (occurence, index) => {
-    console.log(occurence);
     if (clearOccurenceFields) setClearOccurenceFields(false);
     if (occurence[0].subjectId) setSubjectValid(false);
     setNewOccurence((prevState) => {
@@ -652,12 +651,11 @@ const ScheduleAddition = (props) => {
   const editItemHandler = (value) => {
     setIsEditMode(true);
     setShowAddModal(true);
-    console.log(value);
-    if (value[0]?.roomId) setModalContent("rooms");
-    if (value[0]?.courseId) setModalContent("courses");
-    if (value[0]?.lecturerId) setModalContent("lecturers");
-    if (typeof value === "number") setModalContent("subjects");
-    setEditValues(value);
+    if (value.type === "room") setModalContent("rooms");
+    if (value.type === "course") setModalContent("courses");
+    if (value.type === "lecturer") setModalContent("lecturers");
+    if (value.type === "subject") setModalContent("subjects");
+    setEditValues(value.value);
   };
 
   useEffect(() => {
@@ -680,11 +678,9 @@ const ScheduleAddition = (props) => {
 
   return (
     <div
-      className={
-        props.editMode
-          ? classes.editScheduleModal
-          : classes.newScheduleItemModal
-      }
+      className={`flex flex-col justify-center items-center p-4 mb-6 w-full ${
+        !props.editMode ? "mt-1 lg:mt-4 border border-borderGray shadow-md" : ""
+      }`}
     >
       {showAddModal && (
         <AddNewItem
@@ -701,16 +697,19 @@ const ScheduleAddition = (props) => {
           scheduled={props.scheduled}
         />
       )}
-      <div className={classes.headingRow}>
+      <div className="relative text-sm md:text-base font-bold w-full">
         <h6>
           {props.editMode
             ? "LOENGU MUUTMINE TUNNIPLAANIS"
             : "LOENGU LISAMINE TUNNIPLAANI"}
         </h6>
-        <i onClick={props.onClose} className={`bi bi-x-lg`}></i>
+        <i
+          onClick={props.onClose}
+          className={`bi bi-x-lg absolute top-0 right-0 cursor-pointer text-xl leading-5 lg:hover:text-black lg:hover:scale-105 duration-150`}
+        ></i>
       </div>
 
-      <div className={classes.dropdownsRow}>
+      <div className="flex flex-col justify-between items-center lg:px-2 space-y-3 lg:space-x-4 lg:space-y-0 py-8 w-full lg:flex-row">
         <AddDropdown
           onEdit={editItemHandler}
           onChange={dropdownHandler}
@@ -734,7 +733,6 @@ const ScheduleAddition = (props) => {
           modalMessage={
             showConfirmModal.type === "lecturer" ? showConfirmModal : null
           }
-          modalButtons={["EEMALDA", "KINNITA"]}
           onConfirm={dropdownConfirmHandler}
           onDecline={dropdownDeclineHandler}
         />
@@ -759,17 +757,12 @@ const ScheduleAddition = (props) => {
           modalMessage={
             showConfirmModal.type === "room" ? showConfirmModal : null
           }
-          modalButtons={["EEMALDA", "KINNITA"]}
           onConfirm={dropdownConfirmHandler}
           onDecline={dropdownDeclineHandler}
           value={addedLecture[0].rooms}
         />
       </div>
-      <div
-        className={
-          props.editMode ? classes.editOccurenceRow : classes.occurenceRow
-        }
-      >
+      <div className="flex flex-col w-full px-2 space-y-6">
         {newOccurence.map((occurence, i) => {
           return (
             <div key={i}>
@@ -790,13 +783,7 @@ const ScheduleAddition = (props) => {
         })}
       </div>
 
-      <div
-        className={
-          props.editMode
-            ? `${classes.buttonRow} ${classes.editMode}`
-            : `${classes.buttonRow}`
-        }
-      >
+      <div className="mt-4">
         {props.editMode && (
           <>
             {showDeleteConfirmModal && (

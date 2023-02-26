@@ -20,6 +20,10 @@
 .error-tp-a-shadow {
   box-shadow: rgba(192, 2, 2, 0.407) 4px 4px 8px -2px;
 }
+.css-1lmyqxj {
+  height: 8px !important;
+  width: 8px !important;
+}
 .no-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */

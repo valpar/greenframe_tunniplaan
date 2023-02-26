@@ -32,7 +32,11 @@ const InputWithPlaceholder = (props) => {
   return (
     <div className="relative flex flex-col w-full">
       {(props.hasError || (props.errorMessage > "" && showTooltip)) && (
-        <div className="absolute left-1/2 -translate-x-1/2 -top-16">
+        <div
+          className={`absolute left-1/2 -translate-x-1/2 ${
+            props.eTopPos ? "-top-16 lg:-top-24" : "-top-16"
+          }`}
+        >
           <TooltipLarge message={props.errorMessage} />
         </div>
       )}

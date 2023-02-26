@@ -23,7 +23,7 @@ const ConfirmModalOverlay = (props) => {
   return (
     <div className="fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:translate-y-0 lg:left-auto lg:top-auto lg:relative w-auto h-auto space-y-2 bg-white p-4 rounded z-30 shadow-lg">
       <div className={`hidden lg:block ${arrow}`}></div>
-      <div className="pb-4">
+      <div className="pb-4 text-center">
         <p>{props.modalMessage}</p>
       </div>
       <div className="flex space-x-4">

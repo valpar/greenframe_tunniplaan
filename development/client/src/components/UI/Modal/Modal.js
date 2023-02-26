@@ -13,8 +13,15 @@ const Backdrop = (props) => {
 
 const ModalOverlay = (props) => {
   return (
-    <div className="fixed top-20 w-auto h-auto left-1/2 -translate-x-1/2 bg-white p-4 rounded z-30 shadow-lg animate-slideDown lg:top-1/4">
-      <div className={classes.content}>{props.children}</div>
+    <div className="fixed top-20 w-11/12 lg:w-auto h-auto left-1/2 -translate-x-1/2 bg-white rounded z-30 shadow-lg animate-slideDown lg:top-1/4">
+      <div
+        className={`absolute ${
+          props.modalOverlay ? "flex" : "hidden"
+        } justify-center items-center w-full h-full bg-neutral-900 opacity-70 z-30`}
+      ></div>
+      <div className="p-4 ">
+        <div className={classes.content}>{props.children}</div>
+      </div>
     </div>
   );
 };
@@ -28,7 +35,9 @@ const Modal = (props) => {
         portalElement
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay>{props.children}</ModalOverlay>,
+        <ModalOverlay modalOverlay={props.overlay}>
+          {props.children}
+        </ModalOverlay>,
         portalElement
       )}
     </Fragment>

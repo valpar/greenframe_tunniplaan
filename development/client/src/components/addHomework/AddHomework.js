@@ -8,7 +8,6 @@ import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 import content from "../../assets/content/content.json";
 
 const addPrefix = (link) => {
-  console.log(link?.includes("http://") || link?.includes("https://"));
   return link.length > 5
     ? link?.includes("http")
       ? link

@@ -87,6 +87,10 @@ const SearchDropdown = (props) => {
             borderRadius: "none",
             boxShadow: "rgba(99, 99, 99, 0.2) 0px 1px 2px 0px",
             minHeight: "2.8rem",
+            "&:hover": {
+              border: "1px solid black",
+              textColor: "black",
+            },
           }),
           menu: (baseStyles, state) => ({
             ...baseStyles,
@@ -100,6 +104,10 @@ const SearchDropdown = (props) => {
           placeholder: (baseStyles, state) => ({
             ...baseStyles,
             color: placeholderColor,
+          }),
+          indicatorsContainer: (baseStyles) => ({
+            ...baseStyles,
+            pointerEvents: "none",
           }),
         }}
       />

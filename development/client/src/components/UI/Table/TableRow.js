@@ -1,5 +1,4 @@
 import { Fragment, useState } from "react";
-import classes from "./TableRow.module.css";
 import TableSubjectInfo from "./TableSubjectInfo";
 import { formatHoursMinutes } from "../../../utils/Format/Date";
 import ScheduleAddition from "../../scheduleAddition/ScheduleAddition";
@@ -128,8 +127,8 @@ const TableBody = (props) => {
       </tr>
       {showEditModal && props.admin && (
         <tr className="">
-          <td colSpan={4} className={classes.editColumn}>
-            <div className={classes.editSchedule}>
+          <td colSpan={4} className="border-x border-borderGray">
+            <div className="-mt-12">
               <ScheduleAddition
                 onClose={closeEditModalHandler}
                 editMode="editMode"

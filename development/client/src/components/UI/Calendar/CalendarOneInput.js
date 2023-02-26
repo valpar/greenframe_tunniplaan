@@ -89,7 +89,7 @@ const CalendarOneInput = (props) => {
   }, [newInputValue]);
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       {props.onShowCalendar && (
         <div className="absolute w-full h-auto z-20 top-12 border border-borderGray shadow">
           <Calendar
