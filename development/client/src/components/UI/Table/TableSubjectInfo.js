@@ -540,9 +540,12 @@ const TableSubjectInfo = (props) => {
                           {studyMaterials.name}
                         </a>
                       )}
-                      <div>{`${deadline.name} ${dateService.formatDate(
-                        homework.dueDate
-                      )}`}</div>
+
+                      {homework?.dueDate && (
+                        <div>{`${deadline.name} ${dateService.formatDate(
+                          homework.dueDate
+                        )}`}</div>
+                      )}
                     </div>
                   </div>
                 </td>
