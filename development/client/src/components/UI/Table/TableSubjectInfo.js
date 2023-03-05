@@ -93,7 +93,7 @@ const TableSubjectInfo = (props) => {
     if (
       !homeworkLoading &&
       homeworkError === "" &&
-      homeworkResponse.hasOwnProperty("homework")
+      homeworkResponse?.homework
     ) {
       setHomework(...homeworkResponse.homework);
       setEnteredInfo((prevState) => {
@@ -504,7 +504,6 @@ const TableSubjectInfo = (props) => {
 
       {!editMode &&
         props.isLoggedIn &&
-        homework?.description &&
         (homeworkResponse?.homework
           ? homeworkResponse.homework
           : enteredInfo.homeworks
@@ -526,7 +525,11 @@ const TableSubjectInfo = (props) => {
                   <div className="p-4 border shadow shadow-borderGray">
                     <div className="md:text-base">{homework.description}</div>{" "}
                     <br />
-                    <div className="flex justify-between md:justify-start space-x-4 font-bold">
+                    <div
+                      className={`flex ${
+                        homework.extrasLink ? "justify-between" : "justify-end"
+                      } md:justify-start space-x-4 font-bold`}
+                    >
                       {homework.extrasLink && (
                         <a
                           rel="noreferrer"
