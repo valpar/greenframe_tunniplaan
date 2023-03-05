@@ -13,6 +13,7 @@ const CalendarOneInput = (props) => {
   );
   const [inputValue, setInputValue] = useState();
   const [newInputValue, setNewInputValue] = useState();
+  const { isMobile } = props;
 
   useEffect(() => {
     setInputValue((prevState) =>
@@ -91,7 +92,11 @@ const CalendarOneInput = (props) => {
   return (
     <div className="relative w-full">
       {props.onShowCalendar && (
-        <div className="absolute w-full h-auto z-20 top-12 border border-borderGray shadow">
+        <div
+          className={`absolute w-full h-auto z-20 ${
+            (props.label && props.index === 0) || isMobile ? "top-20" : "top-12"
+          } border border-borderGray shadow`}
+        >
           <Calendar
             minDate={date}
             onClickDay={props.onClickDay}
@@ -114,6 +119,7 @@ const CalendarOneInput = (props) => {
         hasError={props.hasError}
         errorMessage={props.errorMessage}
         onErrorMessage={props.errorMessage !== "" ? props.errorMessage : ""}
+        isMobile={isMobile}
       />
     </div>
   );

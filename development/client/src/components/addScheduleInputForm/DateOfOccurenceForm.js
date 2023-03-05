@@ -1,6 +1,4 @@
-import classes from "./DateOfOccurenceForm.module.css";
 import {
-  formatDate,
   formatHoursMinutes,
   formatMilliseconds,
 } from "../../utils/Format/Date";
@@ -94,6 +92,7 @@ const DateOfOccurenceForm = (props) => {
     startTime: "",
     endTime: "",
   });
+  const { isMobile } = props;
 
   const { requiresDate, requiresEndDate, notUniqueDate } =
     content.errorMessages;
@@ -374,73 +373,91 @@ const DateOfOccurenceForm = (props) => {
 
   return (
     <div className="flex flex-col w-full items-center lg:items-end lg:flex-row lg:space-x-4">
-      <div className="flex flex-col lg:flex-row w-full lg:space-x-4">
-        <CalendarOneInput
-          onShowCalendar={showCalendar}
-          onClickDay={calendarClickHandler}
-          value={dateValue}
-          index={props.index}
-          onClick={addDateHandler}
-          label="Kuupäev"
-          hasError={enteredDateIsValid}
-          errorMessage={errorMessages.date}
-          reset={calendarReset}
-        />
+      <div className="flex flex-col lg:flex-row w-full space-y-3 lg:space-x-4 lg:space-y-0">
+        <div className="lg:w-[28rem]">
+          <CalendarOneInput
+            onShowCalendar={showCalendar}
+            onClickDay={calendarClickHandler}
+            value={dateValue}
+            index={props.index}
+            onClick={addDateHandler}
+            label="Kuupäev"
+            hasError={enteredDateIsValid}
+            errorMessage={errorMessages.date}
+            reset={calendarReset}
+            isMobile={isMobile}
+          />
+        </div>
+        <div>
+          <InputWithLabel
+            onChange={loadChangeHandler}
+            type="text"
+            name="workLoad"
+            label="Maht"
+            value={loadValue}
+            index={props.index}
+            hasError={enteredLoadIsValid}
+            readOnly={!dateValue ? true : false}
+            onErrorMessage={!dateValue ? requiresDate : errorMessages.load}
+            isMobile={isMobile}
+            tooltipWidth="w-full lg:w-52 z-20"
+          />
+        </div>
 
-        <InputWithLabel
-          onChange={loadChangeHandler}
-          type="text"
-          name="workLoad"
-          label="Maht"
-          value={loadValue}
-          index={props.index}
-          hasError={enteredLoadIsValid}
-          readOnly={!dateValue ? true : false}
-          onErrorMessage={!dateValue ? requiresDate : errorMessages.load}
-        />
+        <div>
+          <DropdownInput
+            onLoad={startTimeChangeHandler}
+            onChange={startTimeChangeHandler}
+            options={beginValues}
+            value={startTime}
+            label="Algus"
+            name="startTime"
+            cssClass="dropdownOccurence"
+            index={props.index}
+            hasError={enteredStartTimeIsValid}
+            readOnly={!dateValue ? true : false}
+            showOptions={dateValue ? true : false}
+            onErrorMessage={!dateValue ? requiresDate : errorMessages.startTime}
+            isMobile={isMobile}
+          />
+        </div>
 
-        <DropdownInput
-          onLoad={startTimeChangeHandler}
-          onChange={startTimeChangeHandler}
-          options={beginValues}
-          value={startTime}
-          label="Algus"
-          name="startTime"
-          cssClass="dropdownOccurence"
-          index={props.index}
-          hasError={enteredStartTimeIsValid}
-          readOnly={!dateValue ? true : false}
-          showOptions={dateValue ? true : false}
-          onErrorMessage={!dateValue ? requiresDate : errorMessages.startTime}
-        />
-        <DropdownInput
-          onChange={endTimeChangeHandler}
-          options={endValues}
-          label="Lõpp"
-          cssClass="dropdownOccurence"
-          name="endTime"
-          value={endTime}
-          index={props.index}
-          hasError={enteredEndTimeIsValid}
-          readOnly={!dateValue ? true : false}
-          showOptions={dateValue ? true : false}
-          onErrorMessage={!dateValue ? requiresDate : errorMessages.endTime}
-        />
+        <div>
+          <DropdownInput
+            onChange={endTimeChangeHandler}
+            options={endValues}
+            label="Lõpp"
+            cssClass="dropdownOccurence"
+            name="endTime"
+            value={endTime}
+            index={props.index}
+            hasError={enteredEndTimeIsValid}
+            readOnly={!dateValue ? true : false}
+            showOptions={dateValue ? true : false}
+            onErrorMessage={!dateValue ? requiresDate : errorMessages.endTime}
+            isMobile={isMobile}
+          />
+        </div>
 
-        <InputWithLabel
-          readOnly={true}
-          onClick={lunchChangeHandler}
-          label="Lõuna"
-          cssClass="dropdownOccurence"
-          name="hasLunch"
-          value={lunchValue}
-          index={props.index}
-          onErrorMessage={!endTime ? requiresEndDate : ""}
-        />
+        <div className="lg:w-20">
+          <InputWithLabel
+            readOnly={true}
+            onClick={lunchChangeHandler}
+            label="Lõuna"
+            cssClass="dropdownOccurence"
+            name="hasLunch"
+            value={lunchValue}
+            index={props.index}
+            onErrorMessage={!endTime ? requiresEndDate : ""}
+            isMobile={isMobile}
+            tooltipWidth="w-full lg:w-52 z-20"
+            customStyle="lg:text-center cursor-pointer"
+          />
+        </div>
       </div>
 
       {!props.editMode && (
-        <div className="flex flex-col justify-center items-center pt-2 lg:pt-0 lg:justify-end !lg:items-end lg:flex-row w-20 lg:space-x-4">
+        <div className="flex justify-center items-center space-x-2 pt-4 lg:pt-0  lg:pb-1 lg:justify-end !lg:items-end w-20 lg:space-x-4">
           {props.index === props.occurenceLength - 1 && !props.editMode && (
             <i
               onClick={props.onClick}

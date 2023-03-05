@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, Fragment } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import classes from "./Home.module.css";
 import useAxios from "../hooks/useAxios";
 
@@ -14,7 +14,9 @@ import { calculateSemesterDate } from "../utils/Calculate/Semester";
 import GoTopButton from "../components/UI/Button/GoTopButton";
 import { faSliders } from "@fortawesome/free-solid-svg-icons";
 import MobileMenu from "../components/nav/MobileMenu";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faExclamation } from "@fortawesome/free-solid-svg-icons";
+import { Spinner } from "../components/UI/Spinner";
+import content from "../assets/content/content.json";
 
 const Home = () => {
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
@@ -24,7 +26,10 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [newOccurenceAdded, setNewOccurenceAdded] = useState(false);
-  const { response, loading, error } = useAxios(
+  const [scheduleLoading, setScheduleLoading] = useState(true);
+  const [hasServerError, setHasServerError] = useState(undefined);
+
+  const { response, isLoading, error } = useAxios(
     {
       method: "get",
       url: `/schedule/${scheduleRequestParams.startDate}/${scheduleRequestParams.endDate}`,
@@ -40,9 +45,14 @@ const Home = () => {
   const [showUsersModal, setShowUsersModal] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [notScheduled, setNotScheduled] = useState("");
 
   const work_Data = useCallback(() => {
-    if (!loading && response !== undefined) {
+    setScheduleLoading(isLoading);
+    setHasServerError(error?.message ? error.message : undefined);
+    console.log(error);
+
+    if (!isLoading && response !== undefined) {
       let schedule = response.schedule;
       schedule.forEach(function (o) {
         Object.keys(o).forEach(function (k) {
@@ -54,7 +64,7 @@ const Home = () => {
       setData(schedule);
       setFilteredData(schedule);
     }
-  }, [loading, response]);
+  }, [isLoading, response, error]);
 
   useEffect(() => {
     work_Data();
@@ -325,10 +335,24 @@ const Home = () => {
       setShowMobileFilters(false);
     }
   };
+
+  const scheduleReloadHandler = () => {
+    setScheduleLoading(true);
+    setHasServerError("");
+    setNewOccurenceAdded((prevState) => (prevState = !prevState));
+  };
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     window.addEventListener("load", handleResize);
   });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setNotScheduled("Loenguid ei leitud!");
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [filteredData]);
 
   return (
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
@@ -456,7 +480,7 @@ const Home = () => {
             {admin && (
               <div
                 onClick={addScheduleHandler}
-                className="flex justify-between items-center group relative mx-auto mb-1 w-1/3 h-11 font-bold bg-darkGray text-white shadow lg:w-full lg:mb-3"
+                className="flex justify-between items-center group relative mx-auto mt-2 lg:mt-0 mb-1 w-1/3 h-11 font-bold bg-darkGray text-white shadow lg:w-full lg:mb-3"
               >
                 <div className="green-peeper" />
                 <button type="button" className="w-11/12">
@@ -485,6 +509,21 @@ const Home = () => {
           </div>
 
           <div className="w-full px-2 lg:px-0 lg:pl-64 ">
+            {scheduleLoading && <Spinner containerStyle="py-8" />}
+            {hasServerError && (
+              <div className="p-4 lg:mt-3 border border-borderGray shadow shadow-borderGray">
+                <div className="flex justify-center py-4 text-4xl lg:text-6xl text-collegeRed">
+                  <FontAwesomeIcon icon={faExclamation} />
+                </div>
+                <p className="pb-4">{content.errorMessages.serverError}</p>
+                <button
+                  onClick={scheduleReloadHandler}
+                  className="py-1 px-8 my-4 border border-borderGray shadow hover:bg-borderGray hover:shadow-lg duration-150"
+                >
+                  Uuesti
+                </button>
+              </div>
+            )}
             {admin && addSchedule && (
               <ScheduleAddition
                 scheduled={data}
@@ -504,7 +543,7 @@ const Home = () => {
                 <div key={i}>
                   <div
                     className={`flex items-center justify-between bg-collegeGreen w-full px-3 h-12 ${
-                      i === 0 ? "mt-1" : "mt-5"
+                      i === 0 ? "mt-3" : "mt-5"
                     } text-base md:text-lg`}
                   >
                     <div className="flex">
@@ -530,8 +569,12 @@ const Home = () => {
                 </div>
               );
             })}
-            {filteredData.length === 0 && (
-              <p className="mt-8">Loenguid ei leitud!</p>
+            {(scheduleLoading ||
+              response?.schedule.length === 0 ||
+              filteredData.length === 0) && (
+              <p className="mt-8">
+                {scheduleLoading ? "Laeb" : !hasServerError ? notScheduled : ""}
+              </p>
             )}
           </div>
         </div>

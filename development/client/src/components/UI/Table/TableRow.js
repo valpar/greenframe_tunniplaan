@@ -128,15 +128,13 @@ const TableBody = (props) => {
       {showEditModal && props.admin && (
         <tr className="">
           <td colSpan={4} className="border-x border-borderGray">
-            <div className="-mt-12">
-              <ScheduleAddition
-                onClose={closeEditModalHandler}
-                editMode="editMode"
-                editData={props.item}
-                onUpdate={props.onUpdate}
-                scheduled={props.rawData}
-              />
-            </div>
+            <ScheduleAddition
+              onClose={closeEditModalHandler}
+              editMode="editMode"
+              editData={props.item}
+              onUpdate={props.onUpdate}
+              scheduled={props.rawData}
+            />
           </td>
         </tr>
       )}

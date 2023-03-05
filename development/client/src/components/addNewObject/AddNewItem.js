@@ -9,6 +9,7 @@ import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
 import config from "../../config.json";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 import content from "../../assets/content/content.json";
+import RequestModal from "../UI/RequestModal/RequestModal";
 
 axios.defaults.baseURL = config.api.url;
 
@@ -31,6 +32,14 @@ const AddNewItem = (props) => {
   const [showUpdateConfirmModal, setShowUpdateConfirmModal] = useState(false);
   const [deleteModalMessage, setDeleteModalMessage] = useState(deleteMessage);
   const [showOverlay, setOverlay] = useState(false);
+
+  const [requestError, setRequestError] = useState(false);
+  const [requestSuccess, setRequestSuccess] = useState(false);
+  const [requestLoading, setRequestLoading] = useState(false);
+  const [requestMessage, setRequestMessage] = useState("");
+  const [showRequestModal, setShowRequestModal] = useState(false);
+  const [hideModal, setHideModal] = useState(false);
+  const [requestAction, setRequestAction] = useState("");
 
   const inputsChangeHandler = (inputsObj, rowIndex, validInputs) => {
     setInputsState((prevState) =>
@@ -79,20 +88,36 @@ const AddNewItem = (props) => {
       if (props.modalFor === "rooms") typeId = "roomId";
       if (props.modalFor === "courses") typeId = "courseId";
       if (props.modalFor === "lecturers") typeId = "lecturerId";
-      for (let state of inputsState) {
-        await axios
-          .post(`/${props.modalFor}`, { ...state })
-          .then((response) => {
-            responseId.push({ [typeId]: response.data.id });
-            if (props.modalFor === "subjects")
-              props.onNewItem("subjectId", response.data.id);
-            setResponseId(response.data.id);
-          });
+      setRequestAction("create");
+      try {
+        setShowUpdateConfirmModal(false);
+        setHideModal(true);
+        setShowRequestModal(true);
+        setRequestLoading(true);
+        for (let state of inputsState) {
+          await axios
+            .post(`/${props.modalFor}`, { ...state })
+            .then((response) => {
+              responseId.push({ [typeId]: response.data.id });
+              if (props.modalFor === "subjects")
+                props.onNewItem("subjectId", response.data.id);
+              setResponseId(response.data.id);
+            });
+        }
+      } catch (error) {
+        setRequestLoading(false);
+        setRequestError(true);
+        setRequestMessage(content.errorMessages.requestAddError);
+        return;
       }
+
+      setRequestLoading(false);
+      setRequestMessage(content.successMessages.create);
+      setRequestSuccess(true);
+
       if (responseId.length > 0 && props.modalFor !== "subjects")
         props.onNewItem(props.modalFor, responseId);
-      setShowUpdateConfirmModal(false);
-      props.onClose();
+
       setInputsState([{}]);
       setInputsAreValid([{}]);
     }
@@ -176,56 +201,84 @@ const AddNewItem = (props) => {
 
   const updateItemHandler = async () => {
     setOverlay(false);
-    if (props.modalFor === "rooms") {
-      await axios
-        .patch(`/rooms/${props.editValues}`, inputsState[0])
-        .then((response) => console.log(response));
+    setRequestAction("update");
+    try {
+      setShowUpdateConfirmModal(false);
+      setOverlay(false);
+      setHideModal(true);
+      setShowRequestModal(true);
+      setRequestLoading(true);
+      if (props.modalFor === "rooms") {
+        await axios
+          .patch(`/rooms/${props.editValues}`, inputsState[0])
+          .then((response) => console.log(response));
+      }
+      if (props.modalFor === "courses") {
+        await axios
+          .patch(`/courses/${props.editValues}`, inputsState[0])
+          .then((response) => console.log(response));
+      }
+      if (props.modalFor === "lecturers") {
+        console.log(inputsState[0]);
+        await axios
+          .patch(`/lecturers/${props.editValues}`, inputsState[0])
+          .then((response) => console.log(response));
+      }
+      if (props.modalFor === "subjects") {
+        await axios
+          .patch(`/subjects/${props.editValues}`, inputsState[0])
+          .then((response) => console.log(response));
+      }
+    } catch (error) {
+      setRequestLoading(false);
+      setRequestError(true);
+      setRequestMessage(content.errorMessages.requestUpdateError);
+      return;
     }
-    if (props.modalFor === "courses") {
-      await axios
-        .patch(`/courses/${props.editValues}`, inputsState[0])
-        .then((response) => console.log(response));
-    }
-    if (props.modalFor === "lecturers") {
-      console.log(inputsState[0]);
-      await axios
-        .patch(`/lecturers/${props.editValues}`, inputsState[0])
-        .then((response) => console.log(response));
-    }
-    if (props.modalFor === "subjects") {
-      await axios
-        .patch(`/subjects/${props.editValues}`, inputsState[0])
-        .then((response) => console.log(response));
-    }
-    props.onClose();
-    props.onDelete();
+
+    setRequestLoading(false);
+    setRequestMessage(content.successMessages.delete);
+    setRequestSuccess(true);
   };
 
   const deleteItemHandler = async () => {
-    setOverlay(false);
-    if (props.modalFor === "rooms") {
-      await axios
-        .delete(`/rooms/${props.editValues}`)
-        .then((response) => console.log(response));
+    setRequestAction("delete");
+    try {
+      setShowDeleteConfirmModal(false);
+      setOverlay(false);
+      setHideModal(true);
+      setShowRequestModal(true);
+      setRequestLoading(true);
+      if (props.modalFor === "rooms") {
+        await axios
+          .delete(`/rooms/${props.editValues}`)
+          .then((response) => console.log(response));
+      }
+      if (props.modalFor === "courses") {
+        await axios
+          .delete(`/courses/${props.editValues}`)
+          .then((response) => console.log(response));
+      }
+      if (props.modalFor === "lecturers") {
+        await axios
+          .delete(`/lecturers/${props.editValues}`)
+          .then((response) => console.log(response));
+      }
+      if (props.modalFor === "subjects") {
+        await axios
+          .delete(`/subjects/${props.editValues}`)
+          .then((response) => console.log(response));
+      }
+    } catch (error) {
+      setRequestLoading(false);
+      setRequestError(true);
+      setRequestMessage(content.errorMessages.requestDeleteError);
+      return;
     }
-    if (props.modalFor === "courses") {
-      await axios
-        .delete(`/courses/${props.editValues}`)
-        .then((response) => console.log(response));
-    }
-    if (props.modalFor === "lecturers") {
-      await axios
-        .delete(`/lecturers/${props.editValues}`)
-        .then((response) => console.log(response));
-    }
-    if (props.modalFor === "subjects") {
-      await axios
-        .delete(`/subjects/${props.editValues}`)
-        .then((response) => console.log(response));
-    }
+    setRequestLoading(false);
+    setRequestMessage(content.successMessages.delete);
+    setRequestSuccess(true);
     setDeleteModalMessage("KUSTUTA");
-    props.onDelete();
-    props.onClose();
   };
   useEffect(() => {
     if (!validSubmit) {
@@ -235,9 +288,40 @@ const AddNewItem = (props) => {
       return () => clearTimeout(timer);
     }
   }, [validSubmit]);
+
+  useEffect(() => {
+    if (requestSuccess) {
+      const timer = setTimeout(() => {
+        if (
+          requestMessage === content.successMessages.delete ||
+          requestMessage === content.successMessages.update
+        ) {
+          props.onDelete();
+        }
+        props.onClose();
+        setHideModal(false);
+        setShowRequestModal(false);
+        setRequestSuccess(false);
+        setRequestMessage("");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [requestSuccess]);
+
+  const endRequestHandler = () => {
+    props.onClose();
+  };
+  const failedRequestConfirmHandler = () => {
+    setRequestError(false);
+    setRequestMessage("");
+    if (requestAction === "create") submitItemHandler();
+    if (requestAction === "delete") deleteItemHandler();
+    if (requestAction === "update") updateItemHandler();
+  };
+
   return (
-    <Modal onClose={closeHandler} overlay={showOverlay}>
-      <div className="relative flex flex-col">
+    <Modal onHidden={hideModal} onClose={closeHandler} overlay={showOverlay}>
+      <div className="relative flex flex-col lg:pl-4">
         <div className="relative flex justify-end">
           <i
             onClick={closeHandler}
@@ -380,6 +464,17 @@ const AddNewItem = (props) => {
             )}
           </div>
         </div>
+        {showRequestModal && (
+          <RequestModal
+            error={requestError}
+            success={requestSuccess}
+            loading={requestLoading}
+            modalMessage={requestMessage}
+            customStyle="top-1/2 lg:ml-32"
+            onDecline={endRequestHandler}
+            onConfirm={failedRequestConfirmHandler}
+          />
+        )}
       </div>
     </Modal>
   );

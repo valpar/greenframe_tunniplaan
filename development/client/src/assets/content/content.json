@@ -17,7 +17,8 @@
     "workLoadMessage": "Maht numbrites",
     "requestAddError": "Lisamine ebaõnnestus!",
     "requestUpdateError": "Muutmine ebaõnnestus!",
-    "requestDeleteError": "Kustutamine ebaõnnestus!"
+    "requestDeleteError": "Kustutamine ebaõnnestus!",
+    "serverError": "Andmete laadimine ebaõnnestus!"
   },
   "confirmModalMessages": {
     "withoutSaveMessage": "Sulge ilma salvestamata?",

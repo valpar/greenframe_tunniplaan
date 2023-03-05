@@ -9,6 +9,8 @@ import config from "../../../config.json";
 import content from "../../../assets/content/content.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-regular-svg-icons";
+import RequestModal from "../RequestModal/RequestModal";
+import TooltipLarge from "../Tooltip/TooltipLarge";
 
 const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(
@@ -24,6 +26,7 @@ const isValidUrl = (urlString) => {
 };
 
 axios.defaults.baseURL = config.api.url;
+
 const TableSubjectInfo = (props) => {
   const [homework, setHomework] = useState([]);
   const [editMode, setEditMode] = useState(false);
@@ -57,6 +60,12 @@ const TableSubjectInfo = (props) => {
   const { brokenLink, maxCommentSize, mandatoryField, datePassed } =
     content.errorMessages;
   const { withoutSaveMessage, saveMessage } = content.confirmModalMessages;
+  const [requestError, setRequestError] = useState(false);
+  const [requestSuccess, setRequestSuccess] = useState(false);
+  const [requestLoading, setRequestLoading] = useState(false);
+  const [requestMessage, setRequestMessage] = useState("");
+  const [showRequestModal, setShowRequestModal] = useState(false);
+  const [showNotValidTooltip, setShowNotValidTooltip] = useState(false);
 
   useEffect(() => {
     setEnteredInfo((prevState) => {
@@ -278,7 +287,8 @@ const TableSubjectInfo = (props) => {
     if (!editMode) props.onClick();
     setExtraInfoCloseConfirm(true);
   };
-  const saveInformationHandler = async () => {
+
+  const fieldValidator = () => {
     const fieldsValid = homeworksValid.filter((e) => {
       return (
         !e.descriptionValid.description ||
@@ -286,88 +296,149 @@ const TableSubjectInfo = (props) => {
         !e.extrasLinkValid.extrasLink
       );
     });
+
+    const homeWorkValid = homeworksValid.filter((homework) => {
+      return (
+        !homework.descriptionValid.description ||
+        !homework.dueDateValid.dueDate ||
+        !homework.extrasLinkValid.extrasLink
+      );
+    });
+
+    return (
+      commentValid &&
+      distanceLinkIsValid &&
+      fieldsValid.length === 0 &&
+      homeWorkValid.length === 0
+    );
+  };
+
+  const saveInformationHandler = async () => {
     const homeworksNotEmpty = enteredInfo.homeworks.every((e) => {
       return e.description !== "" && e.dueDate !== "";
     });
-    if (commentValid && distanceLinkIsValid && fieldsValid.length === 0) {
-      await axios
-        .patch(`/schedule/${props.item.id}`, {
-          ...props.item,
-          comment: enteredInfo.comment,
-          distanceLink: enteredInfo.distanceLink,
-          subjectId: props.item.subject.id,
-        })
-        .then((response) => {
-          console.log(response);
+    if (fieldValidator()) {
+      try {
+        setShowRequestModal(true);
+        setRequestLoading(true);
+        await axios
+          .patch(`/schedule/${props.item.id}`, {
+            ...props.item,
+            comment: enteredInfo.comment,
+            distanceLink: enteredInfo.distanceLink,
+            subjectId: props.item.subject.id,
+          })
+          .then((response) => {
+            console.log(response);
+          });
+        enteredInfo.homeworks.forEach(async (e, i) => {
+          if (e.id) {
+            await axios
+              .patch(`/homeworks/${e.id}`, {
+                ...e,
+                subjectCode: props.item.subject.subjectCode,
+                subjects_id: props.item.subject.id,
+              })
+              .then((response) => {
+                console.log(response);
+              });
+          }
+          if (!e.id && homeworksNotEmpty) {
+            await axios
+              .post(`/homeworks`, {
+                ...e,
+                subjectCode: props.item.subject.subjectCode,
+              })
+              .then((response) => {
+                console.log(response);
+              });
+          }
         });
-      enteredInfo.homeworks.forEach(async (e, i) => {
-        if (e.id) {
-          await axios
-            .patch(`/homeworks/${e.id}`, {
-              ...e,
-              subjectCode: props.item.subject.subjectCode,
-              subjects_id: props.item.subject.id,
-            })
-            .then((response) => {
-              console.log(response);
-            });
-        }
-        if (!e.id && homeworksNotEmpty) {
-          await axios
-            .post(`/homeworks`, {
-              ...e,
-              subjectCode: props.item.subject.subjectCode,
-            })
-            .then((response) => {
-              console.log(response);
-            });
-        }
-      });
-
-      setEnteredInfo({
-        comment: "",
-        homeworks: [{ id: null, description: "", dueDate: "", extrasLink: "" }],
-        distanceLink: "",
-      });
-      setHomeWorksValid([
-        {
-          descriptionValid: { description: true, errorMessage: "" },
-          dueDateValid: { dueDate: true, errorMessage: "" },
-          extrasLinkValid: { extrasLink: true, errorMessage: "" },
-        },
-      ]);
+      } catch (error) {
+        setRequestLoading(false);
+        setRequestError(true);
+        setRequestMessage("Salvestamine ebaõnnestus");
+        setExtraInfoSaveConfirm(false);
+        return;
+      }
+      setRequestLoading(false);
+      setRequestMessage("Salvestamine õnnestus");
+      setRequestSuccess(true);
       setExtraInfoSaveConfirm(false);
-      setUpdateRequest((prevState) => (prevState = !prevState));
-      props.onUpdate();
-      setEditMode(false);
     }
   };
 
   const showSaveConfirmHandler = () => {
-    setExtraInfoSaveConfirm(true);
+    fieldValidator()
+      ? setExtraInfoSaveConfirm(true)
+      : setShowNotValidTooltip(true);
   };
+
+  const failedRequestConfirmHandler = () => {
+    saveInformationHandler();
+  };
+
+  const endRequestHandler = () => {
+    setShowRequestModal(false);
+    setRequestSuccess(false);
+    setRequestMessage("");
+
+    setEnteredInfo({
+      comment: "",
+      homeworks: [{ id: null, description: "", dueDate: "", extrasLink: "" }],
+      distanceLink: "",
+    });
+    setHomeWorksValid([
+      {
+        descriptionValid: { description: true, errorMessage: "" },
+        dueDateValid: { dueDate: true, errorMessage: "" },
+        extrasLinkValid: { extrasLink: true, errorMessage: "" },
+      },
+    ]);
+    setUpdateRequest((prevState) => (prevState = !prevState));
+    props.onUpdate();
+    setEditMode(false);
+  };
+
+  useEffect(() => {
+    if (requestSuccess) {
+      const timer = setTimeout(() => {
+        endRequestHandler();
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [requestSuccess]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowNotValidTooltip(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [showNotValidTooltip]);
 
   return (
     <Fragment>
       <tr className="border-x border-borderGray">
         <td colSpan={4} className="">
-          <div className="relative flex justify-center items-center w-full p-2">
+          <div className="relative flex justify-center items-center w-full p-2 pt-4">
             <div>
               <h6 className="font-semibold">
                 {editMode ? lectureInfo.editName : lectureInfo.name}
               </h6>
             </div>
-            <div className="absolute right-0 space-x-3 px-2">
+            <div className="absolute right-2 top-2 space-x-4 px-2">
               {(props.userLecturer || props.admin) && !editMode && (
                 <i
                   onClick={editInfoHandler}
-                  className="bi bi-pencil-fill cursor-pointer text-lg"
+                  className="bi bi-pencil-fill cursor-pointer text-2xl"
                 ></i>
               )}
               {editMode && (
                 <>
                   {editMode && extraInfoSaveConfirm && (
-                    <div className="absolute right-20 -top-12">
+                    <div className="absolute right-28 -top-11">
                       <ConfirmModal
                         modalMessage={saveMessage}
                         onConfirm={saveInformationHandler}
@@ -375,15 +446,22 @@ const TableSubjectInfo = (props) => {
                       />
                     </div>
                   )}
+                  {showNotValidTooltip && (
+                    <div className="absolute bottom-11 -ml-4 left-1/2 -translate-x-1/2">
+                      <TooltipLarge
+                        message={content.errorMessages.mandatoryFields}
+                      />
+                    </div>
+                  )}
                   <FontAwesomeIcon
                     onClick={showSaveConfirmHandler}
                     icon={faFloppyDisk}
-                    className="cursor-pointer text-xl"
+                    className="cursor-pointer text-3xl"
                   />
                 </>
               )}
               {editMode && extraInfoCloseConfirm && (
-                <div className="absolute right-12 -top-12">
+                <div className="absolute right-14 -top-11">
                   <ConfirmModal
                     modalMessage={withoutSaveMessage}
                     onConfirm={confirmationHandler}
@@ -393,7 +471,7 @@ const TableSubjectInfo = (props) => {
               )}
               <i
                 onClick={showConfirmationHandler}
-                className="bi bi-x-lg cursor-pointer text-xl"
+                className="bi bi-x-lg cursor-pointer text-3xl"
               ></i>
             </div>
           </div>
@@ -597,10 +675,19 @@ const TableSubjectInfo = (props) => {
         return null;
       })}
       <tr>
-        <td
-          colSpan={4}
-          className="py-1 border-x border-b border-borderGray"
-        ></td>
+        <td colSpan={4} className="py-1 border-x border-b border-borderGray">
+          {showRequestModal && (
+            <RequestModal
+              error={requestError}
+              success={requestSuccess}
+              loading={requestLoading}
+              modalMessage={requestMessage}
+              customStyle="lg:ml-32"
+              onDecline={endRequestHandler}
+              onConfirm={failedRequestConfirmHandler}
+            />
+          )}
+        </td>
       </tr>
     </Fragment>
   );

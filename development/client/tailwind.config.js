@@ -35,6 +35,10 @@ module.exports = {
           "0%": { width: "0%" },
           "100%": { width: "100%" },
         },
+        greenLoader: {
+          "0%": { width: "0%" },
+          "100%": { width: "100%" },
+        },
       },
       colors: {
         collegeGreen: "#a4d65e",
@@ -48,6 +52,7 @@ module.exports = {
         slideDown: "slideDown 300ms ease-out forwards",
         peeper: "peeper 200ms ease-in-out forwards",
         foldOpen: "foldOpen 300ms ease-in",
+        greenLoader: "greenLoader 2s normal forwards",
       },
     },
   },

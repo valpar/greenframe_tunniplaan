@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Select, { components } from "react-select";
-import classes from "./AddDropdown.module.css";
 import TooltipLarge from "../Tooltip/TooltipLarge";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -70,6 +69,7 @@ const AddDropdown = (props) => {
         border: "1px solid black",
         textColor: "black",
       },
+      border: `${props.hasError ? "1px solid red" : "1px solid #CECECE"}`,
     }),
     placeholder: (baseStyles, state) => ({
       ...baseStyles,
@@ -156,11 +156,13 @@ const AddDropdown = (props) => {
       className="relative w-full h-auto"
     >
       {props.topLabel && <label>{props.topLabel}</label>}
-      {props.onErrorMessage && props.onErrorMessage !== "" && showTooltip && (
-        <div className={classes.tooltip}>
-          <TooltipLarge index={props.index} message={props.onErrorMessage} />
-        </div>
-      )}
+      {props.onErrorMessage &&
+        props.onErrorMessage !== "" &&
+        (showTooltip || "") && (
+          <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-full max-w-xs">
+            <TooltipLarge index={props.index} message={props.onErrorMessage} />
+          </div>
+        )}
 
       <Select
         onMenuClose={menuCloseHandler}
@@ -205,7 +207,6 @@ const AddDropdown = (props) => {
           />
         </div>
       )}
-      {props.hasError && <div className={classes.errorHandling} />}
     </div>
   );
 };

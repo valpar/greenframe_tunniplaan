@@ -8,6 +8,8 @@ const DropdownInput = (props) => {
     setOptions(props.options);
   }, []);
 
+  const { isMobile } = props;
+
   const [showOptions, setShowOptions] = useState(false);
 
   const inputChangeHandler = (event) => {
@@ -23,7 +25,7 @@ const DropdownInput = (props) => {
   };
   const optionClickHandler = (event) => {
     event.preventDefault();
-    props.onChange(event.target.value);
+    props.onChange(event.target.innerText);
     setShowOptions((prevState) => (prevState = !prevState));
   };
   const loseFocusHandler = () => {
@@ -45,13 +47,15 @@ const DropdownInput = (props) => {
 
   return (
     <div className="relative w-full flex flex-col">
-      {props.index === 0 && (
-        <label className="font-bold text-left pb-3">
+      {(props.index === 0 || isMobile) && (
+        <label className="font-bold text-left pb-1 lg:pb-2">
           {props.label ? props.label : ""}
         </label>
       )}
       {props.onErrorMessage !== "" && showTooltip && (
-        <div className="absolute -top-14">
+        <div
+          className={`absolute left-1/2 -translate-x-1/2 bottom-14 w-full lg:w-52 max-w-xs`}
+        >
           <TooltipLarge index={props.index} message={props.onErrorMessage} />
         </div>
       )}
@@ -74,17 +78,17 @@ const DropdownInput = (props) => {
       />
 
       {props.showOptions && showOptions && options.length !== 0 && (
-        <div className="absolute top-20 w-full bg-white border border-black/50 shadow">
+        <div className="absolute top-20 w-full bg-white border border-black/50 shadow z-20">
           {options.map((e, i) => {
             return (
-              <option
+              <div
                 key={i}
                 value={e.value}
                 onClick={optionClickHandler}
                 className="p-2 hover:bg-sky-100 duration-150"
               >
                 {e.label}
-              </option>
+              </div>
             );
           })}
         </div>

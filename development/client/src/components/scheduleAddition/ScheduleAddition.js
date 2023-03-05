@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import useAxios from "../../hooks/useAxios";
 import DateOfOccurenceForm from "../addScheduleInputForm/DateOfOccurenceForm";
 import AddDropdown from "../UI/Dropdown/AddDropdown";
-import classes from "./ScheduleAddition.module.css";
 import axios from "axios";
 import AddNewItem from "../addNewObject/AddNewItem";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
@@ -111,6 +110,8 @@ const ScheduleAddition = (props) => {
     message: "",
   });
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
+  const [showScheduleConfirmModal, setShowScheduleConfirmModal] =
+    useState(false);
   const [itemToDelete, setItemToDelete] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editValues, setEditValues] = useState();
@@ -120,6 +121,7 @@ const ScheduleAddition = (props) => {
   const [requestLoading, setRequestLoading] = useState(false);
   const [requestMessage, setRequestMessage] = useState("");
   const [showRequestModal, setShowRequestModal] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const workCourseData = useCallback(() => {
     if (!courseLoading && courseResponse !== undefined) {
@@ -424,76 +426,12 @@ const ScheduleAddition = (props) => {
     }
   }, [newOccurence]);
 
-  const submitScheduleHandler = async () => {
+  const saveScheduleHandler = () => {
     const hasSubject =
       addedLecture[0].subjectId !== null && addedLecture[0].subjectId !== "";
     const occurenceValidator = validateOccurences(newOccurence);
     if (!valitationFailed(occurenceValidator) && hasSubject) {
-      console.log(newOccurence);
-      setRequestLoading(true);
-      setShowRequestModal(true);
-      if (!props.editMode) {
-        newOccurence.every(async (element) => {
-          await axios
-            .post(`/schedule`, {
-              ...addedLecture[0],
-              ...element,
-            })
-            .then((res) => {
-              if (res.status === 200) {
-                setRequestSuccess(true);
-                setRequestLoading(false);
-                setRequestMessage(content.successMessages.create);
-              } else {
-                setRequestLoading(false);
-                setRequestError(true);
-                setRequestMessage(content.errorMessages.requestAddError);
-              }
-            });
-        });
-      }
-      if (props.editMode) {
-        newOccurence.every(async (element) => {
-          await axios
-            .patch(`/schedule/${props.editData.id}`, {
-              ...addedLecture[0],
-              ...element,
-            })
-            .then((res) => {
-              if (res.status === 200) {
-                setRequestSuccess(true);
-                setRequestLoading(false);
-                setRequestMessage(content.successMessages.update);
-                console.log("silo", res);
-              } else {
-                setRequestLoading(false);
-                setRequestError(true);
-                setRequestMessage(content.errorMessages.requestUpdateError);
-              }
-            });
-        });
-        return;
-      }
-
-      setNewOccurence([
-        {
-          startTime: "",
-          endTime: "",
-        },
-      ]);
-      setOccurencesIsValid([]);
-      setClearOccurenceFields(true);
-      setAddedLecture([
-        {
-          comment: "",
-          rooms: "",
-          courses: "",
-          subjectId: "",
-          lecturers: "",
-          distanceLink: "",
-        },
-      ]);
-      props.onNewOccurence();
+      setShowScheduleConfirmModal(true);
     } else {
       setFieldsValid(false);
       setOccurencesIsValid(occurenceValidator);
@@ -505,6 +443,76 @@ const ScheduleAddition = (props) => {
         };
       });
     }
+  };
+  const closeScheduleConfirm = () => {
+    setShowScheduleConfirmModal(false);
+  };
+
+  const submitScheduleHandler = async () => {
+    setShowScheduleConfirmModal(false);
+    setRequestLoading(true);
+    setShowRequestModal(true);
+    if (!props.editMode) {
+      newOccurence.every(async (element) => {
+        await axios
+          .post(`/schedule`, {
+            ...addedLecture[0],
+            ...element,
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              setRequestSuccess(true);
+              setRequestLoading(false);
+              setRequestMessage(content.successMessages.create);
+            } else {
+              setRequestLoading(false);
+              setRequestError(true);
+              setRequestMessage(content.errorMessages.requestAddError);
+            }
+          });
+      });
+    }
+    if (props.editMode) {
+      newOccurence.every(async (element) => {
+        await axios
+          .patch(`/schedule/${props.editData.id}`, {
+            ...addedLecture[0],
+            ...element,
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              setRequestSuccess(true);
+              setRequestLoading(false);
+              setRequestMessage(content.successMessages.update);
+            } else {
+              setRequestLoading(false);
+              setRequestError(true);
+              setRequestMessage(content.errorMessages.requestUpdateError);
+            }
+          });
+      });
+      return;
+    }
+
+    setNewOccurence([
+      {
+        startTime: "",
+        endTime: "",
+      },
+    ]);
+    setOccurencesIsValid([]);
+    setClearOccurenceFields(true);
+    setAddedLecture([
+      {
+        comment: "",
+        rooms: "",
+        courses: "",
+        subjectId: "",
+        lecturers: "",
+        distanceLink: "",
+      },
+    ]);
+    props.onNewOccurence();
   };
   const newRowHandler = () => {
     setNewOccurence((prevState) => {
@@ -676,10 +684,24 @@ const ScheduleAddition = (props) => {
     }
   }, [requestSuccess]);
 
+  const handleResize = () => {
+    if (window.innerWidth <= 720) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+  });
+
   return (
     <div
-      className={`flex flex-col justify-center items-center p-4 mb-6 w-full ${
-        !props.editMode ? "mt-1 lg:mt-4 border border-borderGray shadow-md" : ""
+      className={`flex flex-col justify-center items-center p-4 mb-0 w-full ${
+        !props.editMode
+          ? "mt-1 lg:mt-4 border border-borderGray shadow-md"
+          : "mb-0"
       }`}
     >
       {showAddModal && (
@@ -709,7 +731,7 @@ const ScheduleAddition = (props) => {
         ></i>
       </div>
 
-      <div className="flex flex-col justify-between items-center lg:px-2 space-y-3 lg:space-x-4 lg:space-y-0 py-8 w-full lg:flex-row">
+      <div className="flex flex-col justify-between items-start lg:px-4 space-y-3 lg:space-x-4 lg:space-y-0 py-8  w-full lg:flex-row">
         <AddDropdown
           onEdit={editItemHandler}
           onChange={dropdownHandler}
@@ -762,7 +784,7 @@ const ScheduleAddition = (props) => {
           value={addedLecture[0].rooms}
         />
       </div>
-      <div className="flex flex-col w-full px-2 space-y-6">
+      <div className="flex flex-col w-full lg:px-4  space-y-4">
         {newOccurence.map((occurence, i) => {
           return (
             <div key={i}>
@@ -777,17 +799,22 @@ const ScheduleAddition = (props) => {
                 editMode={props.editMode}
                 editData={props.editData}
                 occurenceLength={newOccurence.length}
+                isMobile={isMobile}
               />
             </div>
           );
         })}
       </div>
 
-      <div className="mt-4">
+      <div
+        className={`relative flex ${
+          props.editMode ? "justify-between" : "justify-center lg:justify-end"
+        } w-full px-2 lg:px-4 mb-4 mt-6 lg:mt-12`}
+      >
         {props.editMode && (
           <>
             {showDeleteConfirmModal && (
-              <div className={classes.deleteConfirm}>
+              <div className="absolute lg:bottom-16 lg:-left-10">
                 <ConfirmModal
                   bottomArrow={true}
                   modalMessage={deleteMessage}
@@ -798,16 +825,26 @@ const ScheduleAddition = (props) => {
             )}
             <button
               onClick={deleteScheduleHandler}
-              className={classes.submitButton}
+              className="px-4 lg:px-8 py-2 font-bold text-sm border border-borderGray shadow hover:bg-borderGray hover:shadow-lg duration-150"
               type="button"
             >
               KUSTUTA
             </button>
           </>
         )}
+        {showScheduleConfirmModal && (
+          <div className="absolute lg:bottom-16 lg:-right-10">
+            <ConfirmModal
+              bottomArrow={true}
+              modalMessage={content.confirmModalMessages.saveMessage}
+              onDecline={closeScheduleConfirm}
+              onConfirm={submitScheduleHandler}
+            />
+          </div>
+        )}
         <button
-          onClick={submitScheduleHandler}
-          className={classes.submitButton}
+          onClick={saveScheduleHandler}
+          className="px-4 lg:px-8 py-2 font-bold text-sm border border-borderGray shadow hover:bg-borderGray hover:shadow-lg duration-150"
           type="submit"
         >
           SALVESTA
@@ -819,6 +856,7 @@ const ScheduleAddition = (props) => {
           success={requestSuccess}
           loading={requestLoading}
           modalMessage={requestMessage}
+          customStyle="lg:ml-32"
         />
       )}
     </div>
