@@ -1,5 +1,36 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-period {
+  @apply flex-auto border border-borderGray py-1 lg:w-20 duration-200;
+}
+.green-peeper {
+  @apply absolute block bg-collegeGreen w-full h-11 -z-10 lg:group-hover:animate-peeper;
+}
+.subject-info-tr {
+  @apply border-x border-borderGray text-left text-sm font-bold;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.error-tp-shadow {
+  box-shadow: rgba(192, 2, 2, 0.407) 0px 2px 8px 0px;
+}
+.error-tp-a-shadow {
+  box-shadow: rgba(192, 2, 2, 0.407) 4px 4px 8px -2px;
+}
+.css-1lmyqxj {
+  height: 8px !important;
+  width: 8px !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */

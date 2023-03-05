@@ -1,6 +1,5 @@
 import useAxios from "../../../hooks/useAxios";
 import { Fragment, useState, useEffect, useCallback } from "react";
-import classes from "./TableSubjectInfo.module.css";
 import * as dateService from "../../../utils/Format/Date";
 import InputWithPlaceholder from "../Input/InputWithPlaceholder";
 import AddHomework from "../../addHomework/AddHomework";
@@ -10,6 +9,8 @@ import config from "../../../config.json";
 import content from "../../../assets/content/content.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-regular-svg-icons";
+import RequestModal from "../RequestModal/RequestModal";
+import TooltipLarge from "../Tooltip/TooltipLarge";
 
 const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(
@@ -25,6 +26,7 @@ const isValidUrl = (urlString) => {
 };
 
 axios.defaults.baseURL = config.api.url;
+
 const TableSubjectInfo = (props) => {
   const [homework, setHomework] = useState([]);
   const [editMode, setEditMode] = useState(false);
@@ -58,6 +60,12 @@ const TableSubjectInfo = (props) => {
   const { brokenLink, maxCommentSize, mandatoryField, datePassed } =
     content.errorMessages;
   const { withoutSaveMessage, saveMessage } = content.confirmModalMessages;
+  const [requestError, setRequestError] = useState(false);
+  const [requestSuccess, setRequestSuccess] = useState(false);
+  const [requestLoading, setRequestLoading] = useState(false);
+  const [requestMessage, setRequestMessage] = useState("");
+  const [showRequestModal, setShowRequestModal] = useState(false);
+  const [showNotValidTooltip, setShowNotValidTooltip] = useState(false);
 
   useEffect(() => {
     setEnteredInfo((prevState) => {
@@ -279,7 +287,8 @@ const TableSubjectInfo = (props) => {
     if (!editMode) props.onClick();
     setExtraInfoCloseConfirm(true);
   };
-  const saveInformationHandler = async () => {
+
+  const fieldValidator = () => {
     const fieldsValid = homeworksValid.filter((e) => {
       return (
         !e.descriptionValid.description ||
@@ -287,136 +296,208 @@ const TableSubjectInfo = (props) => {
         !e.extrasLinkValid.extrasLink
       );
     });
+
+    const homeWorkValid = homeworksValid.filter((homework) => {
+      return (
+        !homework.descriptionValid.description ||
+        !homework.dueDateValid.dueDate ||
+        !homework.extrasLinkValid.extrasLink
+      );
+    });
+
+    return (
+      commentValid &&
+      distanceLinkIsValid &&
+      fieldsValid.length === 0 &&
+      homeWorkValid.length === 0
+    );
+  };
+
+  const saveInformationHandler = async () => {
     const homeworksNotEmpty = enteredInfo.homeworks.every((e) => {
       return e.description !== "" && e.dueDate !== "";
     });
-    if (commentValid && distanceLinkIsValid && fieldsValid.length === 0) {
-      await axios
-        .patch(`/schedule/${props.item.id}`, {
-          ...props.item,
-          comment: enteredInfo.comment,
-          distanceLink: enteredInfo.distanceLink,
-          subjectId: props.item.subject.id,
-        })
-        .then((response) => {
-          console.log(response);
+    if (fieldValidator()) {
+      try {
+        setShowRequestModal(true);
+        setRequestLoading(true);
+        await axios
+          .patch(`/schedule/${props.item.id}`, {
+            ...props.item,
+            comment: enteredInfo.comment,
+            distanceLink: enteredInfo.distanceLink,
+            subjectId: props.item.subject.id,
+          })
+          .then((response) => {
+            console.log(response);
+          });
+        enteredInfo.homeworks.forEach(async (e, i) => {
+          if (e.id) {
+            await axios
+              .patch(`/homeworks/${e.id}`, {
+                ...e,
+                subjectCode: props.item.subject.subjectCode,
+                subjects_id: props.item.subject.id,
+              })
+              .then((response) => {
+                console.log(response);
+              });
+          }
+          if (!e.id && homeworksNotEmpty) {
+            await axios
+              .post(`/homeworks`, {
+                ...e,
+                subjectCode: props.item.subject.subjectCode,
+              })
+              .then((response) => {
+                console.log(response);
+              });
+          }
         });
-      enteredInfo.homeworks.forEach(async (e, i) => {
-        if (e.id) {
-          await axios
-            .patch(`/homeworks/${e.id}`, {
-              ...e,
-              subjectCode: props.item.subject.subjectCode,
-              subjects_id: props.item.subject.id,
-            })
-            .then((response) => {
-              console.log(response);
-            });
-        }
-        if (!e.id && homeworksNotEmpty) {
-          await axios
-            .post(`/homeworks`, {
-              ...e,
-              subjectCode: props.item.subject.subjectCode,
-            })
-            .then((response) => {
-              console.log(response);
-            });
-        }
-      });
-
-      setEnteredInfo({
-        comment: "",
-        homeworks: [{ id: null, description: "", dueDate: "", extrasLink: "" }],
-        distanceLink: "",
-      });
-      setHomeWorksValid([
-        {
-          descriptionValid: { description: true, errorMessage: "" },
-          dueDateValid: { dueDate: true, errorMessage: "" },
-          extrasLinkValid: { extrasLink: true, errorMessage: "" },
-        },
-      ]);
+      } catch (error) {
+        setRequestLoading(false);
+        setRequestError(true);
+        setRequestMessage("Salvestamine ebaõnnestus");
+        setExtraInfoSaveConfirm(false);
+        return;
+      }
+      setRequestLoading(false);
+      setRequestMessage("Salvestamine õnnestus");
+      setRequestSuccess(true);
       setExtraInfoSaveConfirm(false);
-      setUpdateRequest((prevState) => (prevState = !prevState));
-      props.onUpdate();
-      setEditMode(false);
     }
   };
 
   const showSaveConfirmHandler = () => {
-    setExtraInfoSaveConfirm(true);
+    fieldValidator()
+      ? setExtraInfoSaveConfirm(true)
+      : setShowNotValidTooltip(true);
   };
+
+  const failedRequestConfirmHandler = () => {
+    saveInformationHandler();
+  };
+
+  const endRequestHandler = () => {
+    setShowRequestModal(false);
+    setRequestSuccess(false);
+    setRequestMessage("");
+
+    setEnteredInfo({
+      comment: "",
+      homeworks: [{ id: null, description: "", dueDate: "", extrasLink: "" }],
+      distanceLink: "",
+    });
+    setHomeWorksValid([
+      {
+        descriptionValid: { description: true, errorMessage: "" },
+        dueDateValid: { dueDate: true, errorMessage: "" },
+        extrasLinkValid: { extrasLink: true, errorMessage: "" },
+      },
+    ]);
+    setUpdateRequest((prevState) => (prevState = !prevState));
+    props.onUpdate();
+    setEditMode(false);
+  };
+
+  useEffect(() => {
+    if (requestSuccess) {
+      const timer = setTimeout(() => {
+        endRequestHandler();
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [requestSuccess]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowNotValidTooltip(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [showNotValidTooltip]);
 
   return (
     <Fragment>
-      <tr className={classes.lectureInfoHeading}>
-        <td
-          colSpan={3}
-          style={{ borderRight: "0rem" }}
-          className={classes.subjectInfoHeading}
-        >
-          <h6> {editMode ? lectureInfo.editName : lectureInfo.name}</h6>
-        </td>
-        <td colSpan={4} className={classes.actions}>
-          {(props.userLecturer || props.admin) && !editMode && (
-            <i
-              onClick={editInfoHandler}
-              className={`${classes.editIcon} bi bi-pencil-fill`}
-            ></i>
-          )}
-          {editMode && (
-            <>
-              {editMode && extraInfoSaveConfirm && (
-                <div className={classes.saveConfirmInfo}>
+      <tr className="border-x border-borderGray">
+        <td colSpan={4} className="">
+          <div className="relative flex justify-center items-center w-full p-2 pt-4">
+            <div>
+              <h6 className="font-semibold">
+                {editMode ? lectureInfo.editName : lectureInfo.name}
+              </h6>
+            </div>
+            <div className="absolute right-2 top-2 space-x-4 px-2">
+              {(props.userLecturer || props.admin) && !editMode && (
+                <i
+                  onClick={editInfoHandler}
+                  className="bi bi-pencil-fill cursor-pointer text-2xl"
+                ></i>
+              )}
+              {editMode && (
+                <>
+                  {editMode && extraInfoSaveConfirm && (
+                    <div className="absolute right-28 -top-11">
+                      <ConfirmModal
+                        modalMessage={saveMessage}
+                        onConfirm={saveInformationHandler}
+                        onDecline={declineHandler}
+                      />
+                    </div>
+                  )}
+                  {showNotValidTooltip && (
+                    <div className="absolute bottom-11 -ml-4 left-1/2 -translate-x-1/2">
+                      <TooltipLarge
+                        message={content.errorMessages.mandatoryFields}
+                      />
+                    </div>
+                  )}
+                  <FontAwesomeIcon
+                    onClick={showSaveConfirmHandler}
+                    icon={faFloppyDisk}
+                    className="cursor-pointer text-3xl"
+                  />
+                </>
+              )}
+              {editMode && extraInfoCloseConfirm && (
+                <div className="absolute right-14 -top-11">
                   <ConfirmModal
-                    modalMessage={saveMessage}
-                    onConfirm={saveInformationHandler}
+                    modalMessage={withoutSaveMessage}
+                    onConfirm={confirmationHandler}
                     onDecline={declineHandler}
                   />
                 </div>
               )}
-              <FontAwesomeIcon
-                onClick={showSaveConfirmHandler}
-                icon={faFloppyDisk}
-                className={classes.confirmIcon}
-              />
-            </>
-          )}
-          {editMode && extraInfoCloseConfirm && (
-            <div className={classes.closeConfirmInfo}>
-              <ConfirmModal
-                modalMessage={withoutSaveMessage}
-                onConfirm={confirmationHandler}
-                onDecline={declineHandler}
-              />
+              <i
+                onClick={showConfirmationHandler}
+                className="bi bi-x-lg cursor-pointer text-3xl"
+              ></i>
             </div>
-          )}
-          <i
-            onClick={showConfirmationHandler}
-            className={`bi bi-x-lg ${classes.closeIcon}`}
-          ></i>
+          </div>
         </td>
       </tr>
       {editMode && (
-        <tr
-          className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
-        >
-          <td colSpan={4}>{comment.name}</td>
+        <tr className="subject-info-tr">
+          <td colSpan={4} className="pl-2">
+            {comment.name}
+          </td>
         </tr>
       )}
       {editMode && (
-        <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
-          <td colSpan={4}>
-            <InputWithPlaceholder
-              onChange={addExtraInfoHandler}
-              name="comment"
-              value={enteredInfo.comment}
-              hasErrors={!commentValid}
-              errorMessage={!commentValid ? maxCommentSize : ""}
-              maxLength={50}
-              placeholder={comment.placeholder}
-            />
+        <tr className="subject-info-tr">
+          <td colSpan={4} className="px-2 pt-1 pb-4">
+            <div className="m-4">
+              <InputWithPlaceholder
+                onChange={addExtraInfoHandler}
+                name="comment"
+                value={enteredInfo.comment}
+                hasErrors={!commentValid}
+                errorMessage={!commentValid ? maxCommentSize : ""}
+                maxLength={50}
+                placeholder={comment.placeholder}
+              />
+            </div>
           </td>
         </tr>
       )}
@@ -431,37 +512,36 @@ const TableSubjectInfo = (props) => {
           return (
             <>
               {i === 0 && (
-                <tr
-                  key={i + 1000000}
-                  className={`${classes.extraRowInfo} ${classes.rowHeading}`}
-                >
-                  <td colSpan={4}>{homeworkContent.name}</td>
+                <tr key={i + 1000000} className="subject-info-tr">
+                  <td colSpan={4} className="px-2 pb-4">
+                    {homeworkContent.name}
+                  </td>
                 </tr>
               )}
               <tr
                 key={i}
-                className={`${classes.extraRowInfo} ${classes.rowInfo}`}
+                className="border-x border-borderGray text-left text-sm"
               >
-                <td colSpan={4}>
-                  {homework.description} <br />
-                  {homework.extrasLink && (
-                    <a
-                      rel="noreferrer"
-                      target="_blank"
-                      href={homework.extrasLink}
-                      className={classes.homeworksLink}
-                    >
-                      {studyMaterials.name}
-                    </a>
-                  )}
-                  <strong>{`${deadline.name} ${dateService.formatDate(
-                    homework.dueDate
-                  )}`}</strong>
-                </td>
-              </tr>
-              <tr key={i + 2000000} className={`${classes.line}`}>
-                <td colSpan={4}>
-                  <hr></hr>
+                <td colSpan={4} className="px-2 pb-4">
+                  <div className="p-4 border shadow shadow-borderGray">
+                    <div className="md:text-base">{homework.description}</div>{" "}
+                    <br />
+                    <div className="flex justify-between md:justify-start space-x-4 font-bold">
+                      {homework.extrasLink && (
+                        <a
+                          rel="noreferrer"
+                          target="_blank"
+                          href={homework.extrasLink}
+                          className="hover:text-collegeRed duration-150"
+                        >
+                          {studyMaterials.name}
+                        </a>
+                      )}
+                      <div>{`${deadline.name} ${dateService.formatDate(
+                        homework.dueDate
+                      )}`}</div>
+                    </div>
+                  </div>
                 </td>
               </tr>
             </>
@@ -470,13 +550,13 @@ const TableSubjectInfo = (props) => {
 
       {editMode && (
         <>
-          <tr
-            className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
-          >
-            <td colSpan={4}>{deadline.name}</td>
+          <tr className="subject-info-tr">
+            <td colSpan={4} className="px-2">
+              {homeworkContent.name}
+            </td>
           </tr>
-          <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
-            <td colSpan={4}>
+          <tr className="border-x border-borderGray">
+            <td colSpan={4} className="px-2">
               {enteredInfo.homeworks.map((e, i, s) => {
                 return (
                   <AddHomework
@@ -497,13 +577,14 @@ const TableSubjectInfo = (props) => {
       )}
 
       {!editMode && props.item.comment.length > 0 && props.isLoggedIn && (
-        <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
+        <tr className="subject-info-tr">
           <td colSpan={4}>
-            <div className={classes.btnSubjectCard}>
+            <div className="px-2 pb-4">
               <a
                 rel="noreferrer"
                 target="_blank"
                 href={props.item.distanceLink}
+                className="hover:text-collegeRed duration-150"
               >
                 {videoLecture.name}
               </a>
@@ -514,34 +595,37 @@ const TableSubjectInfo = (props) => {
 
       {editMode && (
         <>
-          <tr
-            className={`${classes.extraRowInfo} ${classes.rowHeading} ${classes.headingPadding}`}
-          >
-            <td colSpan={4}>{videoLecture.editName}</td>
+          <tr className="subject-info-tr">
+            <td colSpan={4} className="pl-2 pt-4">
+              {videoLecture.editName}
+            </td>
           </tr>
-          <tr className={`${classes.extraRowInfo} ${classes.rowInfo}`}>
-            <td colSpan={4}>
-              <InputWithPlaceholder
-                onChange={addExtraInfoHandler}
-                name="distanceLink"
-                value={enteredInfo.distanceLink}
-                placeholder={videoLecture.placeholder}
-                hasErrors={!distanceLinkIsValid}
-                errorMessage={!distanceLinkIsValid ? brokenLink : ""}
-              />
+          <tr className="border-x border-borderGray">
+            <td colSpan={4} className="px-2 pb-4">
+              <div className="m-4">
+                <InputWithPlaceholder
+                  onChange={addExtraInfoHandler}
+                  name="distanceLink"
+                  value={enteredInfo.distanceLink}
+                  placeholder={videoLecture.placeholder}
+                  hasErrors={!distanceLinkIsValid}
+                  errorMessage={!distanceLinkIsValid ? brokenLink : ""}
+                />
+              </div>
             </td>
           </tr>
         </>
       )}
       {props.item.subject.subjectCode.length > 4 && (
-        <tr className={`${classes.extraRowInfo} ${classes.rowHeading}`}>
+        <tr className="subject-info-tr">
           <td colSpan={4}>
-            <div className={classes.btnSubjectCard}>
+            <div className="px-2 pb-4">
               {`${subjectCard} `}
               <a
                 href={`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="hover:text-collegeRed duration-150"
               >
                 {props.item.subject.subjectCode}
               </a>
@@ -549,8 +633,10 @@ const TableSubjectInfo = (props) => {
           </td>
         </tr>
       )}
-      <tr className={classes.nextLecturesHeading}>
-        <td colSpan={4}>{nextLectures}</td>
+      <tr className="subject-info-tr">
+        <td colSpan={4} className="px-2">
+          {nextLectures}
+        </td>
       </tr>
       {props.rawData.map((e, i) => {
         let time1 = dateService.formatMilliseconds(e.startTime);
@@ -574,8 +660,11 @@ const TableSubjectInfo = (props) => {
           arr?.length > 0
         ) {
           return (
-            <tr key={i} className={classes.nextLectures}>
-              <td colSpan={4}>{`${dateService
+            <tr
+              key={i}
+              className="text-left text-sm md:text-base border-x border-borderGray"
+            >
+              <td colSpan={4} className="px-2">{`${dateService
                 .formatDateTime(e.startTime)
                 .toString()}-${dateService
                 .formatHoursMinutes(e.endTime)
@@ -586,7 +675,19 @@ const TableSubjectInfo = (props) => {
         return null;
       })}
       <tr>
-        <td colSpan={4} className={classes.bottomRow}></td>
+        <td colSpan={4} className="py-1 border-x border-b border-borderGray">
+          {showRequestModal && (
+            <RequestModal
+              error={requestError}
+              success={requestSuccess}
+              loading={requestLoading}
+              modalMessage={requestMessage}
+              customStyle="lg:ml-32"
+              onDecline={endRequestHandler}
+              onConfirm={failedRequestConfirmHandler}
+            />
+          )}
+        </td>
       </tr>
     </Fragment>
   );

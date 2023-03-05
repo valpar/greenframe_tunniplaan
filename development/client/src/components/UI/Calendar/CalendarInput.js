@@ -1,14 +1,9 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "./Calendar.css";
-import classes from "./CalendarInput.module.css";
 import { formatDate } from "../../../utils/Format/Date";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleDown,
-  faXmark,
-  faAngleUp,
-} from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { calculateSemesterDate } from "../../../utils/Calculate/Semester";
 
 const CalendarInput = (props) => {
@@ -17,6 +12,7 @@ const CalendarInput = (props) => {
   );
   const [showBtnModal, setShowBtnModal] = useState(true);
   const [resetDate, setResetDate] = useState(false);
+  const [activePeriod, setActivePeriod] = useState("");
 
   useEffect(() => {
     if (props.reset) {
@@ -52,6 +48,7 @@ const CalendarInput = (props) => {
     );
     const btnType = event.target.name;
     if (btnType === "today") {
+      setActivePeriod("today");
       setCalendarRange([
         today,
         new Date(
@@ -67,6 +64,7 @@ const CalendarInput = (props) => {
       setResetDate(true);
     }
     if (btnType === "tomorrow") {
+      setActivePeriod("tomorrow");
       setCalendarRange([
         new Date(
           now2.setDate(
@@ -91,6 +89,7 @@ const CalendarInput = (props) => {
     }
 
     if (btnType === "week") {
+      setActivePeriod("week");
       setCalendarRange([
         today,
         new Date(
@@ -108,6 +107,7 @@ const CalendarInput = (props) => {
     }
 
     if (btnType === "semester") {
+      setActivePeriod("semester");
       setCalendarRange([...calculateSemesterDate()]);
       setResetDate(true);
     }
@@ -138,18 +138,18 @@ const CalendarInput = (props) => {
   };
 
   return (
-    <div className={classes.container}>
-      {!showBtnModal && <div className={classes.btnHover} />}
+    <div className="relative border group border-borderGray shadow">
+      {!showBtnModal && <div className="green-peeper" />}
       <div
         className={
-          showBtnModal ? classes.calendarInput : classes.calendarInputNoBorder
+          showBtnModal
+            ? `flex justify-between border-b-[1px] border-borderGray`
+            : `flex justify-between bg-white`
         }
       >
-        <div
-          className={showBtnModal ? classes.input : classes.inputPlaceholder}
-        >
+        <div className={showBtnModal ? `w-full` : `w-full text-zinc-500`}>
           <input
-            className={classes.dateRange}
+            className="h-11 text-center lg:px-1 hover:text-black duration-200"
             type="text"
             name="dateRange"
             value={
@@ -164,9 +164,9 @@ const CalendarInput = (props) => {
           />
         </div>
 
-        <div className={classes.icons}>
-          <div className={classes.verticalStripe} />
-          <div className={classes.openIcon}>
+        <div className="flex items-center">
+          <div className="h-[1.7rem] w-0 border-r-[1px] border-borderGray" />
+          <div className="flex justify-center items-center px-3 text-borderGray">
             {!showBtnModal && (
               <FontAwesomeIcon
                 icon={faAngleDown}
@@ -184,7 +184,7 @@ const CalendarInput = (props) => {
       </div>
       {showBtnModal && (
         <>
-          <div className={classes.calendar}>
+          <div className="">
             <Calendar
               minDate={new Date("2015-01-01")}
               onChange={changeDateHandler}
@@ -196,20 +196,44 @@ const CalendarInput = (props) => {
               allowPartialRange={true}
             />
           </div>
-          <div className={classes.dateBtnContainer}>
-            <div className={classes.btnRow}>
-              <button onClick={buttonDateHandler} name="today">
+          <div className="flex gap-2 justify-center p-2 lg:flex-col">
+            <div className="flex flex-auto justify-evenly space-x-2">
+              <button
+                onClick={buttonDateHandler}
+                name="today"
+                className={`${
+                  activePeriod === "today" ? "bg-borderGray" : ""
+                } btn-period`}
+              >
                 Täna
               </button>
-              <button onClick={buttonDateHandler} name="tomorrow">
+              <button
+                onClick={buttonDateHandler}
+                name="tomorrow"
+                className={`${
+                  activePeriod === "tomorrow" ? "bg-borderGray" : ""
+                } btn-period`}
+              >
                 Homme
               </button>
             </div>
-            <div className={classes.btnRow}>
-              <button onClick={buttonDateHandler} name="week">
+            <div className="flex flex-auto justify-evenly space-x-2">
+              <button
+                onClick={buttonDateHandler}
+                name="week"
+                className={`${
+                  activePeriod === "week" ? "bg-borderGray" : ""
+                } btn-period`}
+              >
                 Nädal
               </button>
-              <button onClick={buttonDateHandler} name="semester">
+              <button
+                onClick={buttonDateHandler}
+                name="semester"
+                className={`${
+                  activePeriod === "semester" ? "bg-borderGray" : ""
+                } btn-period`}
+              >
                 Semester
               </button>
             </div>

@@ -1,10 +1,7 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import SearchDropdown from "../UI/Dropdown/SearchDropdown";
 import CalendarInput from "../UI/Calendar/CalendarInput";
-import classes from "./ScheduleFilters.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 
 const ScheduleFilters = (props) => {
   const [courseData, setCourseData] = useState([]);
@@ -119,52 +116,61 @@ const ScheduleFilters = (props) => {
   };
 
   return (
-    <div className={classes.scheduleFilters}>
-      <SearchDropdown
-        reset={isReset}
-        onChange={filtersHandler}
-        options={courseData}
-        label="Kursus"
-        name="courseCode"
-        cssClass="dropdownFilters"
-        isMulti={true}
-      />
-      <div className={classes.calendar}>
+    <div className="flex flex-col space-y-2 -mt-1">
+      <div className="order-2 lg:order1">
+        <SearchDropdown
+          reset={isReset}
+          onChange={filtersHandler}
+          options={courseData}
+          label="Kursus"
+          name="courseCode"
+          isMulti={true}
+          className="order-2"
+        />
+      </div>
+
+      <div className="order-1 pb-2 lg:order-2 lg:pb-0 ">
         <CalendarInput reset={isReset} onChange={filtersHandler} />
       </div>
 
-      <SearchDropdown
-        reset={isReset}
-        onChange={filtersHandler}
-        options={subjectsData}
-        label="Õppeaine"
-        name="subject"
-        cssClass="dropdownFilters"
-        isMulti={true}
-      />
-      <SearchDropdown
-        reset={isReset}
-        onChange={filtersHandler}
-        options={lecturerData}
-        label="Õppejõud"
-        name="lecturer"
-        cssClass="dropdownFilters"
-        isMulti={true}
-      />
-      <SearchDropdown
-        reset={isReset}
-        onChange={filtersHandler}
-        options={roomsData}
-        label="Ruum"
-        name="room"
-        cssClass="dropdownFilters"
-        isMulti={true}
-      />
-      <div className={classes.emptyBtnContainer}>
-        <button className={classes.emptyBtn} onClick={emptyFiltersHandler}>
-          Tühjenda
-        </button>
+      <div className="order-3">
+        <SearchDropdown
+          reset={isReset}
+          onChange={filtersHandler}
+          options={subjectsData}
+          label="Õppeaine"
+          name="subject"
+          isMulti={true}
+        />
       </div>
+      <div className="order-4">
+        <SearchDropdown
+          reset={isReset}
+          onChange={filtersHandler}
+          options={lecturerData}
+          label="Õppejõud"
+          name="lecturer"
+          isMulti={true}
+        />
+      </div>
+      <div className="order-5">
+        <SearchDropdown
+          reset={isReset}
+          onChange={filtersHandler}
+          options={roomsData}
+          label="Ruum"
+          name="room"
+          isMulti={true}
+        />
+      </div>
+      <button
+        onClick={emptyFiltersHandler}
+        type="button"
+        name="admin"
+        className=" order-6 mx-auto px-2 w-1/3 h-8 border border-borderGray shadow text-sm text-neutral-700 lg:w-1/2 lg:hover:bg-borderGray lg:hover:shadow-lg duration-200"
+      >
+        Tühjenda
+      </button>
     </div>
   );
 };

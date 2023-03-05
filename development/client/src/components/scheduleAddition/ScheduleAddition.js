@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import useAxios from "../../hooks/useAxios";
 import DateOfOccurenceForm from "../addScheduleInputForm/DateOfOccurenceForm";
 import AddDropdown from "../UI/Dropdown/AddDropdown";
-import classes from "./ScheduleAddition.module.css";
 import axios from "axios";
 import AddNewItem from "../addNewObject/AddNewItem";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
@@ -111,6 +110,8 @@ const ScheduleAddition = (props) => {
     message: "",
   });
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
+  const [showScheduleConfirmModal, setShowScheduleConfirmModal] =
+    useState(false);
   const [itemToDelete, setItemToDelete] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editValues, setEditValues] = useState();
@@ -120,6 +121,7 @@ const ScheduleAddition = (props) => {
   const [requestLoading, setRequestLoading] = useState(false);
   const [requestMessage, setRequestMessage] = useState("");
   const [showRequestModal, setShowRequestModal] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const workCourseData = useCallback(() => {
     if (!courseLoading && courseResponse !== undefined) {
@@ -299,7 +301,6 @@ const ScheduleAddition = (props) => {
   };
 
   const occurenceHandler = (occurence, index) => {
-    console.log(occurence);
     if (clearOccurenceFields) setClearOccurenceFields(false);
     if (occurence[0].subjectId) setSubjectValid(false);
     setNewOccurence((prevState) => {
@@ -425,76 +426,12 @@ const ScheduleAddition = (props) => {
     }
   }, [newOccurence]);
 
-  const submitScheduleHandler = async () => {
+  const saveScheduleHandler = () => {
     const hasSubject =
       addedLecture[0].subjectId !== null && addedLecture[0].subjectId !== "";
     const occurenceValidator = validateOccurences(newOccurence);
     if (!valitationFailed(occurenceValidator) && hasSubject) {
-      console.log(newOccurence);
-      setRequestLoading(true);
-      setShowRequestModal(true);
-      if (!props.editMode) {
-        newOccurence.every(async (element) => {
-          await axios
-            .post(`/schedule`, {
-              ...addedLecture[0],
-              ...element,
-            })
-            .then((res) => {
-              if (res.status === 200) {
-                setRequestSuccess(true);
-                setRequestLoading(false);
-                setRequestMessage(content.successMessages.create);
-              } else {
-                setRequestLoading(false);
-                setRequestError(true);
-                setRequestMessage(content.errorMessages.requestAddError);
-              }
-            });
-        });
-      }
-      if (props.editMode) {
-        newOccurence.every(async (element) => {
-          await axios
-            .patch(`/schedule/${props.editData.id}`, {
-              ...addedLecture[0],
-              ...element,
-            })
-            .then((res) => {
-              if (res.status === 200) {
-                setRequestSuccess(true);
-                setRequestLoading(false);
-                setRequestMessage(content.successMessages.update);
-                console.log("silo", res);
-              } else {
-                setRequestLoading(false);
-                setRequestError(true);
-                setRequestMessage(content.errorMessages.requestUpdateError);
-              }
-            });
-        });
-        return;
-      }
-
-      setNewOccurence([
-        {
-          startTime: "",
-          endTime: "",
-        },
-      ]);
-      setOccurencesIsValid([]);
-      setClearOccurenceFields(true);
-      setAddedLecture([
-        {
-          comment: "",
-          rooms: "",
-          courses: "",
-          subjectId: "",
-          lecturers: "",
-          distanceLink: "",
-        },
-      ]);
-      props.onNewOccurence();
+      setShowScheduleConfirmModal(true);
     } else {
       setFieldsValid(false);
       setOccurencesIsValid(occurenceValidator);
@@ -506,6 +443,76 @@ const ScheduleAddition = (props) => {
         };
       });
     }
+  };
+  const closeScheduleConfirm = () => {
+    setShowScheduleConfirmModal(false);
+  };
+
+  const submitScheduleHandler = async () => {
+    setShowScheduleConfirmModal(false);
+    setRequestLoading(true);
+    setShowRequestModal(true);
+    if (!props.editMode) {
+      newOccurence.every(async (element) => {
+        await axios
+          .post(`/schedule`, {
+            ...addedLecture[0],
+            ...element,
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              setRequestSuccess(true);
+              setRequestLoading(false);
+              setRequestMessage(content.successMessages.create);
+            } else {
+              setRequestLoading(false);
+              setRequestError(true);
+              setRequestMessage(content.errorMessages.requestAddError);
+            }
+          });
+      });
+    }
+    if (props.editMode) {
+      newOccurence.every(async (element) => {
+        await axios
+          .patch(`/schedule/${props.editData.id}`, {
+            ...addedLecture[0],
+            ...element,
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              setRequestSuccess(true);
+              setRequestLoading(false);
+              setRequestMessage(content.successMessages.update);
+            } else {
+              setRequestLoading(false);
+              setRequestError(true);
+              setRequestMessage(content.errorMessages.requestUpdateError);
+            }
+          });
+      });
+      return;
+    }
+
+    setNewOccurence([
+      {
+        startTime: "",
+        endTime: "",
+      },
+    ]);
+    setOccurencesIsValid([]);
+    setClearOccurenceFields(true);
+    setAddedLecture([
+      {
+        comment: "",
+        rooms: "",
+        courses: "",
+        subjectId: "",
+        lecturers: "",
+        distanceLink: "",
+      },
+    ]);
+    props.onNewOccurence();
   };
   const newRowHandler = () => {
     setNewOccurence((prevState) => {
@@ -652,12 +659,11 @@ const ScheduleAddition = (props) => {
   const editItemHandler = (value) => {
     setIsEditMode(true);
     setShowAddModal(true);
-    console.log(value);
-    if (value[0]?.roomId) setModalContent("rooms");
-    if (value[0]?.courseId) setModalContent("courses");
-    if (value[0]?.lecturerId) setModalContent("lecturers");
-    if (typeof value === "number") setModalContent("subjects");
-    setEditValues(value);
+    if (value.type === "room") setModalContent("rooms");
+    if (value.type === "course") setModalContent("courses");
+    if (value.type === "lecturer") setModalContent("lecturers");
+    if (value.type === "subject") setModalContent("subjects");
+    setEditValues(value.value);
   };
 
   useEffect(() => {
@@ -678,13 +684,25 @@ const ScheduleAddition = (props) => {
     }
   }, [requestSuccess]);
 
+  const handleResize = () => {
+    if (window.innerWidth <= 720) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+  });
+
   return (
     <div
-      className={
-        props.editMode
-          ? classes.editScheduleModal
-          : classes.newScheduleItemModal
-      }
+      className={`flex flex-col justify-center items-center p-4 mb-0 w-full ${
+        !props.editMode
+          ? "mt-1 lg:mt-4 border border-borderGray shadow-md"
+          : "mb-0"
+      }`}
     >
       {showAddModal && (
         <AddNewItem
@@ -701,16 +719,19 @@ const ScheduleAddition = (props) => {
           scheduled={props.scheduled}
         />
       )}
-      <div className={classes.headingRow}>
+      <div className="relative text-sm md:text-base font-bold w-full">
         <h6>
           {props.editMode
             ? "LOENGU MUUTMINE TUNNIPLAANIS"
             : "LOENGU LISAMINE TUNNIPLAANI"}
         </h6>
-        <i onClick={props.onClose} className={`bi bi-x-lg`}></i>
+        <i
+          onClick={props.onClose}
+          className={`bi bi-x-lg absolute top-0 right-0 cursor-pointer text-xl leading-5 lg:hover:text-black lg:hover:scale-105 duration-150`}
+        ></i>
       </div>
 
-      <div className={classes.dropdownsRow}>
+      <div className="flex flex-col justify-between items-start lg:px-4 space-y-3 lg:space-x-4 lg:space-y-0 py-8  w-full lg:flex-row">
         <AddDropdown
           onEdit={editItemHandler}
           onChange={dropdownHandler}
@@ -734,7 +755,6 @@ const ScheduleAddition = (props) => {
           modalMessage={
             showConfirmModal.type === "lecturer" ? showConfirmModal : null
           }
-          modalButtons={["EEMALDA", "KINNITA"]}
           onConfirm={dropdownConfirmHandler}
           onDecline={dropdownDeclineHandler}
         />
@@ -759,17 +779,12 @@ const ScheduleAddition = (props) => {
           modalMessage={
             showConfirmModal.type === "room" ? showConfirmModal : null
           }
-          modalButtons={["EEMALDA", "KINNITA"]}
           onConfirm={dropdownConfirmHandler}
           onDecline={dropdownDeclineHandler}
           value={addedLecture[0].rooms}
         />
       </div>
-      <div
-        className={
-          props.editMode ? classes.editOccurenceRow : classes.occurenceRow
-        }
-      >
+      <div className="flex flex-col w-full lg:px-4  space-y-4">
         {newOccurence.map((occurence, i) => {
           return (
             <div key={i}>
@@ -784,6 +799,7 @@ const ScheduleAddition = (props) => {
                 editMode={props.editMode}
                 editData={props.editData}
                 occurenceLength={newOccurence.length}
+                isMobile={isMobile}
               />
             </div>
           );
@@ -791,16 +807,14 @@ const ScheduleAddition = (props) => {
       </div>
 
       <div
-        className={
-          props.editMode
-            ? `${classes.buttonRow} ${classes.editMode}`
-            : `${classes.buttonRow}`
-        }
+        className={`relative flex ${
+          props.editMode ? "justify-between" : "justify-center lg:justify-end"
+        } w-full px-2 lg:px-4 mb-4 mt-6 lg:mt-12`}
       >
         {props.editMode && (
           <>
             {showDeleteConfirmModal && (
-              <div className={classes.deleteConfirm}>
+              <div className="absolute lg:bottom-16 lg:-left-10">
                 <ConfirmModal
                   bottomArrow={true}
                   modalMessage={deleteMessage}
@@ -811,16 +825,26 @@ const ScheduleAddition = (props) => {
             )}
             <button
               onClick={deleteScheduleHandler}
-              className={classes.submitButton}
+              className="px-4 lg:px-8 py-2 font-bold text-sm border border-borderGray shadow hover:bg-borderGray hover:shadow-lg duration-150"
               type="button"
             >
               KUSTUTA
             </button>
           </>
         )}
+        {showScheduleConfirmModal && (
+          <div className="absolute lg:bottom-16 lg:-right-10">
+            <ConfirmModal
+              bottomArrow={true}
+              modalMessage={content.confirmModalMessages.saveMessage}
+              onDecline={closeScheduleConfirm}
+              onConfirm={submitScheduleHandler}
+            />
+          </div>
+        )}
         <button
-          onClick={submitScheduleHandler}
-          className={classes.submitButton}
+          onClick={saveScheduleHandler}
+          className="px-4 lg:px-8 py-2 font-bold text-sm border border-borderGray shadow hover:bg-borderGray hover:shadow-lg duration-150"
           type="submit"
         >
           SALVESTA
@@ -832,6 +856,7 @@ const ScheduleAddition = (props) => {
           success={requestSuccess}
           loading={requestLoading}
           modalMessage={requestMessage}
+          customStyle="lg:ml-32"
         />
       )}
     </div>

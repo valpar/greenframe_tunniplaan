@@ -1,15 +1,30 @@
 import { Fragment } from "react";
 import ReactDOM from "react-dom";
-import classes from "./Modal.module.css";
 
 const Backdrop = (props) => {
-  return <div className={classes.backdrop} onClick={props.onClose} />;
+  return (
+    <div
+      className="fixed top-0 left-0 w-full h-screen z-20 bg-neutral-900 opacity-70"
+      onClick={props.onClose}
+    />
+  );
 };
 
 const ModalOverlay = (props) => {
   return (
-    <div className={classes.modal}>
-      <div className={classes.content}>{props.children}</div>
+    <div
+      className={`${
+        props.onHidden ? "hidden" : ""
+      } fixed top-20 w-11/12 lg:ml-32 lg:w-auto h-auto left-1/2 -translate-x-1/2 bg-white rounded z-30 shadow-lg animate-slideDown lg:top-1/4`}
+    >
+      <div
+        className={`absolute ${
+          props.modalOverlay ? "flex" : "hidden"
+        } justify-center items-center w-full h-full bg-neutral-900 opacity-70 z-30`}
+      ></div>
+      <div className="p-4">
+        <div>{props.children}</div>
+      </div>
     </div>
   );
 };
@@ -23,7 +38,9 @@ const Modal = (props) => {
         portalElement
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay>{props.children}</ModalOverlay>,
+        <ModalOverlay onHidden={props.onHidden} modalOverlay={props.overlay}>
+          {props.children}
+        </ModalOverlay>,
         portalElement
       )}
     </Fragment>

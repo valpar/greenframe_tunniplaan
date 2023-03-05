@@ -1,9 +1,6 @@
 import Modal from "../UI/Modal/Modal";
 import NewSubject from "./inputRows/NewSubject";
-import classes from "./AddNewItem.module.css";
 import { useEffect, useState } from "react";
-import TooltipTop from "../UI/Tooltip/TooltipTop";
-import { formatMilliseconds } from "../../utils/Format/Date";
 import axios from "axios";
 import NewLecturer from "./inputRows/NewLecturer";
 import NewRoom from "./inputRows/NewRoom";
@@ -12,6 +9,7 @@ import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
 import config from "../../config.json";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 import content from "../../assets/content/content.json";
+import RequestModal from "../UI/RequestModal/RequestModal";
 
 axios.defaults.baseURL = config.api.url;
 
@@ -33,6 +31,15 @@ const AddNewItem = (props) => {
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [showUpdateConfirmModal, setShowUpdateConfirmModal] = useState(false);
   const [deleteModalMessage, setDeleteModalMessage] = useState(deleteMessage);
+  const [showOverlay, setOverlay] = useState(false);
+
+  const [requestError, setRequestError] = useState(false);
+  const [requestSuccess, setRequestSuccess] = useState(false);
+  const [requestLoading, setRequestLoading] = useState(false);
+  const [requestMessage, setRequestMessage] = useState("");
+  const [showRequestModal, setShowRequestModal] = useState(false);
+  const [hideModal, setHideModal] = useState(false);
+  const [requestAction, setRequestAction] = useState("");
 
   const inputsChangeHandler = (inputsObj, rowIndex, validInputs) => {
     setInputsState((prevState) =>
@@ -72,6 +79,7 @@ const AddNewItem = (props) => {
   };
 
   const submitItemHandler = async () => {
+    setOverlay(false);
     const isValid = inputsAreValid.every((isValid) => isValid.inputs === true);
     setValidSubmit(isValid);
     if (isValid) {
@@ -80,20 +88,36 @@ const AddNewItem = (props) => {
       if (props.modalFor === "rooms") typeId = "roomId";
       if (props.modalFor === "courses") typeId = "courseId";
       if (props.modalFor === "lecturers") typeId = "lecturerId";
-      for (let state of inputsState) {
-        await axios
-          .post(`/${props.modalFor}`, { ...state })
-          .then((response) => {
-            responseId.push({ [typeId]: response.data.id });
-            if (props.modalFor === "subjects")
-              props.onNewItem("subjectId", response.data.id);
-            setResponseId(response.data.id);
-          });
+      setRequestAction("create");
+      try {
+        setShowUpdateConfirmModal(false);
+        setHideModal(true);
+        setShowRequestModal(true);
+        setRequestLoading(true);
+        for (let state of inputsState) {
+          await axios
+            .post(`/${props.modalFor}`, { ...state })
+            .then((response) => {
+              responseId.push({ [typeId]: response.data.id });
+              if (props.modalFor === "subjects")
+                props.onNewItem("subjectId", response.data.id);
+              setResponseId(response.data.id);
+            });
+        }
+      } catch (error) {
+        setRequestLoading(false);
+        setRequestError(true);
+        setRequestMessage(content.errorMessages.requestAddError);
+        return;
       }
+
+      setRequestLoading(false);
+      setRequestMessage(content.successMessages.create);
+      setRequestSuccess(true);
+
       if (responseId.length > 0 && props.modalFor !== "subjects")
         props.onNewItem(props.modalFor, responseId);
-      setShowUpdateConfirmModal(false);
-      props.onClose();
+
       setInputsState([{}]);
       setInputsAreValid([{}]);
     }
@@ -149,7 +173,9 @@ const AddNewItem = (props) => {
         setDeleteModalMessage(lecturerHasActiveLecturers);
       if (props.modalFor === "subject" && subjectBooked.length > 0)
         setDeleteModalMessage(subjectHasActiveLecturers);
+
       setShowDeleteConfirmModal(true);
+      setOverlay(true);
     }
 
     if (event.target.name !== "delete") {
@@ -159,67 +185,100 @@ const AddNewItem = (props) => {
       if (!isValid) return setValidSubmit(isValid);
       if (event.target.name === "update") setShowUpdateConfirmModal(true);
       if (event.target.name === "create") setShowUpdateConfirmModal(true);
+      setOverlay(true);
     }
   };
 
   const declineHandler = () => {
+    setOverlay(false);
     setShowDeleteConfirmModal(false);
   };
 
   const declineUpdateHandler = () => {
+    setOverlay(false);
     setShowUpdateConfirmModal(false);
   };
 
   const updateItemHandler = async () => {
-    if (props.modalFor === "rooms") {
-      await axios
-        .patch(`/rooms/${props.editValues[0].roomId}`, inputsState[0])
-        .then((response) => console.log(response));
+    setOverlay(false);
+    setRequestAction("update");
+    try {
+      setShowUpdateConfirmModal(false);
+      setOverlay(false);
+      setHideModal(true);
+      setShowRequestModal(true);
+      setRequestLoading(true);
+      if (props.modalFor === "rooms") {
+        await axios
+          .patch(`/rooms/${props.editValues}`, inputsState[0])
+          .then((response) => console.log(response));
+      }
+      if (props.modalFor === "courses") {
+        await axios
+          .patch(`/courses/${props.editValues}`, inputsState[0])
+          .then((response) => console.log(response));
+      }
+      if (props.modalFor === "lecturers") {
+        console.log(inputsState[0]);
+        await axios
+          .patch(`/lecturers/${props.editValues}`, inputsState[0])
+          .then((response) => console.log(response));
+      }
+      if (props.modalFor === "subjects") {
+        await axios
+          .patch(`/subjects/${props.editValues}`, inputsState[0])
+          .then((response) => console.log(response));
+      }
+    } catch (error) {
+      setRequestLoading(false);
+      setRequestError(true);
+      setRequestMessage(content.errorMessages.requestUpdateError);
+      return;
     }
-    if (props.modalFor === "courses") {
-      await axios
-        .patch(`/courses/${props.editValues[0].courseId}`, inputsState[0])
-        .then((response) => console.log(response));
-    }
-    if (props.modalFor === "lecturers") {
-      console.log(inputsState[0]);
-      await axios
-        .patch(`/lecturers/${props.editValues[0].lecturerId}`, inputsState[0])
-        .then((response) => console.log(response));
-    }
-    if (props.modalFor === "subjects") {
-      await axios
-        .patch(`/subjects/${props.editValues}`, inputsState[0])
-        .then((response) => console.log(response));
-    }
-    props.onClose();
-    props.onDelete();
+
+    setRequestLoading(false);
+    setRequestMessage(content.successMessages.delete);
+    setRequestSuccess(true);
   };
 
   const deleteItemHandler = async () => {
-    if (props.modalFor === "rooms") {
-      await axios
-        .delete(`/rooms/${props.editValues[0].roomId}`)
-        .then((response) => console.log(response));
+    setRequestAction("delete");
+    try {
+      setShowDeleteConfirmModal(false);
+      setOverlay(false);
+      setHideModal(true);
+      setShowRequestModal(true);
+      setRequestLoading(true);
+      if (props.modalFor === "rooms") {
+        await axios
+          .delete(`/rooms/${props.editValues}`)
+          .then((response) => console.log(response));
+      }
+      if (props.modalFor === "courses") {
+        await axios
+          .delete(`/courses/${props.editValues}`)
+          .then((response) => console.log(response));
+      }
+      if (props.modalFor === "lecturers") {
+        await axios
+          .delete(`/lecturers/${props.editValues}`)
+          .then((response) => console.log(response));
+      }
+      if (props.modalFor === "subjects") {
+        await axios
+          .delete(`/subjects/${props.editValues}`)
+          .then((response) => console.log(response));
+      }
+    } catch (error) {
+      setRequestLoading(false);
+      setRequestError(true);
+      setRequestMessage(content.errorMessages.requestDeleteError);
+      return;
     }
-    if (props.modalFor === "courses") {
-      await axios
-        .delete(`/courses/${props.editValues[0].courseId}`)
-        .then((response) => console.log(response));
-    }
-    if (props.modalFor === "lecturers") {
-      await axios
-        .delete(`/lecturers/${props.editValues[0].lecturerId}`)
-        .then((response) => console.log(response));
-    }
-    if (props.modalFor === "subjects") {
-      await axios
-        .delete(`/subjects/${props.editValues}`)
-        .then((response) => console.log(response));
-    }
+    setRequestLoading(false);
+    setRequestMessage(content.successMessages.delete);
+    setRequestSuccess(true);
     setDeleteModalMessage("KUSTUTA");
-    props.onDelete();
-    props.onClose();
   };
   useEffect(() => {
     if (!validSubmit) {
@@ -229,152 +288,192 @@ const AddNewItem = (props) => {
       return () => clearTimeout(timer);
     }
   }, [validSubmit]);
-  return (
-    <Modal onClose={closeHandler}>
-      <div className={classes.closeRow}>
-        <i onClick={closeHandler} className={`bi bi-x`}></i>
-      </div>
-      {props.modalFor === "subjects" &&
-        inputsState.map((inputsRow, i) => {
-          return (
-            <div key={i}>
-              <NewSubject
-                editValues={props.editValues}
-                editMode={props.editMode}
-                onAddNewRow={addNewRowHandler}
-                onRemoveRow={removeRowHandler}
-                modalFor={props.modalFor}
-                onChange={inputsChangeHandler}
-                index={i}
-                subjectsData={props.subjectsData}
-                values={inputsState[i]}
-              />
-            </div>
-          );
-        })}
-      {props.modalFor === "lecturers" &&
-        inputsState.map((inputsRow, i) => {
-          return (
-            <div key={i}>
-              <NewLecturer
-                editValues={props.editValues}
-                editMode={props.editMode}
-                onAddNewRow={addNewRowHandler}
-                onRemoveRow={removeRowHandler}
-                modalFor={props.modalFor}
-                onChange={inputsChangeHandler}
-                index={i}
-                lecturerData={props.lecturerData}
-                values={inputsState[i]}
-              />
-            </div>
-          );
-        })}
-      {props.modalFor === "courses" &&
-        inputsState.map((inputsRow, i) => {
-          return (
-            <div key={i}>
-              <NewCourse
-                editValues={props.editValues}
-                editMode={props.editMode}
-                onAddNewRow={addNewRowHandler}
-                onRemoveRow={removeRowHandler}
-                modalFor={props.modalFor}
-                onChange={inputsChangeHandler}
-                index={i}
-                courseData={props.courseData}
-                values={inputsState[i]}
-              />
-            </div>
-          );
-        })}
-      {props.modalFor === "rooms" &&
-        inputsState.map((inputsRow, i) => {
-          return (
-            <div key={i}>
-              <NewRoom
-                editValues={props.editValues}
-                editMode={props.editMode}
-                onAddNewRow={addNewRowHandler}
-                onRemoveRow={removeRowHandler}
-                modalFor={props.modalFor}
-                onChange={inputsChangeHandler}
-                index={i}
-                roomsData={props.roomsData}
-                values={inputsState[i]}
-              />
-            </div>
-          );
-        })}
 
-      <div
-        className={
-          props.editMode
-            ? props.modalFor === "lecturers" && !validSubmit
-              ? `${classes.btnRow} ${classes.onEdit} ${classes.lecturerPadding}`
-              : `${classes.btnRow} ${classes.onEdit}`
-            : classes.btnRow
+  useEffect(() => {
+    if (requestSuccess) {
+      const timer = setTimeout(() => {
+        if (
+          requestMessage === content.successMessages.delete ||
+          requestMessage === content.successMessages.update
+        ) {
+          props.onDelete();
         }
-      >
-        {showDeleteConfirmModal && (
-          <div className={classes.confirmModal}>
-            <ConfirmModal
-              onDecline={declineHandler}
-              onConfirm={deleteItemHandler}
-              modalMessage={deleteModalMessage}
-              bottomArrow={true}
-            />
-          </div>
-        )}
-        {props.editMode && (
-          <button
-            onClick={confirmModalHandler}
-            className={classes.submitButton}
-            type="button"
-            name="delete"
-          >
-            KUSTUTA
-          </button>
-        )}
-        {!validSubmit && (
-          <div
-            className={
-              props.editMode
-                ? props.modalFor === "lecturers"
-                  ? classes.lecturerError
-                  : classes.confirmError
-                : classes.confirmErrorAdd
-            }
-          >
-            <TooltipLarge message={mandatoryFields} />
-          </div>
-        )}
+        props.onClose();
+        setHideModal(false);
+        setShowRequestModal(false);
+        setRequestSuccess(false);
+        setRequestMessage("");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [requestSuccess]);
 
-        <button
-          onClick={confirmModalHandler}
-          className={classes.submitButton}
-          type="submit"
-          name={props.editMode ? "update" : "create"}
+  const endRequestHandler = () => {
+    props.onClose();
+  };
+  const failedRequestConfirmHandler = () => {
+    setRequestError(false);
+    setRequestMessage("");
+    if (requestAction === "create") submitItemHandler();
+    if (requestAction === "delete") deleteItemHandler();
+    if (requestAction === "update") updateItemHandler();
+  };
+
+  return (
+    <Modal onHidden={hideModal} onClose={closeHandler} overlay={showOverlay}>
+      <div className="relative flex flex-col lg:pl-4">
+        <div className="relative flex justify-end">
+          <i
+            onClick={closeHandler}
+            className={`bi bi-x absolute text-3xl -top-2 -right-2`}
+          ></i>
+        </div>
+        {props.modalFor === "subjects" &&
+          inputsState.map((inputsRow, i) => {
+            return (
+              <div key={i}>
+                <NewSubject
+                  editValues={props.editValues}
+                  editMode={props.editMode}
+                  onAddNewRow={addNewRowHandler}
+                  onRemoveRow={removeRowHandler}
+                  modalFor={props.modalFor}
+                  onChange={inputsChangeHandler}
+                  index={i}
+                  subjectsData={props.subjectsData}
+                  values={inputsState[i]}
+                  count={inputsState.length}
+                />
+              </div>
+            );
+          })}
+        {props.modalFor === "lecturers" &&
+          inputsState.map((inputsRow, i) => {
+            return (
+              <div key={i}>
+                <NewLecturer
+                  editValues={props.editValues}
+                  editMode={props.editMode}
+                  onAddNewRow={addNewRowHandler}
+                  onRemoveRow={removeRowHandler}
+                  modalFor={props.modalFor}
+                  onChange={inputsChangeHandler}
+                  index={i}
+                  lecturerData={props.lecturerData}
+                  values={inputsState[i]}
+                  count={inputsState.length}
+                />
+              </div>
+            );
+          })}
+        {props.modalFor === "courses" &&
+          inputsState.map((inputsRow, i) => {
+            return (
+              <div key={i}>
+                <NewCourse
+                  editValues={props.editValues}
+                  editMode={props.editMode}
+                  onAddNewRow={addNewRowHandler}
+                  onRemoveRow={removeRowHandler}
+                  modalFor={props.modalFor}
+                  onChange={inputsChangeHandler}
+                  index={i}
+                  courseData={props.courseData}
+                  values={inputsState[i]}
+                  count={inputsState.length}
+                />
+              </div>
+            );
+          })}
+        {props.modalFor === "rooms" &&
+          inputsState.map((inputsRow, i) => {
+            return (
+              <div key={i}>
+                <NewRoom
+                  editValues={props.editValues}
+                  editMode={props.editMode}
+                  onAddNewRow={addNewRowHandler}
+                  onRemoveRow={removeRowHandler}
+                  modalFor={props.modalFor}
+                  onChange={inputsChangeHandler}
+                  index={i}
+                  roomsData={props.roomsData}
+                  values={inputsState[i]}
+                  count={inputsState.length}
+                />
+              </div>
+            );
+          })}
+
+        <div
+          className={`flex ${
+            props.editMode
+              ? "justify-between space-x-20"
+              : "justify-center lg:justify-between"
+          } w-full pt-8`}
         >
-          SALVESTA
-        </button>
-      </div>
-      <div className={classes.confirmModalRow}>
-        {validSubmit && showUpdateConfirmModal && (
-          <div
-            className={
-              props.editMode
-                ? classes.confirmModalUpdate
-                : classes.confirmModalAdd
-            }
-          >
-            <ConfirmModal
-              onDecline={declineUpdateHandler}
-              onConfirm={props.editMode ? updateItemHandler : submitItemHandler}
-              modalMessage={saveMessage}
-              bottomArrow={true}
-            />
+          <div className="relative">
+            {showDeleteConfirmModal && (
+              <div className="absolute top-20 -left-16">
+                <ConfirmModal
+                  onDecline={declineHandler}
+                  onConfirm={deleteItemHandler}
+                  modalMessage={deleteModalMessage}
+                  topArrow={true}
+                />
+              </div>
+            )}
+            {props.editMode && (
+              <button
+                onClick={confirmModalHandler}
+                className="w-28 px-4 py-2 border border-borderGray font-bold text-sm shadow lg:hover:bg-borderGray duration-150"
+                type="button"
+                name="delete"
+              >
+                KUSTUTA
+              </button>
+            )}
           </div>
+          <div className="relative">
+            {!validSubmit && (
+              <div className="absolute -top-16 -left-10 w-[150%]">
+                <TooltipLarge message={mandatoryFields} />
+              </div>
+            )}
+
+            <button
+              onClick={confirmModalHandler}
+              className="w-28 px-4 py-2 border border-borderGray font-bold text-sm shadow lg:hover:bg-borderGray duration-150"
+              type="submit"
+              name={props.editMode ? "update" : "create"}
+            >
+              SALVESTA
+            </button>
+
+            {validSubmit && showUpdateConfirmModal && (
+              <div className="absolute top-20 -left-16">
+                <ConfirmModal
+                  onDecline={declineUpdateHandler}
+                  onConfirm={
+                    props.editMode ? updateItemHandler : submitItemHandler
+                  }
+                  modalMessage={saveMessage}
+                  topArrow={true}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+        {showRequestModal && (
+          <RequestModal
+            error={requestError}
+            success={requestSuccess}
+            loading={requestLoading}
+            modalMessage={requestMessage}
+            customStyle="top-1/2 lg:ml-32"
+            onDecline={endRequestHandler}
+            onConfirm={failedRequestConfirmHandler}
+          />
         )}
       </div>
     </Modal>

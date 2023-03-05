@@ -6,10 +6,11 @@ axios.defaults.baseURL = config.api.url;
 
 const useAxios = (axiosParams, trigger) => {
   const [response, setResponse] = useState(undefined);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
+    setError(undefined);
     try {
       const result = await axios.request(axiosParams);
       setResponse(result.data);

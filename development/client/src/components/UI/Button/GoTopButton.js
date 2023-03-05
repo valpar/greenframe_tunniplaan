@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import classes from "./GoTopButton.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUp } from "@fortawesome/free-regular-svg-icons";
 
@@ -22,12 +21,19 @@ const GoTopButton = () => {
 
   return (
     <div
-      className={showGoTop ? classes.goTopContainer : classes.goTopHidden}
+      className={
+        showGoTop
+          ? `sticky flex justify-center lg:justify-end bottom-4 md:bottom-1 z-10`
+          : `hidden`
+      }
       onClick={handleScrollUp}
     >
-      <FontAwesomeIcon className={classes.goTop} icon={faCircleUp} />
+      <FontAwesomeIcon
+        className="block text-4xl md:text-6xl cursor-pointer text-darkGray opacity-70 hover:opacity-100 duration-200"
+        icon={faCircleUp}
+      />
     </div>
   );
 };
-
+// top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
 export default GoTopButton;

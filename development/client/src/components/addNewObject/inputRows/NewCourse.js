@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import InputWithPlaceholder from "../../UI/Input/InputWithPlaceholder";
-import classes from "./NewCourse.module.css";
 import content from "../../../assets/content/content.json";
 
 const NewCourse = (props) => {
@@ -22,10 +21,7 @@ const NewCourse = (props) => {
     if (props.editMode) {
       setEnteredCourseData(
         props.courseData.courses.filter((e) => {
-          let arr = props.editValues.filter(
-            (course) => course.courseId === e.id
-          );
-          return arr.length !== 0
+          return e.id === props.editValues
             ? {
                 courseName: e.courseName,
                 courseCode: e.courseCode,
@@ -95,13 +91,13 @@ const NewCourse = (props) => {
   }, [enteredCourseData, errorMessage]);
 
   return (
-    <div className={classes.container}>
+    <div className="flex flex-col items-center mb-2">
       {index === 0 && (
-        <h1 className={classes.caption}>{`${
+        <h1 className="font-bold text-lg my-4">{`${
           props.editMode ? "KURSUSE MUUTMINE" : "UUE KURSUSE LISAMINE"
         }`}</h1>
       )}
-      <div className={props.editMode ? classes.editMode : classes.inputRow}>
+      <div className="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 w-full">
         <InputWithPlaceholder
           placeholder="Kursus"
           onChange={inputChangeHandler}
@@ -116,17 +112,27 @@ const NewCourse = (props) => {
           value={props.values.courseCode}
           errorMessage={errorMessage.courseCode}
         />
-        {index === 0 && !props.editMode && (
-          <i
-            onClick={props.onAddNewRow}
-            className={`${classes.plusIcon} bi bi-plus`}
-          ></i>
-        )}
-        {index > 0 && (
-          <i
-            onClick={removeRowHandler}
-            className={`${classes.plusIcon} bi bi-x`}
-          ></i>
+        {!props.editMode && (
+          <div
+            className={`hidden lg:flex justify-end items-center ${
+              props.count > 1 ? "w-5/12" : "w-8"
+            }`}
+          >
+            {index === props.count - 1 && (
+              <i
+                onClick={props.onAddNewRow}
+                className={`bi bi-plus text-4xl`}
+              ></i>
+            )}
+            {props.count > 1 && (
+              <div>
+                <i
+                  onClick={removeRowHandler}
+                  className={`bi bi-x text-4xl`}
+                ></i>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>

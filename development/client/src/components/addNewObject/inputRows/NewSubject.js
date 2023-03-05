@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import InputWithPlaceholder from "../../UI/Input/InputWithPlaceholder";
-import classes from "./NewSubject.module.css";
 import content from "../../../assets/content/content.json";
 
 const NewSubject = (props) => {
@@ -112,19 +111,20 @@ const NewSubject = (props) => {
     onChange(enteredSubjectData, index, false);
   }, [enteredSubjectData, errorMessage]);
   return (
-    <div className={classes.container}>
+    <div className="flex flex-col items-center mb-2">
       {index === 0 && (
-        <h1 className={classes.caption}>{`${
+        <h1 className="font-bold text-lg my-4">{`${
           props.editMode ? "ÕPPEAINE MUUTMINE" : "UUE ÕPPEAINE LISAMINE"
         }`}</h1>
       )}
-      <div className={classes.inputRow}>
+      <div className="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 w-full">
         <InputWithPlaceholder
           placeholder="Õppeaine"
           onChange={inputChangeHandler}
           name={"subject"}
           value={props.values.subject}
           errorMessage={errorMessage.subject}
+          eTopPos="true"
         />
         <InputWithPlaceholder
           placeholder="Ainekood"
@@ -132,6 +132,7 @@ const NewSubject = (props) => {
           name={"subjectCode"}
           value={props.values.subjectCode}
           errorMessage={errorMessage.subjectCode}
+          eTopPos="true"
         />
         <InputWithPlaceholder
           placeholder="EAP"
@@ -139,18 +140,29 @@ const NewSubject = (props) => {
           name={"creditPoint"}
           value={props.values.creditPoint}
           errorMessage={errorMessage.creditPoint}
+          eTopPos="true"
         />
-        {index === 0 && !props.editMode && (
-          <i
-            onClick={props.onAddNewRow}
-            className={`${classes.plusIcon} bi bi-plus`}
-          ></i>
-        )}
-        {index > 0 && (
-          <i
-            onClick={removeRowHandler}
-            className={`${classes.plusIcon} bi bi-x`}
-          ></i>
+        {!props.editMode && (
+          <div
+            className={`hidden lg:flex justify-end items-center ${
+              props.count > 1 ? "w-5/12" : "w-8"
+            }`}
+          >
+            {index === props.count - 1 && (
+              <i
+                onClick={props.onAddNewRow}
+                className={`bi bi-plus text-4xl`}
+              ></i>
+            )}
+            {props.count > 1 && (
+              <div>
+                <i
+                  onClick={removeRowHandler}
+                  className={`bi bi-x text-4xl`}
+                ></i>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>
