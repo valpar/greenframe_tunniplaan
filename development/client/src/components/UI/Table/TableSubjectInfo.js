@@ -67,6 +67,7 @@ const TableSubjectInfo = (props) => {
     useState(false);
   const [requestLoading, setRequestLoading] = useState(false);
   const [requestMessage, setRequestMessage] = useState("");
+  const [requestType, setRequestType] = useState("");
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [showNotValidTooltip, setShowNotValidTooltip] = useState(false);
 
@@ -243,6 +244,7 @@ const TableSubjectInfo = (props) => {
           console.log(response);
         });
       } catch (error) {
+        setRequestType("delete");
         setRequestLoading(false);
         setRequestError(true);
         setRequestMessage(content.errorMessages.requestDeleteError);
@@ -387,7 +389,7 @@ const TableSubjectInfo = (props) => {
   };
 
   const failedRequestConfirmHandler = () => {
-    saveInformationHandler();
+    requestType === "delete" ? removeRowHandler() : saveInformationHandler();
   };
 
   const endRequestHandler = () => {
@@ -411,6 +413,15 @@ const TableSubjectInfo = (props) => {
     props.onUpdate();
     setEditMode(false);
   };
+  const endDeleteRequest = () => {
+    setShowRequestModal(false);
+    setDeleteHomeworkRequestSuccess(false);
+    setRequestMessage("");
+    setRequestType("");
+
+    setUpdateRequest((prevState) => (prevState = !prevState));
+    props.onUpdate();
+  };
 
   useEffect(() => {
     if (requestSuccess) {
@@ -425,12 +436,7 @@ const TableSubjectInfo = (props) => {
   useEffect(() => {
     if (deleteHomeworkRequestSuccess) {
       const timer = setTimeout(() => {
-        setShowRequestModal(false);
-        setDeleteHomeworkRequestSuccess(false);
-        setRequestMessage("");
-
-        setUpdateRequest((prevState) => (prevState = !prevState));
-        props.onUpdate();
+        endDeleteRequest();
       }, 2000);
 
       return () => clearTimeout(timer);
@@ -717,7 +723,9 @@ const TableSubjectInfo = (props) => {
               loading={requestLoading}
               modalMessage={requestMessage}
               customStyle="lg:ml-32"
-              onDecline={endRequestHandler}
+              onDecline={
+                requestType === "delete" ? endDeleteRequest : endRequestHandler
+              }
               onConfirm={failedRequestConfirmHandler}
             />
           )}
