@@ -104,10 +104,11 @@ const SearchDropdown = (props) => {
           placeholder: (baseStyles, state) => ({
             ...baseStyles,
             color: placeholderColor,
+            marginLeft: "36px",
           }),
           indicatorsContainer: (baseStyles) => ({
             ...baseStyles,
-            pointerEvents: "none",
+            pointerEvents: "auto",
           }),
         }}
       />

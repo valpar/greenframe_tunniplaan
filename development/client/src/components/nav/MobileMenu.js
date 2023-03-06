@@ -11,6 +11,7 @@ const MobileMenu = (props) => {
   const userRollHandler = (e) => {
     setShowUserOptions(false);
     props.userRollHandler(e);
+    props.onClose();
   };
   return (
     <Modal onClose={props.onClose}>
