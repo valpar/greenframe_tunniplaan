@@ -331,8 +331,6 @@ const Home = () => {
   const handleResize = () => {
     if (window.innerWidth >= 1024) {
       setShowMobileFilters(true);
-    } else {
-      setShowMobileFilters(false);
     }
   };
 
