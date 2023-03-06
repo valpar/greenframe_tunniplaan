@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-regular-svg-icons";
 import RequestModal from "../RequestModal/RequestModal";
 import TooltipLarge from "../Tooltip/TooltipLarge";
+import { faLongArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(
@@ -62,6 +63,8 @@ const TableSubjectInfo = (props) => {
   const { withoutSaveMessage, saveMessage } = content.confirmModalMessages;
   const [requestError, setRequestError] = useState(false);
   const [requestSuccess, setRequestSuccess] = useState(false);
+  const [deleteHomeworkRequestSuccess, setDeleteHomeworkRequestSuccess] =
+    useState(false);
   const [requestLoading, setRequestLoading] = useState(false);
   const [requestMessage, setRequestMessage] = useState("");
   const [showRequestModal, setShowRequestModal] = useState(false);
@@ -90,11 +93,7 @@ const TableSubjectInfo = (props) => {
   );
 
   useEffect(() => {
-    if (
-      !homeworkLoading &&
-      homeworkError === "" &&
-      homeworkResponse?.homework
-    ) {
+    if (!homeworkLoading && homeworkResponse?.homework) {
       setHomework(...homeworkResponse.homework);
       setEnteredInfo((prevState) => {
         return {
@@ -236,11 +235,24 @@ const TableSubjectInfo = (props) => {
 
   const removeRowHandler = async (index, homeworkId) => {
     if (homeworkId) {
-      await axios.delete(`/homeworks/${homeworkId}`).then((response) => {
-        console.log(response);
-      });
-      setUpdateRequest((prevState) => (prevState = !prevState));
-      props.onUpdate();
+      try {
+        setShowRequestModal(true);
+        setRequestLoading(true);
+
+        await axios.delete(`/homeworks/${homeworkId}`).then((response) => {
+          console.log(response);
+        });
+      } catch (error) {
+        setRequestLoading(false);
+        setRequestError(true);
+        setRequestMessage(content.errorMessages.requestDeleteError);
+        setExtraInfoSaveConfirm(false);
+        return;
+      }
+      setRequestLoading(false);
+      setRequestMessage(content.successMessages.delete);
+      setDeleteHomeworkRequestSuccess(true);
+      setExtraInfoSaveConfirm(false);
     }
     if (enteredInfo.homeworks.length === 1) {
       setEnteredInfo((prevState) => ({
@@ -411,6 +423,21 @@ const TableSubjectInfo = (props) => {
   }, [requestSuccess]);
 
   useEffect(() => {
+    if (deleteHomeworkRequestSuccess) {
+      const timer = setTimeout(() => {
+        setShowRequestModal(false);
+        setDeleteHomeworkRequestSuccess(false);
+        setRequestMessage("");
+
+        setUpdateRequest((prevState) => (prevState = !prevState));
+        props.onUpdate();
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [deleteHomeworkRequestSuccess]);
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       setShowNotValidTooltip(false);
     }, 1000);
@@ -504,6 +531,7 @@ const TableSubjectInfo = (props) => {
 
       {!editMode &&
         props.isLoggedIn &&
+        homework?.description &&
         (homeworkResponse?.homework
           ? homeworkResponse.homework
           : enteredInfo.homeworks
@@ -685,7 +713,7 @@ const TableSubjectInfo = (props) => {
           {showRequestModal && (
             <RequestModal
               error={requestError}
-              success={requestSuccess}
+              success={requestSuccess || deleteHomeworkRequestSuccess}
               loading={requestLoading}
               modalMessage={requestMessage}
               customStyle="lg:ml-32"
