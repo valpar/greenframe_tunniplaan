@@ -700,7 +700,7 @@ const ScheduleAddition = (props) => {
     <div
       className={`flex flex-col justify-center items-center p-4 mb-0 w-full ${
         !props.editMode
-          ? "mt-1 lg:mt-4 border border-borderGray shadow-md"
+          ? "mt-1 mb-8 lg:mt-4 border border-borderGray shadow-md"
           : "mb-0"
       }`}
     >

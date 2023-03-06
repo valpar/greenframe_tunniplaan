@@ -147,38 +147,37 @@ const CalendarInput = (props) => {
             : `flex justify-between bg-white`
         }
       >
-        <div className={showBtnModal ? `w-full` : `w-full text-zinc-500`}>
+        <div
+          className={`relative flex justify-center lg:pr-10 ${
+            showBtnModal ? "w-full" : "w-full text-zinc-500"
+          }`}
+        >
           <input
             className="h-11 text-center lg:px-1 hover:text-black duration-200"
             type="text"
             name="dateRange"
-            value={
-              showBtnModal
-                ? `${formatDate(calendarRange[0])} - ${formatDate(
-                    calendarRange[1]
-                  )}`
-                : "Ajavahemik"
-            }
+            value={`${formatDate(calendarRange[0])} - ${formatDate(
+              calendarRange[1]
+            )}`}
             readOnly
             onClick={toggleCalendarHandler}
           />
-        </div>
-
-        <div className="flex items-center">
-          <div className="h-[1.7rem] w-0 border-r-[1px] border-borderGray" />
-          <div className="flex justify-center items-center px-3 text-borderGray">
-            {!showBtnModal && (
-              <FontAwesomeIcon
-                icon={faAngleDown}
-                onClick={toggleCalendarHandler}
-              />
-            )}
-            {showBtnModal && (
-              <FontAwesomeIcon
-                icon={faAngleUp}
-                onClick={toggleCalendarHandler}
-              />
-            )}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center">
+            <div className="h-[1.7rem] w-0 border-r-[1px] border-borderGray" />
+            <div className="flex justify-center items-center px-3 text-borderGray">
+              {!showBtnModal && (
+                <FontAwesomeIcon
+                  icon={faAngleDown}
+                  onClick={toggleCalendarHandler}
+                />
+              )}
+              {showBtnModal && (
+                <FontAwesomeIcon
+                  icon={faAngleUp}
+                  onClick={toggleCalendarHandler}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

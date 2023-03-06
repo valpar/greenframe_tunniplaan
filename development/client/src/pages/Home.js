@@ -478,27 +478,31 @@ const Home = () => {
             {admin && (
               <div
                 onClick={addScheduleHandler}
-                className="flex justify-between items-center group relative mx-auto mt-2 lg:mt-0 mb-1 w-1/3 h-11 font-bold bg-darkGray text-white shadow lg:w-full lg:mb-3"
+                className="realtive flex justify-between items-center group relative mx-auto mt-2 lg:mt-0 mb-3 w-1/3 h-11 font-bold bg-darkGray text-white shadow lg:w-full"
               >
                 <div className="green-peeper" />
-                <button type="button" className="w-11/12">
+                <button type="button" className="w-full">
                   LISA
                 </button>
-                {!addSchedule && (
-                  <FontAwesomeIcon
-                    icon={faAngleRight}
-                    className="text-base text-white pt-7 rotate-90 lg:rotate-0 lg:pr-4 lg:pt-0"
-                  />
-                )}
-                {addSchedule && (
-                  <FontAwesomeIcon
-                    icon={faAngleLeft}
-                    className="text-base text-white pt-7 rotate-90 lg:rotate-0 lg:pr-4 lg:pt-0"
-                  />
-                )}
+                <div className="absolute right-0">
+                  {!addSchedule && (
+                    <FontAwesomeIcon
+                      icon={faAngleRight}
+                      className="text-base text-white pt-7 rotate-90 lg:rotate-0 lg:pr-4 lg:pt-0"
+                    />
+                  )}
+                  {addSchedule && (
+                    <FontAwesomeIcon
+                      icon={faAngleLeft}
+                      className="text-base text-white pt-7 rotate-90 lg:rotate-0 lg:pr-4 lg:pt-0"
+                    />
+                  )}
+                </div>
               </div>
             )}
-            <div className={`${!showMobileFilters ? "hidden" : ""}`}>
+            <div
+              className={`${!showMobileFilters ? "hidden" : ""} mb-4 lg:mb-0`}
+            >
               <ScheduleFilters
                 onEmptyFilters={emptyFiltersHandler}
                 onPassingFilters={dataFilterHandler}
@@ -541,7 +545,7 @@ const Home = () => {
                 <div key={i}>
                   <div
                     className={`flex items-center justify-between bg-collegeGreen w-full px-3 h-12 ${
-                      i === 0 ? "mt-3" : "mt-5"
+                      i === 0 ? "mt-1 lg:mt-4" : "mt-9"
                     } text-base md:text-lg`}
                   >
                     <div className="flex">
