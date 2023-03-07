@@ -282,7 +282,11 @@ const Home = () => {
 
   const addScheduleHandler = () => {
     if (!addSchedule) window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+    if (window.innerWidth <= 1024) {
+      setShowMobileFilters(false);
+    }
     setAddSchedule((prevState) => (prevState = !prevState));
+    console.log(window.innerWidth);
   };
 
   const newOccurenceHandler = () => {
@@ -341,8 +345,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("load", handleResize);
+    handleResize();
   });
 
   useEffect(() => {
@@ -478,7 +481,7 @@ const Home = () => {
             {admin && (
               <div
                 onClick={addScheduleHandler}
-                className="realtive flex justify-between items-center group relative mx-auto mt-2 lg:mt-0 mb-3 w-1/3 h-11 font-bold bg-darkGray text-white shadow lg:w-full"
+                className="realtive flex justify-between items-center group relative mx-auto mt-2 lg:-mt-1 mb-3 w-1/3 h-11 font-bold bg-darkGray text-white shadow lg:w-full"
               >
                 <div className="green-peeper" />
                 <button type="button" className="w-full">
@@ -545,7 +548,7 @@ const Home = () => {
                 <div key={i}>
                   <div
                     className={`flex items-center justify-between bg-collegeGreen w-full px-3 h-12 ${
-                      i === 0 ? "mt-1 lg:mt-4" : "mt-9"
+                      i === 0 ? "mt-1 lg:mt-3" : "mt-9"
                     } text-base md:text-lg`}
                   >
                     <div className="flex">

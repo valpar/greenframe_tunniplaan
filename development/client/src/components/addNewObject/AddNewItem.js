@@ -237,7 +237,7 @@ const AddNewItem = (props) => {
     }
 
     setRequestLoading(false);
-    setRequestMessage(content.successMessages.delete);
+    setRequestMessage(content.successMessages.update);
     setRequestSuccess(true);
   };
 
