@@ -143,7 +143,9 @@ const Home = () => {
     if (type === "subject") {
       for (let i = 0; i < objectValues.length; i++) {
         filteredeData.push(
-          ...rawData.filter((e) => e.subject[objectKeys[i]] === objectValues[i])
+          ...rawData.filter(
+            (e) => e.subject[objectKeys[i]].trim() === objectValues[i]
+          )
         );
       }
     }
