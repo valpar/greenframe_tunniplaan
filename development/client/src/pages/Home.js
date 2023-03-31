@@ -17,6 +17,10 @@ import MobileMenu from "../components/nav/MobileMenu";
 import { faBars, faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from "../components/UI/Spinner";
 import content from "../assets/content/content.json";
+import { useGoogleLogin } from '@react-oauth/google';
+
+
+
 
 const Home = () => {
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
@@ -344,6 +348,21 @@ const Home = () => {
     setNewOccurenceAdded((prevState) => (prevState = !prevState));
   };
 
+  // const handleFailure = (result) => {
+  //   console.log(result);
+  //   alert(result);
+  // };
+
+  // const handelLogin = async (googleData) => {
+  //   await axios
+  //     .get(`/user/${googleData.credential}`)
+  //     .then((res) => console.log(res));
+  // };
+  
+  const login = useGoogleLogin({
+    onSuccess: tokenResponse => console.log(tokenResponse),
+  });
+
   useEffect(() => {
     handleResize();
   });
@@ -356,6 +375,7 @@ const Home = () => {
   }, [filteredData]);
 
   return (
+
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
       <div className="mx-auto w-full ">
         <header className="flex flex-col fixed left-1/2 -translate-x-1/2 max-w-6xl w-full z-10 bg-white">
@@ -411,6 +431,16 @@ const Home = () => {
                   <div className="absolute top-24 left-4 z-10">
                     <div className={classes.boxArrow}></div>
                     <div className={classes.userInfoBox}>
+                     
+                    <button type="button">LOGI SISSE</button>
+                  
+                    <button onClick={() => login()}
+                      className={classes.adminBtn}
+                      type="button"
+                      name="lecturer">
+                      Google konto
+                    </button>
+                    
                       <button
                         onClick={userRollHandler}
                         className={classes.adminBtn}
@@ -586,7 +616,8 @@ const Home = () => {
       </div>
       <GoTopButton />
     </div>
-  );
+    );
 };
+
 
 export default Home;
