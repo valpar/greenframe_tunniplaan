@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-regular-svg-icons";
 import RequestModal from "../RequestModal/RequestModal";
 import TooltipLarge from "../Tooltip/TooltipLarge";
-import { faLongArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { Spinner } from "../../../components/UI/Spinner";
 
 const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(
@@ -534,7 +534,15 @@ const TableSubjectInfo = (props) => {
           </td>
         </tr>
       )}
-
+      <tr
+        className={`${
+          homeworkLoading ? "visible" : "hidden"
+        } border-x border-borderGray`}
+      >
+        <td colSpan={4}>
+          <Spinner containerStyle="py-8" iconSize="w-10 h-10" />
+        </td>
+      </tr>
       {!editMode &&
         props.isLoggedIn &&
         homework?.description &&
