@@ -54,6 +54,9 @@ module.exports = {
         foldOpen: "foldOpen 300ms ease-in",
         greenLoader: "greenLoader 2s normal forwards",
       },
+      zIndex: {
+        5: "5",
+      },
     },
   },
   plugins: [],
