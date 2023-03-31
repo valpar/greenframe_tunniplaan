@@ -157,7 +157,7 @@ const AddHomework = (props) => {
             <i
               id="removeDate"
               onClick={removeDateHandler}
-              className="bi bi-x-lg absolute text-xl z-10 right-2 top-1/2 -translate-y-1/2 pb-2 lg:pb-2"
+              className="bi bi-x-lg absolute text-xl z-5 right-2 top-1/2 -translate-y-1/2 pb-2 lg:pb-2"
             ></i>
           )}
         </div>
