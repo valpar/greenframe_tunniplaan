@@ -93,7 +93,7 @@ const CalendarOneInput = (props) => {
     <div className="relative w-full">
       {props.onShowCalendar && (
         <div
-          className={`absolute w-full h-auto z-20 ${
+          className={`absolute w-full h-auto z-5 ${
             (props.label && props.index === 0) || isMobile ? "top-20" : "top-12"
           } border border-borderGray shadow`}
         >
