@@ -133,6 +133,7 @@ const CalendarInput = (props) => {
         )
       );
     }
+    setActivePeriod(null);
     setCalendarRange(date);
     setResetDate(true);
   };
