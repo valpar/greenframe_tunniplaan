@@ -17,9 +17,8 @@ import MobileMenu from "../components/nav/MobileMenu";
 import { faBars, faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from "../components/UI/Spinner";
 import content from "../assets/content/content.json";
-import { useGoogleLogin } from '@react-oauth/google';
-
-
+import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 
 const Home = () => {
@@ -348,20 +347,49 @@ const Home = () => {
     setNewOccurenceAdded((prevState) => (prevState = !prevState));
   };
 
-  // const handleFailure = (result) => {
-  //   console.log(result);
-  //   alert(result);
-  // };
+  // --- Google login ---
 
-  // const handelLogin = async (googleData) => {
-  //   await axios
-  //     .get(`/user/${googleData.credential}`)
-  //     .then((res) => console.log(res));
-  // };
-  
+  const [ user, setUser ] = useState([]);
+  const [ profile, setProfile ] = useState([]);
+
   const login = useGoogleLogin({
-    onSuccess: tokenResponse => console.log(tokenResponse),
+      onSuccess: (codeResponse) => {
+      console.log('Login Successful:', codeResponse);
+      setUser(codeResponse);
+      },
+      onError: (error) => console.log('Login Failed:', error)
   });
+
+  useEffect(
+    () => {
+        if (user) {
+            axios
+                .get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${user.access_token}`, {
+                    headers: {
+                        Authorization: `Bearer ${user.access_token}`,
+                        Accept: 'application/json'
+                    }
+                })
+                .then((res) => {
+                    setProfile(res.data);
+                    console.log('Login Profile:', profile);
+
+                })
+                .catch((err) => console.log(err));
+        }
+    },
+    [ user ]
+);
+
+// log out function to log the user out of google and set the profile array to null
+const logOut = () => {
+    googleLogout();
+    setProfile(null);
+};
+
+
+    // --- Google login end ---
+
 
   useEffect(() => {
     handleResize();
@@ -434,12 +462,20 @@ const Home = () => {
                      
                     <button type="button">LOGI SISSE</button>
                   
-                    <button onClick={() => login()}
+                    <button onClick={login}
                       className={classes.adminBtn}
                       type="button"
-                      name="lecturer">
+                      name="Login Google">
                       Google konto
                     </button>
+
+                    <button onClick={logOut}
+                      className={classes.adminBtn}
+                      type="button"
+                      name="Logout Google">
+                      Log out
+                    </button>
+
                     
                       <button
                         onClick={userRollHandler}
