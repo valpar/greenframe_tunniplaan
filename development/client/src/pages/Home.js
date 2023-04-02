@@ -312,13 +312,16 @@ const Home = () => {
       },
     ]);
   };
-  const userPicture = admin
-    ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-    : userLecturer
-    ? "https://images.pexels.com/photos/4342401/pexels-photo-4342401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-    : userStudent
-    ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"
-    : require("../assets/icons/user.png");
+  // const userPicture = admin
+  //   ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  //   : userLecturer
+  //   ? "https://images.pexels.com/photos/4342401/pexels-photo-4342401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  //   : userStudent
+  //   ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"
+  //   : require("../assets/icons/user.png");
+
+
+
   const userRole = admin
     ? "HALDUS"
     : userLecturer
@@ -360,11 +363,20 @@ const Home = () => {
       onError: (error) => console.log('Login Failed:', error)
   });
 
+  const [ userPicture, setUserPicture ] = useState([]);
+  useEffect(() => {
+    console.log('Login Profile:', profile);
+    setUserPicture(profile.picture);
+
+
+  }, [profile]);
+
+
   useEffect(
     () => {
         if (user) {
             axios
-                .get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${user.access_token}`, {
+                .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
                     headers: {
                         Authorization: `Bearer ${user.access_token}`,
                         Accept: 'application/json'
@@ -372,8 +384,6 @@ const Home = () => {
                 })
                 .then((res) => {
                     setProfile(res.data);
-                    console.log('Login Profile:', profile);
-
                 })
                 .catch((err) => console.log(err));
         }
