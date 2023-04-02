@@ -9,7 +9,6 @@ import ScheduleAddition from "../components/scheduleAddition/ScheduleAddition";
 import Table from "../components/UI/Table/Table";
 import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { calculateSemesterDate } from "../utils/Calculate/Semester";
 import GoTopButton from "../components/UI/Button/GoTopButton";
 import { faSliders } from "@fortawesome/free-solid-svg-icons";
@@ -17,6 +16,9 @@ import MobileMenu from "../components/nav/MobileMenu";
 import { faBars, faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from "../components/UI/Spinner";
 import content from "../assets/content/content.json";
+import { useRef } from "react";
+import { AddScheduleButton } from "../components/UI/Button/AddScheduleButton";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
@@ -45,7 +47,11 @@ const Home = () => {
   const [showUsersModal, setShowUsersModal] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [showDesktopFilters, setShowDesktopFilters] = useState(false);
   const [notScheduled, setNotScheduled] = useState("");
+  const [marginTop, setMarginTop] = useState(0);
+  const filtersRef = useRef(null);
+  const [scrollY, setScrollY] = useState(0);
 
   const work_Data = useCallback(() => {
     setScheduleLoading(isLoading);
@@ -283,12 +289,11 @@ const Home = () => {
   };
 
   const addScheduleHandler = () => {
-    if (!addSchedule) window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
-    if (window.innerWidth <= 1024) {
+    window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+    if (window.innerWidth <= 1024 || showMobileFilters) {
       setShowMobileFilters(false);
     }
     setAddSchedule((prevState) => (prevState = !prevState));
-    console.log(window.innerWidth);
   };
 
   const newOccurenceHandler = () => {
@@ -331,12 +336,19 @@ const Home = () => {
   };
 
   const mobileFiltersHandler = () => {
-    setShowMobileFilters((prevState) => (prevState = !prevState));
+    if (window.scrollY > 766 && showMobileFilters) {
+      window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+    } else {
+      setShowMobileFilters((prevState) => (prevState = !prevState));
+      window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+    }
+    setAddSchedule(false);
   };
 
   const handleResize = () => {
     if (window.innerWidth >= 1024) {
       setShowMobileFilters(true);
+      setShowDesktopFilters(true);
     }
   };
 
@@ -348,6 +360,14 @@ const Home = () => {
 
   useEffect(() => {
     handleResize();
+    // function handleResize() {
+    //   setShowMobileFilters(window.innerWidth < 1024);
+    //   setShowDesktopFilters(window.innerWidth >= 1024);
+    // }
+
+    // window.addEventListener("resize", handleResize);
+
+    // return () => window.removeEventListener("resize", handleResize);
   });
 
   useEffect(() => {
@@ -357,10 +377,31 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [filteredData]);
 
+  useEffect(() => {
+    if (!filtersRef.current) return; // wait for the elementRef to be available
+    const resizeObserver = new ResizeObserver(() => {
+      // Do what you want to do when the size of the element changes
+      const filtersHeight = document.querySelector(".filters").clientHeight;
+      setMarginTop(filtersHeight);
+    });
+    resizeObserver.observe(filtersRef.current);
+    return () => resizeObserver.disconnect(); // clean up
+  }, []);
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    setScrollY(currentScrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
       <div className="mx-auto w-full ">
-        <header className="flex flex-col fixed left-1/2 -translate-x-1/2 max-w-6xl w-full z-10 bg-white">
+        <header className="flex flex-col fixed pb-1 lg:pb-0 top-0 left-1/2 -translate-x-1/2 max-w-6xl w-full z-10 bg-white">
           <div className="flex items-center lg:items-end justify-between py-4 px-4 lg:py-0 lg:pt-4">
             {/* Logo */}
             <div className="w-40 h-full lg:w-80 lg:mb-4">
@@ -451,24 +492,32 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="lg:hidden flex flex-row w-24 justify-between">
+            <div className="lg:hidden flex flex-row w-40 justify-end space-x-7 pr-2">
+              {/* Mobile schedule add */}
+              {admin && !showDesktopFilters && (
+                <i
+                  className="bi bi-plus-lg text-3xl pt-[0.1rem]"
+                  onClick={addScheduleHandler}
+                ></i>
+              )}
               {/* Mobile filters */}
-              <FontAwesomeIcon
-                icon={faSliders}
-                className={`w-7 h-auto ${
-                  showMobileFilters ? "text-darkGray" : ""
+              <i
+                className={`bi bi-sliders text-2xl pt-1 ${
+                  scrollY < 766 && showMobileFilters ? "text-borderGray" : ""
                 }`}
                 onClick={mobileFiltersHandler}
-              />
+              ></i>
               {/* Hamburger menu */}
-              <FontAwesomeIcon
-                icon={faBars}
-                className="w-7 h-auto pr-3"
+              <i
+                className="bi bi-list text-4xl"
                 onClick={mobileMenuHandler}
-              />
+              ></i>
             </div>
           </div>
-          <div className="w-full h-[0.2rem] bg-[#6c8298] border-solid border-1 border-[#d4d4d4] " />
+
+          <div
+            className={`w-full h-[0.2rem] bg-[#6c8298] border-solid border-1 border-[#d4d4d4]`}
+          />
         </header>
         {showMobileMenu && (
           <MobileMenu
@@ -478,35 +527,25 @@ const Home = () => {
             userRoll={userRole}
           />
         )}
-        <div className="flex flex-1 flex-col lg:flex-row lg:justify-between mt-20 lg:mt-32">
-          <div className="flex-1 px-2 lg:fixed bg-white lg:w-60 pt-1 lg:pt-4 lg:px-0 lg:pr-2 lg:overflow-y-scroll lg:overflow-x-hidden lg:top-32 lg:bottom-0 no-scrollbar">
-            {admin && (
-              <div
-                onClick={addScheduleHandler}
-                className="realtive flex justify-between items-center group relative mx-auto mt-2 lg:-mt-1 mb-3 w-1/3 h-11 font-bold bg-darkGray text-white shadow lg:w-full"
-              >
-                <div className="green-peeper" />
-                <button type="button" className="w-full">
-                  LISA
-                </button>
-                <div className="absolute right-0">
-                  {!addSchedule && (
-                    <FontAwesomeIcon
-                      icon={faAngleRight}
-                      className="text-base text-white pt-7 rotate-90 lg:rotate-0 lg:pr-4 lg:pt-0"
-                    />
-                  )}
-                  {addSchedule && (
-                    <FontAwesomeIcon
-                      icon={faAngleLeft}
-                      className="text-base text-white pt-7 rotate-90 lg:rotate-0 lg:pr-4 lg:pt-0"
-                    />
-                  )}
-                </div>
-              </div>
+        <div className="flex flex-1 flex-col lg:flex-row lg:justify-between mt-20 lg:mt-32 bg-white">
+          <div
+            ref={filtersRef}
+            className="flex-1 px-2 lg:fixed top-20 w-full bg-white lg:w-60 pt-2 lg:pt-3 lg:px-0 lg:pr-2 overflow-y-scroll lg:top-32 lg:bottom-0 no-scrollbar"
+          >
+            {admin && showDesktopFilters && (
+              <AddScheduleButton
+                addScheduleHandler={addScheduleHandler}
+                addSchedule={addSchedule}
+              />
             )}
             <div
-              className={`${!showMobileFilters ? "hidden" : ""} mb-4 lg:mb-0`}
+              className={`filters ${
+                !showMobileFilters
+                  ? showDesktopFilters
+                    ? "w-full"
+                    : "hidden"
+                  : "w-full"
+              } -mt-3 lg:mt-0 bg-white lg:relative mb-1 lg:mb-0`}
             >
               <ScheduleFilters
                 onEmptyFilters={emptyFiltersHandler}
@@ -515,7 +554,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="w-full px-2 lg:px-0 lg:pl-64 ">
+          <div className={`w-full px-2 lg:px-0 lg:pl-64`}>
             {scheduleLoading && <Spinner containerStyle="py-8" />}
             {hasServerError && (
               <div className="p-4 lg:mt-3 border border-borderGray shadow shadow-borderGray">
@@ -586,7 +625,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <GoTopButton />
+      {showDesktopFilters && <GoTopButton />}
     </div>
   );
 };
