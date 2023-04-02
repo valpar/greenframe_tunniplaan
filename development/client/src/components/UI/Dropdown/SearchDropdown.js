@@ -70,7 +70,7 @@ const SearchDropdown = (props) => {
       className="relative group"
     >
       {props.topLabel && <label>{props.topLabel}</label>}
-      <div className="green-peeper" />
+      <div className="group-hover:peeper" />
       <Select
         components={{ DropdownIndicator: CustomDropdownIndicator }}
         ref={refChangeHandler}
@@ -96,6 +96,7 @@ const SearchDropdown = (props) => {
             ...baseStyles,
             border: "0.1rem solid #CECECE",
             boxShadow: "rgba(99, 99, 99, 0.2) 0px 1px 2px 0px",
+            position: "relative",
           }),
           container: (baseStyles, state) => ({
             ...baseStyles,

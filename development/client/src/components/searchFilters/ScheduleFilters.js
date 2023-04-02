@@ -116,8 +116,8 @@ const ScheduleFilters = (props) => {
   };
 
   return (
-    <div className="flex flex-col space-y-2 -mt-1">
-      <div className="order-2 lg:order1">
+    <div className="flex flex-col space-y-2 -mt-1 lg:mt-0">
+      <div className="pt-2 lg:pt-0">
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
@@ -129,11 +129,11 @@ const ScheduleFilters = (props) => {
         />
       </div>
 
-      <div className="order-1 pb-2 lg:order-2 lg:pb-0 ">
+      <div>
         <CalendarInput reset={isReset} onChange={filtersHandler} />
       </div>
 
-      <div className="order-3">
+      <div>
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
@@ -143,7 +143,7 @@ const ScheduleFilters = (props) => {
           isMulti={true}
         />
       </div>
-      <div className="order-4">
+      <div>
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
@@ -153,7 +153,7 @@ const ScheduleFilters = (props) => {
           isMulti={true}
         />
       </div>
-      <div className="order-5">
+      <div>
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
@@ -167,7 +167,7 @@ const ScheduleFilters = (props) => {
         onClick={emptyFiltersHandler}
         type="button"
         name="admin"
-        className=" order-6 mx-auto px-2 w-1/3 h-8 border border-borderGray shadow text-sm text-neutral-700 lg:w-1/2 lg:hover:bg-borderGray lg:hover:shadow-lg duration-200"
+        className="mx-auto px-2 w-1/3 h-8 border border-borderGray shadow text-sm font-bold text-neutral-700 lg:w-1/2 lg:hover:bg-borderGray lg:hover:shadow-lg duration-200"
       >
         Tühjenda
       </button>

@@ -95,7 +95,7 @@
   font-weight: bold;
 }
 .react-calendar__month-view__days__day--weekend {
-  color: #d10000;
+  color: #d10000 !important;
 }
 .react-calendar__month-view__days__day--neighboringMonth {
   color: #757575;
@@ -204,7 +204,7 @@
 } */
 @media (max-width: 1023px) {
   .react-calendar.filters {
-    font-size: 2em;
+    font-size: 1.5em;
     padding: 0.5rem 0.5rem 0.5rem 0rem;
   }
   .filters .react-calendar__navigation {
@@ -264,8 +264,9 @@
     font-size: 0.7em;
   }
   .filters .react-calendar__tile {
+    font-size: 0.8em;
     height: 3rem;
-    border-radius: 3rem;
+    border-radius: 2.8rem;
   }
   .filters .react-calendar__month-view__weekNumbers {
     height: 15rem;
