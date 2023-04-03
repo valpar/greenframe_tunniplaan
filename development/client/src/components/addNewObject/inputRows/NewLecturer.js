@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import InputWithPlaceholder from "../../UI/Input/InputWithPlaceholder";
+import { InputOverlappingLabel } from "../../UI/Input/InputOverlappingLabel";
 import content from "../../../assets/content/content.json";
 
 const NewLecturer = (props) => {
@@ -144,14 +144,14 @@ const NewLecturer = (props) => {
     onChange(enteredLecturerData, index, false);
   }, [enteredLecturerData, errorMessage]);
   return (
-    <div className="flex flex-col items-center mb-2">
+    <div className="flex flex-col items-center mb-2 lg:min-w-[41rem]">
       {index === 0 && (
         <h1 className="font-bold text-lg my-4">{`${
           props.editMode ? "ÕPPEJÕU MUUTMINE" : "UUE ÕPPEJÕU LISAMINE"
         }`}</h1>
       )}
-      <div className="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 w-full">
-        <InputWithPlaceholder
+      <div className="flex flex-col justify-center lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 w-full">
+        <InputOverlappingLabel
           placeholder="Eesnimi"
           onChange={inputChangeHandler}
           name={"firstName"}
@@ -159,7 +159,7 @@ const NewLecturer = (props) => {
           errorMessage={errorMessage.firstName}
           eTopPos="true"
         />
-        <InputWithPlaceholder
+        <InputOverlappingLabel
           placeholder="Perenimi"
           onChange={inputChangeHandler}
           name={"lastName"}
@@ -167,7 +167,7 @@ const NewLecturer = (props) => {
           errorMessage={errorMessage.lastName}
           eTopPos="true"
         />
-        <InputWithPlaceholder
+        <InputOverlappingLabel
           placeholder="Email"
           onChange={inputChangeHandler}
           name={"email"}
@@ -176,11 +176,7 @@ const NewLecturer = (props) => {
           eTopPos="true"
         />
         {!props.editMode && (
-          <div
-            className={`hidden lg:flex justify-end items-center ${
-              props.count > 1 ? "w-5/12" : "w-8"
-            }`}
-          >
+          <div className={`hidden lg:flex justify-end items-center w-20`}>
             {index === props.count - 1 && (
               <i
                 onClick={props.onAddNewRow}
