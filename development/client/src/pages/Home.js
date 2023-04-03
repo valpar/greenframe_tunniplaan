@@ -366,8 +366,8 @@ const Home = () => {
   const [ userPicture, setUserPicture ] = useState([]);
   useEffect(() => {
     console.log('Login Profile:', profile);
-    setUserPicture(profile.picture);
-
+    // setUserPicture(profile.picture);
+    setUserPicture( profile && profile.picture ? profile.picture : require("../assets/icons/user.png"));
 
   }, [profile]);
 
@@ -462,7 +462,8 @@ const logOut = () => {
                       className="w-full h-full rounded-full object-cover"
                     ></img>
                   </div>
-                  <div className="text-lg mx-auto text-center">{userRole}</div>
+                  {/* <div className="text-lg mx-auto text-center">{userRole}</div> */}
+                  <div className="text-lg mx-auto text-center">{profile && profile.given_name ? profile.given_name : "Logi sisse"}</div>
                 </div>
 
                 {showUsersModal && (
