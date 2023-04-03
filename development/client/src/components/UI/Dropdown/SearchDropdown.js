@@ -111,6 +111,18 @@ const SearchDropdown = (props) => {
             ...baseStyles,
             pointerEvents: "auto",
           }),
+          option: (baseStyles, state) => ({
+            ...baseStyles,
+            backgroundColor: state.isSelected
+              ? "#E0E0E0"
+              : state.isFocused
+              ? "#E0E0E0"
+              : "#fff",
+            ":hover": {
+              backgroundColor: state.isSelected ? "#E0E0E0" : "#E0E0E0",
+              color: state.isSelected ? "#fff" : "#333",
+            },
+          }),
         }}
       />
     </div>

@@ -28,7 +28,7 @@ const Option = (props) => {
           >
             <div className="h-11/12 border-l border-borderGray" />
             <div
-              className="group flex items-center justify-center w-12 h-12 lg:w-8 lg:h-8 ml-1 -mr-2 cursor-pointer rounded-full hover:bg-blue-200 duration-150"
+              className="group flex items-center justify-center w-12 h-12 lg:w-8 lg:h-8 ml-1 -mr-2 cursor-pointer rounded-full hover:bg-collegeGreen duration-150"
               onClick={editHandler}
             >
               <span className="group-hover:scale-105 duration-150">{icon}</span>
@@ -78,6 +78,18 @@ const AddDropdown = (props) => {
     indicatorsContainer: (baseStyles) => ({
       ...baseStyles,
       pointerEvents: "none",
+    }),
+    option: (baseStyles, state) => ({
+      ...baseStyles,
+      backgroundColor: state.isSelected
+        ? "#E0E0E0"
+        : state.isFocused
+        ? "#E0E0E0"
+        : "#fff",
+      ":hover": {
+        backgroundColor: state.isSelected ? "#E0E0E0" : "#E0E0E0",
+        color: state.isSelected ? "#fff" : "#333",
+      },
     }),
   };
 
