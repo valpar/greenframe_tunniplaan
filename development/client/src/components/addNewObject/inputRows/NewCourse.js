@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import InputWithPlaceholder from "../../UI/Input/InputWithPlaceholder";
+import { InputOverlappingLabel } from "../../UI/Input/InputOverlappingLabel";
 import content from "../../../assets/content/content.json";
 
 const NewCourse = (props) => {
@@ -91,21 +91,21 @@ const NewCourse = (props) => {
   }, [enteredCourseData, errorMessage]);
 
   return (
-    <div className="flex flex-col items-center mb-2">
+    <div className="flex flex-col items-center  mb-2 lg:min-w-[30rem]">
       {index === 0 && (
-        <h1 className="font-bold text-lg my-4">{`${
+        <h1 className="lg:w-full lg:text-center font-bold text-lg my-4">{`${
           props.editMode ? "KURSUSE MUUTMINE" : "UUE KURSUSE LISAMINE"
         }`}</h1>
       )}
-      <div className="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 w-full">
-        <InputWithPlaceholder
+      <div className="flex w-full lg:w-auto flex-col lg:flex-row lg:justify-center space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 ">
+        <InputOverlappingLabel
           placeholder="Kursus"
           onChange={inputChangeHandler}
           name={"courseName"}
           value={props.values.courseName}
           errorMessage={errorMessage.courseName}
         />
-        <InputWithPlaceholder
+        <InputOverlappingLabel
           placeholder="Lühend"
           onChange={inputChangeHandler}
           name={"courseCode"}
@@ -113,11 +113,7 @@ const NewCourse = (props) => {
           errorMessage={errorMessage.courseCode}
         />
         {!props.editMode && (
-          <div
-            className={`hidden lg:flex justify-end items-center ${
-              props.count > 1 ? "w-5/12" : "w-8"
-            }`}
-          >
+          <div className={`hidden lg:flex justify-end items-center lg:w-16`}>
             {index === props.count - 1 && (
               <i
                 onClick={props.onAddNewRow}

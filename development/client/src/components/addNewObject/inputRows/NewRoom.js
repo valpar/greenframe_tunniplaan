@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import InputWithPlaceholder from "../../UI/Input/InputWithPlaceholder";
+import { InputOverlappingLabel } from "../../UI/Input/InputOverlappingLabel";
 import content from "../../../assets/content/content.json";
 
 const NewRoom = (props) => {
@@ -66,8 +66,8 @@ const NewRoom = (props) => {
           props.editMode ? "RUUMI MUUTMINE" : "UUE RUUMI LISAMINE"
         }`}</h1>
       )}
-      <div className="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 w-full">
-        <InputWithPlaceholder
+      <div className="flex flex-col lg:flex-row justify-center space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 w-full">
+        <InputOverlappingLabel
           placeholder="Ruum"
           onChange={inputChangeHandler}
           name={"room"}
@@ -75,11 +75,7 @@ const NewRoom = (props) => {
           errorMessage={errorMessage.room}
         />
         {!props.editMode && (
-          <div
-            className={`hidden lg:flex justify-end items-center ${
-              props.count > 1 ? "w-5/12" : "w-8"
-            }`}
-          >
+          <div className={`hidden lg:flex justify-end items-center w-16`}>
             {index === props.count - 1 && (
               <i
                 onClick={props.onAddNewRow}
