@@ -130,9 +130,32 @@
   height: 0.7rem;
 }
 .react-calendar__tile:disabled {
+  text-decoration: line-through;
   background-clip: content-box;
   background-color: #f4f4f4;
+  color: #d1d1cc;
 }
+.react-calendar__tile:disabled {
+  text-decoration: line-through;
+  background-clip: content-box;
+  background-color: #f4f4f4;
+  color: #d1d1cc;
+}
+/* .react-calendar__tile:disabled:before {
+  position: absolute;
+  text-decoration: line-through;
+  content: "";
+  left: 0;
+  top: 50%;
+  right: 0;
+  border-top: 1px solid;
+  border-color: gray;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+} */
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
   background-clip: content-box;

@@ -468,31 +468,6 @@ const TableSubjectInfo = (props) => {
                   className="bi bi-pencil-fill cursor-pointer text-2xl"
                 ></i>
               )}
-              {editMode && (
-                <>
-                  {editMode && extraInfoSaveConfirm && (
-                    <div className="absolute right-28 -top-11">
-                      <ConfirmModal
-                        modalMessage={saveMessage}
-                        onConfirm={saveInformationHandler}
-                        onDecline={declineHandler}
-                      />
-                    </div>
-                  )}
-                  {showNotValidTooltip && (
-                    <div className="absolute bottom-11 -ml-4 left-1/2 -translate-x-1/2">
-                      <TooltipLarge
-                        message={content.errorMessages.mandatoryFields}
-                      />
-                    </div>
-                  )}
-                  <FontAwesomeIcon
-                    onClick={showSaveConfirmHandler}
-                    icon={faFloppyDisk}
-                    className="cursor-pointer text-3xl"
-                  />
-                </>
-              )}
               {editMode && extraInfoCloseConfirm && (
                 <div className="absolute right-14 -top-11">
                   <ConfirmModal
@@ -577,16 +552,16 @@ const TableSubjectInfo = (props) => {
                           rel="noreferrer"
                           target="_blank"
                           href={homework.extrasLink}
-                          className="hover:text-collegeRed duration-150"
+                          className="lg:hover:text-collegeRed duration-150 underline underline-offset-4"
                         >
                           {studyMaterials.name}
                         </a>
                       )}
 
                       {homework?.dueDate && (
-                        <div>{`${deadline.name} ${dateService.formatDate(
-                          homework.dueDate
-                        )}`}</div>
+                        <div className="text-collegeRed">{`${
+                          deadline.name
+                        } ${dateService.formatDate(homework.dueDate)}`}</div>
                       )}
                     </div>
                   </div>
@@ -607,16 +582,24 @@ const TableSubjectInfo = (props) => {
             <td colSpan={4} className="px-2">
               {enteredInfo.homeworks.map((e, i, s) => {
                 return (
-                  <AddHomework
-                    key={i}
-                    onChange={addExtraInfoHandler}
-                    homeworkData={e}
-                    index={i}
-                    onErrors={homeworksValid[i]}
-                    onAddRow={addRowHandler}
-                    onRemoveRow={removeRowHandler}
-                    arrayLength={s.length}
-                  />
+                  <div>
+                    <AddHomework
+                      key={i}
+                      onChange={addExtraInfoHandler}
+                      homeworkData={e}
+                      index={i}
+                      onErrors={homeworksValid[i]}
+                      onAddRow={addRowHandler}
+                      onRemoveRow={removeRowHandler}
+                      arrayLength={s.length}
+                    />
+                    <i
+                      className={`bi bi-plus-lg ${
+                        i !== s.length - 1 ? "hidden" : ""
+                      } lg:hidden text-4xl`}
+                      onClick={addRowHandler}
+                    ></i>
+                  </div>
                 );
               })}
             </td>
@@ -632,7 +615,7 @@ const TableSubjectInfo = (props) => {
                 rel="noreferrer"
                 target="_blank"
                 href={props.item.distanceLink}
-                className="hover:text-collegeRed duration-150"
+                className="lg:hover:text-collegeRed duration-150 underline underline-offset-4"
               >
                 {videoLecture.name}
               </a>
@@ -664,7 +647,38 @@ const TableSubjectInfo = (props) => {
           </tr>
         </>
       )}
-      {props.item.subject.subjectCode.length > 4 && (
+      {editMode && (
+        <tr className="border-x border-borderGray">
+          <td colSpan={4} className="pb-5">
+            <div className="relative">
+              {extraInfoSaveConfirm && (
+                <div className="absolute right-1/2 translate-x-1/2 z-20 -top-36">
+                  <ConfirmModal
+                    modalMessage={saveMessage}
+                    onConfirm={saveInformationHandler}
+                    onDecline={declineHandler}
+                    bottomArrow={true}
+                  />
+                </div>
+              )}
+              {showNotValidTooltip && (
+                <div className="absolute bottom-12 right-1/2 translate-x-1/2">
+                  <TooltipLarge
+                    message={content.errorMessages.mandatoryFields}
+                  />
+                </div>
+              )}
+              <button
+                className="bg-borderGray px-4 lg:px-8 py-2 font-bold text-sm border border-borderGray shadow hover:bg-darkGray hover:text-white hover:shadow-lg duration-150"
+                onClick={showSaveConfirmHandler}
+              >
+                SALVESTA
+              </button>
+            </div>
+          </td>
+        </tr>
+      )}
+      {!editMode && props.item.subject.subjectCode.length > 4 && (
         <tr className="subject-info-tr">
           <td colSpan={4}>
             <div className="px-2 pb-4">
@@ -673,7 +687,7 @@ const TableSubjectInfo = (props) => {
                 href={`https://ois2.tlu.ee/tluois/aine/${props.item.subject.subjectCode}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-collegeRed duration-150"
+                className="lg:hover:text-collegeRed duration-150 underline underline-offset-4"
               >
                 {props.item.subject.subjectCode}
               </a>
@@ -681,47 +695,50 @@ const TableSubjectInfo = (props) => {
           </td>
         </tr>
       )}
-      <tr className="subject-info-tr">
-        <td colSpan={4} className="px-2">
-          {nextLectures}
-        </td>
-      </tr>
-      {props.rawData.map((e, i) => {
-        let time1 = dateService.formatMilliseconds(e.startTime);
-        let time2 = dateService.formatMilliseconds(props.item.startTime);
-        let arr = [];
-        if (e.courses !== "") {
-          arr = e.courses.filter((course) => {
-            if (props.item.courses !== "") {
-              let hasCourse = props.item.courses.filter(
-                (crs) => crs.courseId === course.courseId
-              );
-              return hasCourse?.length > 0 ? true : false;
-            }
-            return false;
-          });
-        }
+      {!editMode && (
+        <tr className="subject-info-tr">
+          <td colSpan={4} className="px-2">
+            {nextLectures}
+          </td>
+        </tr>
+      )}
+      {!editMode &&
+        props.rawData.map((e, i) => {
+          let time1 = dateService.formatMilliseconds(e.startTime);
+          let time2 = dateService.formatMilliseconds(props.item.startTime);
+          let arr = [];
+          if (e.courses !== "") {
+            arr = e.courses.filter((course) => {
+              if (props.item.courses !== "") {
+                let hasCourse = props.item.courses.filter(
+                  (crs) => crs.courseId === course.courseId
+                );
+                return hasCourse?.length > 0 ? true : false;
+              }
+              return false;
+            });
+          }
 
-        if (
-          e.subject.subject.includes(props.item.subject.subject) &&
-          time1 > time2 &&
-          arr?.length > 0
-        ) {
-          return (
-            <tr
-              key={i}
-              className="text-left text-sm md:text-base border-x border-borderGray"
-            >
-              <td colSpan={4} className="px-2">{`${dateService
-                .formatDateTime(e.startTime)
-                .toString()}-${dateService
-                .formatHoursMinutes(e.endTime)
-                .toString()} ${e.subject.subject}`}</td>
-            </tr>
-          );
-        }
-        return null;
-      })}
+          if (
+            e.subject.subject.includes(props.item.subject.subject) &&
+            time1 > time2 &&
+            arr?.length > 0
+          ) {
+            return (
+              <tr
+                key={i}
+                className="text-left text-sm md:text-base border-x border-borderGray"
+              >
+                <td colSpan={4} className="px-2">{`${dateService
+                  .formatDateTime(e.startTime)
+                  .toString()}-${dateService
+                  .formatHoursMinutes(e.endTime)
+                  .toString()} ${e.subject.subject}`}</td>
+              </tr>
+            );
+          }
+          return null;
+        })}
       <tr>
         <td colSpan={4} className="py-1 border-x border-b border-borderGray">
           {showRequestModal && (

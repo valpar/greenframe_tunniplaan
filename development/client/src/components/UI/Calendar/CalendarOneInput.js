@@ -106,6 +106,18 @@ const CalendarOneInput = (props) => {
           />
         </div>
       )}
+      {props.overlapping && (
+        <label
+          htmlFor="input"
+          className={`absolute left-0 ml-2 text-xs -top-2 z-5 ${
+            props.value
+              ? "text-gray-500 bg-white px-1"
+              : "text-gray-400 bg-transparent"
+          }`}
+        >
+          {props.value ? props.placeholder : ""}
+        </label>
+      )}
 
       <InputWithLabel
         onChange={inputDateHandler}
