@@ -80,7 +80,7 @@ const TableBody = (props) => {
             </div>
 
             {(props.item.comment || props.item?.homeworks) &&
-              props.isLoggedIn && <InfoIcon className="w-6 h-auto py-1" />}
+              props.isLoggedIn && <InfoIcon className="w-5 h-auto py-1" />}
           </div>
         </td>
         <td className="p-1 md:p-2 lg:w-60 md:w-52 xl:w-80 text-center md:text-left">
@@ -105,7 +105,7 @@ const TableBody = (props) => {
                     target="_blank"
                     href={props.item.distanceLink}
                   >
-                    <CameraIcon className="w-6 h-auto" />
+                    <CameraIcon className="w-5 h-auto" />
                   </a>
                 </div>
               )}
