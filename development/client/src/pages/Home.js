@@ -11,14 +11,13 @@ import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { calculateSemesterDate } from "../utils/Calculate/Semester";
 import GoTopButton from "../components/UI/Button/GoTopButton";
-import { faSliders } from "@fortawesome/free-solid-svg-icons";
 import MobileMenu from "../components/nav/MobileMenu";
-import { faBars, faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from "../components/UI/Spinner";
 import content from "../assets/content/content.json";
 import { useRef } from "react";
 import { AddScheduleButton } from "../components/UI/Button/AddScheduleButton";
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import { faExclamation } from "@fortawesome/free-solid-svg-icons";
+import { addDays, subDays } from "date-fns";
 
 const Home = () => {
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
@@ -584,6 +583,16 @@ const Home = () => {
                 dateService.formatMilliseconds(s[i + 1]) -
                   dateService.formatMilliseconds(e) >
                 86400000;
+              let startDate;
+              let endDate;
+              if (noSchoolWork) {
+                startDate = dateService.formatDayLongMonth(
+                  addDays(new Date(e), 1)
+                );
+                endDate = dateService.formatDayLongMonth(
+                  subDays(new Date(s[i + 1]), 1)
+                );
+              }
 
               return (
                 <div key={i}>
@@ -610,7 +619,7 @@ const Home = () => {
                     onUpdate={newOccurenceHandler}
                   />
                   {noSchoolWork && (
-                    <p className="my-8">Loengutest vabad päevad!</p>
+                    <p className="my-8">{`Perioodil ${startDate} - ${endDate} õppetööd ei toimu!`}</p>
                   )}
                 </div>
               );
