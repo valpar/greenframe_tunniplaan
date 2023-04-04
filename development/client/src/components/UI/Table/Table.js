@@ -53,7 +53,7 @@ const Table = (props) => {
                   <td colSpan={4} className="pl-2 md:pl-3">
                     {item.courses !== ""
                       ? item.courses[0].courseName
-                      : item.courses}
+                      : "Koolitus"}
                   </td>
                 </tr>
               )}
