@@ -13,6 +13,8 @@ import GoTopButton from "../components/UI/Button/GoTopButton";
 import MobileMenu from "../components/nav/MobileMenu";
 import { Spinner } from "../components/UI/Spinner";
 import content from "../assets/content/content.json";
+import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 import { useRef } from "react";
 import { AddScheduleButton } from "../components/UI/Button/AddScheduleButton";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
@@ -313,13 +315,16 @@ const Home = () => {
       },
     ]);
   };
-  const userPicture = admin
-    ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-    : userLecturer
-    ? "https://images.pexels.com/photos/4342401/pexels-photo-4342401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-    : userStudent
-    ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"
-    : require("../assets/icons/user.png");
+  // const userPicture = admin
+  //   ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  //   : userLecturer
+  //   ? "https://images.pexels.com/photos/4342401/pexels-photo-4342401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  //   : userStudent
+  //   ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"
+  //   : require("../assets/icons/user.png");
+
+
+
   const userRole = admin
     ? "HALDUS"
     : userLecturer
@@ -355,6 +360,57 @@ const Home = () => {
     setNewOccurenceAdded((prevState) => (prevState = !prevState));
   };
 
+  // --- Google login ---
+
+  const [ user, setUser ] = useState([]);
+  const [ profile, setProfile ] = useState([]);
+
+  const login = useGoogleLogin({
+      onSuccess: (codeResponse) => {
+      console.log('Login Successful:', codeResponse);
+      setUser(codeResponse);
+      },
+      onError: (error) => console.log('Login Failed:', error)
+  });
+
+  const [ userPicture, setUserPicture ] = useState([]);
+  useEffect(() => {
+    console.log('Login Profile:', profile);
+    // setUserPicture(profile.picture);
+    setUserPicture( profile && profile.picture ? profile.picture : require("../assets/icons/user.png"));
+
+  }, [profile]);
+
+
+  useEffect(
+    () => {
+        if (user) {
+            axios
+                .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                    headers: {
+                        Authorization: `Bearer ${user.access_token}`,
+                        Accept: 'application/json'
+                    }
+                })
+                .then((res) => {
+                    setProfile(res.data);
+                })
+                .catch((err) => console.log(err));
+        }
+    },
+    [ user ]
+);
+
+// log out function to log the user out of google and set the profile array to null
+const logOut = () => {
+    googleLogout();
+    setProfile(null);
+};
+
+
+    // --- Google login end ---
+
+
   useEffect(() => {
     handleResize();
   });
@@ -377,6 +433,7 @@ const Home = () => {
   }, []);
 
   return (
+
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
       <div className="mx-auto w-full ">
         <header className="flex flex-col fixed pb-1 lg:pb-0 top-0 left-1/2 -translate-x-1/2 max-w-6xl w-full z-10 bg-white">
@@ -425,14 +482,34 @@ const Home = () => {
                       className="w-full h-full rounded-full object-cover"
                     ></img>
                   </div>
-                  <div className="text-lg mx-auto text-center">{userRole}</div>
+                  {/* <div className="text-lg mx-auto text-center">{userRole}</div> */}
+                  <div className="text-lg mx-auto text-center">{profile && profile.given_name ? profile.given_name : "Logi sisse"}</div>
                 </div>
 
                 {showUsersModal && (
-                  <div className="absolute top-28 -right-4">
+
+                <div className="absolute top-28 -right-4">
                     <div className="relative">
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rotate-45 bg-white border-l rounded-br-full border-t border-borderGray"></div>
                       <div className="flex flex-col justify-around items-center p-4 space-y-2 border border-borderGray  green-shadow bg-white w-44">
+                     
+                    <button type="button">LOGI SISSE</button>
+                  
+                    <button onClick={login}
+                      className={classes.adminBtn}
+                      type="button"
+                      name="Login Google">
+                      Google konto
+                    </button>
+
+                    <button onClick={logOut}
+                      className={classes.adminBtn}
+                      type="button"
+                      name="Logout Google">
+                      Log out
+                    </button>
+
+                    
                         <button
                           onClick={userRollHandler}
                           className="btn-period"
@@ -617,7 +694,8 @@ const Home = () => {
       </div>
       {showDesktopFilters && <GoTopButton />}
     </div>
-  );
+    );
 };
+
 
 export default Home;
