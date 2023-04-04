@@ -33,6 +33,25 @@ const MobileMenu = (props) => {
             "
                 ></img>
               </div>
+              <button type="button">LOGI SISSE</button>
+
+              <button
+                onClick={props.login}
+                className="flex-1 w-full mx-auto px-14 py-2 border border-black uppercase shadow-md"
+                type="button"
+                name="Login Google"
+              >
+                Google konto
+              </button>
+
+              <button
+                onClick={props.logOut}
+                className="flex-1 w-full mx-auto px-14 py-2 border border-black uppercase shadow-md"
+                type="button"
+                name="Logout Google"
+              >
+                Log out
+              </button>
               {props.userRoll === "LOGI SISSE" && (
                 <button
                   onClick={loginHandler}
