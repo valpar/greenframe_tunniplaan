@@ -674,11 +674,11 @@ const ScheduleAddition = (props) => {
           requestMessage === content.successMessages.update
         ) {
           props.onUpdate();
-          props.onClose();
         }
         setShowRequestModal(false);
         setRequestSuccess(false);
         setRequestMessage("");
+        props.onClose();
       }, 2000);
       return () => clearTimeout(timer);
     }

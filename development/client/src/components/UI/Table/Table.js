@@ -6,7 +6,22 @@ const Table = (props) => {
     e.startTime.includes(props.day)
   );
   const noCourse = today.filter((course) => course.courses === "");
-  const hasCourses = today.filter((course) => course.courses !== "");
+  const oneCourse = today.filter((course) => course.courses?.length === 1);
+  const hasCourses = [...oneCourse];
+  today.filter((course) => {
+    const coursesArr = [];
+    if (course.courses?.length > 1) {
+      let courceCopy;
+      for (let i = 0; i < course.courses.length; i++) {
+        courceCopy = { ...course };
+        courceCopy.courses = [course.courses[i]];
+        coursesArr.push(courceCopy);
+      }
+      hasCourses.push(...coursesArr);
+    }
+    return course.courses?.length > 1 ? coursesArr : false;
+  });
+
   hasCourses.sort((a, b) => {
     if (a.courses && b.courses) {
       if (a.courses[0].courseId < b.courses[0].courseId) return -1;
@@ -38,7 +53,7 @@ const Table = (props) => {
                   <td colSpan={4} className="pl-2 md:pl-3">
                     {item.courses !== ""
                       ? item.courses[0].courseName
-                      : item.courses}
+                      : "Koolitus"}
                   </td>
                 </tr>
               )}

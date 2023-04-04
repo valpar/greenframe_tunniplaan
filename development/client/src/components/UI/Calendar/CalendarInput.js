@@ -5,18 +5,27 @@ import { formatDate } from "../../../utils/Format/Date";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { calculateSemesterDate } from "../../../utils/Calculate/Semester";
+import { isMobile } from "react-device-detect";
+import { startOfWeek, endOfWeek } from "date-fns";
+import { et } from "date-fns/locale";
 
 const CalendarInput = (props) => {
   const [calendarRange, setCalendarRange] = useState(
     calculateSemesterDate(true)
   );
-  const [showBtnModal, setShowBtnModal] = useState(true);
-  const [resetDate, setResetDate] = useState(false);
+  const [showBtnModal, setShowBtnModal] = useState(isMobile ? false : true);
+  const [resetDate, setResetDate] = useState(true);
   const [activePeriod, setActivePeriod] = useState("");
+  const [inputAnimation, setInputAnimation] = useState("");
+
+  const locale = { locale: et };
 
   useEffect(() => {
     if (props.reset) {
+      setResetDate(true);
+      setActivePeriod("");
       setCalendarRange(calculateSemesterDate(true));
+      if (isMobile) setShowBtnModal(false);
     }
   }, [props.reset]);
 
@@ -47,6 +56,12 @@ const CalendarInput = (props) => {
       )
     );
     const btnType = event.target.name;
+    if (activePeriod === btnType) {
+      setActivePeriod("");
+      setResetDate(true);
+      setCalendarRange(calculateSemesterDate(true));
+      return;
+    }
     if (btnType === "today") {
       setActivePeriod("today");
       setCalendarRange([
@@ -61,7 +76,7 @@ const CalendarInput = (props) => {
           )
         ),
       ]);
-      setResetDate(true);
+      setResetDate(false);
     }
     if (btnType === "tomorrow") {
       setActivePeriod("tomorrow");
@@ -85,37 +100,22 @@ const CalendarInput = (props) => {
           )
         ),
       ]);
-      setResetDate(true);
+      setResetDate(false);
     }
 
     if (btnType === "week") {
       setActivePeriod("week");
-      setCalendarRange([
-        today,
-        new Date(
-          now.setDate(
-            now.getDate() +
-              (now.getDay() === 0 ? now.getDay() : 7 - now.getDay()),
-            now.setHours(23),
-            now.setMinutes(59),
-            now.setSeconds(59),
-            now.setMilliseconds(999)
-          )
-        ),
-      ]);
-      setResetDate(true);
+      const firstWeekday = startOfWeek(now, locale);
+      const lastWeekday = endOfWeek(now, locale);
+      setCalendarRange([firstWeekday, lastWeekday]);
+      setResetDate(false);
     }
 
     if (btnType === "semester") {
       setActivePeriod("semester");
       setCalendarRange([...calculateSemesterDate()]);
-      setResetDate(true);
+      setResetDate(false);
     }
-  };
-
-  const resetDateHandler = () => {
-    setResetDate(false);
-    setCalendarRange(calculateSemesterDate(true));
   };
 
   const changeDateHandler = (date) => {
@@ -133,12 +133,21 @@ const CalendarInput = (props) => {
         )
       );
     }
+    setActivePeriod("");
     setCalendarRange(date);
-    setResetDate(true);
+    setResetDate(false);
   };
 
+  useEffect(() => {
+    setInputAnimation("animate-greenPeaker");
+    const timer = setTimeout(() => {
+      setInputAnimation("");
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [activePeriod, calendarRange]);
+
   return (
-    <div className="relative border group border-borderGray shadow">
+    <div className="relative border group border-borderGray shadow lg:hover:border-black">
       {!showBtnModal && <div className="green-peeper" />}
       <div
         className={
@@ -148,17 +157,23 @@ const CalendarInput = (props) => {
         }
       >
         <div
-          className={`relative flex justify-center lg:pr-10 ${
-            showBtnModal ? "w-full" : "w-full text-zinc-500"
-          }`}
+          className={`relative flex justify-center ${
+            !resetDate ? "lg:pr-10" : ""
+          } ${showBtnModal ? "w-full" : "w-full text-zinc-500"}`}
         >
           <input
-            className="h-11 text-center lg:px-1 hover:text-black duration-200"
+            className={`h-11 text-center lg:px-1 hover:text-black duration-200 ${
+              resetDate ? "" : inputAnimation
+            }`}
             type="text"
             name="dateRange"
-            value={`${formatDate(calendarRange[0])} - ${formatDate(
-              calendarRange[1]
-            )}`}
+            value={`${
+              resetDate
+                ? "Kalender"
+                : `${formatDate(calendarRange[0])} - ${formatDate(
+                    calendarRange[1]
+                  )}`
+            }`}
             readOnly
             onClick={toggleCalendarHandler}
           />
@@ -187,7 +202,7 @@ const CalendarInput = (props) => {
             <Calendar
               minDate={new Date("2015-01-01")}
               onChange={changeDateHandler}
-              value={calendarRange}
+              value={resetDate ? null : calendarRange}
               locale="et-EE"
               showWeekNumbers={true}
               className="filters"

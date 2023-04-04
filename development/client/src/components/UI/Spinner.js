@@ -4,7 +4,9 @@ export const Spinner = (props) => {
       <div role="status">
         <svg
           aria-hidden="true"
-          className="w-24 h-24 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-collegeGreen"
+          className={`${
+            props.iconSize ? props.iconSize : "w-24 h-24"
+          } mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-collegeGreen`}
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

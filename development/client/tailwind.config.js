@@ -39,6 +39,17 @@ module.exports = {
           "0%": { width: "0%" },
           "100%": { width: "100%" },
         },
+        greenPeaker: {
+          "0%": {
+            color: "#a4d65e",
+          },
+          "50%": {
+            color: "#a4d65e",
+          },
+          "100%": {
+            color: "black",
+          },
+        },
       },
       colors: {
         collegeGreen: "#a4d65e",
@@ -53,6 +64,10 @@ module.exports = {
         peeper: "peeper 200ms ease-in-out forwards",
         foldOpen: "foldOpen 300ms ease-in",
         greenLoader: "greenLoader 2s normal forwards",
+        greenPeaker: "greenPeaker 0.2s ease-in",
+      },
+      zIndex: {
+        5: "5",
       },
     },
   },

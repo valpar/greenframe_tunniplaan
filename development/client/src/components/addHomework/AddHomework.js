@@ -1,11 +1,11 @@
 import { useState, useRef } from "react";
-import InputWithPlaceholder from "../UI/Input/InputWithPlaceholder";
 import CalendarOneInput from "../UI/Calendar/CalendarOneInput";
 import useAutosizeTextArea from "../../hooks/useAutosizeTextArea";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
 import { formatMilliseconds } from "../../utils/Format/Date";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 import content from "../../assets/content/content.json";
+import { InputOverlappingLabel } from "../UI/Input/InputOverlappingLabel";
 
 const addPrefix = (link) => {
   return link.length > 5
@@ -89,7 +89,7 @@ const AddHomework = (props) => {
 
   return (
     <div className="flex flex-col p-4 m-4 border shadow shadow-borderGray">
-      <div className="relative flex flex-col lg:flex-row lg:items-end pb-2">
+      <div className="relative flex flex-col lg:flex-row lg:items-start pb-2">
         {showTooltip && !props.onErrors?.descriptionValid.description && (
           <div className="absolute left-1/2 -translate-x-1/2 -top-16">
             <TooltipLarge
@@ -97,26 +97,39 @@ const AddHomework = (props) => {
             />
           </div>
         )}
-        <textarea
-          className={`w-full bg-white ${
-            props.onErrors?.descriptionValid.description
-              ? "border-b border-borderGray"
-              : "border-b-2 border-red-500"
-          } border-b border-borderGray resize-none leading-6 hover:border-b-2 hover:border-darkGray duration-200 outline-none rounded-none no-scrollbar`}
-          onMouseEnter={mouseEnterHandler}
-          onMouseLeave={mouseLeaveHandler}
-          placeholder={homeworkContent.placeholder}
-          onChange={changeHandler}
-          maxLength={2500}
-          ref={textAreaRef}
-          value={props.homeworkData.description}
-          name="description"
-        />
-        <div className="relative hidden lg:flex lg:justify-end space-x-2 px-2 w-24">
+        <div className="realtive mt-2 w-full">
+          <textarea
+            className={`w-full bg-white ${
+              props.onErrors?.descriptionValid.description
+                ? "border border-borderGray"
+                : "border-2 border-red-500"
+            } px-2 py-[0.6rem] border-borderGray resize-none leading-6 hover:border-darkGray duration-200 outline-none rounded-none no-scrollbar`}
+            onMouseEnter={mouseEnterHandler}
+            onMouseLeave={mouseLeaveHandler}
+            placeholder={homeworkContent.placeholder}
+            onChange={changeHandler}
+            maxLength={2500}
+            ref={textAreaRef}
+            value={props.homeworkData.description}
+            name="description"
+          />
+          <label
+            htmlFor="input"
+            className={`absolute left-0 ml-2 text-xs top-0 ${
+              props.homeworkData.description
+                ? "text-gray-500 bg-white px-1"
+                : "text-gray-400 bg-transparent"
+            } duration-200`}
+          >
+            {props.homeworkData.description ? "Iseseisva töö kirjeldus" : ""}
+          </label>
+        </div>
+
+        <div className="relative hidden lg:flex lg:justify-end space-x-2 px-2 w-24 mt-3">
           {props.index === props.arrayLength - 1 && (
             <i
               onClick={props.onAddRow}
-              className="bi bi-plus-lg cursor-pointer text-3xl leading-[unset]"
+              className="bi bi-plus-lg cursor-pointer text-2xl leading-[unset]"
             ></i>
           )}
           {
@@ -133,7 +146,7 @@ const AddHomework = (props) => {
               )}
               <i
                 onClick={removeRowHandler}
-                className="bi bi-x-lg cursor-pointer text-3xl leading-[unset]"
+                className="bi bi-x-lg cursor-pointer text-2xl leading-[unset]"
               ></i>
             </>
           }
@@ -152,18 +165,19 @@ const AddHomework = (props) => {
             errorMessage={props.onErrors?.dueDateValid.errorMessage}
             hasError={!props.onErrors?.dueDateValid.dueDate}
             onReset={dateIsRemoved}
+            overlapping={true}
           />
           {dateValue && (
             <i
               id="removeDate"
               onClick={removeDateHandler}
-              className="bi bi-x-lg absolute text-xl z-10 right-2 top-1/2 -translate-y-1/2 pb-2 lg:pb-2"
+              className="bi bi-x-lg absolute text-xl z-5 right-2 top-1/2 -translate-y-1/2 pb-2 lg:pb-2"
             ></i>
           )}
         </div>
 
         <div className="pb-3 lg:w-full lg:pr-2">
-          <InputWithPlaceholder
+          <InputOverlappingLabel
             onChange={changeHandler}
             placeholder={studyMaterials.placeholder}
             name="extraLink"
@@ -172,11 +186,12 @@ const AddHomework = (props) => {
             hasErrors={props.onErrors?.extrasLinkValid.extrasLink}
           />
         </div>
-        <div className="relative flex justify-center w-full lg:hidden space-x-2 px-2">
+
+        <div className="relative flex justify-center w-full lg:hidden px-2">
           {props.index === props.arrayLength - 1 && (
             <i
               onClick={props.onAddRow}
-              className="bi bi-plus-lg cursor-pointer text-3xl leading-[unset]"
+              className="hidden lg:visible bi bi-plus-lg cursor-pointer text-3xl leading-[unset]"
             ></i>
           )}
           {

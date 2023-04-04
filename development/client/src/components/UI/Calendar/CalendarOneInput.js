@@ -93,7 +93,7 @@ const CalendarOneInput = (props) => {
     <div className="relative w-full">
       {props.onShowCalendar && (
         <div
-          className={`absolute w-full h-auto z-20 ${
+          className={`absolute w-full h-auto z-5 ${
             (props.label && props.index === 0) || isMobile ? "top-20" : "top-12"
           } border border-borderGray shadow`}
         >
@@ -105,6 +105,18 @@ const CalendarOneInput = (props) => {
             className="filters"
           />
         </div>
+      )}
+      {props.overlapping && (
+        <label
+          htmlFor="input"
+          className={`absolute left-0 ml-2 text-xs -top-2 z-5 ${
+            props.value
+              ? "text-gray-500 bg-white px-1"
+              : "text-gray-400 bg-transparent"
+          }`}
+        >
+          {props.value ? props.placeholder : ""}
+        </label>
       )}
 
       <InputWithLabel
