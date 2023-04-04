@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import classes from "./Home.module.css";
 import useAxios from "../hooks/useAxios";
 
 import * as dateService from "../utils/Format/Date";
@@ -48,7 +47,6 @@ const Home = () => {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [showDesktopFilters, setShowDesktopFilters] = useState(false);
   const [notScheduled, setNotScheduled] = useState("");
-  const [marginTop, setMarginTop] = useState(0);
   const filtersRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
 
@@ -359,14 +357,6 @@ const Home = () => {
 
   useEffect(() => {
     handleResize();
-    // function handleResize() {
-    //   setShowMobileFilters(window.innerWidth < 1024);
-    //   setShowDesktopFilters(window.innerWidth >= 1024);
-    // }
-
-    // window.addEventListener("resize", handleResize);
-
-    // return () => window.removeEventListener("resize", handleResize);
   });
 
   useEffect(() => {
@@ -375,17 +365,6 @@ const Home = () => {
     }, 1000);
     return () => clearTimeout(timer);
   }, [filteredData]);
-
-  useEffect(() => {
-    if (!filtersRef.current) return; // wait for the elementRef to be available
-    const resizeObserver = new ResizeObserver(() => {
-      // Do what you want to do when the size of the element changes
-      const filtersHeight = document.querySelector(".filters").clientHeight;
-      setMarginTop(filtersHeight);
-    });
-    resizeObserver.observe(filtersRef.current);
-    return () => resizeObserver.disconnect(); // clean up
-  }, []);
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
@@ -450,41 +429,43 @@ const Home = () => {
                 </div>
 
                 {showUsersModal && (
-                  <div className="absolute top-24 left-4 z-10">
-                    <div className={classes.boxArrow}></div>
-                    <div className={classes.userInfoBox}>
-                      <button
-                        onClick={userRollHandler}
-                        className={classes.adminBtn}
-                        type="button"
-                        name="admin"
-                      >
-                        Haldus
-                      </button>
-                      <button
-                        onClick={userRollHandler}
-                        className={classes.adminBtn}
-                        type="button"
-                        name="lecturer"
-                      >
-                        Õppejõud
-                      </button>
-                      <button
-                        onClick={userRollHandler}
-                        className={classes.adminBtn}
-                        type="button"
-                        name="student"
-                      >
-                        Õpilane
-                      </button>
-                      <button
-                        onClick={userRollHandler}
-                        className={classes.adminBtn}
-                        type="button"
-                        name="logout"
-                      >
-                        Logi välja
-                      </button>
+                  <div className="absolute top-28 -right-4">
+                    <div className="relative">
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rotate-45 bg-white border-l rounded-br-full border-t border-borderGray"></div>
+                      <div className="flex flex-col justify-around items-center p-4 space-y-2 border border-borderGray  green-shadow bg-white w-44">
+                        <button
+                          onClick={userRollHandler}
+                          className="btn-period"
+                          type="button"
+                          name="admin"
+                        >
+                          Haldus
+                        </button>
+                        <button
+                          onClick={userRollHandler}
+                          className="btn-period"
+                          type="button"
+                          name="lecturer"
+                        >
+                          Õppejõud
+                        </button>
+                        <button
+                          onClick={userRollHandler}
+                          className="btn-period"
+                          type="button"
+                          name="student"
+                        >
+                          Õpilane
+                        </button>
+                        <button
+                          onClick={userRollHandler}
+                          className="btn-period"
+                          type="button"
+                          name="logout"
+                        >
+                          Logi välja
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )}
