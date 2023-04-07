@@ -6,7 +6,7 @@ import * as dateService from "../utils/Format/Date";
 import ScheduleFilters from "../components/searchFilters/ScheduleFilters";
 import ScheduleAddition from "../components/scheduleAddition/ScheduleAddition";
 import Table from "../components/UI/Table/Table";
-import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
+// import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { calculateSemesterDate } from "../utils/Calculate/Semester";
 import GoTopButton from "../components/UI/Button/GoTopButton";
@@ -359,56 +359,81 @@ const Home = () => {
     setNewOccurenceAdded((prevState) => (prevState = !prevState));
   };
 
+
+
   // --- Google login ---
 
-  const [user, setUser] = useState([]);
+  const [googleAccessToken, setGoogleAcessToken] = useState([]);
+  // const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
+  const [googleProfile, setGoogleProfile] = useState([]);
+  const [userPicture, setUserPicture] = useState([]);
 
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      console.log("Login Successful:", codeResponse);
-      setUser(codeResponse);
+    onSuccess: (googleResponse) => {
+      console.log("Login Successful:", googleResponse);
+      setGoogleAcessToken(googleResponse.access_token); // selleks et seda saata backi autentimiseks
+  
+      axios
+      .get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleResponse.access_token}`,
+        {
+          headers: {
+            Authorization: `Bearer ${googleResponse.access_token}`,
+            Accept: "application/json",
+          },
+        }
+      )
+      .then((result) => {
+        setGoogleProfile(result.data);
+
+      })
+      .catch((err) => console.log(err)); // kui google acess tokeniga ligipääs ebaõnnestus
     },
-    onError: (error) => console.log("Login Failed:", error),
+    onError: (error) => console.log("Login Failed:", error), // kui google esmasel pöördumisel juba tekkis viga
   });
 
-  const [userPicture, setUserPicture] = useState([]);
   useEffect(() => {
-    console.log("Login Profile:", profile);
-    // setUserPicture(profile.picture);
-    setUserPicture(
-      profile && profile.picture
-        ? profile.picture
-        : require("../assets/icons/user.png")
-    );
-  }, [profile]);
-
-  useEffect(() => {
-    if (user) {
-      axios
-        .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          setProfile(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user]);
+    console.log(googleProfile);
+    setUserPicture(googleProfile?.picture ?? require("../assets/icons/user.png"));
+  }, [googleProfile]);
 
   // log out function to log the user out of google and set the profile array to null
   const logOut = () => {
     googleLogout();
     setProfile(null);
+    setGoogleProfile(null);
   };
+  // --- Google login end --- 
 
-  // --- Google login end ---
+  // --- Schedule login ---
+
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        console.log("lähen bäkist sellega õnne proovima",googleAccessToken);
+        const response = await axios.post( 
+          `googleauth`,
+          null,  // edastate tühja päringu keha
+          {
+            headers: {
+              Authorization: `Bearer ${googleAccessToken}`,
+              Accept: "application/json",
+            },
+          }
+        );
+        setGoogleProfile(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  
+    if (googleAccessToken) {
+      fetchProfile();
+    }
+  }, [googleAccessToken]);
+
+
 
   useEffect(() => {
     handleResize();
