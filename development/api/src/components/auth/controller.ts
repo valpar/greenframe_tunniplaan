@@ -8,24 +8,28 @@ const authController = {
   googleAuth: async (req: Request, res: Response) => { 
     try {
     const authHeader = req.headers.authorization;
-    const token = authHeader?.split(" ")[1];
-    if (!token) {
+    const googleToken = authHeader?.split(" ")[1];
+    if (!googleToken) {
       return res.status(responseCodes.notAuthorized).json({
-        error: "No token provided",
+        error: "No googleToken provided",
       });
     }
   
     const response = await axios.get('https://www.googleapis.com/oauth2/v1/userinfo', {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${googleToken}`,
       },
     });  
     
     console.log('Google response:', response.data.email);
-    res.send('Googli profiil on kätte saadud');
+    const token = await loginService.googleLogin(response.data.email);
+    return res.status(responseCodes.ok).json({
+      token, 
+    });
+
   } catch (error) {
-    console.error('External API error:', error);
-    res.status(500).send('Error while calling the external API');
+    // console.error('External API error:', error);
+    res.status(500).send('Google autenth error');
   }}
 ,
   login: async (req: Request, res: Response) => {

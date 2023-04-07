@@ -411,7 +411,7 @@ const Home = () => {
   useEffect(() => {
     async function fetchProfile() {
       try {
-        console.log("lähen bäkist sellega õnne proovima",googleAccessToken);
+        // console.log("lähen bäkist sellega õnne proovima",googleAccessToken);
         const response = await axios.post( 
           `googleauth`,
           null,  // edastate tühja päringu keha
@@ -422,7 +422,7 @@ const Home = () => {
             },
           }
         );
-        setGoogleProfile(response.data);
+        setProfile(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -479,6 +479,7 @@ const Home = () => {
           <MobileMenu
             onClose={mobileMenuHandler}
             userInfo={userPicture}
+
             userRollHandler={userRollHandler}
             userRoll={userRole}
             login={login}
