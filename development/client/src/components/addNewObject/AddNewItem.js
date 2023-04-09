@@ -426,7 +426,7 @@ const AddNewItem = (props) => {
             {props.editMode && (
               <button
                 onClick={confirmModalHandler}
-                className="w-28 px-4 py-2 border border-borderGray font-bold text-sm shadow lg:hover:bg-borderGray duration-150"
+                className="btn-actions"
                 type="button"
                 name="delete"
               >
@@ -443,7 +443,7 @@ const AddNewItem = (props) => {
 
             <button
               onClick={confirmModalHandler}
-              className="w-28 px-4 py-2 border border-borderGray font-bold text-sm shadow lg:hover:bg-borderGray duration-150"
+              className="btn-actions"
               type="submit"
               name={props.editMode ? "update" : "create"}
             >

@@ -825,7 +825,7 @@ const ScheduleAddition = (props) => {
             )}
             <button
               onClick={deleteScheduleHandler}
-              className="px-4 lg:px-8 py-2 font-bold text-sm border border-borderGray shadow hover:bg-borderGray hover:shadow-lg duration-150"
+              className="btn-actions"
               type="button"
             >
               KUSTUTA
@@ -844,7 +844,7 @@ const ScheduleAddition = (props) => {
         )}
         <button
           onClick={saveScheduleHandler}
-          className="px-4 lg:px-8 py-2 font-bold text-sm border border-borderGray shadow hover:bg-borderGray hover:shadow-lg duration-150"
+          className="btn-actions"
           type="submit"
         >
           SALVESTA

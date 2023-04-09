@@ -36,10 +36,10 @@ const Table = (props) => {
     <table className="table-auto w-full shadow">
       <thead>
         <tr className="text-xs md:text-base border h-12 border-borderGray divide-x divide-borderGray text-left">
-          <th className="px-2 md:px-3">AEG</th>
-          <th className="px-2 md:px-3">ÕPPEAINE</th>
-          <th className="px-2 md:px-3">ÕPPEJÕUD</th>
-          <th className="px-2 md:px-3">RUUM</th>
+          <th className="tab-h">AEG</th>
+          <th className="tab-h">ÕPPEAINE</th>
+          <th className="tab-h">ÕPPEJÕUD</th>
+          <th className="tab-h">RUUM</th>
         </tr>
       </thead>
       <tbody>

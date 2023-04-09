@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import classes from "./Home.module.css";
 import useAxios from "../hooks/useAxios";
 
 import * as dateService from "../utils/Format/Date";
@@ -14,10 +13,13 @@ import GoTopButton from "../components/UI/Button/GoTopButton";
 import MobileMenu from "../components/nav/MobileMenu";
 import { Spinner } from "../components/UI/Spinner";
 import content from "../assets/content/content.json";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 import { useRef } from "react";
 import { AddScheduleButton } from "../components/UI/Button/AddScheduleButton";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { addDays, subDays } from "date-fns";
+import { Header } from "../components/Header";
 
 const Home = () => {
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
@@ -48,7 +50,6 @@ const Home = () => {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [showDesktopFilters, setShowDesktopFilters] = useState(false);
   const [notScheduled, setNotScheduled] = useState("");
-  const [marginTop, setMarginTop] = useState(0);
   const filtersRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
 
@@ -315,13 +316,14 @@ const Home = () => {
       },
     ]);
   };
-  const userPicture = admin
-    ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-    : userLecturer
-    ? "https://images.pexels.com/photos/4342401/pexels-photo-4342401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-    : userStudent
-    ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"
-    : require("../assets/icons/user.png");
+  // const userPicture = admin
+  //   ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  //   : userLecturer
+  //   ? "https://images.pexels.com/photos/4342401/pexels-photo-4342401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  //   : userStudent
+  //   ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"
+  //   : require("../assets/icons/user.png");
+
   const userRole = admin
     ? "HALDUS"
     : userLecturer
@@ -357,16 +359,59 @@ const Home = () => {
     setNewOccurenceAdded((prevState) => (prevState = !prevState));
   };
 
+  // --- Google login ---
+
+  const [user, setUser] = useState([]);
+  const [profile, setProfile] = useState([]);
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      console.log("Login Successful:", codeResponse);
+      setUser(codeResponse);
+    },
+    onError: (error) => console.log("Login Failed:", error),
+  });
+
+  const [userPicture, setUserPicture] = useState([]);
+  useEffect(() => {
+    console.log("Login Profile:", profile);
+    // setUserPicture(profile.picture);
+    setUserPicture(
+      profile && profile.picture
+        ? profile.picture
+        : require("../assets/icons/user.png")
+    );
+  }, [profile]);
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          setProfile(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
+
+  // log out function to log the user out of google and set the profile array to null
+  const logOut = () => {
+    googleLogout();
+    setProfile(null);
+  };
+
+  // --- Google login end ---
+
   useEffect(() => {
     handleResize();
-    // function handleResize() {
-    //   setShowMobileFilters(window.innerWidth < 1024);
-    //   setShowDesktopFilters(window.innerWidth >= 1024);
-    // }
-
-    // window.addEventListener("resize", handleResize);
-
-    // return () => window.removeEventListener("resize", handleResize);
   });
 
   useEffect(() => {
@@ -375,17 +420,6 @@ const Home = () => {
     }, 1000);
     return () => clearTimeout(timer);
   }, [filteredData]);
-
-  useEffect(() => {
-    if (!filtersRef.current) return; // wait for the elementRef to be available
-    const resizeObserver = new ResizeObserver(() => {
-      // Do what you want to do when the size of the element changes
-      const filtersHeight = document.querySelector(".filters").clientHeight;
-      setMarginTop(filtersHeight);
-    });
-    resizeObserver.observe(filtersRef.current);
-    return () => resizeObserver.disconnect(); // clean up
-  }, []);
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
@@ -400,130 +434,30 @@ const Home = () => {
   return (
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
       <div className="mx-auto w-full ">
-        <header className="flex flex-col fixed pb-1 lg:pb-0 top-0 left-1/2 -translate-x-1/2 max-w-6xl w-full z-10 bg-white">
-          <div className="flex items-center lg:items-end justify-between py-4 px-4 lg:py-0 lg:pt-4">
-            {/* Logo */}
-            <div className="w-40 h-full lg:w-80 lg:mb-4">
-              <a
-                href="https://www.tlu.ee/haapsalu"
-                title="Avaleht"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Logo />
-              </a>
-            </div>
-            <div className="flex flex-row space-x-12">
-              {/* Desktop menu */}
-              <div className="hidden lg:flex flex-row justify-end items-end h-full font-serif mt-16">
-                <div className="w-[0.1rem] h-7 bg-collegeGreen rotate-[15deg] mr-2 ml-3"></div>
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://start.hk.tlu.ee/sahtelbeta/sahtel/index.php"
-                  className="text-xl"
-                >
-                  <i>SAHTEL</i>
-                </a>
-                <div className="w-[0.1rem] h-7 bg-collegeGreen rotate-[15deg] mr-2 ml-3"></div>
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  className="text-xl"
-                >
-                  <i>RIIUL</i>
-                </a>
-              </div>
-              {/* Desktop login */}
-              <div className="hidden relative lg:flex flex-col justify-end mb-1">
-                <div className="mt-4 w-28">
-                  <div className="mx-auto w-12 h-12">
-                    <img
-                      onClick={showUserRollesHandler}
-                      src={userPicture}
-                      alt="User"
-                      className="w-full h-full rounded-full object-cover"
-                    ></img>
-                  </div>
-                  <div className="text-lg mx-auto text-center">{userRole}</div>
-                </div>
-
-                {showUsersModal && (
-                  <div className="absolute top-24 left-4 z-10">
-                    <div className={classes.boxArrow}></div>
-                    <div className={classes.userInfoBox}>
-                      <button
-                        onClick={userRollHandler}
-                        className={classes.adminBtn}
-                        type="button"
-                        name="admin"
-                      >
-                        Haldus
-                      </button>
-                      <button
-                        onClick={userRollHandler}
-                        className={classes.adminBtn}
-                        type="button"
-                        name="lecturer"
-                      >
-                        Õppejõud
-                      </button>
-                      <button
-                        onClick={userRollHandler}
-                        className={classes.adminBtn}
-                        type="button"
-                        name="student"
-                      >
-                        Õpilane
-                      </button>
-                      <button
-                        onClick={userRollHandler}
-                        className={classes.adminBtn}
-                        type="button"
-                        name="logout"
-                      >
-                        Logi välja
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="lg:hidden flex flex-row w-40 justify-end space-x-7 pr-2">
-              {/* Mobile schedule add */}
-              {admin && !showDesktopFilters && (
-                <i
-                  className="bi bi-plus-lg text-3xl pt-[0.1rem]"
-                  onClick={addScheduleHandler}
-                ></i>
-              )}
-              {/* Mobile filters */}
-              <i
-                className={`bi bi-sliders text-2xl pt-1 ${
-                  scrollY < 766 && showMobileFilters ? "text-borderGray" : ""
-                }`}
-                onClick={mobileFiltersHandler}
-              ></i>
-              {/* Hamburger menu */}
-              <i
-                className="bi bi-list text-4xl"
-                onClick={mobileMenuHandler}
-              ></i>
-            </div>
-          </div>
-
-          <div
-            className={`w-full h-[0.2rem] bg-[#6c8298] border-solid border-1 border-[#d4d4d4]`}
-          />
-        </header>
+        <Header
+          profile={profile}
+          onClick={showUserRollesHandler}
+          userPicture={userPicture}
+          showUsersModal={showUsersModal}
+          login={login}
+          logOut={logOut}
+          userRollHandler={userRollHandler}
+          admin={admin}
+          showDesktopFilters={showDesktopFilters}
+          showMobileFilters={showMobileFilters}
+          addScheduleHandler={addScheduleHandler}
+          scrollY={scrollY}
+          mobileFiltersHandler={mobileFiltersHandler}
+          mobileMenuHandler={mobileMenuHandler}
+        />
         {showMobileMenu && (
           <MobileMenu
             onClose={mobileMenuHandler}
             userInfo={userPicture}
             userRollHandler={userRollHandler}
             userRoll={userRole}
+            login={login}
+            logOut={logOut}
           />
         )}
         <div className="flex flex-1 flex-col lg:flex-row lg:justify-between mt-20 lg:mt-32 bg-white">
