@@ -124,7 +124,11 @@ export const Header = (props) => {
           {/* Mobile schedule add */}
           {props.admin && !props.showDesktopFilters && (
             <i
-              className="bi bi-plus-lg text-3xl pt-[0.1rem]"
+              className={`bi bi-plus-lg text-3xl pt-[0.1rem] ${
+                props.scrollY < 766 && props.showSchedule
+                  ? "text-borderGray"
+                  : ""
+              }`}
               onClick={props.addScheduleHandler}
             ></i>
           )}
