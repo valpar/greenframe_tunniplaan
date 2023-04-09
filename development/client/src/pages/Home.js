@@ -32,10 +32,13 @@ const Home = () => {
   const [scheduleLoading, setScheduleLoading] = useState(true);
   const [hasServerError, setHasServerError] = useState(undefined);
 
+  const [loginInfo, setLoginInfo] = useState([]); // Sisselogitud kasutaja intentifitseerimiseks backis.
+
   const { response, isLoading, error } = useAxios(
     {
       method: "get",
       url: `/schedule/${scheduleRequestParams.startDate}/${scheduleRequestParams.endDate}`,
+      headers: { Authorization: `Bearer ${loginInfo.token}` },
     },
     newOccurenceAdded
   );
@@ -265,28 +268,52 @@ const Home = () => {
 
   const userRollHandler = (event) => {
     event.preventDefault();
-    if (event.target.name === "admin") {
-      setAdmin(true);
-      setUserStudent(false);
-      setUserLecturer(false);
-    }
-    if (event.target.name === "lecturer") {
-      setAdmin(false);
-      setUserStudent(false);
-      setUserLecturer(true);
-    }
-    if (event.target.name === "student") {
-      setAdmin(false);
-      setUserLecturer(false);
-      setUserStudent(true);
-    }
-    if (event.target.name === "logout") {
-      setAdmin(false);
-      setUserLecturer(false);
-      setUserStudent(false);
-    }
+    // if (event.target.name === "admin") {
+    //   setAdmin(true);
+    //   setUserStudent(false);
+    //   setUserLecturer(false);
+    // }
+    // if (event.target.name === "lecturer") {
+    //   setAdmin(false);
+    //   setUserStudent(false);
+    //   setUserLecturer(true);
+    // }
+    // if (event.target.name === "student") {
+    //   setAdmin(false);
+    //   setUserLecturer(false);
+    //   setUserStudent(true);
+    // }
+    // if (event.target.name === "logout") {
+    //   setAdmin(false);
+    //   setUserLecturer(false);
+    //   setUserStudent(false);
+    // }
     setShowUsersModal(false);
   };
+
+  useEffect(() => {
+    const roles = {
+      admin: false,
+      userLecturer: false,
+      userStudent: false
+    };
+  
+    if (loginInfo.role === "admin") {
+      roles.admin = true;
+    } else if (loginInfo.role === "lecturer") {
+      roles.userLecturer = true;
+    } else if (loginInfo.role === "student") {
+      roles.userStudent = true;
+    }
+  
+    setAdmin(roles.admin);
+    setUserLecturer(roles.userLecturer);
+    setUserStudent(roles.userStudent);
+  }, [loginInfo]);
+  
+
+
+
 
   const addScheduleHandler = () => {
     window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
@@ -324,13 +351,17 @@ const Home = () => {
   //   ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"
   //   : require("../assets/icons/user.png");
 
-  const userRole = admin
+     const userRole = admin
     ? "HALDUS"
     : userLecturer
     ? "ÕPPEJÕUD"
     : userStudent
     ? "ÕPILANE"
     : "LOGI SISSE";
+ 
+
+
+
 
   const mobileMenuHandler = () => {
     setShowMobileMenu((prevState) => (prevState = !prevState));
@@ -362,7 +393,7 @@ const Home = () => {
 
 
   // --- Google login ---
-
+  
   const [googleAccessToken, setGoogleAcessToken] = useState([]);
   // const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
@@ -403,6 +434,7 @@ const Home = () => {
     googleLogout();
     setProfile(null);
     setGoogleProfile(null);
+    setLoginInfo(null);
   };
   // --- Google login end --- 
 
@@ -422,7 +454,7 @@ const Home = () => {
             },
           }
         );
-        setProfile(response.data);
+        setLoginInfo(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -467,6 +499,7 @@ const Home = () => {
           login={login}
           logOut={logOut}
           userRollHandler={userRollHandler}
+          userRoll={userRole}
           admin={admin}
           showDesktopFilters={showDesktopFilters}
           showMobileFilters={showMobileFilters}

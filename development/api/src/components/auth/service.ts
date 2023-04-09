@@ -19,7 +19,7 @@ const loginService = {
     // const match = await hashService.match(password, user.password);
     // if (!match) return "0";
     const token = await jwtService.sign(user);
-    return token;
+    return {token, user};
   },
 };
 

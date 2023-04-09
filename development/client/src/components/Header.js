@@ -48,7 +48,7 @@ export const Header = (props) => {
                   className="w-full h-full rounded-full object-cover"
                 ></img>
               </div>
-              {/* <div className="text-lg mx-auto text-center">{userRole}</div> */}
+              <div className="text-lg mx-auto text-center">{props.userRoll}</div>
               <div className="text-lg mx-auto text-center">
                 {props.profile && props.profile.given_name
                   ? props.profile.given_name

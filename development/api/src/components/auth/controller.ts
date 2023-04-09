@@ -22,10 +22,10 @@ const authController = {
     });  
     
     console.log('Google response:', response.data.email);
-    const token = await loginService.googleLogin(response.data.email);
-    return res.status(responseCodes.ok).json({
-      token, 
-    });
+    const loginProfile = await loginService.googleLogin(response.data.email);
+    return res.status(responseCodes.ok).json(
+      loginProfile, 
+    );
 
   } catch (error) {
     // console.error('External API error:', error);

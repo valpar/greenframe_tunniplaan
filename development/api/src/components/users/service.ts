@@ -31,7 +31,7 @@ const userService = {
   getUserByEmail: async (email: string): Promise<IUser | false | undefined> => {
     try {
       const [user]: [IUser[], FieldPacket[]] = await pool.query(
-        "SELECT * FROM users WHERE email = ? AND dateDeleted is NULL",
+        "SELECT firstName, lastName, email, role FROM users WHERE email = ? AND dateDeleted is NULL",
         [email]
       );
       if (user[0] !== undefined) {
