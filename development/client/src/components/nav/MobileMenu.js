@@ -33,25 +33,31 @@ const MobileMenu = (props) => {
             "
                 ></img>
               </div>
-              <button type="button">LOGI SISSE</button>
+              <button type="button">
+                {props.loginInfo?.user?.firstName ? props.loginInfo?.user?.firstName 
+                : "Logi sisse"} / {props.userRoll ? props.userRoll : "Külaline" }
+                </button>
+              {!props.loginInfo &&
+                <button
+                  onClick={props.login}
+                  className="flex-1 w-full mx-auto px-14 py-2 border border-black uppercase shadow-md"
+                  type="button"
+                  name="Login Google"
+                >
+                  Google konto
+                </button> }
 
-              <button
-                onClick={props.login}
-                className="flex-1 w-full mx-auto px-14 py-2 border border-black uppercase shadow-md"
-                type="button"
-                name="Login Google"
-              >
-                Google konto
-              </button>
-
-              <button
-                onClick={props.logOut}
-                className="flex-1 w-full mx-auto px-14 py-2 border border-black uppercase shadow-md"
-                type="button"
-                name="Logout Google"
-              >
-                Log out
-              </button>
+              {props.loginInfo &&
+                <button
+                  onClick={props.logOut}
+                  className="flex-1 w-full mx-auto px-14 py-2 border border-black uppercase shadow-md"
+                  type="button"
+                  name="Logout Google"
+                >
+                  LOGI VÄLJA
+                </button>
+              }
+{/*               
               {props.userRoll === "LOGI SISSE" && (
                 <button
                   onClick={loginHandler}
@@ -69,7 +75,7 @@ const MobileMenu = (props) => {
                 >
                   Logi välja
                 </button>
-              )}
+              )} */}
               <a
                 className="flex-1 w-full mx-auto px-14 py-2 border border-black text-center uppercase shadow-md"
                 target="_blank"

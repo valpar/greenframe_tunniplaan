@@ -38,7 +38,7 @@ const Home = () => {
     {
       method: "get",
       url: `/schedule/${scheduleRequestParams.startDate}/${scheduleRequestParams.endDate}`,
-      headers: { Authorization: `Bearer ${loginInfo.token}` },
+      headers: { Authorization: `Bearer ${loginInfo?.token}` },
     },
     newOccurenceAdded
   );
@@ -298,11 +298,11 @@ const Home = () => {
       userStudent: false
     };
   
-    if (loginInfo.role === "admin") {
+    if (loginInfo?.user?.role === "admin") {
       roles.admin = true;
-    } else if (loginInfo.role === "lecturer") {
+    } else if (loginInfo?.user?.role === "lecturer") {
       roles.userLecturer = true;
-    } else if (loginInfo.role === "student") {
+    } else if (loginInfo?.user?.role === "student") {
       roles.userStudent = true;
     }
   
@@ -352,12 +352,12 @@ const Home = () => {
   //   : require("../assets/icons/user.png");
 
      const userRole = admin
-    ? "HALDUS"
+    ? "HALDUR"
     : userLecturer
     ? "ÕPPEJÕUD"
     : userStudent
     ? "ÕPILANE"
-    : "LOGI SISSE";
+    : "";
  
 
 
@@ -435,6 +435,7 @@ const Home = () => {
     setProfile(null);
     setGoogleProfile(null);
     setLoginInfo(null);
+    setShowUsersModal(false);
   };
   // --- Google login end --- 
 
@@ -443,7 +444,6 @@ const Home = () => {
   useEffect(() => {
     async function fetchProfile() {
       try {
-        // console.log("lähen bäkist sellega õnne proovima",googleAccessToken);
         const response = await axios.post( 
           `googleauth`,
           null,  // edastate tühja päringu keha
@@ -455,6 +455,8 @@ const Home = () => {
           }
         );
         setLoginInfo(response.data);
+        setShowUsersModal(false);
+        console.log("Roll: ",response.data.user.role);
       } catch (error) {
         console.log(error);
       }
@@ -494,6 +496,7 @@ const Home = () => {
         <Header
           profile={profile}
           onClick={showUserRollesHandler}
+          loginInfo={loginInfo}
           userPicture={userPicture}
           showUsersModal={showUsersModal}
           login={login}
@@ -512,7 +515,7 @@ const Home = () => {
           <MobileMenu
             onClose={mobileMenuHandler}
             userInfo={userPicture}
-
+            loginInfo={loginInfo}
             userRollHandler={userRollHandler}
             userRoll={userRole}
             login={login}

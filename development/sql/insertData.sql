@@ -1,3 +1,10 @@
+/*Users*/
+INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Martti','Raavel','mrt@tlu.ee','pole kasutusel veel','admin' );
+INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Ahti1','Irs','htrs@tlu.ee','pole kasutusel veel','admin' );
+INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Ahti2','Irs','ahti.irs@gmail.com','pole kasutusel veel','lecturer' );
+INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Jaanus','Saago','jaanus.saago@tlu.ee','pole kasutusel veel','admin' );
+
+
 /*Courses*/
 
 INSERT INTO `scheduleDb`.`courses` (`course`, `courseLong`) VALUES ('Koolitus','Koolitus');

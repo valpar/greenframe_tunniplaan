@@ -48,10 +48,9 @@ export const Header = (props) => {
                   className="w-full h-full rounded-full object-cover"
                 ></img>
               </div>
-              <div className="text-lg mx-auto text-center">{props.userRoll}</div>
+              {/* <div className="text-lg mx-auto text-center">{props.userRoll}</div> */}
               <div className="text-lg mx-auto text-center">
-                {props.profile && props.profile.given_name
-                  ? props.profile.given_name
+                {props.loginInfo?.user?.firstName ? props.loginInfo?.user?.firstName
                   : "Logi sisse"}
               </div>
             </div>
@@ -61,8 +60,8 @@ export const Header = (props) => {
                 <div className="relative">
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rotate-45 bg-white border-l rounded-br-full border-t border-borderGray"></div>
                   <div className="flex flex-col justify-around items-center p-4 space-y-2 border border-borderGray  green-shadow bg-white w-44">
-                    <button type="button">LOGI SISSE</button>
-
+                    <button type="button">{props.userRoll}</button>
+                    {!props.loginInfo &&
                     <button
                       onClick={props.login}
                       className="btn-period"
@@ -71,17 +70,20 @@ export const Header = (props) => {
                     >
                       Google konto
                     </button>
+                    }
 
-                    <button
-                      onClick={props.logOut}
-                      className="btn-period"
-                      type="button"
-                      name="Logout Google"
-                    >
-                      Log out
-                    </button>
+                    {props.loginInfo &&
+                      <button
+                        onClick={props.logOut}
+                        className="btn-period"
+                        type="button"
+                        name="Logout Google"
+                      >
+                        Log out
+                      </button>
+                    }
 
-                    <button
+                    {/* <button
                       onClick={props.userRollHandler}
                       className="btn-period"
                       type="button"
@@ -112,7 +114,7 @@ export const Header = (props) => {
                       name="logout"
                     >
                       Logi välja
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
