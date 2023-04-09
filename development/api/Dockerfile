@@ -1,8 +1,8 @@
 FROM node:16 as base
 
-WORKDIR /home/node/api
+WORKDIR /api
 
-COPY package.json ./
+COPY package*.json ./
 
 RUN npm i
 
