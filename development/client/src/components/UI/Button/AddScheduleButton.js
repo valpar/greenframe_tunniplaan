@@ -11,20 +11,12 @@ export const AddScheduleButton = (props) => {
       <button type="button" className="w-full">
         LISA
       </button>
-      <div className="absolute right-0">
-        {!props.addSchedule && (
-          <FontAwesomeIcon
-            icon={faAngleRight}
-            className="text-base text-white pt-7 rotate-90 lg:rotate-0 lg:pr-4 lg:pt-0"
-          />
-        )}
-        {props.addSchedule && (
-          <FontAwesomeIcon
-            icon={faAngleLeft}
-            className="text-base text-white pt-7 rotate-90 lg:rotate-0 lg:pr-4 lg:pt-0"
-          />
-        )}
-      </div>
+      <FontAwesomeIcon
+        icon={faAngleRight}
+        className={`${
+          props.addSchedule ? "rotate-180" : ""
+        } right-0 absolute text-base text-white p-4 duration-150`}
+      />
     </div>
   );
 };

@@ -37,7 +37,7 @@ const MobileMenu = (props) => {
 
               <button
                 onClick={props.login}
-                className="flex-1 w-full mx-auto px-14 py-2 border border-black uppercase shadow-md"
+                className="btn-m-menu"
                 type="button"
                 name="Login Google"
               >
@@ -46,17 +46,14 @@ const MobileMenu = (props) => {
 
               <button
                 onClick={props.logOut}
-                className="flex-1 w-full mx-auto px-14 py-2 border border-black uppercase shadow-md"
+                className="btn-m-menu"
                 type="button"
                 name="Logout Google"
               >
                 Log out
               </button>
               {props.userRoll === "LOGI SISSE" && (
-                <button
-                  onClick={loginHandler}
-                  className="flex-1 w-full mx-auto px-14 py-2 border border-black uppercase shadow-md"
-                >
+                <button onClick={loginHandler} className="btn-m-menu">
                   Logi Sisse
                 </button>
               )}
@@ -65,13 +62,13 @@ const MobileMenu = (props) => {
                   onClick={userRollHandler}
                   type="button"
                   name="logout"
-                  className="flex-1 w-full mx-auto px-14 py-2 border border-black uppercase shadow-md"
+                  className="btn-m-menu"
                 >
                   Logi välja
                 </button>
               )}
               <a
-                className="flex-1 w-full mx-auto px-14 py-2 border border-black text-center uppercase shadow-md"
+                className="btn-m-menu text-center"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://start.hk.tlu.ee/sahtelbeta/sahtel/index.php"
@@ -79,7 +76,7 @@ const MobileMenu = (props) => {
                 Sahtel
               </a>
               <a
-                className="flex-1 w-full mx-auto px-14 py-2 border border-black text-center uppercase shadow-md"
+                className="btn-m-menu text-center"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -94,7 +91,7 @@ const MobileMenu = (props) => {
                 onClick={userRollHandler}
                 type="button"
                 name="admin"
-                className="flex-1 w-[70vw] mx-auto px-14 py-2 border border-black uppercase shadow-md"
+                className="btn-m-menu"
               >
                 Haldus
               </button>
@@ -102,7 +99,7 @@ const MobileMenu = (props) => {
                 onClick={userRollHandler}
                 type="button"
                 name="lecturer"
-                className="flex-1 w-[70vw] mx-auto px-14 py-2 border border-black uppercase shadow-md"
+                className="btn-m-menu"
               >
                 Õppejõud
               </button>
@@ -110,7 +107,7 @@ const MobileMenu = (props) => {
                 onClick={userRollHandler}
                 type="button"
                 name="student"
-                className="flex-1 w-[70vw] mx-auto px-14 py-2 border border-black uppercase shadow-md"
+                className="btn-m-menu"
               >
                 Õpilane
               </button>
