@@ -289,11 +289,15 @@ const Home = () => {
   };
 
   const addScheduleHandler = () => {
-    window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
-    if (window.innerWidth <= 1024 || showMobileFilters) {
-      setShowMobileFilters(false);
+    if (window.scrollY > 766 && addSchedule) {
+      window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+    } else {
+      if (window.innerWidth <= 1024 || showMobileFilters) {
+        setShowMobileFilters(false);
+      }
+      setAddSchedule((prevState) => (prevState = !prevState));
+      window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
     }
-    setAddSchedule((prevState) => (prevState = !prevState));
   };
 
   const newOccurenceHandler = () => {
@@ -449,6 +453,7 @@ const Home = () => {
           scrollY={scrollY}
           mobileFiltersHandler={mobileFiltersHandler}
           mobileMenuHandler={mobileMenuHandler}
+          showSchedule={addSchedule}
         />
         {showMobileMenu && (
           <MobileMenu
