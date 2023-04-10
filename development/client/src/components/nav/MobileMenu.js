@@ -33,25 +33,31 @@ const MobileMenu = (props) => {
             "
                 ></img>
               </div>
-              <button type="button">LOGI SISSE</button>
+              <button type="button">
+                {props.loginInfo?.user?.firstName ? props.loginInfo?.user?.firstName 
+                : "Logi sisse"} / {props.userRoll ? props.userRoll : "Külaline" }
+                </button>
+              {!props.loginInfo &&
+                <button
+                  onClick={props.login}
+                  className="btn-m-menu"
+                  type="button"
+                  name="Login Google"
+                >
+                  Google konto
+                </button> }
 
-              <button
-                onClick={props.login}
-                className="btn-m-menu"
-                type="button"
-                name="Login Google"
-              >
-                Google konto
-              </button>
-
-              <button
-                onClick={props.logOut}
-                className="btn-m-menu"
-                type="button"
-                name="Logout Google"
-              >
-                Log out
-              </button>
+              {props.loginInfo &&
+                <button
+                  onClick={props.logOut}
+                  className="btn-m-menu"
+                  type="button"
+                  name="Logout Google"
+                >
+                  LOGI VÄLJA
+                </button>
+              }
+{/*               
               {props.userRoll === "LOGI SISSE" && (
                 <button onClick={loginHandler} className="btn-m-menu">
                   Logi Sisse
@@ -66,7 +72,7 @@ const MobileMenu = (props) => {
                 >
                   Logi välja
                 </button>
-              )}
+              )} */}
               <a
                 className="btn-m-menu text-center"
                 target="_blank"

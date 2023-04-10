@@ -31,7 +31,7 @@ const port: number = 3000; // Port number, where API works
 
 
 
-app.get("/ping", ping);
+app.get("/ping", ping); 
 
 // Schedule API
 
@@ -53,6 +53,9 @@ app.delete("/users/:id", userController.deleteUser);
 app.patch("/users/:id", checkAlphabet, userController.updateUserById);
 
 */
+
+app.post("/googleauth", authController.googleAuth);
+
 
 //Schedule endpoints
 app.get("/schedule/", scheduleController.getEntireSchedule);

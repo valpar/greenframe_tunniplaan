@@ -6,7 +6,7 @@ import * as dateService from "../utils/Format/Date";
 import ScheduleFilters from "../components/searchFilters/ScheduleFilters";
 import ScheduleAddition from "../components/scheduleAddition/ScheduleAddition";
 import Table from "../components/UI/Table/Table";
-import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
+// import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { calculateSemesterDate } from "../utils/Calculate/Semester";
 import GoTopButton from "../components/UI/Button/GoTopButton";
@@ -32,10 +32,13 @@ const Home = () => {
   const [scheduleLoading, setScheduleLoading] = useState(true);
   const [hasServerError, setHasServerError] = useState(undefined);
 
+  const [loginInfo, setLoginInfo] = useState([]); // Sisselogitud kasutaja intentifitseerimiseks backis.
+
   const { response, isLoading, error } = useAxios(
     {
       method: "get",
       url: `/schedule/${scheduleRequestParams.startDate}/${scheduleRequestParams.endDate}`,
+      headers: { Authorization: `Bearer ${loginInfo?.token}` },
     },
     newOccurenceAdded
   );
@@ -265,28 +268,52 @@ const Home = () => {
 
   const userRollHandler = (event) => {
     event.preventDefault();
-    if (event.target.name === "admin") {
-      setAdmin(true);
-      setUserStudent(false);
-      setUserLecturer(false);
-    }
-    if (event.target.name === "lecturer") {
-      setAdmin(false);
-      setUserStudent(false);
-      setUserLecturer(true);
-    }
-    if (event.target.name === "student") {
-      setAdmin(false);
-      setUserLecturer(false);
-      setUserStudent(true);
-    }
-    if (event.target.name === "logout") {
-      setAdmin(false);
-      setUserLecturer(false);
-      setUserStudent(false);
-    }
+    // if (event.target.name === "admin") {
+    //   setAdmin(true);
+    //   setUserStudent(false);
+    //   setUserLecturer(false);
+    // }
+    // if (event.target.name === "lecturer") {
+    //   setAdmin(false);
+    //   setUserStudent(false);
+    //   setUserLecturer(true);
+    // }
+    // if (event.target.name === "student") {
+    //   setAdmin(false);
+    //   setUserLecturer(false);
+    //   setUserStudent(true);
+    // }
+    // if (event.target.name === "logout") {
+    //   setAdmin(false);
+    //   setUserLecturer(false);
+    //   setUserStudent(false);
+    // }
     setShowUsersModal(false);
   };
+
+  useEffect(() => {
+    const roles = {
+      admin: false,
+      userLecturer: false,
+      userStudent: false
+    };
+  
+    if (loginInfo?.user?.role === "admin") {
+      roles.admin = true;
+    } else if (loginInfo?.user?.role === "lecturer") {
+      roles.userLecturer = true;
+    } else if (loginInfo?.user?.role === "student") {
+      roles.userStudent = true;
+    }
+  
+    setAdmin(roles.admin);
+    setUserLecturer(roles.userLecturer);
+    setUserStudent(roles.userStudent);
+  }, [loginInfo]);
+  
+
+
+
 
   const addScheduleHandler = () => {
     if (window.scrollY > 766 && addSchedule) {
@@ -328,13 +355,17 @@ const Home = () => {
   //   ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"
   //   : require("../assets/icons/user.png");
 
-  const userRole = admin
-    ? "HALDUS"
+     const userRole = admin
+    ? "HALDUR"
     : userLecturer
     ? "ÕPPEJÕUD"
     : userStudent
     ? "ÕPILANE"
-    : "LOGI SISSE";
+    : "";
+ 
+
+
+
 
   const mobileMenuHandler = () => {
     setShowMobileMenu((prevState) => (prevState = !prevState));
@@ -363,56 +394,84 @@ const Home = () => {
     setNewOccurenceAdded((prevState) => (prevState = !prevState));
   };
 
-  // --- Google login ---
 
-  const [user, setUser] = useState([]);
+
+  // --- Google login ---
+  
+  const [googleAccessToken, setGoogleAcessToken] = useState([]);
+  // const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
+  const [googleProfile, setGoogleProfile] = useState([]);
+  const [userPicture, setUserPicture] = useState([]);
 
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      console.log("Login Successful:", codeResponse);
-      setUser(codeResponse);
+    onSuccess: (googleResponse) => {
+      console.log("Login Successful:", googleResponse);
+      setGoogleAcessToken(googleResponse.access_token); // selleks et seda saata backi autentimiseks
+  
+      axios
+      .get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleResponse.access_token}`,
+        {
+          headers: {
+            Authorization: `Bearer ${googleResponse.access_token}`,
+            Accept: "application/json",
+          },
+        }
+      )
+      .then((result) => {
+        setGoogleProfile(result.data);
+
+      })
+      .catch((err) => console.log(err)); // kui google acess tokeniga ligipääs ebaõnnestus
     },
-    onError: (error) => console.log("Login Failed:", error),
+    onError: (error) => console.log("Login Failed:", error), // kui google esmasel pöördumisel juba tekkis viga
   });
 
-  const [userPicture, setUserPicture] = useState([]);
   useEffect(() => {
-    console.log("Login Profile:", profile);
-    // setUserPicture(profile.picture);
-    setUserPicture(
-      profile && profile.picture
-        ? profile.picture
-        : require("../assets/icons/user.png")
-    );
-  }, [profile]);
-
-  useEffect(() => {
-    if (user) {
-      axios
-        .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          setProfile(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user]);
+    console.log(googleProfile);
+    setUserPicture(googleProfile?.picture ?? require("../assets/icons/user.png"));
+  }, [googleProfile]);
 
   // log out function to log the user out of google and set the profile array to null
   const logOut = () => {
     googleLogout();
     setProfile(null);
+    setGoogleProfile(null);
+    setLoginInfo(null);
+    setShowUsersModal(false);
   };
+  // --- Google login end --- 
 
-  // --- Google login end ---
+  // --- Schedule login ---
+
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        const response = await axios.post( 
+          `googleauth`,
+          null,  // edastate tühja päringu keha
+          {
+            headers: {
+              Authorization: `Bearer ${googleAccessToken}`,
+              Accept: "application/json",
+            },
+          }
+        );
+        setLoginInfo(response.data);
+        setShowUsersModal(false);
+        console.log("Roll: ",response.data.user.role);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  
+    if (googleAccessToken) {
+      fetchProfile();
+    }
+  }, [googleAccessToken]);
+
+
 
   useEffect(() => {
     handleResize();
@@ -441,11 +500,13 @@ const Home = () => {
         <Header
           profile={profile}
           onClick={showUserRollesHandler}
+          loginInfo={loginInfo}
           userPicture={userPicture}
           showUsersModal={showUsersModal}
           login={login}
           logOut={logOut}
           userRollHandler={userRollHandler}
+          userRoll={userRole}
           admin={admin}
           showDesktopFilters={showDesktopFilters}
           showMobileFilters={showMobileFilters}
@@ -459,6 +520,7 @@ const Home = () => {
           <MobileMenu
             onClose={mobileMenuHandler}
             userInfo={userPicture}
+            loginInfo={loginInfo}
             userRollHandler={userRollHandler}
             userRoll={userRole}
             login={login}

@@ -6,6 +6,8 @@ COPY package*.json ./
 
 RUN npm i
 
+RUN npm i bcrypt
+
 COPY . .
 
 FROM base as production
