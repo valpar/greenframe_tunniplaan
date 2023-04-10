@@ -1,7 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import ReactDOM from "react-dom";
 
 const Backdrop = (props) => {
+  useEffect(() => {
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+    themeColorMeta.setAttribute("content", "#5C5C5C");
+
+    return () => {
+      themeColorMeta.setAttribute("content", "#fff");
+    };
+  }, []);
+
   return (
     <div
       className="fixed top-0 left-0 w-full h-screen z-20 bg-neutral-900 opacity-70"

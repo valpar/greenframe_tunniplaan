@@ -6,6 +6,7 @@ import { formatMilliseconds } from "../../utils/Format/Date";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 import content from "../../assets/content/content.json";
 import { InputOverlappingLabel } from "../UI/Input/InputOverlappingLabel";
+import { isMobile } from "react-device-detect";
 
 const addPrefix = (link) => {
   return link.length > 5
@@ -134,7 +135,7 @@ const AddHomework = (props) => {
           )}
           {
             <>
-              {showCofirmationModal && (
+              {showCofirmationModal && !isMobile && (
                 <div className="absolute right-16 -top-10">
                   <ConfirmModal
                     modalMessage={deleteRowMessage}
