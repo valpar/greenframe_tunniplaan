@@ -32,7 +32,7 @@ const Home = () => {
   const [scheduleLoading, setScheduleLoading] = useState(true);
   const [hasServerError, setHasServerError] = useState(undefined);
 
-  const [loginInfo, setLoginInfo] = useState([]); // Sisselogitud kasutaja intentifitseerimiseks backis.
+  const [loginInfo, setLoginInfo] = useState(null); // Sisselogitud kasutaja intentifitseerimiseks backis.
 
   const { response, isLoading, error } = useAxios(
     {
@@ -295,9 +295,9 @@ const Home = () => {
     const roles = {
       admin: false,
       userLecturer: false,
-      userStudent: false
+      userStudent: false,
     };
-  
+
     if (loginInfo?.user?.role === "admin") {
       roles.admin = true;
     } else if (loginInfo?.user?.role === "lecturer") {
@@ -305,15 +305,11 @@ const Home = () => {
     } else if (loginInfo?.user?.role === "student") {
       roles.userStudent = true;
     }
-  
+
     setAdmin(roles.admin);
     setUserLecturer(roles.userLecturer);
     setUserStudent(roles.userStudent);
   }, [loginInfo]);
-  
-
-
-
 
   const addScheduleHandler = () => {
     if (window.scrollY > 766 && addSchedule) {
@@ -355,17 +351,13 @@ const Home = () => {
   //   ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"
   //   : require("../assets/icons/user.png");
 
-     const userRole = admin
+  const userRole = admin
     ? "HALDUR"
     : userLecturer
     ? "ÕPPEJÕUD"
     : userStudent
     ? "ÕPILANE"
     : "";
- 
-
-
-
 
   const mobileMenuHandler = () => {
     setShowMobileMenu((prevState) => (prevState = !prevState));
@@ -394,10 +386,8 @@ const Home = () => {
     setNewOccurenceAdded((prevState) => (prevState = !prevState));
   };
 
-
-
   // --- Google login ---
-  
+
   const [googleAccessToken, setGoogleAcessToken] = useState([]);
   // const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
@@ -408,29 +398,30 @@ const Home = () => {
     onSuccess: (googleResponse) => {
       console.log("Login Successful:", googleResponse);
       setGoogleAcessToken(googleResponse.access_token); // selleks et seda saata backi autentimiseks
-  
-      axios
-      .get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleResponse.access_token}`,
-        {
-          headers: {
-            Authorization: `Bearer ${googleResponse.access_token}`,
-            Accept: "application/json",
-          },
-        }
-      )
-      .then((result) => {
-        setGoogleProfile(result.data);
 
-      })
-      .catch((err) => console.log(err)); // kui google acess tokeniga ligipääs ebaõnnestus
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleResponse.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${googleResponse.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((result) => {
+          setGoogleProfile(result.data);
+        })
+        .catch((err) => console.log(err)); // kui google acess tokeniga ligipääs ebaõnnestus
     },
     onError: (error) => console.log("Login Failed:", error), // kui google esmasel pöördumisel juba tekkis viga
   });
 
   useEffect(() => {
     console.log(googleProfile);
-    setUserPicture(googleProfile?.picture ?? require("../assets/icons/user.png"));
+    setUserPicture(
+      googleProfile?.picture ?? require("../assets/icons/user.png")
+    );
   }, [googleProfile]);
 
   // log out function to log the user out of google and set the profile array to null
@@ -441,16 +432,16 @@ const Home = () => {
     setLoginInfo(null);
     setShowUsersModal(false);
   };
-  // --- Google login end --- 
+  // --- Google login end ---
 
   // --- Schedule login ---
 
   useEffect(() => {
     async function fetchProfile() {
       try {
-        const response = await axios.post( 
+        const response = await axios.post(
           `googleauth`,
-          null,  // edastate tühja päringu keha
+          null, // edastate tühja päringu keha
           {
             headers: {
               Authorization: `Bearer ${googleAccessToken}`,
@@ -460,18 +451,16 @@ const Home = () => {
         );
         setLoginInfo(response.data);
         setShowUsersModal(false);
-        console.log("Roll: ",response.data.user.role);
+        console.log("Roll: ", response.data.user.role);
       } catch (error) {
         console.log(error);
       }
     }
-  
+
     if (googleAccessToken) {
       fetchProfile();
     }
   }, [googleAccessToken]);
-
-
 
   useEffect(() => {
     handleResize();
