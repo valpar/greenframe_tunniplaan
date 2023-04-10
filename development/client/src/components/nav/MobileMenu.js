@@ -13,6 +13,7 @@ const MobileMenu = (props) => {
     props.userRollHandler(e);
     props.onClose();
   };
+
   return (
     <Modal onClose={props.onClose}>
       <div className="flex flex-col">
@@ -33,11 +34,13 @@ const MobileMenu = (props) => {
             "
                 ></img>
               </div>
-              <button type="button">
-                {props.loginInfo?.user?.firstName ? props.loginInfo?.user?.firstName 
-                : "Logi sisse"} / {props.userRoll ? props.userRoll : "Külaline" }
-                </button>
-              {!props.loginInfo &&
+              <p className="uppercase text-center">
+                {props.loginInfo?.user?.firstName
+                  ? props.loginInfo?.user?.firstName
+                  : "Logi sisse"}{" "}
+                / {props.userRoll ? props.userRoll : "Külaline"}
+              </p>
+              {!props.loginInfo && (
                 <button
                   onClick={props.login}
                   className="btn-m-menu"
@@ -45,9 +48,10 @@ const MobileMenu = (props) => {
                   name="Login Google"
                 >
                   Google konto
-                </button> }
+                </button>
+              )}
 
-              {props.loginInfo &&
+              {props.loginInfo && (
                 <button
                   onClick={props.logOut}
                   className="btn-m-menu"
@@ -56,8 +60,8 @@ const MobileMenu = (props) => {
                 >
                   LOGI VÄLJA
                 </button>
-              }
-{/*               
+              )}
+              {/*               
               {props.userRoll === "LOGI SISSE" && (
                 <button onClick={loginHandler} className="btn-m-menu">
                   Logi Sisse

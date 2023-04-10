@@ -39,10 +39,9 @@ export const Header = (props) => {
           </div>
           {/* Desktop login */}
           <div className="hidden relative lg:flex flex-col justify-end mb-1">
-            <div className="mt-4 w-28">
+            <div className="mt-4 w-28 cursor-pointer" onClick={props.onClick}>
               <div className="mx-auto w-12 h-12">
                 <img
-                  onClick={props.onClick}
                   src={props.userPicture}
                   alt="User"
                   className="w-full h-full rounded-full object-cover"
@@ -50,7 +49,8 @@ export const Header = (props) => {
               </div>
               {/* <div className="text-lg mx-auto text-center">{props.userRoll}</div> */}
               <div className="text-lg mx-auto text-center">
-                {props.loginInfo?.user?.firstName ? props.loginInfo?.user?.firstName
+                {props.loginInfo?.user?.firstName
+                  ? props.loginInfo?.user?.firstName
                   : "Logi sisse"}
               </div>
             </div>
@@ -60,19 +60,19 @@ export const Header = (props) => {
                 <div className="relative">
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rotate-45 bg-white border-l rounded-br-full border-t border-borderGray"></div>
                   <div className="flex flex-col justify-around items-center p-4 space-y-2 border border-borderGray  green-shadow bg-white w-44">
-                    <button type="button">{props.userRoll}</button>
-                    {!props.loginInfo &&
-                    <button
-                      onClick={props.login}
-                      className="btn-period"
-                      type="button"
-                      name="Login Google"
-                    >
-                      Google konto
-                    </button>
-                    }
+                    <p className="uppercase text-center">{props.userRoll}</p>
+                    {!props.loginInfo && (
+                      <button
+                        onClick={props.login}
+                        className="btn-period"
+                        type="button"
+                        name="Login Google"
+                      >
+                        Google konto
+                      </button>
+                    )}
 
-                    {props.loginInfo &&
+                    {props.loginInfo && (
                       <button
                         onClick={props.logOut}
                         className="btn-period"
@@ -81,7 +81,7 @@ export const Header = (props) => {
                       >
                         Log out
                       </button>
-                    }
+                    )}
 
                     {/* <button
                       onClick={props.userRollHandler}
