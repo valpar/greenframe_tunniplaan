@@ -457,17 +457,17 @@ const DateOfOccurenceForm = (props) => {
       </div>
 
       {!props.editMode && (
-        <div className="flex justify-center items-center space-x-2 pt-4 lg:pt-0  lg:pb-1 lg:justify-end !lg:items-end w-20 lg:space-x-4">
+        <div className="flex justify-center items-center space-x-10 pt-4 lg:pt-0  lg:pb-1 lg:justify-end !lg:items-end w-20 lg:space-x-4">
           {props.index === props.occurenceLength - 1 && !props.editMode && (
             <i
               onClick={props.onClick}
-              className={`bi bi-plus-lg text-2xl text-right`}
+              className={`bi bi-plus-lg text-4xl text-right`}
             ></i>
           )}
           {props.occurenceLength > 1 && (
             <i
               onClick={deleteRowHandler}
-              className={` bi bi-x-lg text-2xl text-center`}
+              className={` bi bi-x-lg text-3xl text-center`}
             ></i>
           )}
         </div>

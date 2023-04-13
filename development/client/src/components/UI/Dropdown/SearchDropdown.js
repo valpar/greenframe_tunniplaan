@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import Select, { components } from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { isMobile } from "react-device-detect";
 
 const SearchDropdown = (props) => {
   const [placeholderColor, setPlaceHolderColor] = useState("gray");
@@ -67,10 +68,12 @@ const SearchDropdown = (props) => {
     <div
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
-      className="relative group"
+      className="relative group w-full"
     >
       {props.topLabel && <label>{props.topLabel}</label>}
-      <div className="group-hover:peeper" />
+      {!isMobile && window.innerWidth >= 1024 && (
+        <div className="absolute bg-collegeGreen h-11 group-hover:animate-peeper" />
+      )}
       <Select
         components={{ DropdownIndicator: CustomDropdownIndicator }}
         ref={refChangeHandler}

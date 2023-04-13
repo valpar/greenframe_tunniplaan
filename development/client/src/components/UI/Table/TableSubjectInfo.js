@@ -465,7 +465,7 @@ const TableSubjectInfo = (props) => {
               {(props.userLecturer || props.admin) && !editMode && (
                 <i
                   onClick={editInfoHandler}
-                  className="bi bi-pencil-fill cursor-pointer text-2xl"
+                  className="bi bi-pencil-fill cursor-pointer text-2xl lg:text-xl"
                 ></i>
               )}
               {editMode && extraInfoCloseConfirm && (
@@ -479,7 +479,7 @@ const TableSubjectInfo = (props) => {
               )}
               <i
                 onClick={showConfirmationHandler}
-                className="bi bi-x-lg cursor-pointer text-3xl"
+                className="bi bi-x-lg cursor-pointer text-3xl lg:text-2xl"
               ></i>
             </div>
           </div>

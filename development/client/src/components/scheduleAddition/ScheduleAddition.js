@@ -727,7 +727,7 @@ const ScheduleAddition = (props) => {
         </h6>
         <i
           onClick={props.onClose}
-          className={`bi bi-x-lg absolute top-0 right-0 cursor-pointer text-xl leading-5 lg:hover:text-black lg:hover:scale-105 duration-150`}
+          className={`bi bi-x-lg absolute -top-1 -right-1 lg:top-0 lg:right-0 cursor-pointer text-3xl lg:text-xl leading-5 lg:hover:text-black lg:hover:scale-105 duration-150`}
         ></i>
       </div>
 

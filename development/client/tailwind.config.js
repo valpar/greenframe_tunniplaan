@@ -61,7 +61,7 @@ module.exports = {
       },
       animation: {
         slideDown: "slideDown 300ms ease-out forwards",
-        peeper: "peeper 200ms ease-in-out forwards",
+        peeper: "peeper 200ms ease-in forwards",
         foldOpen: "foldOpen 300ms ease-in",
         greenLoader: "greenLoader 2s normal forwards",
         greenPeaker: "greenPeaker 0.2s ease-in",
