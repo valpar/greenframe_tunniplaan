@@ -325,7 +325,7 @@ const AddNewItem = (props) => {
         <div className="relative flex justify-end">
           <i
             onClick={closeHandler}
-            className={`bi bi-x absolute text-3xl -top-2 -right-2`}
+            className={`bi bi-x-lg absolute text-3xl lg:text-xl -top-2 -right-2`}
           ></i>
         </div>
         {props.modalFor === "subjects" &&

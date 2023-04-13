@@ -19,7 +19,7 @@ const MobileMenu = (props) => {
       <div className="flex flex-col">
         <div className="flex flex-row justify-end">
           <div>
-            <i onClick={props.onClose} className="bi bi-x text-4xl"></i>
+            <i onClick={props.onClose} className="bi bi-x-lg text-3xl"></i>
           </div>
         </div>
         <div className="px-4">

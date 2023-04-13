@@ -147,113 +147,117 @@ const CalendarInput = (props) => {
   }, [activePeriod, calendarRange]);
 
   return (
-    <div className="relative border group border-borderGray shadow lg:hover:border-black">
-      {!showBtnModal && <div className="green-peeper" />}
-      <div
-        className={
-          showBtnModal
-            ? `flex justify-between border-b-[1px] border-borderGray`
-            : `flex justify-between bg-white`
-        }
-      >
+    <div className="relative group">
+      {!showBtnModal && !isMobile && window.innerWidth >= 1024 && (
+        <div className="absolute bg-collegeGreen h-11 group-hover:animate-peeper" />
+      )}
+      <div className="relative border group border-borderGray shadow lg:hover:border-black">
         <div
-          className={`relative flex justify-center ${
-            !resetDate ? "lg:pr-10" : ""
-          } ${showBtnModal ? "w-full" : "w-full text-zinc-500"}`}
+          className={
+            showBtnModal
+              ? `flex justify-between border-b-[1px] border-borderGray`
+              : `flex justify-between bg-white`
+          }
         >
-          <input
-            className={`h-11 text-center lg:px-1 hover:text-black duration-200 ${
-              resetDate ? "" : inputAnimation
-            }`}
-            type="text"
-            name="dateRange"
-            value={`${
-              resetDate
-                ? "Kalender"
-                : `${formatDate(calendarRange[0])} - ${formatDate(
-                    calendarRange[1]
-                  )}`
-            }`}
-            readOnly
-            onClick={toggleCalendarHandler}
-          />
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center">
-            <div className="h-[1.7rem] w-0 border-r-[1px] border-borderGray" />
-            <div className="flex justify-center items-center px-3 text-borderGray">
-              {!showBtnModal && (
-                <FontAwesomeIcon
-                  icon={faAngleDown}
-                  onClick={toggleCalendarHandler}
-                />
-              )}
-              {showBtnModal && (
-                <FontAwesomeIcon
-                  icon={faAngleUp}
-                  onClick={toggleCalendarHandler}
-                />
-              )}
+          <div
+            className={`relative flex justify-center ${
+              !resetDate ? "lg:pr-10" : ""
+            } ${showBtnModal ? "w-full" : "w-full text-zinc-500"}`}
+          >
+            <input
+              className={`h-11 text-center lg:px-1 hover:text-black duration-200 ${
+                resetDate ? "" : inputAnimation
+              }`}
+              type="text"
+              name="dateRange"
+              value={`${
+                resetDate
+                  ? "Kalender"
+                  : `${formatDate(calendarRange[0])} - ${formatDate(
+                      calendarRange[1]
+                    )}`
+              }`}
+              readOnly
+              onClick={toggleCalendarHandler}
+            />
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center">
+              <div className="h-[1.7rem] w-0 border-r-[1px] border-borderGray" />
+              <div className="flex justify-center items-center px-3 text-borderGray">
+                {!showBtnModal && (
+                  <FontAwesomeIcon
+                    icon={faAngleDown}
+                    onClick={toggleCalendarHandler}
+                  />
+                )}
+                {showBtnModal && (
+                  <FontAwesomeIcon
+                    icon={faAngleUp}
+                    onClick={toggleCalendarHandler}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
+        {showBtnModal && (
+          <>
+            <div className="">
+              <Calendar
+                minDate={new Date("2015-01-01")}
+                onChange={changeDateHandler}
+                value={resetDate ? null : calendarRange}
+                locale="et-EE"
+                showWeekNumbers={true}
+                className="filters"
+                selectRange={true}
+                allowPartialRange={true}
+              />
+            </div>
+            <div className="flex gap-2 justify-center p-2 lg:flex-col">
+              <div className="flex flex-auto justify-evenly space-x-2">
+                <button
+                  onClick={buttonDateHandler}
+                  name="today"
+                  className={`${
+                    activePeriod === "today" ? "bg-borderGray" : ""
+                  } btn-period`}
+                >
+                  Täna
+                </button>
+                <button
+                  onClick={buttonDateHandler}
+                  name="tomorrow"
+                  className={`${
+                    activePeriod === "tomorrow" ? "bg-borderGray" : ""
+                  } btn-period`}
+                >
+                  Homme
+                </button>
+              </div>
+              <div className="flex flex-auto justify-evenly space-x-2">
+                <button
+                  onClick={buttonDateHandler}
+                  name="week"
+                  className={`${
+                    activePeriod === "week" ? "bg-borderGray" : ""
+                  } btn-period`}
+                >
+                  Nädal
+                </button>
+                <button
+                  onClick={buttonDateHandler}
+                  name="semester"
+                  className={`${
+                    activePeriod === "semester" ? "bg-borderGray" : ""
+                  } btn-period`}
+                >
+                  Semester
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
-      {showBtnModal && (
-        <>
-          <div className="">
-            <Calendar
-              minDate={new Date("2015-01-01")}
-              onChange={changeDateHandler}
-              value={resetDate ? null : calendarRange}
-              locale="et-EE"
-              showWeekNumbers={true}
-              className="filters"
-              selectRange={true}
-              allowPartialRange={true}
-            />
-          </div>
-          <div className="flex gap-2 justify-center p-2 lg:flex-col">
-            <div className="flex flex-auto justify-evenly space-x-2">
-              <button
-                onClick={buttonDateHandler}
-                name="today"
-                className={`${
-                  activePeriod === "today" ? "bg-borderGray" : ""
-                } btn-period`}
-              >
-                Täna
-              </button>
-              <button
-                onClick={buttonDateHandler}
-                name="tomorrow"
-                className={`${
-                  activePeriod === "tomorrow" ? "bg-borderGray" : ""
-                } btn-period`}
-              >
-                Homme
-              </button>
-            </div>
-            <div className="flex flex-auto justify-evenly space-x-2">
-              <button
-                onClick={buttonDateHandler}
-                name="week"
-                className={`${
-                  activePeriod === "week" ? "bg-borderGray" : ""
-                } btn-period`}
-              >
-                Nädal
-              </button>
-              <button
-                onClick={buttonDateHandler}
-                name="semester"
-                className={`${
-                  activePeriod === "semester" ? "bg-borderGray" : ""
-                } btn-period`}
-              >
-                Semester
-              </button>
-            </div>
-          </div>
-        </>
-      )}
     </div>
   );
 };

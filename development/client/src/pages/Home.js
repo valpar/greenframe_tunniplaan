@@ -585,7 +585,7 @@ const Home = () => {
               }
 
               return (
-                <div key={i}>
+                <div key={i} className={`${i + 1 === s.length ? "mb-8" : ""}`}>
                   <div
                     className={`flex items-center justify-between bg-collegeGreen w-full px-3 h-12 ${
                       i === 0 ? "mt-1 lg:mt-3" : "mt-9"
