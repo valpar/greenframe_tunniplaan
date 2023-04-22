@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Fragment, useEffect } from "react";
 import ReactDOM from "react-dom";
 
@@ -24,8 +25,8 @@ const ModalOverlay = (props) => {
   return (
     <div
       className={`${
-        props.onHidden ? "hidden" : ""
-      } fixed top-1/3 w-11/12 lg:ml-32 lg:w-auto h-auto left-1/2 -translate-x-1/2 bg-white rounded z-30 shadow-lg animate-slideDown lg:top-1/4`}
+        props.onHidden ? "animate-slideRight" : "animate-slideRightOff"
+      } fixed top-20 w-full h-full left-1/2 -translate-x-1/2 bg-white z-30 shadow-lg`}
     >
       <div
         className={`absolute ${
@@ -40,13 +41,9 @@ const ModalOverlay = (props) => {
 };
 const portalElement = document.getElementById("overlays");
 
-const Modal = (props) => {
+const SideModal = (props) => {
   return (
     <Fragment>
-      {ReactDOM.createPortal(
-        <Backdrop onClose={props.onClose} />,
-        portalElement
-      )}
       {ReactDOM.createPortal(
         <ModalOverlay onHidden={props.onHidden} modalOverlay={props.overlay}>
           {props.children}
@@ -57,4 +54,4 @@ const Modal = (props) => {
   );
 };
 
-export default Modal;
+export default SideModal;

@@ -27,7 +27,7 @@ const Backdrop = (props) => {
 const RequestModalOverlay = (props) => {
   return (
     <div
-      className={`fixed top-1/4 w-11/12 lg:w-96 h-auto left-1/2 -translate-x-1/2 bg-white rounded z-40 shadow-lg animate-slideDown ${props.customStyle}`}
+      className={`fixed top-1/3 lg:top-1/4 w-11/12 lg:w-96 h-auto left-1/2 -translate-x-1/2 bg-white rounded z-40 shadow-lg animate-slideDown ${props.customStyle}`}
     >
       {props.loading && <Spinner containerStyle="p-12" />}
       {!props.loading && (
