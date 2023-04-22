@@ -35,8 +35,8 @@
   },
   "successMessages": {
     "create": "Andmed salvestatud!",
-    "update": "Muutmine õnnestus!",
-    "delete": "Kustutamine õnnestus!"
+    "update": "Andmed muudetud!",
+    "delete": "Andmed kustutatud!"
   },
   "lectureInformation": {
     "lectureInfo": {
