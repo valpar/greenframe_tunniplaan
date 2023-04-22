@@ -511,7 +511,7 @@ const Home = () => {
           logOut={logOut}
           userRollHandler={userRollHandler}
           userRoll={userRole}
-          admin={true}
+          admin={admin}
           showDesktopFilters={showDesktopFilters}
           showMobileFilters={showMobileFilters}
           addScheduleHandler={addScheduleHandler}
@@ -576,7 +576,7 @@ const Home = () => {
                 </button>
               </div>
             )}
-            {true && addSchedule && (
+            {admin && addSchedule && (
               <ScheduleAddition
                 scheduled={data}
                 onNewOccurence={newOccurenceHandler}
