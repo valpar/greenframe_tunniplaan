@@ -1,8 +1,8 @@
 {
-  "api": {
+  "live": {
     "url": "http://localhost:4000/"
   },
-  "live": {
+  "api": {
     "url": "http://tunniplaan.nutiasi.ee:4000/"
   }
 }
