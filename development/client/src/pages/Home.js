@@ -55,6 +55,8 @@ const Home = () => {
   const [notScheduled, setNotScheduled] = useState("");
   const filtersRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
+  const [hiddeMobileFilters, setHiddeMobileFilters] = useState(false);
+  const [openModalAnimation, setOpenModalAnimation] = useState(false);
 
   const work_Data = useCallback(() => {
     setScheduleLoading(isLoading);
@@ -360,7 +362,11 @@ const Home = () => {
     : "";
 
   const mobileMenuHandler = () => {
-    setShowMobileMenu((prevState) => (prevState = !prevState));
+    const btn = document.getElementById("menu-btn");
+    btn.classList.toggle("open");
+    setOpenModalAnimation((prevState) => (prevState = !prevState));
+    setHiddeMobileFilters((prevState) => (prevState = !prevState));
+    setShowMobileMenu(true);
   };
 
   const mobileFiltersHandler = () => {
@@ -483,6 +489,15 @@ const Home = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!openModalAnimation) {
+      const timer = setTimeout(() => {
+        setShowMobileMenu(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [openModalAnimation]);
+
   return (
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
       <div className="mx-auto w-full ">
@@ -496,7 +511,7 @@ const Home = () => {
           logOut={logOut}
           userRollHandler={userRollHandler}
           userRoll={userRole}
-          admin={admin}
+          admin={true}
           showDesktopFilters={showDesktopFilters}
           showMobileFilters={showMobileFilters}
           addScheduleHandler={addScheduleHandler}
@@ -504,6 +519,7 @@ const Home = () => {
           mobileFiltersHandler={mobileFiltersHandler}
           mobileMenuHandler={mobileMenuHandler}
           showSchedule={addSchedule}
+          hiddeMobileIcon={hiddeMobileFilters}
         />
         {showMobileMenu && (
           <MobileMenu
@@ -514,6 +530,7 @@ const Home = () => {
             userRoll={userRole}
             login={login}
             logOut={logOut}
+            showMobileMenu={openModalAnimation}
           />
         )}
         <div className="flex flex-1 flex-col lg:flex-row lg:justify-between mt-20 lg:mt-32 bg-white">
@@ -559,7 +576,7 @@ const Home = () => {
                 </button>
               </div>
             )}
-            {admin && addSchedule && (
+            {true && addSchedule && (
               <ScheduleAddition
                 scheduled={data}
                 onNewOccurence={newOccurenceHandler}

@@ -34,7 +34,7 @@
     "subjectHasActiveLectures": "Õppeaine eksisteerib tunniplaanis, kustuta?"
   },
   "successMessages": {
-    "create": "Lisamine õnnestus!",
+    "create": "Andmed salvestatud!",
     "update": "Muutmine õnnestus!",
     "delete": "Kustutamine õnnestus!"
   },

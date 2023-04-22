@@ -1,4 +1,4 @@
-import Modal from "../UI/Modal/Modal";
+import SideModal from "../UI/Modal/SideModal";
 import { useState } from "react";
 
 const MobileMenu = (props) => {
@@ -15,14 +15,9 @@ const MobileMenu = (props) => {
   };
 
   return (
-    <Modal onClose={props.onClose}>
-      <div className="flex flex-col">
-        <div className="flex flex-row justify-end">
-          <div>
-            <i onClick={props.onClose} className="bi bi-x-lg text-3xl"></i>
-          </div>
-        </div>
-        <div className="px-4">
+    <SideModal onHidden={props.showMobileMenu}>
+      <div className={`flex flex-col`}>
+        <div className="px-4 pt-8">
           {!showUserOptions && (
             <div className="flex flex-col space-y-8 w-full pb-10">
               {/* User photo */}
@@ -125,7 +120,7 @@ const MobileMenu = (props) => {
           )}
         </div>
       </div>
-    </Modal>
+    </SideModal>
   );
 };
 

@@ -26,6 +26,22 @@ module.exports = {
             transform: "translateY(0) translateX(-50%)",
           },
         },
+        slideRight: {
+          from: {
+            transform: "translateX(100%)",
+          },
+          to: {
+            transform: "translateX(-50%)",
+          },
+        },
+        slideRightOff: {
+          from: {
+            transform: "translateX(-50%)",
+          },
+          to: {
+            transform: "translateX(100%)",
+          },
+        },
         peeper: {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(3deg)", width: "103%" },
@@ -61,6 +77,8 @@ module.exports = {
       },
       animation: {
         slideDown: "slideDown 300ms ease-out forwards",
+        slideRight: "slideRight 300ms ease-out forwards",
+        slideRightOff: "slideRightOff 300ms ease-out forwards",
         peeper: "peeper 200ms ease-in forwards",
         foldOpen: "foldOpen 300ms ease-in",
         greenLoader: "greenLoader 2s normal forwards",
