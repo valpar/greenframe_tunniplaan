@@ -122,21 +122,25 @@ export const Header = (props) => {
           </div>
         </div>
 
-        <div className="lg:hidden flex flex-row w-40 justify-end space-x-7 pr-2">
+        <div className="lg:hidden flex flex-row w-40 justify-end items-center space-x-7 pr-2">
           {/* Mobile schedule add */}
-          {props.admin && !props.showDesktopFilters && (
-            <i
-              className={`bi bi-plus-lg text-3xl pt-[0.1rem] ${
-                props.scrollY < 766 && props.showSchedule
-                  ? "text-borderGray"
-                  : ""
-              }`}
-              onClick={props.addScheduleHandler}
-            ></i>
-          )}
+          {props.admin &&
+            !props.showDesktopFilters &&
+            !props.hiddeMobileIcon && (
+              <i
+                className={`bi bi-plus-lg text-3xl pt-[0.1rem] cursor-pointer ${
+                  props.scrollY < 766 && props.showSchedule
+                    ? "text-borderGray"
+                    : ""
+                }`}
+                onClick={props.addScheduleHandler}
+              ></i>
+            )}
           {/* Mobile filters */}
           <i
-            className={`bi bi-sliders text-2xl pt-1 ${
+            className={`${
+              props.hiddeMobileIcon ? "hidden" : ""
+            } bi bi-sliders text-2xl pt-1 cursor-pointer ${
               props.scrollY < 766 && props.showMobileFilters
                 ? "text-borderGray"
                 : ""
@@ -144,10 +148,16 @@ export const Header = (props) => {
             onClick={props.mobileFiltersHandler}
           ></i>
           {/* Hamburger menu */}
-          <i
-            className="bi bi-list text-4xl"
+          <button
+            id="menu-btn"
+            class="hamburger focus:outline-none"
+            type="button"
             onClick={props.mobileMenuHandler}
-          ></i>
+          >
+            <span class="hamburger-top"></span>
+            <span class="hamburger-middle"></span>
+            <span class="hamburger-bottom"></span>
+          </button>
         </div>
       </div>
 
