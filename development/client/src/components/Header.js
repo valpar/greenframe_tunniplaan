@@ -128,7 +128,7 @@ export const Header = (props) => {
             !props.showDesktopFilters &&
             !props.hiddeMobileIcon && (
               <i
-                className={`bi bi-plus-lg text-3xl pt-[0.1rem] cursor-pointer ${
+                className={`bi bi-plus-lg text-3xl pt-[0.2rem] cursor-pointer ${
                   props.scrollY < 766 && props.showSchedule
                     ? "text-borderGray"
                     : ""
@@ -140,7 +140,7 @@ export const Header = (props) => {
           <i
             className={`${
               props.hiddeMobileIcon ? "hidden" : ""
-            } bi bi-sliders text-2xl pt-1 cursor-pointer ${
+            } bi bi-sliders text-2xl pt-[0.1rem] pr-1 cursor-pointer ${
               props.scrollY < 766 && props.showMobileFilters
                 ? "text-borderGray"
                 : ""
