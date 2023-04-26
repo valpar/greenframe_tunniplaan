@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - Production 
+  pull_request:
+    branches:
+      - Production 
+  workflow_dispatch:
+  
+jobs:
+  buld:
+    runs-on: hk-server
+    
+    steps:
+      - name: Run a multi-line script
+        run: | 
+          echo installeerime uue tunniplaani,
+          echo valmis
+          
+          
+    
