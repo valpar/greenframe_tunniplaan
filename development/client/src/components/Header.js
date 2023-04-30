@@ -1,6 +1,27 @@
 import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
 
 export const Header = (props) => {
+  const {
+    isTabletOrMobile,
+    userPicture,
+    profile,
+    onClick,
+    loginInfo,
+    showUsersModal,
+    login,
+    logOut,
+    userRollHandler,
+    showMobileFilters,
+    userRoll,
+    admin,
+    addScheduleHandler,
+    scrollY,
+    mobileFiltersHandler,
+    mobileMenuHandler,
+    showSchedule,
+    hiddeMobileIcon,
+  } = props;
+
   return (
     <header className="flex flex-col fixed pb-1 lg:pb-0 top-0 left-1/2 -translate-x-1/2 max-w-6xl w-full z-10 bg-white">
       <div className="flex items-center lg:items-end justify-between py-4 px-4 lg:py-0 lg:pt-4">
@@ -39,31 +60,31 @@ export const Header = (props) => {
           </div>
           {/* Desktop login */}
           <div className="hidden relative lg:flex flex-col justify-end mb-1">
-            <div className="mt-4 w-28 cursor-pointer" onClick={props.onClick}>
+            <div className="mt-4 w-28 cursor-pointer" onClick={onClick}>
               <div className="mx-auto w-12 h-12">
                 <img
-                  src={props.userPicture}
+                  src={userPicture}
                   alt="User"
                   className="w-full h-full rounded-full object-cover"
                 ></img>
               </div>
-              {/* <div className="text-lg mx-auto text-center">{props.userRoll}</div> */}
+              {/* <div className="text-lg mx-auto text-center">{userRoll}</div> */}
               <div className="text-lg mx-auto text-center">
-                {props.loginInfo?.user?.firstName
-                  ? props.loginInfo?.user?.firstName
+                {loginInfo?.user?.firstName
+                  ? loginInfo?.user?.firstName
                   : "Logi sisse"}
               </div>
             </div>
 
-            {props.showUsersModal && (
+            {showUsersModal && (
               <div className="absolute top-28 -right-4">
                 <div className="relative">
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rotate-45 bg-white border-l rounded-br-full border-t border-borderGray"></div>
                   <div className="flex flex-col justify-around items-center p-4 space-y-2 border border-borderGray  green-shadow bg-white w-44">
-                    <p className="uppercase text-center">{props.userRoll}</p>
-                    {!props.loginInfo && (
+                    <p className="uppercase text-center">{userRoll}</p>
+                    {!loginInfo && (
                       <button
-                        onClick={props.login}
+                        onClick={login}
                         className="btn-period"
                         type="button"
                         name="Login Google"
@@ -72,9 +93,9 @@ export const Header = (props) => {
                       </button>
                     )}
 
-                    {props.loginInfo && (
+                    {loginInfo && (
                       <button
-                        onClick={props.logOut}
+                        onClick={logOut}
                         className="btn-period"
                         type="button"
                         name="Logout Google"
@@ -84,7 +105,7 @@ export const Header = (props) => {
                     )}
 
                     {/* <button
-                      onClick={props.userRollHandler}
+                      onClick={userRollHandler}
                       className="btn-period"
                       type="button"
                       name="admin"
@@ -92,7 +113,7 @@ export const Header = (props) => {
                       Haldus
                     </button>
                     <button
-                      onClick={props.userRollHandler}
+                      onClick={userRollHandler}
                       className="btn-period"
                       type="button"
                       name="lecturer"
@@ -100,7 +121,7 @@ export const Header = (props) => {
                       Õppejõud
                     </button>
                     <button
-                      onClick={props.userRollHandler}
+                      onClick={userRollHandler}
                       className="btn-period"
                       type="button"
                       name="student"
@@ -108,7 +129,7 @@ export const Header = (props) => {
                       Õpilane
                     </button>
                     <button
-                      onClick={props.userRollHandler}
+                      onClick={userRollHandler}
                       className="btn-period"
                       type="button"
                       name="logout"
@@ -124,35 +145,29 @@ export const Header = (props) => {
 
         <div className="lg:hidden flex flex-row w-40 justify-end items-center space-x-7 pr-2">
           {/* Mobile schedule add */}
-          {props.admin &&
-            !props.showDesktopFilters &&
-            !props.hiddeMobileIcon && (
-              <i
-                className={`bi bi-plus-lg text-3xl pt-[0.2rem] cursor-pointer ${
-                  props.scrollY < 766 && props.showSchedule
-                    ? "text-borderGray"
-                    : ""
-                }`}
-                onClick={props.addScheduleHandler}
-              ></i>
-            )}
+          {admin && isTabletOrMobile && !hiddeMobileIcon && (
+            <i
+              className={`bi bi-plus-lg text-3xl pt-[0.2rem] cursor-pointer ${
+                scrollY < 766 && showSchedule ? "text-borderGray" : ""
+              }`}
+              onClick={addScheduleHandler}
+            ></i>
+          )}
           {/* Mobile filters */}
           <i
             className={`${
-              props.hiddeMobileIcon ? "hidden" : ""
+              hiddeMobileIcon ? "hidden" : ""
             } bi bi-sliders text-2xl pt-[0.1rem] pr-1 cursor-pointer ${
-              props.scrollY < 766 && props.showMobileFilters
-                ? "text-borderGray"
-                : ""
+              scrollY < 766 && showMobileFilters ? "text-borderGray" : ""
             }`}
-            onClick={props.mobileFiltersHandler}
+            onClick={mobileFiltersHandler}
           ></i>
           {/* Hamburger menu */}
           <button
             id="menu-btn"
             class="hamburger focus:outline-none"
             type="button"
-            onClick={props.mobileMenuHandler}
+            onClick={mobileMenuHandler}
           >
             <span class="hamburger-top"></span>
             <span class="hamburger-middle"></span>

@@ -92,7 +92,7 @@ const DateOfOccurenceForm = (props) => {
     startTime: "",
     endTime: "",
   });
-  const { isMobile } = props;
+  const { isMobile, isTabletOrMobile } = props;
 
   const { requiresDate, requiresEndDate, notUniqueDate } =
     content.errorMessages;
@@ -386,6 +386,7 @@ const DateOfOccurenceForm = (props) => {
             errorMessage={errorMessages.date}
             reset={calendarReset}
             isMobile={isMobile}
+            isDesktop={isTabletOrMobile}
           />
         </div>
         <div>
@@ -401,6 +402,7 @@ const DateOfOccurenceForm = (props) => {
             onErrorMessage={!dateValue ? requiresDate : errorMessages.load}
             isMobile={isMobile}
             tooltipWidth="w-full lg:w-52 z-20"
+            isDesktop={isTabletOrMobile}
           />
         </div>
 
@@ -419,6 +421,8 @@ const DateOfOccurenceForm = (props) => {
             showOptions={dateValue ? true : false}
             onErrorMessage={!dateValue ? requiresDate : errorMessages.startTime}
             isMobile={isMobile}
+            isTabletOrMobile={isTabletOrMobile}
+            isDesktop={isTabletOrMobile}
           />
         </div>
 
@@ -435,7 +439,8 @@ const DateOfOccurenceForm = (props) => {
             readOnly={!dateValue ? true : false}
             showOptions={dateValue ? true : false}
             onErrorMessage={!dateValue ? requiresDate : errorMessages.endTime}
-            isMobile={isMobile}
+            isTabletOrMobile={isTabletOrMobile}
+            isDesktop={isTabletOrMobile}
           />
         </div>
 
@@ -452,6 +457,7 @@ const DateOfOccurenceForm = (props) => {
             isMobile={isMobile}
             tooltipWidth="w-full lg:w-52 z-20"
             customStyle="lg:text-center cursor-pointer"
+            isDesktop={isTabletOrMobile}
           />
         </div>
       </div>

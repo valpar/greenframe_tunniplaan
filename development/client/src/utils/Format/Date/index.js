@@ -1,3 +1,7 @@
+const { format } = require("date-fns");
+const { utcToZonedTime } = require("date-fns-tz");
+const { et } = require("date-fns/locale");
+
 export const dateParser = (date) => {
   if (date.toString().includes(".000Z")) return new Date(date.substring(0, 10));
   return date;
@@ -16,12 +20,9 @@ export const formatDateTime = (date) => {
 };
 
 export const formatHoursMinutes = (date) => {
-  return new Intl.DateTimeFormat("et-EE", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-    timeZone: "Europe/Riga",
-  }).format(new Date(date));
+  return format(utcToZonedTime(new Date(date), "Europe/Tallinn"), "HH:mm", {
+    locale: et,
+  });
 };
 
 export const formatDate = (date) => {

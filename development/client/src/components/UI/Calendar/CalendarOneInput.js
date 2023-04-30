@@ -13,7 +13,7 @@ const CalendarOneInput = (props) => {
   );
   const [inputValue, setInputValue] = useState();
   const [newInputValue, setNewInputValue] = useState();
-  const { isMobile } = props;
+  const { isMobile, isDesktop } = props;
 
   useEffect(() => {
     setInputValue((prevState) =>
@@ -132,6 +132,7 @@ const CalendarOneInput = (props) => {
         errorMessage={props.errorMessage}
         onErrorMessage={props.errorMessage !== "" ? props.errorMessage : ""}
         isMobile={isMobile}
+        isDesktop={isDesktop}
       />
     </div>
   );
