@@ -14,6 +14,7 @@ const TableBody = (props) => {
   const [showInfo, setShowInfo] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const { isTabletOrMobile } = props;
 
   const extraInfoHandler = () => {
     setShowInfo((prevState) => (prevState = !prevState));
@@ -37,16 +38,6 @@ const TableBody = (props) => {
   const mouseLeaveHandler = () => {
     setShowEdit(false);
   };
-  const handleResize = () => {
-    if (window.innerWidth <= 769) {
-      setShowEdit(true);
-    } else {
-      setShowEdit(false);
-    }
-  };
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-  });
 
   const lectureEditHandler = () => {
     setShowEditModal(true);
@@ -109,7 +100,7 @@ const TableBody = (props) => {
                   </a>
                 </div>
               )}
-              {showEdit && props.admin && (
+              {(showEdit || isTabletOrMobile) && props.admin && (
                 <div
                   className={`${
                     showEdit && props.item.distanceLink ? "ml-5" : ""
@@ -117,7 +108,7 @@ const TableBody = (props) => {
                 >
                   <i
                     onClick={lectureEditHandler}
-                    className="bi bi-pencil-fill"
+                    className="bi bi-pencil-fill cursor-pointer"
                   ></i>
                 </div>
               )}
