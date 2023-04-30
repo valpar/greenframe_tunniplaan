@@ -134,6 +134,7 @@ const TableBody = (props) => {
               editData={props.item}
               onUpdate={props.onUpdate}
               scheduled={props.rawData}
+              isTabletOrMobile={props.isTabletOrMobile}
             />
           </td>
         </tr>

@@ -6,7 +6,6 @@ import * as dateService from "../utils/Format/Date";
 import ScheduleFilters from "../components/searchFilters/ScheduleFilters";
 import ScheduleAddition from "../components/scheduleAddition/ScheduleAddition";
 import Table from "../components/UI/Table/Table";
-// import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { calculateSemesterDate } from "../utils/Calculate/Semester";
 import GoTopButton from "../components/UI/Button/GoTopButton";
@@ -20,6 +19,7 @@ import { AddScheduleButton } from "../components/UI/Button/AddScheduleButton";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { addDays, subDays } from "date-fns";
 import { Header } from "../components/Header";
+import { useMediaQuery } from "react-responsive";
 
 const Home = () => {
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
@@ -51,12 +51,12 @@ const Home = () => {
   const [showUsersModal, setShowUsersModal] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
-  const [showDesktopFilters, setShowDesktopFilters] = useState(false);
   const [notScheduled, setNotScheduled] = useState("");
   const filtersRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
   const [hiddeMobileFilters, setHiddeMobileFilters] = useState(false);
   const [openModalAnimation, setOpenModalAnimation] = useState(false);
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1023px)" });
 
   const work_Data = useCallback(() => {
     setScheduleLoading(isLoading);
@@ -379,13 +379,6 @@ const Home = () => {
     setAddSchedule(false);
   };
 
-  const handleResize = () => {
-    if (window.innerWidth >= 1024) {
-      setShowMobileFilters(true);
-      setShowDesktopFilters(true);
-    }
-  };
-
   const scheduleReloadHandler = () => {
     setScheduleLoading(true);
     setHasServerError("");
@@ -469,10 +462,6 @@ const Home = () => {
   }, [googleAccessToken]);
 
   useEffect(() => {
-    handleResize();
-  });
-
-  useEffect(() => {
     const timer = setTimeout(() => {
       setNotScheduled("Loenguid ei leitud!");
     }, 1000);
@@ -512,13 +501,13 @@ const Home = () => {
           userRollHandler={userRollHandler}
           userRoll={userRole}
           admin={admin}
-          showDesktopFilters={showDesktopFilters}
-          showMobileFilters={showMobileFilters}
+          isTabletOrMobile={isTabletOrMobile}
           addScheduleHandler={addScheduleHandler}
           scrollY={scrollY}
           mobileFiltersHandler={mobileFiltersHandler}
           mobileMenuHandler={mobileMenuHandler}
           showSchedule={addSchedule}
+          showMobileFilters={showMobileFilters}
           hiddeMobileIcon={hiddeMobileFilters}
         />
         {showMobileMenu && (
@@ -538,7 +527,7 @@ const Home = () => {
             ref={filtersRef}
             className="flex-1 px-2 lg:fixed top-20 w-full bg-white lg:w-60 pt-2 lg:pt-3 lg:px-0 lg:pr-2 overflow-y-scroll lg:top-32 lg:bottom-0 no-scrollbar"
           >
-            {admin && showDesktopFilters && (
+            {admin && !isTabletOrMobile && (
               <AddScheduleButton
                 addScheduleHandler={addScheduleHandler}
                 addSchedule={addSchedule}
@@ -547,7 +536,7 @@ const Home = () => {
             <div
               className={`filters ${
                 !showMobileFilters
-                  ? showDesktopFilters
+                  ? !isTabletOrMobile
                     ? "w-full"
                     : "hidden"
                   : "w-full"
@@ -581,6 +570,7 @@ const Home = () => {
                 scheduled={data}
                 onNewOccurence={newOccurenceHandler}
                 onClose={closeAdditionModalHandler}
+                isTabletOrMobile={isTabletOrMobile}
               />
             )}
             {[
@@ -624,6 +614,7 @@ const Home = () => {
                     filteredData={filteredData}
                     rawData={data}
                     onUpdate={newOccurenceHandler}
+                    isTabletOrMobile={isTabletOrMobile}
                   />
                   {noSchoolWork && (
                     <p className="my-8">{`Perioodil ${startDate} - ${endDate} õppetööd ei toimu!`}</p>
@@ -641,7 +632,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {showDesktopFilters && <GoTopButton />}
+      {!isTabletOrMobile && <GoTopButton />}
     </div>
   );
 };

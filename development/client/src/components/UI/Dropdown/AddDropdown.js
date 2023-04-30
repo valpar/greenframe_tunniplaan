@@ -74,6 +74,7 @@ const AddDropdown = (props) => {
     placeholder: (baseStyles, state) => ({
       ...baseStyles,
       color: placeholderColor,
+      marginLeft: "36px",
     }),
     indicatorsContainer: (baseStyles) => ({
       ...baseStyles,
@@ -86,9 +87,14 @@ const AddDropdown = (props) => {
         : state.isFocused
         ? "#E0E0E0"
         : "#fff",
+      color:
+        state.isClearable || state.isSelected
+          ? "black"
+          : state.isFocused
+          ? "black"
+          : "black",
       ":hover": {
         backgroundColor: state.isSelected ? "#E0E0E0" : "#E0E0E0",
-        color: state.isSelected ? "#fff" : "#333",
       },
     }),
   };
