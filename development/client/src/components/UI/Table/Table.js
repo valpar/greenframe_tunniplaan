@@ -67,6 +67,7 @@ const Table = (props) => {
                 index={index}
                 onUpdate={props.onUpdate}
                 isLoggedIn={props.isLoggedIn}
+                isTabletOrMobile={props.isTabletOrMobile}
               />
             </Fragment>
           );

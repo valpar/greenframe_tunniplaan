@@ -7,7 +7,7 @@ const InputWithLabel = (props) => {
     event.preventDefault();
     props.onChange(event.target.value);
   };
-  const { isMobile, tooltipWidth } = props;
+  const { isMobile, tooltipWidth, isDesktop } = props;
 
   const mouseEnterHandler = () => {
     setShowTooltip(true);
@@ -18,7 +18,7 @@ const InputWithLabel = (props) => {
 
   return (
     <div className="relative flex flex-col w-full">
-      {(props.index === 0 || isMobile) && (
+      {(props.index === 0 || isDesktop) && (
         <label className="font-bold w-full text-left pb-1 lg:pb-2">
           {props.label ? props.label : ""}
         </label>

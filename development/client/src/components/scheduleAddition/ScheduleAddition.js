@@ -800,6 +800,7 @@ const ScheduleAddition = (props) => {
                 editData={props.editData}
                 occurenceLength={newOccurence.length}
                 isMobile={isMobile}
+                isTabletOrMobile={props.isTabletOrMobile}
               />
             </div>
           );

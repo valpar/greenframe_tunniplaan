@@ -8,7 +8,7 @@ const DropdownInput = (props) => {
     setOptions(props.options);
   }, []);
 
-  const { isMobile } = props;
+  const { isTabletOrMobile } = props;
 
   const [showOptions, setShowOptions] = useState(false);
 
@@ -47,7 +47,7 @@ const DropdownInput = (props) => {
 
   return (
     <div className="relative w-full flex flex-col">
-      {(props.index === 0 || isMobile) && (
+      {(props.index === 0 || isTabletOrMobile) && (
         <label className="font-bold text-left pb-1 lg:pb-2">
           {props.label ? props.label : ""}
         </label>
