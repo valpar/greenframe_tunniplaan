@@ -489,28 +489,31 @@ const Home = () => {
 
   return (
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
-      <div className="mx-auto w-full ">
-        <Header
-          profile={profile}
-          onClick={showUserRollesHandler}
-          loginInfo={loginInfo}
-          userPicture={userPicture}
-          showUsersModal={showUsersModal}
-          login={login}
-          logOut={logOut}
-          userRollHandler={userRollHandler}
-          userRoll={userRole}
-          admin={admin}
-          isTabletOrMobile={isTabletOrMobile}
-          addScheduleHandler={addScheduleHandler}
-          scrollY={scrollY}
-          mobileFiltersHandler={mobileFiltersHandler}
-          mobileMenuHandler={mobileMenuHandler}
-          showSchedule={addSchedule}
-          showMobileFilters={showMobileFilters}
-          hiddeMobileIcon={hiddeMobileFilters}
-        />
-        {showMobileMenu && (
+      <div className="mx-auto w-full">
+        <div className="lg:fixed lg:w-[73rem] lg:h-28 bg-white">
+          <Header
+            profile={profile}
+            onClick={showUserRollesHandler}
+            loginInfo={loginInfo}
+            userPicture={userPicture}
+            showUsersModal={showUsersModal}
+            login={login}
+            logOut={logOut}
+            userRollHandler={userRollHandler}
+            userRoll={userRole}
+            admin={admin}
+            isTabletOrMobile={isTabletOrMobile}
+            addScheduleHandler={addScheduleHandler}
+            scrollY={scrollY}
+            mobileFiltersHandler={mobileFiltersHandler}
+            mobileMenuHandler={mobileMenuHandler}
+            showSchedule={addSchedule}
+            showMobileFilters={showMobileFilters}
+            hiddeMobileIcon={hiddeMobileFilters}
+          />
+        </div>
+
+        {showMobileMenu && isTabletOrMobile && (
           <MobileMenu
             onClose={mobileMenuHandler}
             userInfo={userPicture}

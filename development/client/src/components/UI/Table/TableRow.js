@@ -56,9 +56,9 @@ const TableBody = (props) => {
         onMouseLeave={mouseLeaveHandler}
       >
         <td className="p-1 w-[5.5rem] md:w-28">
-          {formatHoursMinutes(props.item.startTime).toString() +
+          {formatHoursMinutes(props.item.startTime) +
             "-" +
-            formatHoursMinutes(props.item.endTime).toString()}
+            formatHoursMinutes(props.item.endTime)}
         </td>
         <td
           onClick={extraInfoHandler}
