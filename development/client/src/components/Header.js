@@ -165,13 +165,13 @@ export const Header = (props) => {
           {/* Hamburger menu */}
           <button
             id="menu-btn"
-            class="hamburger focus:outline-none"
+            className="hamburger focus:outline-none"
             type="button"
             onClick={mobileMenuHandler}
           >
-            <span class="hamburger-top"></span>
-            <span class="hamburger-middle"></span>
-            <span class="hamburger-bottom"></span>
+            <span className="hamburger-top"></span>
+            <span className="hamburger-middle"></span>
+            <span className="hamburger-bottom"></span>
           </button>
         </div>
       </div>

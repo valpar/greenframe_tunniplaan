@@ -185,7 +185,7 @@ const DateOfOccurenceForm = (props) => {
         [
           {
             startTime: `${new Date(
-              date.setHours(valueArr[0], valueArr[1], "00", "000")
+              date.setUTCHours(valueArr[0], valueArr[1], "00", "000")
             ).toISOString()}`,
           },
         ],
@@ -198,7 +198,7 @@ const DateOfOccurenceForm = (props) => {
         [
           {
             endTime: `${new Date(
-              date.setHours(valueArr[0], valueArr[1], "00", "000")
+              date.setUTCHours(valueArr[0], valueArr[1], "00", "000")
             ).toISOString()}`,
           },
         ],
@@ -218,7 +218,7 @@ const DateOfOccurenceForm = (props) => {
         [
           {
             startTime: `${new Date(
-              dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
+              dateValue.setUTCHours(valueArr[0], valueArr[1], "00", "000")
             ).toISOString()}`,
           },
         ],
@@ -255,7 +255,7 @@ const DateOfOccurenceForm = (props) => {
         [
           {
             endTime: `${new Date(
-              dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
+              dateValue.setUTCHours(valueArr[0], valueArr[1], "00", "000")
             ).toISOString()}`,
           },
         ],
@@ -284,7 +284,7 @@ const DateOfOccurenceForm = (props) => {
         [
           {
             endTime: `${new Date(
-              dateValue.setHours(valueArr[0] - 1, valueArr[1], "00", "000")
+              dateValue.setUTCHours(valueArr[0] - 1, valueArr[1], "00", "000")
             ).toISOString()}`,
           },
         ],
@@ -301,7 +301,7 @@ const DateOfOccurenceForm = (props) => {
         [
           {
             endTime: `${new Date(
-              dateValue.setHours(+valueArr[0] + 1, valueArr[1], "00", "000")
+              dateValue.setUTCHours(+valueArr[0] + 1, valueArr[1], "00", "000")
             ).toISOString()}`,
           },
         ],
@@ -321,7 +321,7 @@ const DateOfOccurenceForm = (props) => {
         [
           {
             startTime: `${new Date(
-              dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
+              dateValue.setUTCHours(valueArr[0], valueArr[1], "00", "000")
             ).toISOString()}`,
           },
         ],
@@ -338,7 +338,7 @@ const DateOfOccurenceForm = (props) => {
         [
           {
             endTime: `${new Date(
-              dateValue.setHours(valueArr[0], valueArr[1], "00", "000")
+              dateValue.setUTCHours(valueArr[0], valueArr[1], "00", "000")
             ).toISOString()}`,
           },
         ],

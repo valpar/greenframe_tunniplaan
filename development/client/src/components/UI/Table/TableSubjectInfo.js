@@ -731,9 +731,9 @@ const TableSubjectInfo = (props) => {
               >
                 <td colSpan={4} className="px-2">{`${dateService
                   .formatDateTime(e.startTime)
-                  .toString()}-${dateService
-                  .formatHoursMinutes(e.endTime)
-                  .toString()} ${e.subject.subject}`}</td>
+                  .toString()}-${dateService.formatHoursMinutes(e.endTime)} ${
+                  e.subject.subject
+                }`}</td>
               </tr>
             );
           }
