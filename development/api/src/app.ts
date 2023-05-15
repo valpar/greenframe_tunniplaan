@@ -18,6 +18,7 @@ import checkAlphabet from "./components/general/middleware/checkLetterMiddleware
 import checkAlphabetAndNumber from "./components/general/middleware/checkLetterAndNumberMiddleware";
 import ping from "./components/ping/controller";
 import courseService from "./components/course/service";
+import { logger } from './logger';
 
 const app: Application = express(); // create express app
 // app.use(cors()); //use cors
@@ -34,6 +35,16 @@ const port: number = 3000; // Port number, where API works
 
 app.get("/ping", ping); 
 
+app.use(async (req, res, next) => {
+  // Log request details
+  logger.info(`Request from ${req.ip} using ${req.headers['user-agent']}`);
+  logger.info(`Request method and URL: ${req.method} ${req.originalUrl}`);
+  logger.info(`Request body: ${JSON.stringify(req.body)}`);
+  console.log(req.ip);
+
+
+  next();
+});
 // Schedule API
 
 //----LOGIN AND USER ENDPOINTS NOT IN USE----

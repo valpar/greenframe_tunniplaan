@@ -76,7 +76,7 @@ const lecturerController = {
 
   addLecturer: async (req: Request, res: Response) => {
     const { firstName, lastName, email } = req.body;
-    console.log(firstName, lastName, email);
+    // console.log(firstName, lastName, email);
     if (!firstName) {
       return res.status(responseCodes.badRequest).json({
         error: "First name is required",

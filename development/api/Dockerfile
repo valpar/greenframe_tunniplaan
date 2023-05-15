@@ -6,12 +6,14 @@ COPY package*.json ./
 
 RUN npm i
 
-RUN npm i bcrypt
+RUN npm uninstall bcrypt
 
 COPY . .
 
 FROM base as production
 
 ENV NODE_PATH=./build
+
+RUN npm i bcrypt
 
 RUN npm run build

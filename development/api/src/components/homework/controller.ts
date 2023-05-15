@@ -82,7 +82,7 @@ const homeworkController = {
   addHomework: async (req: Request, res: Response) => {
     let { description, dueDate, subjectCode, subjects_id, extrasLink } =
       req.body;
-    console.log(description, dueDate, subjectCode, subjects_id, extrasLink);
+    // console.log(description, dueDate, subjectCode, subjects_id, extrasLink);
     if (!description) {
       return res.status(responseCodes.badRequest).json({
         error: "homework description is missing",
