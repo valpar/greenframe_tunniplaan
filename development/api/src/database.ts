@@ -1,5 +1,5 @@
 import { createPool, Pool, PoolConnection, PoolOptions } from 'mysql2/promise';
-import winston from 'winston';
+import winston from 'winscd ton';
 
 const poolOptions: PoolOptions = {
   host: "mysql_server",
@@ -29,7 +29,7 @@ export async function createDatabaseConnection(): Promise<PoolConnection> {
 
   // Logime päringud
   connection.on('enqueue', (query: string) => {
-    logger.info(`Executing query:` ${query});
+    logger.info(`Executing query: ${query}`);
     });
     
     // Käitleme vead
