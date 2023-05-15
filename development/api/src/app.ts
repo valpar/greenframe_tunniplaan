@@ -2,6 +2,7 @@ import express, { Request, Response, Application } from "express"; // import exp
 import swaggerUi from "swagger-ui-express";
 import openapi from "./openapi.json";
 import cors from "cors";
+import winston from 'winston';
 import authController from "./components/auth/controller";
 import userController from "./components/users/controller";
 import lecturerController from "./components/lector/controller";
