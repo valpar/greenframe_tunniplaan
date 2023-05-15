@@ -1,5 +1,5 @@
 import { createPool, Pool, PoolConnection, PoolOptions } from 'mysql2/promise';
-import winston from 'winscd ton';
+import winston from 'winston';
 
 const poolOptions: PoolOptions = {
   host: "mysql_server",
