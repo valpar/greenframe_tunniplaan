@@ -1,7 +1,7 @@
-import { createPool, Pool, PoolConnection, PoolOptions } from 'mysql2/promise';
-import winston from 'winston';
+import mysql from "mysql2";
 
-const poolOptions: PoolOptions = {
+const pool = mysql
+  .createPool({
   host: "mysql_server",
   user: "admin",
   password: "parool",
@@ -10,9 +10,8 @@ const poolOptions: PoolOptions = {
   connectionLimit: 10,
   queueLimit: 0,
   charset: "UTF8MB4",
-};
+  })
+  .promise();
 
-const pool: Pool = createPool(poolOptions);
 
-  
 export default pool;

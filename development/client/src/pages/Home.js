@@ -32,7 +32,14 @@ const Home = () => {
   const [scheduleLoading, setScheduleLoading] = useState(true);
   const [hasServerError, setHasServerError] = useState(undefined);
 
-  const [loginInfo, setLoginInfo] = useState(null); // Sisselogitud kasutaja intentifitseerimiseks backis.
+  // const [loginInfo, setLoginInfo] = useState(null); // Sisselogitud kasutaja intentifitseerimiseks backis.
+
+  let [loginInfo, setLoginInfo] = useState(() => {
+    let token = localStorage.getItem('token');
+    return token ? JSON.parse(token) : {};    
+  });
+
+
 
   const { response, isLoading, error } = useAxios(
     {
@@ -390,7 +397,10 @@ const Home = () => {
   const [googleAccessToken, setGoogleAcessToken] = useState([]);
   // const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
-  const [googleProfile, setGoogleProfile] = useState([]);
+  let [googleProfile, setGoogleProfile] = useState(() => {
+    let localData = localStorage.getItem('localGoogleProfile');
+    return localData ? JSON.parse(localData) : {};    
+  });
   const [userPicture, setUserPicture] = useState([]);
 
   const login = useGoogleLogin({
@@ -410,14 +420,24 @@ const Home = () => {
         )
         .then((result) => {
           setGoogleProfile(result.data);
+          if(result.data){
+            localStorage.setItem('localGoogleProfile', JSON.stringify(result.data));
+          }
         })
         .catch((err) => console.log(err)); // kui google acess tokeniga ligipääs ebaõnnestus
     },
     onError: (error) => console.log("Login Failed:", error), // kui google esmasel pöördumisel juba tekkis viga
   });
 
+  // if (localStorage.getItem('localGoogleProfile')) {
+  // setGoogleProfile = JSON.parse(localStorage.getItem('localGoogleProfile'));
+  // console.log ("tagastatud google profile",JSON.parse(localStorage.getItem('localGoogleProfile')));
+
+  // }
+
+  console.log ("tagastatud google profile",JSON.parse(localStorage.getItem('localGoogleProfile')));
   useEffect(() => {
-    console.log(googleProfile);
+    console.log("see on õige googleProfile",googleProfile);
     setUserPicture(
       googleProfile?.picture ?? require("../assets/icons/user.png")
     );
@@ -430,10 +450,12 @@ const Home = () => {
     setGoogleProfile(null);
     setLoginInfo(null);
     setShowUsersModal(false);
+    localStorage.clear();
+
   };
   // --- Google login end ---
 
-  // --- Schedule login ---
+  // --- Schedule back login ---
 
   useEffect(() => {
     async function fetchProfile() {
@@ -449,6 +471,9 @@ const Home = () => {
           }
         );
         setLoginInfo(response.data);
+        if(response.data){
+          localStorage.setItem('token', JSON.stringify(response.data));
+        }
         setShowUsersModal(false);
         console.log("Roll: ", response.data.user.role);
       } catch (error) {
