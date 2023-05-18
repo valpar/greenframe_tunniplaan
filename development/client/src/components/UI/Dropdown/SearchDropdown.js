@@ -1,76 +1,81 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import Select, { components } from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { isMobile } from "react-device-detect";
 
-
-const SearchDropdown = (props) => {
+const SearchDropdown = ({ name, options, isMulti, onChange, onInputChange, reset, topLabel, label }) => {
   const [placeholderColor, setPlaceHolderColor] = useState("gray");
+    // Algseisundi loomine kasutades kohalikku salvestust
+  const [selectedOption, setSelectedOption] = useState(() => {
+    const storedValue = localStorage.getItem(name);
+    // changeHandler(storedValue ? JSON.parse(storedValue) : null);
+    return storedValue ? JSON.parse(storedValue) : null;
+  });
 
-  const [defaultValue, setDefaultValue] = useState();
+    
+  // const changeHandler = (selectedOption) => {
+  //   setSelectedOption(selectedOption);
+  //   localStorage.setItem(props.name, JSON.stringify(selectedOption));
 
-  useEffect(() => {setDefaultValue(props.defValue)}, [props.defValue] );
+  //   let newArrayOfObj;
+  //   if (props.isMulti) {
+  //     newArrayOfObj = selectedOption.map(({ value }) => ({
+  //       [props.name]: value.trim(),
+  //     }));
+  //   }
+  //   if (!props.isMulti) {
+  //     newArrayOfObj = [selectedOption].map(({ value }) => ({
+  //       [props.name]: value.trim(),
+  //     }));
+  //   }
 
+  //   if (newArrayOfObj.length > 0) {
+  //     props.onChange(newArrayOfObj);
+  //   } else {
+  //     props.onChange([{ value: props.name }]);
+  //   }
+  // };
 
-  const changeHandler = (choice) => {
-    localStorage.setItem(props.name, JSON.stringify(choice));
-    console.log("choice", choice);
+  const handleChange = (selectedOption) => {
+    setSelectedOption(selectedOption);
+  };
+
+  // useEffect, mis jälgib selectedOption muutusi ja salvestab need kohalikku salvestusse
+  useEffect(() => {
+    localStorage.setItem(name, JSON.stringify(selectedOption));
     let newArrayOfObj;
-    if (props.isMulti) {
-      newArrayOfObj = choice.map(({ value }) => ({
-        [props.name]: value.trim(),
-      }));
-    }
-    if (!props.isMulti) {
-      newArrayOfObj = [choice].map(({ value }) => ({
-        [props.name]: value.trim(),
-      }));
+    if (isMulti) {
+      newArrayOfObj = selectedOption ? selectedOption.map(({ value }) => ({
+        [name]: value.trim(),
+      })) : [];
+    } else {
+      newArrayOfObj = selectedOption ? [{ [name]: selectedOption.value.trim() }] : [];
     }
 
     if (newArrayOfObj.length > 0) {
-      props.onChange(newArrayOfObj);
+      onChange(newArrayOfObj);
     } else {
-      props.onChange([{ value: props.name }]);
+      onChange([{ value: name }]);
     }
-  };
+  }, [selectedOption, name, isMulti, onChange]);
+
+
+
 
   const inputChangeHandler = (e) => {
-    if (props.onInputChange) {
-      props.onInputChange(e);
+    if (onInputChange) {
+      onInputChange(e);
     }
   };
-  // const deleteLocalStorage = useCallback() {
-  //   localStorage.removeItem(props.name);
-  // }
-
-  // const refChangeHandler = useCallback(
-  //   (ref) => {
-  //     if (props.reset && ref) {
-  //       ref.clearValue();
-  //       deleteLocalStorage()
-  //     }
-  //   },
-  //   [props.reset]
-  // );
-
-
-  const refChangeHandler = (ref) => {
-    if (props.reset && ref) {
-      ref.clearValue();
-      localStorage.removeItem(props.name);
-    }
-  };
-  // console.log(props.defValue);
-  // const vaikimisi = {label: 'RIF 3', value: 'RIF 3'};
-  // if (vaikimisi === props.defValue) {  
-  //   console.log("vaikimisi == props.defValue");
-  // } else {  
-
-  //   console.log("vaikimisi != props.defValue");
-  //   console.log("vaikimisi", vaikimisi, (vaikimisi instanceof Object));
-  //   console.log("props.defValue", props.defValue, (props.defValue instanceof Object));
-  // }
+  const refChangeHandler = useCallback(
+    (ref) => {
+      if (reset && ref) {
+        ref.clearValue();
+      }
+    },
+    [reset]
+  );
 
   const { DropdownIndicator } = components;
 
@@ -95,27 +100,25 @@ const SearchDropdown = (props) => {
   const mouseLeaveHandler = () => {
     setPlaceHolderColor("gray");
   };
-      // console.log("defaultValue",props.defValue);
+
   return (
     <div
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
       className="relative group w-full"
     >
-      {props.topLabel && <label>{props.topLabel}</label>}
+      {topLabel && <label>{topLabel}</label>}
       {!isMobile && window.innerWidth >= 1024 && (
         <div className="absolute bg-collegeGreen h-11 group-hover:animate-peeper" />
       )}
-
       <Select
         components={{ DropdownIndicator: CustomDropdownIndicator }}
         ref={refChangeHandler}
-        // defaultValue={props.defValue}
-        value={props?.reset ? "" : defaultValue}
-        placeholder={props.label}
-        options={props.options}
-        onChange={changeHandler}
-        isMulti={props.isMulti ? true : false}
+        value={selectedOption}
+        placeholder={label}
+        options={options}
+        onChange={handleChange}
+        isMulti={isMulti ? true : false}
         onInputChange={inputChangeHandler}
         noOptionsMessage={(value) => (value = "")}
         styles={{

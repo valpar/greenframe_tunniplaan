@@ -121,12 +121,23 @@ const ScheduleFilters = (props) => {
     if (isReset) setIsReset((prevState) => (prevState = !prevState));
     props.onPassingFilters(filterObj);
   };
+
+  // const filtersHandler = useCallback((filterObj) => {
+  //   if (isReset) setIsReset((prevState) => (prevState = !prevState));
+  //   props.onPassingFilters(filterObj);
+  // }, [isReset, props]); 
+
+
   const emptyFiltersHandler = () => {
     setIsReset((prevState) => (prevState = !prevState));
     props.onEmptyFilters();
   };
+  // const emptyFiltersHandler = useCallback(() => {
+  //   setIsReset(prevState => !prevState);
+  //   props.onEmptyFilters();
+  // }, [props]);
 
-  console.log("courseCode väärtus: ", courseFilterDefValue);
+
   return (
     <div className="flex flex-col space-y-2 -mt-1 lg:mt-0">
       <div className="pt-2 lg:pt-0">
