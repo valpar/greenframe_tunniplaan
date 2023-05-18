@@ -9,6 +9,16 @@ const ScheduleFilters = (props) => {
   const [roomsData, setRoomsData] = useState([]);
   const [subjectsData, setSubjectsData] = useState([]);
   const [isReset, setIsReset] = useState(false);
+  
+  const [courseFilterDefValue, setCourseFilterDefValue] = useState(() => {
+    let tmp = localStorage.getItem('courseCode');
+    if (tmp === {}) { return null;} 
+    return tmp ? JSON.parse(tmp) : undefined;    
+  });
+  
+  const [lecturerFilterDefValue, setLecturerFilterDefValue] = useState();
+  const [roomFilterDefValue, setRoomFilterDefValue] = useState();
+  const [subjectFilterDefValue, setSubjectFilterDefValue] = useState();
 
   const {
     response: courseResponse,
@@ -107,6 +117,7 @@ const ScheduleFilters = (props) => {
   }, [workSubjectsData, subjectsResponse]);
 
   const filtersHandler = (filterObj) => {
+    console.log("filterObj: ", filterObj);
     if (isReset) setIsReset((prevState) => (prevState = !prevState));
     props.onPassingFilters(filterObj);
   };
@@ -115,12 +126,14 @@ const ScheduleFilters = (props) => {
     props.onEmptyFilters();
   };
 
+  console.log("courseCode väärtus: ", courseFilterDefValue);
   return (
     <div className="flex flex-col space-y-2 -mt-1 lg:mt-0">
       <div className="pt-2 lg:pt-0">
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
+          defValue={courseFilterDefValue}
           options={courseData}
           label="Kursus"
           name="courseCode"
@@ -137,6 +150,7 @@ const ScheduleFilters = (props) => {
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
+          defValue={subjectFilterDefValue}
           options={subjectsData}
           label="Õppeaine"
           name="subject"
@@ -147,6 +161,7 @@ const ScheduleFilters = (props) => {
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
+          defValue={lecturerFilterDefValue}
           options={lecturerData}
           label="Õppejõud"
           name="lecturer"
@@ -157,6 +172,7 @@ const ScheduleFilters = (props) => {
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
+          defValue={roomFilterDefValue}
           options={roomsData}
           label="Ruum"
           name="room"

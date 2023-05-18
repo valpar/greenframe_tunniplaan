@@ -36,6 +36,8 @@ const Home = () => {
 
   let [loginInfo, setLoginInfo] = useState(() => {
     let token = localStorage.getItem('token');
+    if (token === {}) { return null;} 
+    // console.log("Token algväärtustamine",token);
     return token ? JSON.parse(token) : {};    
   });
 
@@ -268,6 +270,7 @@ const Home = () => {
     if (dropdownsSelection.length === 0) {
       setFilteredData([...data]);
     }
+    console.log("Filter",dropdownsSelection);
   }, [data, dropdownsSelection]);
 
   filteredData.sort(
@@ -405,7 +408,7 @@ const Home = () => {
 
   const login = useGoogleLogin({
     onSuccess: (googleResponse) => {
-      console.log("Login Successful:", googleResponse);
+      // console.log("Login Successful:", googleResponse);
       setGoogleAcessToken(googleResponse.access_token); // selleks et seda saata backi autentimiseks
 
       axios
@@ -435,7 +438,8 @@ const Home = () => {
 
   // }
 
-  console.log ("tagastatud google profile",JSON.parse(localStorage.getItem('localGoogleProfile')));
+  // console.log ("tagastatud google profile",JSON.parse(localStorage.getItem('localGoogleProfile')));
+  // console.log("see on õige loginInfo",loginInfo);
   useEffect(() => {
     console.log("see on õige googleProfile",googleProfile);
     setUserPicture(
@@ -445,12 +449,13 @@ const Home = () => {
 
   // log out function to log the user out of google and set the profile array to null
   const logOut = () => {
+    localStorage.clear();
     googleLogout();
     setProfile(null);
     setGoogleProfile(null);
     setLoginInfo(null);
     setShowUsersModal(false);
-    localStorage.clear();
+ 
 
   };
   // --- Google login end ---

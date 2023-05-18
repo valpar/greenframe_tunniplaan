@@ -35,7 +35,8 @@ const MobileMenu = (props) => {
                   : "Logi sisse"}{" "}
                 / {props.userRoll ? props.userRoll : "Külaline"}
               </p>
-              {!props.loginInfo && (
+
+              {!localStorage.getItem('token')&& (
                 <button
                   onClick={props.login}
                   className="btn-m-menu"
@@ -46,7 +47,7 @@ const MobileMenu = (props) => {
                 </button>
               )}
 
-              {props.loginInfo && (
+              {localStorage.getItem('token')&& (
                 <button
                   onClick={props.logOut}
                   className="btn-m-menu"

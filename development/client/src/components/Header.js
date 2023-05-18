@@ -82,7 +82,7 @@ export const Header = (props) => {
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rotate-45 bg-white border-l rounded-br-full border-t border-borderGray"></div>
                   <div className="flex flex-col justify-around items-center p-4 space-y-2 border border-borderGray  green-shadow bg-white w-44">
                     <p className="uppercase text-center">{userRoll}</p>
-                    {!loginInfo && (
+                    {!localStorage.getItem('token') && (
                       <button
                         onClick={login}
                         className="btn-period"
@@ -93,7 +93,7 @@ export const Header = (props) => {
                       </button>
                     )}
 
-                    {loginInfo && (
+                    {localStorage.getItem('token') && (
                       <button
                         onClick={logOut}
                         className="btn-period"
