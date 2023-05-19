@@ -9,7 +9,7 @@ on:
   
 jobs:
   build:
-    runs-on: hk-server
+    runs-on: self-hosted
     
     steps:
       - name: Run a multi-line script
