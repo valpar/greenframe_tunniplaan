@@ -1,4 +1,4 @@
-name: Deploy Workflow
+name: Tunniplaani algne install
 on:
   push:
     branches:
