@@ -1,5 +1,3 @@
-Vabandust segaduse pärast! Siin on täielik juhend:
-
 # Javascripti hea praktika juhend
 
 ## Sisukord
