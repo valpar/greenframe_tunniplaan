@@ -117,26 +117,14 @@ const ScheduleFilters = (props) => {
   }, [workSubjectsData, subjectsResponse]);
 
   const filtersHandler = (filterObj) => {
-    console.log("filterObj: ", filterObj);
     if (isReset) setIsReset((prevState) => (prevState = !prevState));
     props.onPassingFilters(filterObj);
   };
 
-  // const filtersHandler = useCallback((filterObj) => {
-  //   if (isReset) setIsReset((prevState) => (prevState = !prevState));
-  //   props.onPassingFilters(filterObj);
-  // }, [isReset, props]); 
-
-
-  const emptyFiltersHandler = () => {
+   const emptyFiltersHandler = () => {
     setIsReset((prevState) => (prevState = !prevState));
     props.onEmptyFilters();
   };
-  // const emptyFiltersHandler = useCallback(() => {
-  //   setIsReset(prevState => !prevState);
-  //   props.onEmptyFilters();
-  // }, [props]);
-
 
   return (
     <div className="flex flex-col space-y-2 -mt-1 lg:mt-0">

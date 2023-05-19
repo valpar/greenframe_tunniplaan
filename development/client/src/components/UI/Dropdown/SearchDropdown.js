@@ -40,7 +40,7 @@ const SearchDropdown = ({ name, options, isMulti, onChange, onInputChange, reset
       onChange([{ value: name }]);
     }
     console.log("selectedOption: ", selectedOption);
-  }, [selectedOption, name, isMulti, onChange, isRemembered]);
+  }, [selectedOption, name, isMulti, isRemembered]);
 
 
   const inputChangeHandler = (e) => {
