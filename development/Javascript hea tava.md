@@ -508,4 +508,3 @@ let x = 1;
 
 ---
 
-See on minu soovituste lõpp. Loodetavasti leiate need näpunäited kasulikud ja aitavad teil kirjutada paremat, loetavamat ja tõhusamat JavaScripti koodi. Õnnelikku kodeerimist!
