@@ -48,7 +48,7 @@ app.use(async (req, res, next) => {
 // Schedule API
 
 //----LOGIN AND USER ENDPOINTS NOT IN USE----
-/*
+
 // Login
 
 app.post("/login", authController.login);
@@ -59,12 +59,13 @@ app.post("/users", checkAlphabet, userController.addUser);
 //app.use(isLoggedIn);
 //isAdmin,
 //-------
-app.get("/users", isAdmin, userController.getAllUsers);
+// app.get("/users", isAdmin, userController.getAllUsers);
+app.get("/users", userController.getAllUsers);
 app.get("/users/:id", userController.getUserById);
 app.delete("/users/:id", userController.deleteUser);
 app.patch("/users/:id", checkAlphabet, userController.updateUserById);
 
-*/
+
 
 app.post("/googleauth", authController.googleAuth);
 

@@ -1,16 +1,17 @@
 import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
+import { Link } from 'react-router-dom';
 
 export const Header = (props) => {
   const {
     isTabletOrMobile,
     userPicture,
-    profile,
     onClick,
     loginInfo,
     showUsersModal,
     login,
     logOut,
     userRollHandler,
+    userAdminHandler,
     showMobileFilters,
     userRoll,
     admin,
@@ -100,11 +101,11 @@ export const Header = (props) => {
                         type="button"
                         name="Logout Google"
                       >
-                        Log out
+                        Logi välja
                       </button>
                     )}
 
-                    {/* <button
+                    <button
                       onClick={userRollHandler}
                       className="btn-period"
                       type="button"
@@ -132,10 +133,21 @@ export const Header = (props) => {
                       onClick={userRollHandler}
                       className="btn-period"
                       type="button"
+                      name="student"
+                    >
+                      Kasutajad
+                    </button>
+                    <div>
+                    <Link to="/users">Kasutajate admin</Link>
+                    </div>
+                    <button
+                      onClick={userAdminHandler}
+                      className="btn-period"
+                      type="button"
                       name="logout"
                     >
                       Logi välja
-                    </button> */}
+                    </button>
                   </div>
                 </div>
               </div>

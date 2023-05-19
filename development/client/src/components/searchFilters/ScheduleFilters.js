@@ -149,6 +149,7 @@ const ScheduleFilters = (props) => {
           label="Kursus"
           name="courseCode"
           isMulti={true}
+          isRemembered={true}
           className="order-2"
         />
       </div>
@@ -166,6 +167,7 @@ const ScheduleFilters = (props) => {
           label="Õppeaine"
           name="subject"
           isMulti={true}
+          isRemembered={true}
         />
       </div>
       <div>
@@ -177,6 +179,7 @@ const ScheduleFilters = (props) => {
           label="Õppejõud"
           name="lecturer"
           isMulti={true}
+          isRemembered={true}
         />
       </div>
       <div>
@@ -188,6 +191,7 @@ const ScheduleFilters = (props) => {
           label="Ruum"
           name="room"
           isMulti={true}
+          isRemembered={true}
         />
       </div>
       <button

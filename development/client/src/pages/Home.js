@@ -280,26 +280,31 @@ const Home = () => {
 
   const userRollHandler = (event) => {
     event.preventDefault();
-    // if (event.target.name === "admin") {
-    //   setAdmin(true);
-    //   setUserStudent(false);
-    //   setUserLecturer(false);
-    // }
-    // if (event.target.name === "lecturer") {
-    //   setAdmin(false);
-    //   setUserStudent(false);
-    //   setUserLecturer(true);
-    // }
-    // if (event.target.name === "student") {
-    //   setAdmin(false);
-    //   setUserLecturer(false);
-    //   setUserStudent(true);
-    // }
-    // if (event.target.name === "logout") {
-    //   setAdmin(false);
-    //   setUserLecturer(false);
-    //   setUserStudent(false);
-    // }
+    if (event.target.name === "admin") {
+      setAdmin(true);
+      setUserStudent(false);
+      setUserLecturer(false);
+    }
+    if (event.target.name === "lecturer") {
+      setAdmin(false);
+      setUserStudent(false);
+      setUserLecturer(true);
+    }
+    if (event.target.name === "student") {
+      setAdmin(false);
+      setUserLecturer(false);
+      setUserStudent(true);
+    }
+    if (event.target.name === "logout") {
+      setAdmin(false);
+      setUserLecturer(false);
+      setUserStudent(false);
+    }
+    setShowUsersModal(false);
+  };
+
+  const userAdminHandler = (event) => {
+
     setShowUsersModal(false);
   };
 
@@ -530,6 +535,7 @@ const Home = () => {
             login={login}
             logOut={logOut}
             userRollHandler={userRollHandler}
+            userAdminHandler={userAdminHandler}
             userRoll={userRole}
             admin={admin}
             isTabletOrMobile={isTabletOrMobile}
@@ -549,6 +555,7 @@ const Home = () => {
             userInfo={userPicture}
             loginInfo={loginInfo}
             userRollHandler={userRollHandler}
+            userAdminHandler={userAdminHandler}
             userRoll={userRole}
             login={login}
             logOut={logOut}

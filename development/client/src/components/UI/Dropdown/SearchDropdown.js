@@ -4,38 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { isMobile } from "react-device-detect";
 
-const SearchDropdown = ({ name, options, isMulti, onChange, onInputChange, reset, topLabel, label }) => {
+const SearchDropdown = ({ name, options, isMulti, onChange, onInputChange, reset, topLabel, label, isRemembered }) => {
   const [placeholderColor, setPlaceHolderColor] = useState("gray");
-    // Algseisundi loomine kasutades kohalikku salvestust
+
+  // Algseisundi loomine kasutades kohalikku salvestust juhul kui salvestus on soovitud
   const [selectedOption, setSelectedOption] = useState(() => {
-    const storedValue = localStorage.getItem(name);
-    // changeHandler(storedValue ? JSON.parse(storedValue) : null);
-    return storedValue ? JSON.parse(storedValue) : null;
+    if(isRemembered) {
+      const storedValue = localStorage.getItem(name);
+      return storedValue ? JSON.parse(storedValue) : null;
+    } else {return null}
   });
 
-    
-  // const changeHandler = (selectedOption) => {
-  //   setSelectedOption(selectedOption);
-  //   localStorage.setItem(props.name, JSON.stringify(selectedOption));
-
-  //   let newArrayOfObj;
-  //   if (props.isMulti) {
-  //     newArrayOfObj = selectedOption.map(({ value }) => ({
-  //       [props.name]: value.trim(),
-  //     }));
-  //   }
-  //   if (!props.isMulti) {
-  //     newArrayOfObj = [selectedOption].map(({ value }) => ({
-  //       [props.name]: value.trim(),
-  //     }));
-  //   }
-
-  //   if (newArrayOfObj.length > 0) {
-  //     props.onChange(newArrayOfObj);
-  //   } else {
-  //     props.onChange([{ value: props.name }]);
-  //   }
-  // };
 
   const handleChange = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -43,7 +22,9 @@ const SearchDropdown = ({ name, options, isMulti, onChange, onInputChange, reset
 
   // useEffect, mis jälgib selectedOption muutusi ja salvestab need kohalikku salvestusse
   useEffect(() => {
-    localStorage.setItem(name, JSON.stringify(selectedOption));
+    if(isRemembered) {
+      localStorage.setItem(name, JSON.stringify(selectedOption));
+    }
     let newArrayOfObj;
     if (isMulti) {
       newArrayOfObj = selectedOption ? selectedOption.map(({ value }) => ({
@@ -58,9 +39,8 @@ const SearchDropdown = ({ name, options, isMulti, onChange, onInputChange, reset
     } else {
       onChange([{ value: name }]);
     }
-  }, [selectedOption, name, isMulti, onChange]);
-
-
+    console.log("selectedOption: ", selectedOption);
+  }, [selectedOption, name, isMulti, onChange, isRemembered]);
 
 
   const inputChangeHandler = (e) => {
