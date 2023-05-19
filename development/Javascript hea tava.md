@@ -33,9 +33,7 @@ Vabandust segaduse pärast! Siin on täielik juhend:
 27. [Koodi läbivaatamine](#Koodi-läbivaatamine)
 28. [Muutujate nimetamine](#Muutujate-nimetamine)
 29. [Koodi taaskasutamine](#Koodi-taaskasutamine)
-30. [Optimeeri jõudlust](#Opt
-
-imeeri-jõudlust)
+30. [Optimeeri jõudlust](#Optimeeri-jõudlust)
 31. [Kasuta väliseid skripte](#Kasuta-väliseid-skripte)
 32. [Kasuta CDN-e](#Kasuta-CDN-e)
 33. [Pidage oma JavaScripti ajakohasena](#Pidage-oma-JavaScripti-ajakohasena)
