@@ -20,6 +20,15 @@
 .tab-h {
   @apply px-2 md:px-3;
 }
+.user-tab-h-d {
+  @apply w-full py-2 px-4 border border-borderGray;
+}
+.user-tab-h-m {
+  @apply lg:hidden w-44 py-2 px-4 border bg-neutral-200 border-borderGray text-xs flex items-center md:text-sm font-semibold;
+}
+.user-tab-row {
+  @apply flex flex-col justify-center items-center text-sm md:text-lg lg:flex-row w-full border border-borderGray shadow p-4 lg:shadow-none lg:border-none mb-8 lg:mb-0 lg:p-0 group-hover:border-darkGray;
+}
 .no-scrollbar::-webkit-scrollbar {
   display: none; /*Safari*/
 }
