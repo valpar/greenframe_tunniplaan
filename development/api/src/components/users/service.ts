@@ -25,6 +25,7 @@ const userService = {
         return user[0];
       }
     } catch (error) {
+      console.log(error);
       return false;
     }
   },

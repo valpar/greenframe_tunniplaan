@@ -63,8 +63,8 @@ app.post("/users", checkAlphabet, userController.addUser);
 app.get("/users", userController.getAllUsers);
 app.get("/users/:id", userController.getUserById);
 app.delete("/users/:id", userController.deleteUser);
-app.patch("/users/:id", checkAlphabet, userController.updateUserById);
-
+app.patch("/users/:id", userController.updateUserById);
+// app.patch("/users/:id", checkAlphabet, userController.updateUserById);
 
 
 app.post("/googleauth", authController.googleAuth);
