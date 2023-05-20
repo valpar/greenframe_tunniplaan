@@ -535,7 +535,7 @@ const Home = () => {
   return (
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
       <div className="mx-auto w-full">
-        <div className="lg:fixed lg:w-[73rem] lg:h-28 bg-white">
+        <div className="lg:fixed lg:w-[73rem] lg:h-28 bg-white z-10">
           <Header
             profile={profile}
             onClick={showUserRollesHandler}
