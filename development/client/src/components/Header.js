@@ -1,5 +1,5 @@
 import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export const Header = (props) => {
   const {
@@ -11,7 +11,7 @@ export const Header = (props) => {
     login,
     logOut,
     userRollHandler,
-    userAdminHandler,
+    showMockLogin,
     showMobileFilters,
     userRoll,
     admin,
@@ -21,6 +21,8 @@ export const Header = (props) => {
     mobileMenuHandler,
     showSchedule,
     hiddeMobileIcon,
+    onUsersManagement,
+    usersListOpen,
   } = props;
 
   return (
@@ -83,7 +85,7 @@ export const Header = (props) => {
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rotate-45 bg-white border-l rounded-br-full border-t border-borderGray"></div>
                   <div className="flex flex-col justify-around items-center p-4 space-y-2 border border-borderGray  green-shadow bg-white w-44">
                     <p className="uppercase text-center">{userRoll}</p>
-                    {!localStorage.getItem('token') && (
+                    {!localStorage.getItem("token") && (
                       <button
                         onClick={login}
                         className="btn-period"
@@ -94,7 +96,7 @@ export const Header = (props) => {
                       </button>
                     )}
 
-                    {localStorage.getItem('token') && (
+                    {localStorage.getItem("token") && (
                       <button
                         onClick={logOut}
                         className="btn-period"
@@ -111,7 +113,7 @@ export const Header = (props) => {
                       type="button"
                       name="admin"
                     >
-                      Haldus
+                      Haldus (mock)
                     </button>
                     <button
                       onClick={userRollHandler}
@@ -119,7 +121,7 @@ export const Header = (props) => {
                       type="button"
                       name="lecturer"
                     >
-                      Õppejõud
+                      Õppejõud (mock)
                     </button>
                     <button
                       onClick={userRollHandler}
@@ -127,27 +129,28 @@ export const Header = (props) => {
                       type="button"
                       name="student"
                     >
-                      Õpilane
+                      Õpilane (mock)
                     </button>
-                    <button
-                      onClick={userRollHandler}
-                      className="btn-period"
-                      type="button"
-                      name="student"
-                    >
-                      Kasutajad
-                    </button>
-                    <div>
-                    <Link to="/users">Kasutajate admin</Link>
-                    </div>
-                    <button
-                      onClick={userAdminHandler}
-                      className="btn-period"
-                      type="button"
-                      name="logout"
-                    >
-                      Logi välja
-                    </button>
+                    {admin && (
+                      <button
+                        onClick={onUsersManagement}
+                        className="btn-period"
+                        type="button"
+                        name="userManagement"
+                      >
+                        Kasutajate haldus
+                      </button>
+                    )}
+                    {!localStorage.getItem("token") && showMockLogin && (
+                      <button
+                        onClick={userRollHandler}
+                        className="btn-period"
+                        type="button"
+                        name="logout"
+                      >
+                        Logi välja (mock)
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -157,7 +160,7 @@ export const Header = (props) => {
 
         <div className="lg:hidden flex flex-row w-40 justify-end items-center space-x-7 pr-2">
           {/* Mobile schedule add */}
-          {admin && isTabletOrMobile && !hiddeMobileIcon && (
+          {!usersListOpen && admin && isTabletOrMobile && !hiddeMobileIcon && (
             <i
               className={`bi bi-plus-lg text-3xl pt-[0.2rem] cursor-pointer ${
                 scrollY < 766 && showSchedule ? "text-borderGray" : ""
@@ -168,7 +171,7 @@ export const Header = (props) => {
           {/* Mobile filters */}
           <i
             className={`${
-              hiddeMobileIcon ? "hidden" : ""
+              hiddeMobileIcon || usersListOpen ? "hidden" : ""
             } bi bi-sliders text-2xl pt-[0.1rem] pr-1 cursor-pointer ${
               scrollY < 766 && showMobileFilters ? "text-borderGray" : ""
             }`}
@@ -177,7 +180,9 @@ export const Header = (props) => {
           {/* Hamburger menu */}
           <button
             id="menu-btn"
-            className="hamburger focus:outline-none"
+            className={`${
+              usersListOpen ? "hidden" : ""
+            } hamburger focus:outline-none`}
             type="button"
             onClick={mobileMenuHandler}
           >
@@ -185,6 +190,12 @@ export const Header = (props) => {
             <span className="hamburger-middle"></span>
             <span className="hamburger-bottom"></span>
           </button>
+          {usersListOpen && (
+            <i
+              onClick={onUsersManagement}
+              className={`bi bi-x-lg text-[1.6em] mt-[0.1rem]`}
+            ></i>
+          )}
         </div>
       </div>
 
