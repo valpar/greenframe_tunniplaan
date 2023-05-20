@@ -14,6 +14,7 @@ export const InputOverlappingLabel = (props) => {
   const inputChangeHandler = (event) => {
     event.preventDefault();
     props.onChange({
+      id: props.index,
       name: props.name,
       value:
         event.target.name === "distanceLink"

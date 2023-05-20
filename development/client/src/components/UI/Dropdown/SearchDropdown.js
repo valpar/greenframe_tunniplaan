@@ -1,43 +1,60 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import Select, { components } from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { isMobile } from "react-device-detect";
 
-const SearchDropdown = (props) => {
+const SearchDropdown = ({ name, options, isMulti, onChange, onInputChange, reset, topLabel, label, isRemembered }) => {
   const [placeholderColor, setPlaceHolderColor] = useState("gray");
-  const changeHandler = (choice) => {
-    let newArrayOfObj;
-    if (props.isMulti) {
-      newArrayOfObj = choice.map(({ value }) => ({
-        [props.name]: value.trim(),
-      }));
+
+  // Algseisundi loomine kasutades kohalikku salvestust juhul kui salvestus on soovitud
+  const [selectedOption, setSelectedOption] = useState(() => {
+    if(isRemembered) {
+      const storedValue = localStorage.getItem(name);
+      return storedValue ? JSON.parse(storedValue) : null;
+    } else {return null}
+  });
+
+
+  const handleChange = (selectedOption) => {
+    setSelectedOption(selectedOption);
+  };
+
+  // useEffect, mis jälgib selectedOption muutusi ja salvestab need kohalikku salvestusse
+  useEffect(() => {
+    if(isRemembered) {
+      localStorage.setItem(name, JSON.stringify(selectedOption));
     }
-    if (!props.isMulti) {
-      newArrayOfObj = [choice].map(({ value }) => ({
-        [props.name]: value.trim(),
-      }));
+    let newArrayOfObj;
+    if (isMulti) {
+      newArrayOfObj = selectedOption ? selectedOption.map(({ value }) => ({
+        [name]: value.trim(),
+      })) : [];
+    } else {
+      newArrayOfObj = selectedOption ? [{ [name]: selectedOption.value.trim() }] : [];
     }
 
     if (newArrayOfObj.length > 0) {
-      props.onChange(newArrayOfObj);
+      onChange(newArrayOfObj);
     } else {
-      props.onChange([{ value: props.name }]);
+      onChange([{ value: name }]);
     }
-  };
+    console.log("selectedOption: ", selectedOption);
+  }, [selectedOption, name, isMulti, isRemembered]);
+
 
   const inputChangeHandler = (e) => {
-    if (props.onInputChange) {
-      props.onInputChange(e);
+    if (onInputChange) {
+      onInputChange(e);
     }
   };
   const refChangeHandler = useCallback(
     (ref) => {
-      if (props.reset && ref) {
+      if (reset && ref) {
         ref.clearValue();
       }
     },
-    [props.reset]
+    [reset]
   );
 
   const { DropdownIndicator } = components;
@@ -70,18 +87,18 @@ const SearchDropdown = (props) => {
       onMouseLeave={mouseLeaveHandler}
       className="relative group w-full"
     >
-      {props.topLabel && <label>{props.topLabel}</label>}
+      {topLabel && <label>{topLabel}</label>}
       {!isMobile && window.innerWidth >= 1024 && (
         <div className="absolute bg-collegeGreen h-11 group-hover:animate-peeper" />
       )}
       <Select
         components={{ DropdownIndicator: CustomDropdownIndicator }}
         ref={refChangeHandler}
-        value={props?.reset ? "" : undefined}
-        placeholder={props.label}
-        options={props.options}
-        onChange={changeHandler}
-        isMulti={props.isMulti ? true : false}
+        value={selectedOption}
+        placeholder={label}
+        options={options}
+        onChange={handleChange}
+        isMulti={isMulti ? true : false}
         onInputChange={inputChangeHandler}
         noOptionsMessage={(value) => (value = "")}
         styles={{

@@ -20,6 +20,7 @@ import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { addDays, subDays } from "date-fns";
 import { Header } from "../components/Header";
 import { useMediaQuery } from "react-responsive";
+import UserList from "../components/UserList";
 
 const Home = () => {
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
@@ -32,7 +33,16 @@ const Home = () => {
   const [scheduleLoading, setScheduleLoading] = useState(true);
   const [hasServerError, setHasServerError] = useState(undefined);
 
-  const [loginInfo, setLoginInfo] = useState(null); // Sisselogitud kasutaja intentifitseerimiseks backis.
+  // const [loginInfo, setLoginInfo] = useState(null); // Sisselogitud kasutaja intentifitseerimiseks backis.
+
+  let [loginInfo, setLoginInfo] = useState(() => {
+    let token = localStorage.getItem("token");
+    if (token === {}) {
+      return null;
+    }
+    // console.log("Token algväärtustamine",token);
+    return token ? JSON.parse(token) : {};
+  });
 
   const { response, isLoading, error } = useAxios(
     {
@@ -57,6 +67,7 @@ const Home = () => {
   const [hiddeMobileFilters, setHiddeMobileFilters] = useState(false);
   const [openModalAnimation, setOpenModalAnimation] = useState(false);
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1023px)" });
+  const [showUsersList, setShowUsersList] = useState(false);
 
   const work_Data = useCallback(() => {
     setScheduleLoading(isLoading);
@@ -261,6 +272,7 @@ const Home = () => {
     if (dropdownsSelection.length === 0) {
       setFilteredData([...data]);
     }
+    console.log("Filter", dropdownsSelection);
   }, [data, dropdownsSelection]);
 
   filteredData.sort(
@@ -270,26 +282,30 @@ const Home = () => {
 
   const userRollHandler = (event) => {
     event.preventDefault();
-    // if (event.target.name === "admin") {
-    //   setAdmin(true);
-    //   setUserStudent(false);
-    //   setUserLecturer(false);
-    // }
-    // if (event.target.name === "lecturer") {
-    //   setAdmin(false);
-    //   setUserStudent(false);
-    //   setUserLecturer(true);
-    // }
-    // if (event.target.name === "student") {
-    //   setAdmin(false);
-    //   setUserLecturer(false);
-    //   setUserStudent(true);
-    // }
-    // if (event.target.name === "logout") {
-    //   setAdmin(false);
-    //   setUserLecturer(false);
-    //   setUserStudent(false);
-    // }
+    if (event.target.name === "admin") {
+      setAdmin(true);
+      setUserStudent(false);
+      setUserLecturer(false);
+    }
+    if (event.target.name === "lecturer") {
+      setAdmin(false);
+      setUserStudent(false);
+      setUserLecturer(true);
+    }
+    if (event.target.name === "student") {
+      setAdmin(false);
+      setUserLecturer(false);
+      setUserStudent(true);
+    }
+    if (event.target.name === "logout") {
+      setAdmin(false);
+      setUserLecturer(false);
+      setUserStudent(false);
+    }
+    setShowUsersModal(false);
+  };
+
+  const userAdminHandler = (event) => {
     setShowUsersModal(false);
   };
 
@@ -390,12 +406,15 @@ const Home = () => {
   const [googleAccessToken, setGoogleAcessToken] = useState([]);
   // const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
-  const [googleProfile, setGoogleProfile] = useState([]);
+  let [googleProfile, setGoogleProfile] = useState(() => {
+    let localData = localStorage.getItem("localGoogleProfile");
+    return localData ? JSON.parse(localData) : {};
+  });
   const [userPicture, setUserPicture] = useState([]);
 
   const login = useGoogleLogin({
     onSuccess: (googleResponse) => {
-      console.log("Login Successful:", googleResponse);
+      // console.log("Login Successful:", googleResponse);
       setGoogleAcessToken(googleResponse.access_token); // selleks et seda saata backi autentimiseks
 
       axios
@@ -410,14 +429,28 @@ const Home = () => {
         )
         .then((result) => {
           setGoogleProfile(result.data);
+          if (result.data) {
+            localStorage.setItem(
+              "localGoogleProfile",
+              JSON.stringify(result.data)
+            );
+          }
         })
         .catch((err) => console.log(err)); // kui google acess tokeniga ligipääs ebaõnnestus
     },
     onError: (error) => console.log("Login Failed:", error), // kui google esmasel pöördumisel juba tekkis viga
   });
 
+  // if (localStorage.getItem('localGoogleProfile')) {
+  // setGoogleProfile = JSON.parse(localStorage.getItem('localGoogleProfile'));
+  // console.log ("tagastatud google profile",JSON.parse(localStorage.getItem('localGoogleProfile')));
+
+  // }
+
+  // console.log ("tagastatud google profile",JSON.parse(localStorage.getItem('localGoogleProfile')));
+  // console.log("see on õige loginInfo",loginInfo);
   useEffect(() => {
-    console.log(googleProfile);
+    console.log("see on õige googleProfile", googleProfile);
     setUserPicture(
       googleProfile?.picture ?? require("../assets/icons/user.png")
     );
@@ -425,15 +458,19 @@ const Home = () => {
 
   // log out function to log the user out of google and set the profile array to null
   const logOut = () => {
+    localStorage.clear();
     googleLogout();
     setProfile(null);
     setGoogleProfile(null);
     setLoginInfo(null);
     setShowUsersModal(false);
+    setAdmin(false);
+    setUserLecturer(false);
+    setUserStudent(false);
   };
   // --- Google login end ---
 
-  // --- Schedule login ---
+  // --- Schedule back login ---
 
   useEffect(() => {
     async function fetchProfile() {
@@ -449,6 +486,9 @@ const Home = () => {
           }
         );
         setLoginInfo(response.data);
+        if (response.data) {
+          localStorage.setItem("token", JSON.stringify(response.data));
+        }
         setShowUsersModal(false);
         console.log("Roll: ", response.data.user.role);
       } catch (error) {
@@ -487,6 +527,11 @@ const Home = () => {
     }
   }, [openModalAnimation]);
 
+  const usersListHandler = () => {
+    setShowUsersList((prevState) => (prevState = !prevState));
+    setShowUsersModal(false);
+  };
+
   return (
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
       <div className="mx-auto w-full">
@@ -499,7 +544,7 @@ const Home = () => {
             showUsersModal={showUsersModal}
             login={login}
             logOut={logOut}
-            userRollHandler={userRollHandler}
+            userAdminHandler={userAdminHandler}
             userRoll={userRole}
             admin={admin}
             isTabletOrMobile={isTabletOrMobile}
@@ -510,6 +555,10 @@ const Home = () => {
             showSchedule={addSchedule}
             showMobileFilters={showMobileFilters}
             hiddeMobileIcon={hiddeMobileFilters}
+            userRollHandler={userRollHandler}
+            onUsersManagement={usersListHandler}
+            showMockLogin={userStudent || userLecturer || admin}
+            usersListOpen={showUsersList}
           />
         </div>
 
@@ -519,121 +568,142 @@ const Home = () => {
             userInfo={userPicture}
             loginInfo={loginInfo}
             userRollHandler={userRollHandler}
+            userAdminHandler={userAdminHandler}
             userRoll={userRole}
             login={login}
             logOut={logOut}
             showMobileMenu={openModalAnimation}
+            onUsersManagement={usersListHandler}
+            usersListOpen={showUsersList}
+            showMockLogin={userStudent || userLecturer || admin}
+            admin={admin}
           />
         )}
-        <div className="flex flex-1 flex-col lg:flex-row lg:justify-between mt-20 lg:mt-32 bg-white">
-          <div
-            ref={filtersRef}
-            className="flex-1 px-2 lg:fixed top-20 w-full bg-white lg:w-60 pt-2 lg:pt-3 lg:px-0 lg:pr-2 overflow-y-scroll lg:top-32 lg:bottom-0 no-scrollbar"
-          >
-            {admin && !isTabletOrMobile && (
-              <AddScheduleButton
-                addScheduleHandler={addScheduleHandler}
-                addSchedule={addSchedule}
-              />
-            )}
+        {showUsersList && (
+          <div>
+            <UserList onClose={usersListHandler} />
+          </div>
+        )}
+        {!showUsersList && (
+          <div className="flex flex-1 flex-col lg:flex-row lg:justify-between mt-20 lg:mt-32 bg-white">
             <div
-              className={`filters ${
-                !showMobileFilters
-                  ? !isTabletOrMobile
-                    ? "w-full"
-                    : "hidden"
-                  : "w-full"
-              } -mt-3 lg:mt-0 bg-white lg:relative mb-1 lg:mb-0`}
+              ref={filtersRef}
+              className="flex-1 px-2 lg:fixed top-20 w-full bg-white lg:w-60 pt-2 lg:pt-3 lg:px-0 lg:pr-2 overflow-y-scroll lg:top-32 lg:bottom-0 no-scrollbar"
             >
-              <ScheduleFilters
-                onEmptyFilters={emptyFiltersHandler}
-                onPassingFilters={dataFilterHandler}
-              />
+              {admin && !isTabletOrMobile && (
+                <AddScheduleButton
+                  addScheduleHandler={addScheduleHandler}
+                  addSchedule={addSchedule}
+                />
+              )}
+              <div
+                className={`filters ${
+                  !showMobileFilters
+                    ? !isTabletOrMobile
+                      ? "w-full"
+                      : "hidden"
+                    : "w-full"
+                } -mt-3 lg:mt-0 bg-white lg:relative mb-1 lg:mb-0`}
+              >
+                <ScheduleFilters
+                  onEmptyFilters={emptyFiltersHandler}
+                  onPassingFilters={dataFilterHandler}
+                />
+              </div>
+            </div>
+
+            <div className={`w-full px-2 lg:px-0 lg:pl-64`}>
+              {scheduleLoading && <Spinner containerStyle="py-8" />}
+              {hasServerError && (
+                <div className="p-4 lg:mt-3 border border-borderGray shadow shadow-borderGray">
+                  <div className="flex justify-center py-4 text-4xl lg:text-6xl text-collegeRed">
+                    <FontAwesomeIcon icon={faExclamation} />
+                  </div>
+                  <p className="pb-4">{content.errorMessages.serverError}</p>
+                  <button
+                    onClick={scheduleReloadHandler}
+                    className="py-1 px-8 my-4 border border-borderGray shadow hover:bg-borderGray hover:shadow-lg duration-150"
+                  >
+                    Uuesti
+                  </button>
+                </div>
+              )}
+              {admin && addSchedule && (
+                <ScheduleAddition
+                  scheduled={data}
+                  onNewOccurence={newOccurenceHandler}
+                  onClose={closeAdditionModalHandler}
+                  isTabletOrMobile={isTabletOrMobile}
+                />
+              )}
+              {[
+                ...new Set(
+                  filteredData.map((e) => e.startTime.substring(0, 10))
+                ),
+              ].map((e, i, s) => {
+                let noSchoolWork =
+                  dateService.formatMilliseconds(s[i + 1]) -
+                    dateService.formatMilliseconds(e) >
+                  86400000;
+                let startDate;
+                let endDate;
+                if (noSchoolWork) {
+                  startDate = dateService.formatDayLongMonth(
+                    addDays(new Date(e), 1)
+                  );
+                  endDate = dateService.formatDayLongMonth(
+                    subDays(new Date(s[i + 1]), 1)
+                  );
+                }
+
+                return (
+                  <div
+                    key={i}
+                    className={`${i + 1 === s.length ? "mb-8" : ""}`}
+                  >
+                    <div
+                      className={`flex items-center justify-between bg-collegeGreen w-full px-3 h-12 ${
+                        i === 0 ? "mt-1 lg:mt-3" : "mt-9"
+                      } text-base md:text-lg`}
+                    >
+                      <div className="flex">
+                        <div className="font-bold pr-2 capitalize -ml-1 md:ml-0">
+                          {dateService.formatWeekday(e)}
+                        </div>
+                        <div>{dateService.formatDayLongMonth(e)}</div>
+                      </div>
+                      <div>{dateService.formatYear(e)}</div>
+                    </div>
+                    <Table
+                      userLecturer={userLecturer}
+                      admin={admin}
+                      isLoggedIn={admin || userLecturer || userStudent}
+                      day={e}
+                      filteredData={filteredData}
+                      rawData={data}
+                      onUpdate={newOccurenceHandler}
+                      isTabletOrMobile={isTabletOrMobile}
+                    />
+                    {noSchoolWork && (
+                      <p className="my-8">{`Perioodil ${startDate} - ${endDate} õppetööd ei toimu!`}</p>
+                    )}
+                  </div>
+                );
+              })}
+              {(scheduleLoading ||
+                response?.schedule.length === 0 ||
+                filteredData.length === 0) && (
+                <p className="mt-8">
+                  {scheduleLoading
+                    ? "Laeb"
+                    : !hasServerError
+                    ? notScheduled
+                    : ""}
+                </p>
+              )}
             </div>
           </div>
-
-          <div className={`w-full px-2 lg:px-0 lg:pl-64`}>
-            {scheduleLoading && <Spinner containerStyle="py-8" />}
-            {hasServerError && (
-              <div className="p-4 lg:mt-3 border border-borderGray shadow shadow-borderGray">
-                <div className="flex justify-center py-4 text-4xl lg:text-6xl text-collegeRed">
-                  <FontAwesomeIcon icon={faExclamation} />
-                </div>
-                <p className="pb-4">{content.errorMessages.serverError}</p>
-                <button
-                  onClick={scheduleReloadHandler}
-                  className="py-1 px-8 my-4 border border-borderGray shadow hover:bg-borderGray hover:shadow-lg duration-150"
-                >
-                  Uuesti
-                </button>
-              </div>
-            )}
-            {admin && addSchedule && (
-              <ScheduleAddition
-                scheduled={data}
-                onNewOccurence={newOccurenceHandler}
-                onClose={closeAdditionModalHandler}
-                isTabletOrMobile={isTabletOrMobile}
-              />
-            )}
-            {[
-              ...new Set(filteredData.map((e) => e.startTime.substring(0, 10))),
-            ].map((e, i, s) => {
-              let noSchoolWork =
-                dateService.formatMilliseconds(s[i + 1]) -
-                  dateService.formatMilliseconds(e) >
-                86400000;
-              let startDate;
-              let endDate;
-              if (noSchoolWork) {
-                startDate = dateService.formatDayLongMonth(
-                  addDays(new Date(e), 1)
-                );
-                endDate = dateService.formatDayLongMonth(
-                  subDays(new Date(s[i + 1]), 1)
-                );
-              }
-
-              return (
-                <div key={i} className={`${i + 1 === s.length ? "mb-8" : ""}`}>
-                  <div
-                    className={`flex items-center justify-between bg-collegeGreen w-full px-3 h-12 ${
-                      i === 0 ? "mt-1 lg:mt-3" : "mt-9"
-                    } text-base md:text-lg`}
-                  >
-                    <div className="flex">
-                      <div className="font-bold pr-2 capitalize -ml-1 md:ml-0">
-                        {dateService.formatWeekday(e)}
-                      </div>
-                      <div>{dateService.formatDayLongMonth(e)}</div>
-                    </div>
-                    <div>{dateService.formatYear(e)}</div>
-                  </div>
-                  <Table
-                    userLecturer={userLecturer}
-                    admin={admin}
-                    isLoggedIn={admin || userLecturer || userStudent}
-                    day={e}
-                    filteredData={filteredData}
-                    rawData={data}
-                    onUpdate={newOccurenceHandler}
-                    isTabletOrMobile={isTabletOrMobile}
-                  />
-                  {noSchoolWork && (
-                    <p className="my-8">{`Perioodil ${startDate} - ${endDate} õppetööd ei toimu!`}</p>
-                  )}
-                </div>
-              );
-            })}
-            {(scheduleLoading ||
-              response?.schedule.length === 0 ||
-              filteredData.length === 0) && (
-              <p className="mt-8">
-                {scheduleLoading ? "Laeb" : !hasServerError ? notScheduled : ""}
-              </p>
-            )}
-          </div>
-        </div>
+        )}
       </div>
       {!isTabletOrMobile && <GoTopButton />}
     </div>

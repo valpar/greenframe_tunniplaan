@@ -9,6 +9,16 @@ const ScheduleFilters = (props) => {
   const [roomsData, setRoomsData] = useState([]);
   const [subjectsData, setSubjectsData] = useState([]);
   const [isReset, setIsReset] = useState(false);
+  
+  const [courseFilterDefValue, setCourseFilterDefValue] = useState(() => {
+    let tmp = localStorage.getItem('courseCode');
+    if (tmp === {}) { return null;} 
+    return tmp ? JSON.parse(tmp) : undefined;    
+  });
+  
+  const [lecturerFilterDefValue, setLecturerFilterDefValue] = useState();
+  const [roomFilterDefValue, setRoomFilterDefValue] = useState();
+  const [subjectFilterDefValue, setSubjectFilterDefValue] = useState();
 
   const {
     response: courseResponse,
@@ -110,7 +120,8 @@ const ScheduleFilters = (props) => {
     if (isReset) setIsReset((prevState) => (prevState = !prevState));
     props.onPassingFilters(filterObj);
   };
-  const emptyFiltersHandler = () => {
+
+   const emptyFiltersHandler = () => {
     setIsReset((prevState) => (prevState = !prevState));
     props.onEmptyFilters();
   };
@@ -121,10 +132,12 @@ const ScheduleFilters = (props) => {
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
+          defValue={courseFilterDefValue}
           options={courseData}
           label="Kursus"
           name="courseCode"
           isMulti={true}
+          isRemembered={true}
           className="order-2"
         />
       </div>
@@ -137,30 +150,36 @@ const ScheduleFilters = (props) => {
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
+          defValue={subjectFilterDefValue}
           options={subjectsData}
           label="Õppeaine"
           name="subject"
           isMulti={true}
+          isRemembered={true}
         />
       </div>
       <div>
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
+          defValue={lecturerFilterDefValue}
           options={lecturerData}
           label="Õppejõud"
           name="lecturer"
           isMulti={true}
+          isRemembered={true}
         />
       </div>
       <div>
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
+          defValue={roomFilterDefValue}
           options={roomsData}
           label="Ruum"
           name="room"
           isMulti={true}
+          isRemembered={true}
         />
       </div>
       <button

@@ -19,6 +19,7 @@ services:
     volumes:
       - ./api/src:/home/node/api/src
       - ./api/nodemon.json:/home/node/api/nodemon.json
+      - /home/node/api/node_modules
     container_name: ts-node-docker
     expose:
       - "4000"

@@ -10,7 +10,7 @@ const lecturerService = {
       );
       return lecturers;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return false;
     }
   },

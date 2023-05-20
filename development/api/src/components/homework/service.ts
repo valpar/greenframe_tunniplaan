@@ -37,20 +37,20 @@ const homeworkService = {
     extrasLink: string
   ): Promise<number | false | undefined> => {
     try {
-      console.log(
-        "createHomework",
-        description,
-        dueDate,
-        subjects_id,
-        extrasLink
-      );
+      // console.log(
+      //   "createHomework",
+      //   description,
+      //   dueDate,
+      //   subjects_id,
+      //   extrasLink
+      // );
       const [id]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         "INSERT INTO homeworks (description, dueDate, subjects_id, extrasLink) VALUES (?, ?, ?, ?)",
         [description, dueDate, subjects_id, extrasLink]
       );
       return id.insertId;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return false;
     }
   },
@@ -124,12 +124,12 @@ const homeworkService = {
                                         AND homeworks.dateDeleted is NULL order by scheduled.startTime desc limit 1) `,
         [subCode, subCode, actualDate, subCode, actualDate]
       );
-      console.log(actualDate, subCode);
+      // console.log(actualDate, subCode);
       if (homework[0][0] !== undefined) {
         return homework[0];
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return false;
     }
   },

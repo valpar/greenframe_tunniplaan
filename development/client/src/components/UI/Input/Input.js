@@ -1,5 +1,3 @@
-import classes from "./Input.module.css";
-
 const Input = (props) => {
   const inputChangeHandler = (event) => {
     event.preventDefault();
@@ -8,7 +6,7 @@ const Input = (props) => {
 
   return (
     <input
-      className={classes.container}
+      className=""
       onBlur={inputChangeHandler}
       onClick={props.onClick}
       onChange={inputChangeHandler}

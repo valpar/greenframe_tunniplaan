@@ -3,6 +3,8 @@ import { useState } from "react";
 
 const MobileMenu = (props) => {
   const [showUserOptions, setShowUserOptions] = useState(false);
+  const { onUsersManagement, usersListOpen, showMockLogin, admin, onClose } =
+    props;
 
   const loginHandler = () => {
     setShowUserOptions(true);
@@ -11,7 +13,12 @@ const MobileMenu = (props) => {
   const userRollHandler = (e) => {
     setShowUserOptions(false);
     props.userRollHandler(e);
-    props.onClose();
+    onClose();
+  };
+
+  const usersManagementHandler = () => {
+    onUsersManagement();
+    onClose();
   };
 
   return (
@@ -35,7 +42,8 @@ const MobileMenu = (props) => {
                   : "Logi sisse"}{" "}
                 / {props.userRoll ? props.userRoll : "Külaline"}
               </p>
-              {!props.loginInfo && (
+
+              {!localStorage.getItem("token") && (
                 <button
                   onClick={props.login}
                   className="btn-m-menu"
@@ -46,7 +54,7 @@ const MobileMenu = (props) => {
                 </button>
               )}
 
-              {props.loginInfo && (
+              {localStorage.getItem("token") && (
                 <button
                   onClick={props.logOut}
                   className="btn-m-menu"
@@ -56,22 +64,52 @@ const MobileMenu = (props) => {
                   LOGI VÄLJA
                 </button>
               )}
-              {/*               
-              {props.userRoll === "LOGI SISSE" && (
-                <button onClick={loginHandler} className="btn-m-menu">
-                  Logi Sisse
+              {admin && (
+                <button
+                  onClick={usersManagementHandler}
+                  className="btn-m-menu"
+                  type="button"
+                  name="userManagement"
+                >
+                  KASUTAJATE HALDUS
                 </button>
               )}
-              {props.userRoll !== "LOGI SISSE" && (
-                <button
-                  onClick={userRollHandler}
-                  type="button"
-                  name="logout"
-                  className="btn-m-menu"
-                >
-                  Logi välja
-                </button>
-              )} */}
+
+              {!localStorage.getItem("token") &&
+                props.userRoll !== "LOGI SISSE" && (
+                  <button
+                    onClick={userRollHandler}
+                    type="button"
+                    name="logout"
+                    className="btn-m-menu"
+                  >
+                    Logi välja (mock)
+                  </button>
+                )}
+              <button
+                onClick={userRollHandler}
+                type="button"
+                name="admin"
+                className="btn-m-menu"
+              >
+                Haldus (mock)
+              </button>
+              <button
+                onClick={userRollHandler}
+                type="button"
+                name="lecturer"
+                className="btn-m-menu"
+              >
+                Õppejõud (mock)
+              </button>
+              <button
+                onClick={userRollHandler}
+                type="button"
+                name="student"
+                className="btn-m-menu"
+              >
+                Õpilane (mock)
+              </button>
               <a
                 className="btn-m-menu text-center"
                 target="_blank"
@@ -88,34 +126,6 @@ const MobileMenu = (props) => {
               >
                 Riiul
               </a>
-            </div>
-          )}
-          {showUserOptions && (
-            <div className="flex flex-col space-y-8 w-full pb-10 pt-3">
-              <button
-                onClick={userRollHandler}
-                type="button"
-                name="admin"
-                className="btn-m-menu"
-              >
-                Haldus
-              </button>
-              <button
-                onClick={userRollHandler}
-                type="button"
-                name="lecturer"
-                className="btn-m-menu"
-              >
-                Õppejõud
-              </button>
-              <button
-                onClick={userRollHandler}
-                type="button"
-                name="student"
-                className="btn-m-menu"
-              >
-                Õpilane
-              </button>
             </div>
           )}
         </div>
