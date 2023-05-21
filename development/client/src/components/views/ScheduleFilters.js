@@ -4,18 +4,21 @@ import SearchDropdown from "../UI/Dropdown/SearchDropdown";
 import CalendarInput from "../UI/Calendar/CalendarInput";
 
 const ScheduleFilters = (props) => {
+  const { onPassingFilters, onEmptyFilters } = props;
   const [courseData, setCourseData] = useState([]);
   const [lecturerData, setLecturerData] = useState([]);
   const [roomsData, setRoomsData] = useState([]);
   const [subjectsData, setSubjectsData] = useState([]);
   const [isReset, setIsReset] = useState(false);
-  
+
   const [courseFilterDefValue, setCourseFilterDefValue] = useState(() => {
-    let tmp = localStorage.getItem('courseCode');
-    if (tmp === {}) { return null;} 
-    return tmp ? JSON.parse(tmp) : undefined;    
+    let tmp = localStorage.getItem("courseCode");
+    if (tmp === {}) {
+      return null;
+    }
+    return tmp ? JSON.parse(tmp) : undefined;
   });
-  
+
   const [lecturerFilterDefValue, setLecturerFilterDefValue] = useState();
   const [roomFilterDefValue, setRoomFilterDefValue] = useState();
   const [subjectFilterDefValue, setSubjectFilterDefValue] = useState();
@@ -118,12 +121,12 @@ const ScheduleFilters = (props) => {
 
   const filtersHandler = (filterObj) => {
     if (isReset) setIsReset((prevState) => (prevState = !prevState));
-    props.onPassingFilters(filterObj);
+    onPassingFilters(filterObj);
   };
 
-   const emptyFiltersHandler = () => {
+  const emptyFiltersHandler = () => {
     setIsReset((prevState) => (prevState = !prevState));
-    props.onEmptyFilters();
+    onEmptyFilters();
   };
 
   return (

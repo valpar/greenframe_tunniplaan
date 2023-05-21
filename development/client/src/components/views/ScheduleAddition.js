@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import useAxios from "../../hooks/useAxios";
-import DateOfOccurenceForm from "../addScheduleInputForm/DateOfOccurenceForm";
+import DateOfOccurenceForm from "./DateOfOccurenceForm";
 import AddDropdown from "../UI/Dropdown/AddDropdown";
 import axios from "axios";
-import AddNewItem from "../addNewObject/AddNewItem";
+import AddNewItem from "./AddNewItem";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
 import config from "../../config.json";
 import content from "../../assets/content/content.json";
@@ -12,6 +12,16 @@ import RequestModal from "../UI/RequestModal/RequestModal";
 axios.defaults.baseURL = config.api.url;
 
 const ScheduleAddition = (props) => {
+  const {
+    editMode,
+    editData,
+    scheduled,
+    onNewOccurence,
+    onUpdate,
+    onClose,
+    isTabletOrMobile,
+  } = props;
+
   const [courseData, setCourseData] = useState([]);
   const [lecturerData, setLecturerData] = useState([]);
   const [roomsData, setRoomsData] = useState([]);
@@ -38,36 +48,36 @@ const ScheduleAddition = (props) => {
   const { mandatoryField } = content.errorMessages;
 
   useEffect(() => {
-    if (props.editMode) {
+    if (editMode) {
       setAddedLecture([
         {
-          comment: props.editData.comment,
+          comment: editData?.comment,
           rooms:
-            props.editData.rooms !== ""
-              ? props.editData.rooms?.map((e) => {
+            editData?.rooms !== ""
+              ? editData?.rooms?.map((e) => {
                   return { roomId: e.roomId };
                 })
-              : props.editData.rooms,
+              : editData?.rooms,
           courses:
-            props.editData.courses !== ""
-              ? props.editData.courses?.map((e) => {
+            editData?.courses !== ""
+              ? editData?.courses?.map((e) => {
                   return { courseId: e.courseId };
                 })
-              : props.editData.courses,
-          subjectId: props.editData.subject.id,
+              : editData?.courses,
+          subjectId: editData?.subject.id,
           lecturers:
-            props.editData.lecturers !== ""
-              ? props.editData.lecturers?.map((e) => {
+            editData?.lecturers !== ""
+              ? editData?.lecturers?.map((e) => {
                   return { lecturerId: e.lecturerId };
                 })
-              : props.editData.lecturers,
-          distanceLink: props.editData.distanceLink,
+              : editData?.lecturers,
+          distanceLink: editData?.distanceLink,
         },
       ]);
       setNewOccurence([
         {
-          startTime: props.editData.startTime,
-          endTime: props.editData.endTime,
+          startTime: editData?.startTime,
+          endTime: editData?.endTime,
         },
       ]);
     }
@@ -320,11 +330,8 @@ const ScheduleAddition = (props) => {
     });
   };
   useEffect(() => {
-    if (
-      (newOccurence || addedLecture[0].lecturers?.length > 0) &&
-      props.scheduled
-    ) {
-      const lecturerOccupied = props.scheduled.filter((e) => {
+    if ((newOccurence || addedLecture[0].lecturers?.length > 0) && scheduled) {
+      const lecturerOccupied = scheduled.filter((e) => {
         let lecturer = [];
         if (e.lecturers && addedLecture[0].lecturers !== "") {
           lecturer = e.lecturers?.filter((lecturerE) => {
@@ -361,7 +368,7 @@ const ScheduleAddition = (props) => {
         }
         return false;
       });
-      if (lecturerOccupied.length > 0 && !props.editMode) {
+      if (lecturerOccupied.length > 0 && !editMode) {
         setShowConfirmModal({
           type: "lecturer",
           show: true,
@@ -369,11 +376,8 @@ const ScheduleAddition = (props) => {
         });
       }
     }
-    if (
-      (newOccurence || addedLecture[0].rooms?.length > 0) &&
-      props.scheduled
-    ) {
-      const roomOccupied = props.scheduled.filter((e) => {
+    if ((newOccurence || addedLecture[0].rooms?.length > 0) && scheduled) {
+      const roomOccupied = scheduled.filter((e) => {
         let room = [];
         if (e.rooms && addedLecture[0].rooms !== "") {
           room = e.rooms?.filter((roomE) => {
@@ -408,7 +412,7 @@ const ScheduleAddition = (props) => {
         }
         return false;
       });
-      if (roomOccupied.length > 0 && !props.editMode) {
+      if (roomOccupied.length > 0 && !editMode) {
         setShowConfirmModal({
           type: "room",
           show: true,
@@ -452,7 +456,7 @@ const ScheduleAddition = (props) => {
     setShowScheduleConfirmModal(false);
     setRequestLoading(true);
     setShowRequestModal(true);
-    if (!props.editMode) {
+    if (!editMode) {
       newOccurence.every(async (element) => {
         await axios
           .post(`/schedule`, {
@@ -472,10 +476,10 @@ const ScheduleAddition = (props) => {
           });
       });
     }
-    if (props.editMode) {
+    if (editMode) {
       newOccurence.every(async (element) => {
         await axios
-          .patch(`/schedule/${props.editData.id}`, {
+          .patch(`/schedule/${editData?.id}`, {
             ...addedLecture[0],
             ...element,
           })
@@ -512,7 +516,7 @@ const ScheduleAddition = (props) => {
         distanceLink: "",
       },
     ]);
-    props.onNewOccurence();
+    onNewOccurence();
   };
   const newRowHandler = () => {
     setNewOccurence((prevState) => {
@@ -528,10 +532,7 @@ const ScheduleAddition = (props) => {
     });
   };
 
-  useEffect(() => {
-    console.log(newOccurence);
-    console.log(addedLecture);
-  }, [newOccurence, addedLecture]);
+  useEffect(() => {}, [newOccurence, addedLecture]);
 
   const closeModalHandler = (dropdownToReset) => {
     setShowAddModal(false);
@@ -641,10 +642,8 @@ const ScheduleAddition = (props) => {
     setShowDeleteConfirmModal(false);
     setRequestLoading(true);
     setShowRequestModal(true);
-    await axios.delete(`/schedule/${props.editData.id}`).then((res) => {
-      console.log(res.status);
+    await axios.delete(`/schedule/${editData?.id}`).then((res) => {
       if (res.status === 200) {
-        console.log("jee");
         setRequestSuccess(true);
         setRequestLoading(false);
         setRequestMessage(content.successMessages.delete);
@@ -673,12 +672,12 @@ const ScheduleAddition = (props) => {
           requestMessage === content.successMessages.delete ||
           requestMessage === content.successMessages.update
         ) {
-          props.onUpdate();
+          onUpdate();
         }
         setShowRequestModal(false);
         setRequestSuccess(false);
         setRequestMessage("");
-        props.onClose();
+        onClose();
       }, 2000);
       return () => clearTimeout(timer);
     }
@@ -699,7 +698,7 @@ const ScheduleAddition = (props) => {
   return (
     <div
       className={`flex flex-col justify-center items-center p-4 mb-0 w-full ${
-        !props.editMode
+        !editMode
           ? "mt-1 mb-8 lg:mt-3 border border-borderGray shadow-md"
           : "mb-0"
       }`}
@@ -716,17 +715,17 @@ const ScheduleAddition = (props) => {
           roomsData={roomResponse}
           modalFor={modalContent}
           onNewItem={newItemhandler}
-          scheduled={props.scheduled}
+          scheduled={scheduled}
         />
       )}
       <div className="relative text-sm md:text-base font-bold w-full">
         <h6>
-          {props.editMode
+          {editMode
             ? "LOENGU MUUTMINE TUNNIPLAANIS"
             : "LOENGU LISAMINE TUNNIPLAANI"}
         </h6>
         <i
-          onClick={props.onClose}
+          onClick={onClose}
           className={`bi bi-x-lg absolute -top-1 -right-1 lg:top-0 lg:right-0 cursor-pointer text-3xl lg:text-xl leading-5 lg:hover:text-black lg:hover:scale-105 duration-150`}
         ></i>
       </div>
@@ -796,11 +795,11 @@ const ScheduleAddition = (props) => {
                 onDelete={deleteRowHandler}
                 onNotValidFields={occurenesIsValid}
                 onAfterSubmit={clearOccurenceFields}
-                editMode={props.editMode}
-                editData={props.editData}
+                editMode={editMode}
+                editData={editData}
                 occurenceLength={newOccurence.length}
                 isMobile={isMobile}
-                isTabletOrMobile={props.isTabletOrMobile}
+                isTabletOrMobile={isTabletOrMobile}
               />
             </div>
           );
@@ -809,10 +808,10 @@ const ScheduleAddition = (props) => {
 
       <div
         className={`relative flex ${
-          props.editMode ? "justify-between" : "justify-center lg:justify-end"
+          editMode ? "justify-between" : "justify-center lg:justify-end"
         } w-full px-2 lg:px-4 mb-4 mt-6 lg:mt-12`}
       >
-        {props.editMode && (
+        {editMode && (
           <>
             {showDeleteConfirmModal && (
               <div className="absolute lg:bottom-16 lg:-left-10">

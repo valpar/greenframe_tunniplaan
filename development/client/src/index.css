@@ -29,6 +29,9 @@
 .user-tab-row {
   @apply flex flex-col justify-center items-center text-sm md:text-lg lg:flex-row w-full border border-borderGray shadow p-4 lg:shadow-none lg:border-none mb-8 lg:mb-0 lg:p-0 group-hover:border-darkGray;
 }
+.user-tab-td {
+  @apply w-full py-2 px-4 border border-borderGray;
+}
 .no-scrollbar::-webkit-scrollbar {
   display: none; /*Safari*/
 }

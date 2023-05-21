@@ -4,17 +4,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { isMobile } from "react-device-detect";
 
-const SearchDropdown = ({ name, options, isMulti, onChange, onInputChange, reset, topLabel, label, isRemembered }) => {
+const SearchDropdown = ({
+  name,
+  options,
+  isMulti,
+  onChange,
+  onInputChange,
+  reset,
+  topLabel,
+  label,
+  isRemembered,
+}) => {
   const [placeholderColor, setPlaceHolderColor] = useState("gray");
 
   // Algseisundi loomine kasutades kohalikku salvestust juhul kui salvestus on soovitud
   const [selectedOption, setSelectedOption] = useState(() => {
-    if(isRemembered) {
+    if (isRemembered) {
       const storedValue = localStorage.getItem(name);
       return storedValue ? JSON.parse(storedValue) : null;
-    } else {return null}
+    } else {
+      return null;
+    }
   });
-
 
   const handleChange = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -22,16 +33,20 @@ const SearchDropdown = ({ name, options, isMulti, onChange, onInputChange, reset
 
   // useEffect, mis jälgib selectedOption muutusi ja salvestab need kohalikku salvestusse
   useEffect(() => {
-    if(isRemembered) {
+    if (isRemembered) {
       localStorage.setItem(name, JSON.stringify(selectedOption));
     }
     let newArrayOfObj;
     if (isMulti) {
-      newArrayOfObj = selectedOption ? selectedOption.map(({ value }) => ({
-        [name]: value.trim(),
-      })) : [];
+      newArrayOfObj = selectedOption
+        ? selectedOption.map(({ value }) => ({
+            [name]: value.trim(),
+          }))
+        : [];
     } else {
-      newArrayOfObj = selectedOption ? [{ [name]: selectedOption.value.trim() }] : [];
+      newArrayOfObj = selectedOption
+        ? [{ [name]: selectedOption.value.trim() }]
+        : [];
     }
 
     if (newArrayOfObj.length > 0) {
@@ -39,9 +54,7 @@ const SearchDropdown = ({ name, options, isMulti, onChange, onInputChange, reset
     } else {
       onChange([{ value: name }]);
     }
-    console.log("selectedOption: ", selectedOption);
   }, [selectedOption, name, isMulti, isRemembered]);
-
 
   const inputChangeHandler = (e) => {
     if (onInputChange) {
