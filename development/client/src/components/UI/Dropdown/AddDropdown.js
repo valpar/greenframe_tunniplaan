@@ -146,7 +146,6 @@ const AddDropdown = (props) => {
     setShowConfirmModal(true);
   };
   const confirmHandler = () => {
-    console.log(editData);
     setMenuIsOpen(undefined);
     setShowConfirmModal(false);
     props.onEdit({ ...editData, type: props.name });

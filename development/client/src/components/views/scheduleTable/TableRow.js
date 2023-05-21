@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import TableSubjectInfo from "./TableSubjectInfo";
 import { formatHoursMinutes } from "../../../utils/Format/Date";
-import ScheduleAddition from "../../scheduleAddition/ScheduleAddition";
+import ScheduleAddition from "../ScheduleAddition";
 import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg";
 import { ReactComponent as InfoIcon } from "../../../assets/icons/info.svg";
 import { useEffect } from "react";

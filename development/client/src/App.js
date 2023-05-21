@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./App.css";
-import Home from "./pages/Home";
+import Home from "./components/Home";
 
 function App() {
   return (

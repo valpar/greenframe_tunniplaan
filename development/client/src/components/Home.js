@@ -3,24 +3,22 @@ import useAxios from "../hooks/useAxios";
 
 import * as dateService from "../utils/Format/Date";
 
-import ScheduleFilters from "../components/searchFilters/ScheduleFilters";
-import ScheduleAddition from "../components/scheduleAddition/ScheduleAddition";
-import Table from "../components/UI/Table/Table";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ScheduleFilters from "./views/ScheduleFilters";
+import ScheduleAddition from "./views/ScheduleAddition";
+import Table from "./views/scheduleTable/Table";
 import { calculateSemesterDate } from "../utils/Calculate/Semester";
-import GoTopButton from "../components/UI/Button/GoTopButton";
-import MobileMenu from "../components/nav/MobileMenu";
-import { Spinner } from "../components/UI/Spinner";
-import content from "../assets/content/content.json";
+import GoTopButton from "./UI/Button/GoTopButton";
+import MobileMenu from "./views/MobileMenu";
+import { Spinner } from "./UI/Spinner";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useRef } from "react";
-import { AddScheduleButton } from "../components/UI/Button/AddScheduleButton";
-import { faExclamation } from "@fortawesome/free-solid-svg-icons";
+import { AddScheduleButton } from "./UI/Button/AddScheduleButton";
 import { addDays, subDays } from "date-fns";
-import { Header } from "../components/Header";
+import { Header } from "./views/Header";
 import { useMediaQuery } from "react-responsive";
-import UserList from "../components/UserList";
+import UsersList from "./views/UsersList";
+import { RequestError } from "./UI/RequestError";
 
 const Home = () => {
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
@@ -40,7 +38,7 @@ const Home = () => {
     if (token === {}) {
       return null;
     }
-    // console.log("Token algväärtustamine",token);
+
     return token ? JSON.parse(token) : {};
   });
 
@@ -72,7 +70,6 @@ const Home = () => {
   const work_Data = useCallback(() => {
     setScheduleLoading(isLoading);
     setHasServerError(error?.message ? error.message : undefined);
-    console.log(error);
 
     if (!isLoading && response !== undefined) {
       let schedule = response.schedule;
@@ -257,7 +254,6 @@ const Home = () => {
     }
     if (hasStartTime) {
       setFilteredData((prevState) => {
-        // console.log(scheduleFilter(dropdownsSelection, data, "startTime"));
         return [
           ...scheduleFilter(
             dropdownsSelection,
@@ -272,7 +268,6 @@ const Home = () => {
     if (dropdownsSelection.length === 0) {
       setFilteredData([...data]);
     }
-    console.log("Filter", dropdownsSelection);
   }, [data, dropdownsSelection]);
 
   filteredData.sort(
@@ -414,7 +409,6 @@ const Home = () => {
 
   const login = useGoogleLogin({
     onSuccess: (googleResponse) => {
-      // console.log("Login Successful:", googleResponse);
       setGoogleAcessToken(googleResponse.access_token); // selleks et seda saata backi autentimiseks
 
       axios
@@ -450,7 +444,6 @@ const Home = () => {
   // console.log ("tagastatud google profile",JSON.parse(localStorage.getItem('localGoogleProfile')));
   // console.log("see on õige loginInfo",loginInfo);
   useEffect(() => {
-    console.log("see on õige googleProfile", googleProfile);
     setUserPicture(
       googleProfile?.picture ?? require("../assets/icons/user.png")
     );
@@ -535,7 +528,7 @@ const Home = () => {
   return (
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
       <div className="mx-auto w-full">
-        <div className="lg:fixed lg:w-[73rem] lg:h-28 bg-white">
+        <div className="lg:fixed lg:w-[73rem] lg:h-28 bg-white z-10">
           <Header
             profile={profile}
             onClick={showUserRollesHandler}
@@ -581,7 +574,7 @@ const Home = () => {
         )}
         {showUsersList && (
           <div>
-            <UserList onClose={usersListHandler} />
+            <UsersList onClose={usersListHandler} />
           </div>
         )}
         {!showUsersList && (
@@ -615,18 +608,7 @@ const Home = () => {
             <div className={`w-full px-2 lg:px-0 lg:pl-64`}>
               {scheduleLoading && <Spinner containerStyle="py-8" />}
               {hasServerError && (
-                <div className="p-4 lg:mt-3 border border-borderGray shadow shadow-borderGray">
-                  <div className="flex justify-center py-4 text-4xl lg:text-6xl text-collegeRed">
-                    <FontAwesomeIcon icon={faExclamation} />
-                  </div>
-                  <p className="pb-4">{content.errorMessages.serverError}</p>
-                  <button
-                    onClick={scheduleReloadHandler}
-                    className="py-1 px-8 my-4 border border-borderGray shadow hover:bg-borderGray hover:shadow-lg duration-150"
-                  >
-                    Uuesti
-                  </button>
-                </div>
+                <RequestError requestHandler={scheduleReloadHandler} />
               )}
               {admin && addSchedule && (
                 <ScheduleAddition

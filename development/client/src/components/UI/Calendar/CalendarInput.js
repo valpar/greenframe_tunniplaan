@@ -10,6 +10,7 @@ import { startOfWeek, endOfWeek } from "date-fns";
 import { et } from "date-fns/locale";
 
 const CalendarInput = (props) => {
+  const { reset, onChange } = props;
   const [calendarRange, setCalendarRange] = useState(
     calculateSemesterDate(true)
   );
@@ -21,20 +22,20 @@ const CalendarInput = (props) => {
   const locale = { locale: et };
 
   useEffect(() => {
-    if (props.reset) {
+    if (reset) {
       setResetDate(true);
       setActivePeriod("");
       setCalendarRange(calculateSemesterDate(true));
       if (isMobile) setShowBtnModal(false);
     }
-  }, [props.reset]);
+  }, [reset]);
 
   const toggleCalendarHandler = () => {
     setShowBtnModal((prevState) => (prevState = !prevState));
   };
 
   useEffect(() => {
-    props.onChange([
+    onChange([
       {
         startTime: `${calendarRange[0]}`,
         endTime: `${calendarRange[1]}`,

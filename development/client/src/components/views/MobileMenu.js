@@ -3,8 +3,7 @@ import { useState } from "react";
 
 const MobileMenu = (props) => {
   const [showUserOptions, setShowUserOptions] = useState(false);
-  const { onUsersManagement, usersListOpen, showMockLogin, admin, onClose } =
-    props;
+  const { onUsersManagement, admin, onClose } = props;
 
   const loginHandler = () => {
     setShowUserOptions(true);
