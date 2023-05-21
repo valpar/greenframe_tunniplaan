@@ -1,5 +1,4 @@
-import { ReactComponent as Logo } from "../assets/logo/HK-est.svg";
-import { Link } from "react-router-dom";
+import { ReactComponent as Logo } from "../../assets/logo/HK-est.svg";
 
 export const Header = (props) => {
   const {

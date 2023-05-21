@@ -1,17 +1,15 @@
 import useAxios from "../../../hooks/useAxios";
 import { Fragment, useState, useEffect, useCallback } from "react";
 import * as dateService from "../../../utils/Format/Date";
-import InputWithPlaceholder from "../Input/InputWithPlaceholder";
-import AddHomework from "../../addHomework/AddHomework";
-import ConfirmModal from "../ConfirmModal/ConfirmModal";
+import InputWithPlaceholder from "../../UI/Input/InputWithPlaceholder";
+import AddHomework from "../AddHomework";
+import ConfirmModal from "../../UI/ConfirmModal/ConfirmModal";
 import axios from "axios";
 import config from "../../../config.json";
 import content from "../../../assets/content/content.json";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk } from "@fortawesome/free-regular-svg-icons";
-import RequestModal from "../RequestModal/RequestModal";
-import TooltipLarge from "../Tooltip/TooltipLarge";
-import { Spinner } from "../../../components/UI/Spinner";
+import RequestModal from "../../UI/RequestModal/RequestModal";
+import TooltipLarge from "../../UI/Tooltip/TooltipLarge";
+import { Spinner } from "../../UI/Spinner";
 
 const isValidUrl = (urlString) => {
   var urlPattern = new RegExp(
@@ -240,9 +238,7 @@ const TableSubjectInfo = (props) => {
         setShowRequestModal(true);
         setRequestLoading(true);
 
-        await axios.delete(`/homeworks/${homeworkId}`).then((response) => {
-          console.log(response);
-        });
+        await axios.delete(`/homeworks/${homeworkId}`).then((response) => {});
       } catch (error) {
         setRequestType("delete");
         setRequestLoading(false);
@@ -342,9 +338,7 @@ const TableSubjectInfo = (props) => {
             distanceLink: enteredInfo.distanceLink,
             subjectId: props.item.subject.id,
           })
-          .then((response) => {
-            console.log(response);
-          });
+          .then((response) => {});
         enteredInfo.homeworks.forEach(async (e, i) => {
           if (e.id) {
             await axios
@@ -353,9 +347,7 @@ const TableSubjectInfo = (props) => {
                 subjectCode: props.item.subject.subjectCode,
                 subjects_id: props.item.subject.id,
               })
-              .then((response) => {
-                console.log(response);
-              });
+              .then((response) => {});
           }
           if (!e.id && homeworksNotEmpty) {
             await axios
@@ -363,9 +355,7 @@ const TableSubjectInfo = (props) => {
                 ...e,
                 subjectCode: props.item.subject.subjectCode,
               })
-              .then((response) => {
-                console.log(response);
-              });
+              .then((response) => {});
           }
         });
       } catch (error) {
@@ -582,7 +572,7 @@ const TableSubjectInfo = (props) => {
             <td colSpan={4} className="px-2">
               {enteredInfo.homeworks.map((e, i, s) => {
                 return (
-                  <div>
+                  <div key={i}>
                     <AddHomework
                       key={i}
                       onChange={addExtraInfoHandler}

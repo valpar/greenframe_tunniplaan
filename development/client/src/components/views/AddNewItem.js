@@ -15,6 +15,19 @@ axios.defaults.baseURL = config.api.url;
 
 const AddNewItem = (props) => {
   const {
+    modalFor,
+    onNewItem,
+    scheduled,
+    roomsData,
+    courseData,
+    lecturerData,
+    subjectsData,
+    onClose,
+    onDelete,
+    editMode,
+    editValues,
+  } = props;
+  const {
     deleteMessage,
     roomHasActiveLecturers,
     courseHasActiveLecturers,
@@ -85,9 +98,9 @@ const AddNewItem = (props) => {
     if (isValid) {
       let typeId;
       let responseId = [];
-      if (props.modalFor === "rooms") typeId = "roomId";
-      if (props.modalFor === "courses") typeId = "courseId";
-      if (props.modalFor === "lecturers") typeId = "lecturerId";
+      if (modalFor === "rooms") typeId = "roomId";
+      if (modalFor === "courses") typeId = "courseId";
+      if (modalFor === "lecturers") typeId = "lecturerId";
       setRequestAction("create");
       try {
         setShowUpdateConfirmModal(false);
@@ -95,14 +108,12 @@ const AddNewItem = (props) => {
         setShowRequestModal(true);
         setRequestLoading(true);
         for (let state of inputsState) {
-          await axios
-            .post(`/${props.modalFor}`, { ...state })
-            .then((response) => {
-              responseId.push({ [typeId]: response.data.id });
-              if (props.modalFor === "subjects")
-                props.onNewItem("subjectId", response.data.id);
-              setResponseId(response.data.id);
-            });
+          await axios.post(`/${modalFor}`, { ...state }).then((response) => {
+            responseId.push({ [typeId]: response.data.id });
+            if (modalFor === "subjects")
+              onNewItem("subjectId", response.data.id);
+            setResponseId(response.data.id);
+          });
         }
       } catch (error) {
         setRequestLoading(false);
@@ -115,8 +126,8 @@ const AddNewItem = (props) => {
       setRequestMessage(content.successMessages.create);
       setRequestSuccess(true);
 
-      if (responseId.length > 0 && props.modalFor !== "subjects")
-        props.onNewItem(props.modalFor, responseId);
+      if (responseId.length > 0 && modalFor !== "subjects")
+        onNewItem(modalFor, responseId);
 
       setInputsState([{}]);
       setInputsAreValid([{}]);
@@ -124,14 +135,14 @@ const AddNewItem = (props) => {
   };
 
   const closeHandler = () => {
-    if (props.modalFor === "subjects" && responseId) return props.onClose();
-    if (responseId) return props.onClose();
-    if (props.modalFor === "subjects") return props.onClose("subjectId");
-    props.onClose(props.modalFor);
+    if (modalFor === "subjects" && responseId) return onClose();
+    if (responseId) return onClose();
+    if (modalFor === "subjects") return onClose("subjectId");
+    onClose(modalFor);
   };
   const confirmModalHandler = (event) => {
     if (event.target.name === "delete") {
-      let roomBooked = props.scheduled.filter((row) => {
+      let roomBooked = scheduled.filter((row) => {
         if (row.rooms !== "") {
           let arr = row.rooms.filter(
             (room) => room.roomId === inputsState[0].id
@@ -140,7 +151,7 @@ const AddNewItem = (props) => {
         }
         return false;
       });
-      let courseBooked = props.scheduled.filter((row) => {
+      let courseBooked = scheduled.filter((row) => {
         if (row.courses !== "") {
           let arr = row.courses.filter(
             (course) => course.courseId === inputsState[0].id
@@ -149,7 +160,7 @@ const AddNewItem = (props) => {
         }
         return false;
       });
-      let lecturerBooked = props.scheduled.filter((row) => {
+      let lecturerBooked = scheduled.filter((row) => {
         if (row.lecturers !== "") {
           let arr = row.lecturers.filter(
             (lecturer) => lecturer.lecturerId === inputsState[0].id
@@ -158,20 +169,20 @@ const AddNewItem = (props) => {
         }
         return false;
       });
-      let subjectBooked = props.scheduled.filter((row) => {
+      let subjectBooked = scheduled.filter((row) => {
         if (row.subject !== "") {
           return row.subject.id === inputsState[0].id ? row : false;
         }
         return false;
       });
 
-      if (props.modalFor === "rooms" && roomBooked.length > 0)
+      if (modalFor === "rooms" && roomBooked.length > 0)
         setDeleteModalMessage(roomHasActiveLecturers);
-      if (props.modalFor === "courses" && courseBooked.length > 0)
+      if (modalFor === "courses" && courseBooked.length > 0)
         setDeleteModalMessage(courseHasActiveLecturers);
-      if (props.modalFor === "lecturers" && lecturerBooked.length > 0)
+      if (modalFor === "lecturers" && lecturerBooked.length > 0)
         setDeleteModalMessage(lecturerHasActiveLecturers);
-      if (props.modalFor === "subject" && subjectBooked.length > 0)
+      if (modalFor === "subject" && subjectBooked.length > 0)
         setDeleteModalMessage(subjectHasActiveLecturers);
 
       setShowDeleteConfirmModal(true);
@@ -208,25 +219,25 @@ const AddNewItem = (props) => {
       setHideModal(true);
       setShowRequestModal(true);
       setRequestLoading(true);
-      if (props.modalFor === "rooms") {
+      if (modalFor === "rooms") {
         await axios
-          .patch(`/rooms/${props.editValues}`, inputsState[0])
+          .patch(`/rooms/${editValues}`, inputsState[0])
           .then((response) => console.log(response));
       }
-      if (props.modalFor === "courses") {
+      if (modalFor === "courses") {
         await axios
-          .patch(`/courses/${props.editValues}`, inputsState[0])
+          .patch(`/courses/${editValues}`, inputsState[0])
           .then((response) => console.log(response));
       }
-      if (props.modalFor === "lecturers") {
+      if (modalFor === "lecturers") {
         console.log(inputsState[0]);
         await axios
-          .patch(`/lecturers/${props.editValues}`, inputsState[0])
+          .patch(`/lecturers/${editValues}`, inputsState[0])
           .then((response) => console.log(response));
       }
-      if (props.modalFor === "subjects") {
+      if (modalFor === "subjects") {
         await axios
-          .patch(`/subjects/${props.editValues}`, inputsState[0])
+          .patch(`/subjects/${editValues}`, inputsState[0])
           .then((response) => console.log(response));
       }
     } catch (error) {
@@ -249,24 +260,24 @@ const AddNewItem = (props) => {
       setHideModal(true);
       setShowRequestModal(true);
       setRequestLoading(true);
-      if (props.modalFor === "rooms") {
+      if (modalFor === "rooms") {
         await axios
-          .delete(`/rooms/${props.editValues}`)
+          .delete(`/rooms/${editValues}`)
           .then((response) => console.log(response));
       }
-      if (props.modalFor === "courses") {
+      if (modalFor === "courses") {
         await axios
-          .delete(`/courses/${props.editValues}`)
+          .delete(`/courses/${editValues}`)
           .then((response) => console.log(response));
       }
-      if (props.modalFor === "lecturers") {
+      if (modalFor === "lecturers") {
         await axios
-          .delete(`/lecturers/${props.editValues}`)
+          .delete(`/lecturers/${editValues}`)
           .then((response) => console.log(response));
       }
-      if (props.modalFor === "subjects") {
+      if (modalFor === "subjects") {
         await axios
-          .delete(`/subjects/${props.editValues}`)
+          .delete(`/subjects/${editValues}`)
           .then((response) => console.log(response));
       }
     } catch (error) {
@@ -296,9 +307,9 @@ const AddNewItem = (props) => {
           requestMessage === content.successMessages.delete ||
           requestMessage === content.successMessages.update
         ) {
-          props.onDelete();
+          onDelete();
         }
-        props.onClose();
+        onClose();
         setHideModal(false);
         setShowRequestModal(false);
         setRequestSuccess(false);
@@ -309,7 +320,7 @@ const AddNewItem = (props) => {
   }, [requestSuccess]);
 
   const endRequestHandler = () => {
-    props.onClose();
+    onClose();
   };
   const failedRequestConfirmHandler = () => {
     setRequestError(false);
@@ -328,76 +339,76 @@ const AddNewItem = (props) => {
             className={`bi bi-x-lg absolute text-3xl lg:text-xl -top-2 -right-2`}
           ></i>
         </div>
-        {props.modalFor === "subjects" &&
+        {modalFor === "subjects" &&
           inputsState.map((inputsRow, i) => {
             return (
               <div key={i}>
                 <NewSubject
-                  editValues={props.editValues}
-                  editMode={props.editMode}
+                  editValues={editValues}
+                  editMode={editMode}
                   onAddNewRow={addNewRowHandler}
                   onRemoveRow={removeRowHandler}
-                  modalFor={props.modalFor}
+                  modalFor={modalFor}
                   onChange={inputsChangeHandler}
                   index={i}
-                  subjectsData={props.subjectsData}
+                  subjectsData={subjectsData}
                   values={inputsState[i]}
                   count={inputsState.length}
                 />
               </div>
             );
           })}
-        {props.modalFor === "lecturers" &&
+        {modalFor === "lecturers" &&
           inputsState.map((inputsRow, i) => {
             return (
               <div key={i}>
                 <NewLecturer
-                  editValues={props.editValues}
-                  editMode={props.editMode}
+                  editValues={editValues}
+                  editMode={editMode}
                   onAddNewRow={addNewRowHandler}
                   onRemoveRow={removeRowHandler}
-                  modalFor={props.modalFor}
+                  modalFor={modalFor}
                   onChange={inputsChangeHandler}
                   index={i}
-                  lecturerData={props.lecturerData}
+                  lecturerData={lecturerData}
                   values={inputsState[i]}
                   count={inputsState.length}
                 />
               </div>
             );
           })}
-        {props.modalFor === "courses" &&
+        {modalFor === "courses" &&
           inputsState.map((inputsRow, i) => {
             return (
               <div key={i}>
                 <NewCourse
-                  editValues={props.editValues}
-                  editMode={props.editMode}
+                  editValues={editValues}
+                  editMode={editMode}
                   onAddNewRow={addNewRowHandler}
                   onRemoveRow={removeRowHandler}
-                  modalFor={props.modalFor}
+                  modalFor={modalFor}
                   onChange={inputsChangeHandler}
                   index={i}
-                  courseData={props.courseData}
+                  courseData={courseData}
                   values={inputsState[i]}
                   count={inputsState.length}
                 />
               </div>
             );
           })}
-        {props.modalFor === "rooms" &&
+        {modalFor === "rooms" &&
           inputsState.map((inputsRow, i) => {
             return (
               <div key={i}>
                 <NewRoom
-                  editValues={props.editValues}
-                  editMode={props.editMode}
+                  editValues={editValues}
+                  editMode={editMode}
                   onAddNewRow={addNewRowHandler}
                   onRemoveRow={removeRowHandler}
-                  modalFor={props.modalFor}
+                  modalFor={modalFor}
                   onChange={inputsChangeHandler}
                   index={i}
-                  roomsData={props.roomsData}
+                  roomsData={roomsData}
                   values={inputsState[i]}
                   count={inputsState.length}
                 />
@@ -407,7 +418,7 @@ const AddNewItem = (props) => {
 
         <div
           className={`flex ${
-            props.editMode
+            editMode
               ? "justify-between space-x-20"
               : "justify-center lg:justify-between"
           } w-full pt-8`}
@@ -423,7 +434,7 @@ const AddNewItem = (props) => {
                 />
               </div>
             )}
-            {props.editMode && (
+            {editMode && (
               <button
                 onClick={confirmModalHandler}
                 className="btn-actions"
@@ -445,7 +456,7 @@ const AddNewItem = (props) => {
               onClick={confirmModalHandler}
               className="btn-actions"
               type="submit"
-              name={props.editMode ? "update" : "create"}
+              name={editMode ? "update" : "create"}
             >
               SALVESTA
             </button>
@@ -454,9 +465,7 @@ const AddNewItem = (props) => {
               <div className="absolute top-20 -left-16">
                 <ConfirmModal
                   onDecline={declineUpdateHandler}
-                  onConfirm={
-                    props.editMode ? updateItemHandler : submitItemHandler
-                  }
+                  onConfirm={editMode ? updateItemHandler : submitItemHandler}
                   modalMessage={saveMessage}
                   topArrow={true}
                 />

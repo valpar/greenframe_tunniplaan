@@ -1,4 +1,4 @@
-import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const AddScheduleButton = (props) => {

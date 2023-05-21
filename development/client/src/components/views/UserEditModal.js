@@ -11,6 +11,13 @@ import DropdownOverlappingInput from "../UI/Dropdown/DropdownOverlappingInput";
 
 axios.defaults.baseURL = config.api.url;
 
+const userObject = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  role: "",
+};
+
 const UserEditModal = (props) => {
   const { deleteMessage, saveMessage } = content.confirmModalMessages;
 
@@ -63,6 +70,7 @@ const UserEditModal = (props) => {
   const closeHandler = () => {
     props.onClose(props.modalFor);
   };
+
   const confirmModalHandler = (event) => {
     if (event.target.name === "delete") {
       setShowDeleteConfirmModal(true);
@@ -77,9 +85,16 @@ const UserEditModal = (props) => {
         Object.values(obj).every((v) => v?.length > 0)
       );
 
-      if (!hasValues || !isValid) return setValidSubmit(false);
-      if (event.target.name === "update") setShowUpdateConfirmModal(true);
-      if (event.target.name === "create") setShowUpdateConfirmModal(true);
+      if (!hasValues || !isValid) {
+        return setValidSubmit(false);
+      }
+      if (event.target.name === "update") {
+        setShowUpdateConfirmModal(true);
+      }
+      if (event.target.name === "create") {
+        setShowUpdateConfirmModal(true);
+      }
+
       setOverlay(true);
     }
   };
@@ -149,6 +164,7 @@ const UserEditModal = (props) => {
       const timer = setTimeout(() => {
         setValidSubmit(true);
       }, 1000);
+
       return () => clearTimeout(timer);
     }
   }, [validSubmit]);
@@ -164,6 +180,7 @@ const UserEditModal = (props) => {
         setRequestSuccess(false);
         setRequestMessage("");
       }, 2000);
+
       return () => clearTimeout(timer);
     }
   }, [requestSuccess]);
@@ -174,16 +191,16 @@ const UserEditModal = (props) => {
   const failedRequestConfirmHandler = () => {
     setRequestError(false);
     setRequestMessage("");
-    if (requestAction === "create") submitItemHandler();
-    if (requestAction === "delete") deleteItemHandler();
-    if (requestAction === "update") updateItemHandler();
-  };
 
-  const userObject = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    role: "",
+    if (requestAction === "create") {
+      submitItemHandler();
+    }
+    if (requestAction === "delete") {
+      deleteItemHandler();
+    }
+    if (requestAction === "update") {
+      updateItemHandler();
+    }
   };
 
   const [enteredUserData, setEnteredUserData] = useState([
