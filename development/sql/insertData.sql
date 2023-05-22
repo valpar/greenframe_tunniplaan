@@ -1,11 +1,11 @@
 /*Users*/
-INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Anneli','Kasesalu','anneli.kasesalu@tlu.ee','pole kasutusel veel','admin' );
-INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Martti','Raavel','mrt@tlu.ee','pole kasutusel veel','admin' );
-INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Ahti1','Irs','htrs@tlu.ee','pole kasutusel veel','admin' );
-INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Ahti2','Irs','ahti.irs@gmail.com','pole kasutusel veel','lecturer' );
-INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Jaanus','Saago','saagojaanus@gmail.com','pole kasutusel veel','admin' );
-INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Jaanus','Saago','jaanusjs@tlu.ee','pole kasutusel veel','lecturer' );
-INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Jaanus','Saago','jaanus.vollii@gmail.com','pole kasutusel veel','student' );
+INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`role`) VALUES ('Anneli','Kasesalu','anneli.kasesalu@tlu.ee','admin' );
+INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`role`) VALUES ('Martti','Raavel','mrt@tlu.ee','admin' );
+INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`role`) VALUES ('Ahti1','Irs','htrs@tlu.ee','admin' );
+INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`role`) VALUES ('Ahti2','Irs','ahti.irs@gmail.com','lecturer' );
+INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`role`) VALUES ('Jaanus','Saago','saagojaanus@gmail.com','admin' );
+INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`role`) VALUES ('Jaanus','Saago','jaanusjs@tlu.ee','lecturer' );
+INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`role`) VALUES ('Jaanus','Saago','jaanus.vollii@gmail.com','student' );
 
 
 
