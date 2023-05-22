@@ -1,32 +1,19 @@
-name: Tunniplaani algne install
+name: Run Fresh Install Script on Production push
+
 on:
   push:
     branches:
-      - development
+      - production
 
 jobs:
-  deploy:
+  run-script:
     runs-on: self-hosted
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-
-      - name: Change to development directory
-        run: cd development
-
-      - name: Change to client directory
-        run: cd client
-
-      - name: Install dependencies
-        run: npm i
-
-      - name: Go back to the previous directory
-        run: cd ..
-
-      # Siin saate lisada rohkem samme vastavalt vajadusele
-
-      - name: Execute git pull
-        run: git pull reponame
-
-      # Lisa siia rohkem käske vastavalt vajadusele
+      
+      - name: Run Fresh Install Script
+        run: |
+          chmod +x fresh_install.sh
+          ./fresh_install.sh
