@@ -786,7 +786,7 @@ const ScheduleAddition = (props) => {
       <div className="flex flex-col w-full lg:px-4  space-y-4">
         {newOccurence.map((occurence, i) => {
           return (
-            <div key={i} className="w-full">
+            <div key={i}>
               <DateOfOccurenceForm
                 onChange={occurenceHandler}
                 onNewOccurence={[occurence]}
