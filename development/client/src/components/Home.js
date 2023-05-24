@@ -6,7 +6,6 @@ import * as dateService from "../utils/Format/Date";
 import ScheduleFilters from "./views/ScheduleFilters";
 import ScheduleAddition from "./views/ScheduleAddition";
 import Table from "./views/scheduleTable/Table";
-import { calculateSemesterDate } from "../utils/Calculate/Semester";
 import GoTopButton from "./UI/Button/GoTopButton";
 import MobileMenu from "./views/MobileMenu";
 import { Spinner } from "./UI/Spinner";
@@ -22,8 +21,8 @@ import { RequestError } from "./UI/RequestError";
 
 const Home = () => {
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
-    startDate: new Date(1).toISOString(),
-    endDate: new Date(1).toISOString(),
+    startDate: new Date().toISOString(),
+    endDate: ""
   });
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -45,7 +44,7 @@ const Home = () => {
   const { response, isLoading, error } = useAxios(
     {
       method: "get",
-      url: `/schedule/${scheduleRequestParams.startDate}/${scheduleRequestParams.endDate}`,
+      url: `/schedule/${scheduleRequestParams?.startDate}/${scheduleRequestParams?.endDate}`,
       headers: { Authorization: `Bearer ${loginInfo?.token}` },
     },
     newOccurenceAdded
@@ -206,11 +205,15 @@ const Home = () => {
       setNewOccurenceAdded((prevState) => (prevState = !prevState));
     }
     setDropdownSelection((prevState) => {
-      return [...dropdownController(prevState, dropdownValues)];
+      return [...dropdownController(prevState === undefined ? [] : prevState, dropdownValues)];
     });
   };
 
   useEffect(() => {
+    if(!dropdownsSelection) {
+      return;
+    }
+
     const hasStartTime = dropdownsSelection.find((o) => o.startTime);
     const hasCourse = dropdownsSelection.find((o) => o.courseCode);
     const hasSubject = dropdownsSelection.find((o) => o.subject);
@@ -296,6 +299,7 @@ const Home = () => {
       setAdmin(false);
       setUserLecturer(false);
       setUserStudent(false);
+      setShowUsersList(false);
     }
     setShowUsersModal(false);
   };
@@ -348,13 +352,12 @@ const Home = () => {
   };
   const emptyFiltersHandler = () => {
     setFilteredData(data);
-    const defaultDate = calculateSemesterDate(true);
-    setDropdownSelection([
-      {
-        startDate: defaultDate[0],
-        endDate: defaultDate[1],
-      },
-    ]);
+    setDropdownSelection(undefined);
+    setScheduleRequestParams({
+      startDate: new Date().toISOString(),
+      endDate: ""
+    })
+    setNewOccurenceAdded(prevState => prevState = !prevState);
   };
   // const userPicture = admin
   //   ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -373,8 +376,6 @@ const Home = () => {
     : "";
 
   const mobileMenuHandler = () => {
-    const btn = document.getElementById("menu-btn");
-    btn.classList.toggle("open");
     setOpenModalAnimation((prevState) => (prevState = !prevState));
     setHiddeMobileFilters((prevState) => (prevState = !prevState));
     setShowMobileMenu(true);
@@ -460,12 +461,17 @@ const Home = () => {
     setAdmin(false);
     setUserLecturer(false);
     setUserStudent(false);
+    setShowUsersList(false);
   };
   // --- Google login end ---
 
   // --- Schedule back login ---
 
   useEffect(() => {
+    if(googleAccessToken?.length === 0) {
+      return;
+    }
+
     async function fetchProfile() {
       try {
         const response = await axios.post(
@@ -528,7 +534,7 @@ const Home = () => {
   return (
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
       <div className="mx-auto w-full">
-        <div className="lg:fixed lg:w-[73rem] lg:h-28 bg-white z-10">
+        <div className="lg:fixed lg:w-[73rem] -ml-2 lg:h-28 bg-white z-10">
           <Header
             profile={profile}
             onClick={showUserRollesHandler}
@@ -552,6 +558,9 @@ const Home = () => {
             onUsersManagement={usersListHandler}
             showMockLogin={userStudent || userLecturer || admin}
             usersListOpen={showUsersList}
+            filtersNotification={dropdownsSelection?.length}
+            showMobilePicture={userStudent || userLecturer || admin}
+            openModalAnimation={openModalAnimation}
           />
         </div>
 
@@ -578,7 +587,7 @@ const Home = () => {
           </div>
         )}
         {!showUsersList && (
-          <div className="flex flex-1 flex-col lg:flex-row lg:justify-between mt-20 lg:mt-32 bg-white">
+          <div className="flex flex-1 flex-col lg:flex-row lg:justify-between mt-20 lg:mt-32 lgm:px-1 bg-white">
             <div
               ref={filtersRef}
               className="flex-1 px-2 lg:fixed top-20 w-full bg-white lg:w-60 pt-2 lg:pt-3 lg:px-0 lg:pr-2 overflow-y-scroll lg:top-32 lg:bottom-0 no-scrollbar"

@@ -8,6 +8,7 @@ module.exports = {
       xs3: { min: "320px" },
       xs2: { min: "375px" },
       xs: { min: "425px" },
+      lgm: { min: "1024px", max: "1170px" },
       ...defaultTheme.screens,
     },
     extend: {
@@ -86,6 +87,9 @@ module.exports = {
       },
       zIndex: {
         5: "5",
+      },
+      width: {
+        18: "72px",
       },
     },
   },

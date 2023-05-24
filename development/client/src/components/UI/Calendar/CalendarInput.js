@@ -11,9 +11,7 @@ import { et } from "date-fns/locale";
 
 const CalendarInput = (props) => {
   const { reset, onChange } = props;
-  const [calendarRange, setCalendarRange] = useState(
-    calculateSemesterDate(true)
-  );
+  const [calendarRange, setCalendarRange] = useState();
   const [showBtnModal, setShowBtnModal] = useState(isMobile ? false : true);
   const [resetDate, setResetDate] = useState(true);
   const [activePeriod, setActivePeriod] = useState("");
@@ -25,7 +23,7 @@ const CalendarInput = (props) => {
     if (reset) {
       setResetDate(true);
       setActivePeriod("");
-      setCalendarRange(calculateSemesterDate(true));
+      setCalendarRange(undefined)
       if (isMobile) setShowBtnModal(false);
     }
   }, [reset]);
@@ -35,6 +33,10 @@ const CalendarInput = (props) => {
   };
 
   useEffect(() => {
+    if(!calendarRange) {
+      return;
+    }
+
     onChange([
       {
         startTime: `${calendarRange[0]}`,

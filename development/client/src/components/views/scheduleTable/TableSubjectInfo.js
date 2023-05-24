@@ -27,6 +27,8 @@ const isValidUrl = (urlString) => {
 axios.defaults.baseURL = config.api.url;
 
 const TableSubjectInfo = (props) => {
+  const {admin, userLecturer} = props;
+
   const [homework, setHomework] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [enteredInfo, setEnteredInfo] = useState({
@@ -68,6 +70,12 @@ const TableSubjectInfo = (props) => {
   const [requestType, setRequestType] = useState("");
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [showNotValidTooltip, setShowNotValidTooltip] = useState(false);
+
+  useEffect(() => {
+    if(!admin && !userLecturer) {
+      setEditMode(false);
+    }
+  })
 
   useEffect(() => {
     setEnteredInfo((prevState) => {
