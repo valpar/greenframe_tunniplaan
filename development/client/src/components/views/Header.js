@@ -24,7 +24,6 @@ export const Header = (props) => {
     usersListOpen,
     filtersNotification,
     showMobilePicture,
-    showMobileMenu,
     openModalAnimation
   } = props;
 
