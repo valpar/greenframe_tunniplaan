@@ -374,7 +374,7 @@ const DateOfOccurenceForm = (props) => {
   return (
     <div className="flex flex-col w-full items-center lg:items-end lg:flex-row lg:space-x-4">
       <div className="flex flex-col lg:flex-row w-full space-y-3 lg:space-x-4 lg:space-y-0">
-        <div className="lg:w-[28rem]">
+        <div className="lg:w-full lg:min-w-[15rem]">
           <CalendarOneInput
             onShowCalendar={showCalendar}
             onClickDay={calendarClickHandler}
@@ -389,7 +389,7 @@ const DateOfOccurenceForm = (props) => {
             isDesktop={isTabletOrMobile}
           />
         </div>
-        <div>
+        <div className="lg:w-full">
           <InputWithLabel
             onChange={loadChangeHandler}
             type="text"
@@ -406,7 +406,7 @@ const DateOfOccurenceForm = (props) => {
           />
         </div>
 
-        <div>
+        <div className="lg:w-full">
           <DropdownInput
             onLoad={startTimeChangeHandler}
             onChange={startTimeChangeHandler}
@@ -426,7 +426,7 @@ const DateOfOccurenceForm = (props) => {
           />
         </div>
 
-        <div>
+        <div className="lg:w-full">
           <DropdownInput
             onChange={endTimeChangeHandler}
             options={endValues}
@@ -444,7 +444,7 @@ const DateOfOccurenceForm = (props) => {
           />
         </div>
 
-        <div className="lg:w-20">
+        <div className="lg:w-full">
           <InputWithLabel
             readOnly={true}
             onClick={lunchChangeHandler}
@@ -463,7 +463,7 @@ const DateOfOccurenceForm = (props) => {
       </div>
 
       {!props.editMode && (
-        <div className="flex justify-center items-center space-x-10 pt-4 lg:pt-0  lg:pb-1 lg:justify-end !lg:items-end w-20 lg:space-x-4">
+        <div className="flex justify-center items-center space-x-10 pt-4 lg:pt-0  lg:pb-1 lg:justify-end !lg:items-end w-18 lg:space-x-4">
           {props.index === props.occurenceLength - 1 && !props.editMode && (
             <i
               onClick={props.onClick}

@@ -14,7 +14,13 @@ const TableBody = (props) => {
   const [showInfo, setShowInfo] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const { isTabletOrMobile } = props;
+  const { isTabletOrMobile, admin } = props;
+
+  useEffect(() => {
+    if(!admin) {
+      setShowEditModal(false);
+    }
+  })
 
   const extraInfoHandler = () => {
     setShowInfo((prevState) => (prevState = !prevState));

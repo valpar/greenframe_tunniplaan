@@ -22,6 +22,10 @@ export const Header = (props) => {
     hiddeMobileIcon,
     onUsersManagement,
     usersListOpen,
+    filtersNotification,
+    showMobilePicture,
+    showMobileMenu,
+    openModalAnimation
   } = props;
 
   return (
@@ -168,20 +172,27 @@ export const Header = (props) => {
             ></i>
           )}
           {/* Mobile filters */}
-          <i
-            className={`${
-              hiddeMobileIcon || usersListOpen ? "hidden" : ""
-            } bi bi-sliders text-2xl pt-[0.1rem] pr-1 cursor-pointer ${
-              scrollY < 766 && showMobileFilters ? "text-borderGray" : ""
-            }`}
-            onClick={mobileFiltersHandler}
-          ></i>
+          <div className="relative pt-[0.1rem] pr-1">
+            <i
+              className={`${
+                hiddeMobileIcon || usersListOpen ? "hidden" : ""
+              } bi bi-sliders text-2xl cursor-pointer ${
+                scrollY < 766 && showMobileFilters ? "text-borderGray" : ""
+              }`}
+              onClick={mobileFiltersHandler}
+            ></i>
+            {filtersNotification > 0 && <div className={`${
+                hiddeMobileIcon || usersListOpen ? "hidden" : ""
+              } absolute lg:hidden -top-1 -right-1 text-sm w-5 rounded-full bg-collegeGreen`}>
+                {filtersNotification}
+            </div>}
+          </div>
           {/* Hamburger menu */}
           <button
             id="menu-btn"
             className={`${
-              usersListOpen ? "hidden" : ""
-            } hamburger focus:outline-none`}
+              usersListOpen || (showMobilePicture && !openModalAnimation) ? "hidden" : ""
+            } ${(showMobilePicture && openModalAnimation || !showMobilePicture && openModalAnimation) ? "open" : ""} hamburger focus:outline-none`}
             type="button"
             onClick={mobileMenuHandler}
           >
@@ -189,6 +200,15 @@ export const Header = (props) => {
             <span className="hamburger-middle"></span>
             <span className="hamburger-bottom"></span>
           </button>
+          {/* UserPicture */}
+          {!usersListOpen && showMobilePicture && !openModalAnimation && <div className="mx-auto w-8 h-8" onClick={mobileMenuHandler}>
+                <img
+                  src={userPicture}
+                  alt="User"
+                  className="w-full h-full rounded-full object-cover"
+                ></img>
+          </div>}
+
           {usersListOpen && (
             <i
               onClick={onUsersManagement}
