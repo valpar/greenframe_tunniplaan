@@ -3,7 +3,7 @@ name: Run Fresh Install Script on Production push
 on:
   push:
     branches:
-      - production
+      - Production
   workflow_dispatch:
 
 jobs:
