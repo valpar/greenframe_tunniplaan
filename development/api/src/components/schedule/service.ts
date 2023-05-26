@@ -31,7 +31,7 @@ const scheduleService = {
         GROUP BY id, startTime, endTime, scheduled.comment, subjects.id, subjects.subjectCode, subjects.subject, scheduled.distanceLink
         ORDER BY scheduled.startTime ;`,[atDate, toDate]
       );
-      console.log (atDate, toDate);
+      // console.log (atDate, toDate);
       let i = 0;
       while ( i < schedule.length) {
 
@@ -142,7 +142,7 @@ const scheduleService = {
       return schedule;
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return false;
     }
   
@@ -235,7 +235,7 @@ updateSchedule: async (id:number, startTime:string, endTime:string, rooms: Array
         updatedRows =  updatedSchedule.affectedRows;  
       // return createdChedule.insertId;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return false;
     }
     
@@ -246,7 +246,7 @@ updateSchedule: async (id:number, startTime:string, endTime:string, rooms: Array
           // console.log(deleted.affectedRows);  
         // return createdChedule.insertId;
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         return false;
       }
  
@@ -257,7 +257,7 @@ updateSchedule: async (id:number, startTime:string, endTime:string, rooms: Array
         `INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id) 
         VALUES ('?', '?');`, [id, rooms[index].roomId] );
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         return false;
       }
     }  
@@ -293,19 +293,19 @@ updateSchedule: async (id:number, startTime:string, endTime:string, rooms: Array
           // console.log(deleted.affectedRows);  
         // return createdChedule.insertId;
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         return false;
       }
 
     // console.log(lecturers);
     for (var index in lecturers) {
-      console.log("uus kirje sceduled:", id, " lecturers_id:", lecturers[index].lecturerId);
+      // console.log("uus kirje sceduled:", id, " lecturers_id:", lecturers[index].lecturerId);
       try {
           const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         `INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id) 
         VALUES ('?', '?');`, [id, lecturers[index].lecturerId] );
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         return false;
       }
     }  

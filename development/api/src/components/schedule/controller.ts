@@ -7,7 +7,7 @@ import formatDate from "../../utils/formatDate";
 const scheduleController = {
   getEntireSchedule: async (req: Request, res: Response) => {
     let { atDate, toDate } = req.params;
-    console.log (atDate, toDate);
+    // console.log (atDate, toDate);
     if (atDate == undefined) {
       atDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-"); // tähtaeg tänasest juhul kui kuupäeva pole
     } else {
@@ -19,7 +19,7 @@ const scheduleController = {
     } else {
       toDate = formatDate.forSql(toDate);
     }
-    console.log (atDate, toDate);
+    // console.log (atDate, toDate);
     const schedule = await scheduleService.getEntireSchedule(atDate, toDate);
     if (schedule) {
       return res.status(responseCodes.ok).json({ schedule });

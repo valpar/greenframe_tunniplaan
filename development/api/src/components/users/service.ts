@@ -25,13 +25,14 @@ const userService = {
         return user[0];
       }
     } catch (error) {
+      console.log(error);
       return false;
     }
   },
   getUserByEmail: async (email: string): Promise<IUser | false | undefined> => {
     try {
       const [user]: [IUser[], FieldPacket[]] = await pool.query(
-        "SELECT * FROM users WHERE email = ? AND dateDeleted is NULL",
+        "SELECT firstName, lastName, email, role FROM users WHERE email = ? AND dateDeleted is NULL",
         [email]
       );
       if (user[0] !== undefined) {
@@ -43,37 +44,27 @@ const userService = {
   },
   createUser: async (newUser: INewUser): Promise<number | false> => {
     try {
-      const hashPassword = await hashService.hash(newUser.password);
-      const user = {
-        ...newUser,
-        password: hashPassword,
-      };
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         "INSERT INTO users SET ?",
-        [user]
+        [newUser]
       );
       return result.insertId;
     } catch (error) {
       return false;
     }
   },
-  updateUserById: async (user: any): Promise<boolean | undefined> => {
+  updateUserById: async (updateUser: any): Promise<boolean | undefined> => {
     try {
-      const updateUser = { ...user };
-      if (user.password) {
-        updateUser.password = await hashService.hash(user.password);
-      }
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         "UPDATE users SET ? WHERE Id = ?",
-        [updateUser, user.id]
+        [updateUser, updateUser.id]
       );
       if (result.affectedRows > 0) {
-        return true;
+        return true; 
+      }} catch (error) {
+        return false;
       }
-    } catch (error) {
-      return false;
-    }
-  },
+    },
   deleteUser: async (id: number): Promise<boolean | undefined> => {
     try {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(

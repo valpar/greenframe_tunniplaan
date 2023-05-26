@@ -11,7 +11,7 @@ export const formatDateTime = (date) => {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-    timeZone: "Europe/Riga",
+    timeZone: "UTC",
   }).format(new Date(date));
 };
 
@@ -20,7 +20,7 @@ export const formatHoursMinutes = (date) => {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-    timeZone: "Europe/Riga",
+    timeZone: "UTC",
   }).format(new Date(date));
 };
 

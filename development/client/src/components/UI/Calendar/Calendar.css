@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 13rem;
+  width: auto;
   border: none;
   border-bottom: 0.1rem solid #d1d1cc;
   border-radius: 0rem 0rem 0rem 0rem;
@@ -95,7 +95,7 @@
   font-weight: bold;
 }
 .react-calendar__month-view__days__day--weekend {
-  color: #d10000;
+  color: #d10000 !important;
 }
 .react-calendar__month-view__days__day--neighboringMonth {
   color: #757575;
@@ -130,9 +130,32 @@
   height: 0.7rem;
 }
 .react-calendar__tile:disabled {
+  text-decoration: line-through;
   background-clip: content-box;
   background-color: #f4f4f4;
+  color: #d1d1cc;
 }
+.react-calendar__tile:disabled {
+  text-decoration: line-through;
+  background-clip: content-box;
+  background-color: #f4f4f4;
+  color: #d1d1cc;
+}
+/* .react-calendar__tile:disabled:before {
+  position: absolute;
+  text-decoration: line-through;
+  content: "";
+  left: 0;
+  top: 50%;
+  right: 0;
+  border-top: 1px solid;
+  border-color: gray;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+} */
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
   background-clip: content-box;
@@ -202,3 +225,113 @@
   background: #874b4b6f;
   color: black;
 } */
+@media (max-width: 1023px) {
+  .react-calendar.filters {
+    font-size: 1.5em;
+    padding: 0.5rem 0.5rem 0.5rem 0rem;
+  }
+  .filters .react-calendar__navigation {
+    height: 1.4rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1em;
+    align-items: center;
+  }
+  .filters .react-calendar__navigation button {
+    text-transform: capitalize;
+    min-width: 2.5rem;
+    padding-bottom: 0.2rem;
+    font-size: 0.8em;
+  }
+  .filters .react-calendar__navigation span {
+    font-size: 0.7em;
+  }
+  .filters .react-calendar__tile {
+    height: 4rem;
+    border-radius: 3rem;
+  }
+  .filters .react-calendar__month-view__weekNumbers {
+    height: 20rem;
+  }
+  .filters .react-calendar__month-view__weekNumbers span {
+    height: 0.8rem;
+  }
+  .filters .react-calendar__tile.react-calendar__year-view__months__month {
+    text-transform: capitalize;
+    font-size: 0.7em;
+  }
+  .filters .react-calendar__tile.react-calendar__decade-view__years__year {
+    font-size: 0.7em;
+  }
+  .filters .react-calendar__tile.react-calendar__century-view__decades__decade {
+    font-size: 0.7em;
+  }
+}
+
+@media (max-width: 425px) {
+  .react-calendar.filters {
+    font-size: 1.5em;
+    padding: 0.5rem 0.5rem 0.5rem 0rem;
+  }
+  .filters .react-calendar__navigation {
+    height: 1.4rem;
+    margin-bottom: 0.5em;
+    align-items: center;
+  }
+  .filters .react-calendar__navigation button {
+    text-transform: capitalize;
+    min-width: 2.5rem;
+    padding-bottom: 0.2rem;
+    font-size: 1em;
+  }
+  .filters .react-calendar__navigation span {
+    font-size: 0.7em;
+  }
+  .filters .react-calendar__tile {
+    font-size: 0.8em;
+    height: 3rem;
+    border-radius: 2.8rem;
+  }
+  .filters .react-calendar__month-view__weekNumbers {
+    height: 15rem;
+  }
+  .filters .react-calendar__month-view__weekNumbers span {
+    height: 0.5rem;
+  }
+  .filters .react-calendar__tile.react-calendar__year-view__months__month {
+    text-transform: capitalize;
+    font-size: 0.7em;
+  }
+  .filters .react-calendar__tile.react-calendar__decade-view__years__year {
+    font-size: 0.7em;
+  }
+  .filters .react-calendar__tile.react-calendar__century-view__decades__decade {
+    font-size: 0.7em;
+  }
+}
+
+@media (max-width: 375px) {
+  .filters .react-calendar__tile {
+    height: 2.7rem;
+  }
+  .filters .react-calendar__month-view__weekNumbers {
+    height: 13.5rem;
+  }
+  .filters .react-calendar__month-view__weekNumbers span {
+    height: 0.7rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .react-calendar.filters {
+    font-size: 1.2em;
+  }
+  .filters .react-calendar__tile {
+    height: 2.3rem;
+  }
+  .filters .react-calendar__month-view__weekNumbers {
+    height: 13.5rem;
+  }
+  .filters .react-calendar__month-view__weekNumbers span {
+    height: 0.7rem;
+  }
+}

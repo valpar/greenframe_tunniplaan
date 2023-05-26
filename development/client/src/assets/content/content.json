@@ -17,7 +17,8 @@
     "workLoadMessage": "Maht numbrites",
     "requestAddError": "Lisamine ebaõnnestus!",
     "requestUpdateError": "Muutmine ebaõnnestus!",
-    "requestDeleteError": "Kustutamine ebaõnnestus!"
+    "requestDeleteError": "Kustutamine ebaõnnestus!",
+    "serverError": "Andmete laadimine ebaõnnestus!"
   },
   "confirmModalMessages": {
     "withoutSaveMessage": "Sulge ilma salvestamata?",
@@ -33,9 +34,9 @@
     "subjectHasActiveLectures": "Õppeaine eksisteerib tunniplaanis, kustuta?"
   },
   "successMessages": {
-    "create": "Lisamine õnnestus!",
-    "update": "Muutmine õnnestus!",
-    "delete": "Kustutamine õnnestus!"
+    "create": "Andmed salvestatud!",
+    "update": "Andmed muudetud!",
+    "delete": "Andmed kustutatud!"
   },
   "lectureInformation": {
     "lectureInfo": {

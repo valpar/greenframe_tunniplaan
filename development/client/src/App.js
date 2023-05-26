@@ -1,16 +1,17 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./App.css";
-import Home from "./pages/Home";
+import Home from "./components/Home";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
+    <GoogleOAuthProvider clientId="274604613580-bosj58fvqqhlgn9m2g7bilt8abbheoah.apps.googleusercontent.com">
+      <Router>
         <Routes>
-          <Route exact path="/" element={<Home />}></Route>
+          <Route path="/" element={<Home />} />
         </Routes>
-      </div>
-    </BrowserRouter>
+      </Router>
+    </GoogleOAuthProvider>
   );
 }
 

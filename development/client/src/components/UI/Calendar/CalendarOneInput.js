@@ -1,11 +1,6 @@
 import { Calendar } from "react-calendar";
-import classes from "./CalendarOneInput.module.css";
 import InputWithLabel from "../Input/InputWithLabel";
-import {
-  dateParser,
-  formatDate,
-  formatMilliseconds,
-} from "../../../utils/Format/Date";
+import { dateParser, formatDate } from "../../../utils/Format/Date";
 import { useEffect, useState } from "react";
 
 const reverseDate = (str) => {
@@ -18,6 +13,7 @@ const CalendarOneInput = (props) => {
   );
   const [inputValue, setInputValue] = useState();
   const [newInputValue, setNewInputValue] = useState();
+  const { isMobile, isDesktop } = props;
 
   useEffect(() => {
     setInputValue((prevState) =>
@@ -94,19 +90,33 @@ const CalendarOneInput = (props) => {
   }, [newInputValue]);
 
   return (
-    <div className={classes.calendar}>
+    <div className="relative w-full">
       {props.onShowCalendar && (
-        <Calendar
-          minDate={date}
-          onClickDay={props.onClickDay}
-          value={props.value ? dateParser(props.value) : date}
-          className={
-            props.index === 0
-              ? classes.reactCalendar
-              : classes.reactCalendarAfter
-          }
-          locale="et-EE"
-        />
+        <div
+          className={`absolute w-full h-auto z-5 ${
+            (props.label && props.index === 0) || isMobile ? "top-20" : "top-12"
+          } border border-borderGray shadow`}
+        >
+          <Calendar
+            minDate={date}
+            onClickDay={props.onClickDay}
+            value={props.value ? dateParser(props.value) : date}
+            locale="et-EE"
+            className="filters"
+          />
+        </div>
+      )}
+      {props.overlapping && (
+        <label
+          htmlFor="input"
+          className={`absolute left-0 ml-2 text-xs -top-2 z-5 ${
+            props.value
+              ? "text-gray-500 bg-white px-1"
+              : "text-gray-400 bg-transparent"
+          }`}
+        >
+          {props.value ? props.placeholder : ""}
+        </label>
       )}
 
       <InputWithLabel
@@ -121,6 +131,8 @@ const CalendarOneInput = (props) => {
         hasError={props.hasError}
         errorMessage={props.errorMessage}
         onErrorMessage={props.errorMessage !== "" ? props.errorMessage : ""}
+        isMobile={isMobile}
+        isDesktop={isDesktop}
       />
     </div>
   );

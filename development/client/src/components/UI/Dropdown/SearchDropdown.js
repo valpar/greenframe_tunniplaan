@@ -1,65 +1,92 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import Select, { components } from "react-select";
-import classes from "./SearchDropdown.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { isMobile } from "react-device-detect";
 
-const SearchDropdown = (props) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const SearchDropdown = ({
+  name,
+  options,
+  isMulti,
+  onChange,
+  onInputChange,
+  reset,
+  topLabel,
+  label,
+  isRemembered,
+}) => {
   const [placeholderColor, setPlaceHolderColor] = useState("gray");
-  const changeHandler = (choice) => {
-    let newArrayOfObj;
-    if (props.isMulti) {
-      newArrayOfObj = choice.map(({ value }) => ({
-        [props.name]: value.trim(),
-      }));
+
+  // Algseisundi loomine kasutades kohalikku salvestust juhul kui salvestus on soovitud
+  const [selectedOption, setSelectedOption] = useState(() => {
+    if (isRemembered) {
+      const storedValue = localStorage.getItem(name);
+      return storedValue ? JSON.parse(storedValue) : null;
+    } else {
+      return null;
     }
-    if (!props.isMulti) {
-      newArrayOfObj = [choice].map(({ value }) => ({
-        [props.name]: value.trim(),
-      }));
+  });
+
+  const handleChange = (selectedOption) => {
+    setSelectedOption(selectedOption);
+  };
+
+  // useEffect, mis jälgib selectedOption muutusi ja salvestab need kohalikku salvestusse
+  useEffect(() => {
+    if (isRemembered) {
+      localStorage.setItem(name, JSON.stringify(selectedOption));
+    }
+    let newArrayOfObj;
+    if (isMulti) {
+      newArrayOfObj = selectedOption
+        ? selectedOption.map(({ value }) => ({
+            [name]: value.trim(),
+          }))
+        : [];
+    } else {
+      newArrayOfObj = selectedOption
+        ? [{ [name]: selectedOption.value.trim() }]
+        : [];
     }
 
     if (newArrayOfObj.length > 0) {
-      props.onChange(newArrayOfObj);
+      onChange(newArrayOfObj);
     } else {
-      props.onChange([{ value: props.name }]);
+      onChange([{ value: name }]);
     }
-  };
+  }, [selectedOption, name, isMulti, isRemembered]);
 
   const inputChangeHandler = (e) => {
-    if (props.onInputChange) {
-      props.onInputChange(e);
+    if (onInputChange) {
+      onInputChange(e);
     }
   };
   const refChangeHandler = useCallback(
     (ref) => {
-      if (props.reset && ref) {
+      if (reset && ref) {
         ref.clearValue();
       }
     },
-    [props.reset]
+    [reset]
   );
 
-  const DropdownIndicator = (props) => {
+  const { DropdownIndicator } = components;
+
+  const CustomDropdownIndicator = (props) => {
+    const {
+      selectProps: { menuIsOpen },
+    } = props;
     return (
-      <components.DropdownIndicator {...props}>
-        {!isMenuOpen && (
-          <FontAwesomeIcon icon={faAngleDown} className={classes.arrowIcon} />
+      <DropdownIndicator {...props}>
+        {menuIsOpen ? (
+          <FontAwesomeIcon icon={faAngleUp} className="px-1" />
+        ) : (
+          <FontAwesomeIcon icon={faAngleDown} className="px-1" />
         )}
-        {isMenuOpen && (
-          <FontAwesomeIcon icon={faAngleUp} className={classes.arrowIcon} />
-        )}
-      </components.DropdownIndicator>
+      </DropdownIndicator>
     );
   };
 
-  const menuOpenHandler = () => {
-    setIsMenuOpen(true);
-  };
-  const menuCloseHandler = () => {
-    setIsMenuOpen(false);
-  };
   const mouseEnterHandler = () => {
     setPlaceHolderColor("black");
   };
@@ -71,22 +98,20 @@ const SearchDropdown = (props) => {
     <div
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
-      className={
-        props.cssClass ? classes[props.cssClass] : classes.dropdownFilters
-      }
+      className="relative group w-full"
     >
-      {props.topLabel && <label>{props.topLabel}</label>}
-      <div className={classes.btnHover} />
+      {topLabel && <label>{topLabel}</label>}
+      {!isMobile && window.innerWidth >= 1024 && (
+        <div className="absolute bg-collegeGreen h-11 group-hover:animate-peeper" />
+      )}
       <Select
-        onMenuClose={menuCloseHandler}
-        onMenuOpen={menuOpenHandler}
-        components={{ DropdownIndicator }}
+        components={{ DropdownIndicator: CustomDropdownIndicator }}
         ref={refChangeHandler}
-        value={props?.reset ? "" : undefined}
-        placeholder={props.label}
-        options={props.options}
-        onChange={changeHandler}
-        isMulti={props.isMulti ? true : false}
+        value={selectedOption}
+        placeholder={label}
+        options={options}
+        onChange={handleChange}
+        isMulti={isMulti ? true : false}
         onInputChange={inputChangeHandler}
         noOptionsMessage={(value) => (value = "")}
         styles={{
@@ -95,11 +120,16 @@ const SearchDropdown = (props) => {
             borderRadius: "none",
             boxShadow: "rgba(99, 99, 99, 0.2) 0px 1px 2px 0px",
             minHeight: "2.8rem",
+            "&:hover": {
+              border: "1px solid black",
+              textColor: "black",
+            },
           }),
           menu: (baseStyles, state) => ({
             ...baseStyles,
             border: "0.1rem solid #CECECE",
             boxShadow: "rgba(99, 99, 99, 0.2) 0px 1px 2px 0px",
+            position: "relative",
           }),
           container: (baseStyles, state) => ({
             ...baseStyles,
@@ -108,6 +138,23 @@ const SearchDropdown = (props) => {
           placeholder: (baseStyles, state) => ({
             ...baseStyles,
             color: placeholderColor,
+            marginLeft: "36px",
+          }),
+          indicatorsContainer: (baseStyles) => ({
+            ...baseStyles,
+            pointerEvents: "auto",
+          }),
+          option: (baseStyles, state) => ({
+            ...baseStyles,
+            backgroundColor: state.isSelected
+              ? "#E0E0E0"
+              : state.isFocused
+              ? "#E0E0E0"
+              : "#fff",
+            ":hover": {
+              backgroundColor: state.isSelected ? "#E0E0E0" : "#E0E0E0",
+              color: state.isSelected ? "#fff" : "#333",
+            },
           }),
         }}
       />

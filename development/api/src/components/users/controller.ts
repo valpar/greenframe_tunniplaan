@@ -23,7 +23,7 @@ const userController = {
         error: "No valid id provided",
       });
     }
-    if (id === res.locals.user.id || res.locals.user.role === "Admin") {
+    // if (id === res.locals.user.id || res.locals.user.role === "Admin") {
       if (user == undefined) {
         return res.status(responseCodes.badRequest).json({
           error: `No user found with id: ${id}`,
@@ -37,10 +37,10 @@ const userController = {
       return res.status(responseCodes.ok).json({
         user,
       });
-    }
-    return res.status(responseCodes.badRequest).json({
-      error: `You have no permission for this`,
-    });
+    // }
+    // return res.status(responseCodes.badRequest).json({
+    //   error: `You have no permission for this`,
+    // });
   },
   deleteUser: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
@@ -65,7 +65,7 @@ const userController = {
   },
 
   addUser: async (req: Request, res: Response) => {
-    const { firstName, lastName, password, email } = req.body;
+    const { firstName, lastName, role, email } = req.body;
     if (!firstName) {
       return res.status(responseCodes.badRequest).json({
         error: "First name is required",
@@ -76,9 +76,9 @@ const userController = {
         error: "Last name is required",
       });
     }
-    if (!password) {
+    if (!role) {
       return res.status(responseCodes.badRequest).json({
-        error: "Password is required",
+        error: "Role is required",
       });
     }
     if (!email) {
@@ -89,9 +89,8 @@ const userController = {
     const newUser: INewUser = {
       firstName,
       lastName,
-      password,
       email,
-      role: "User",
+      role,
     };
     const id = await userService.createUser(newUser);
     if (!id) {
@@ -105,13 +104,13 @@ const userController = {
   },
   updateUserById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, role} = req.body;
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: "No valid id provided",
       });
     }
-    if (!firstName && !lastName && !email && !password) {
+    if (!firstName && !lastName && !email && !role) {
       return res.status(responseCodes.badRequest).json({
         error: "Nothing to update",
       });
@@ -121,7 +120,7 @@ const userController = {
       firstName,
       lastName,
       email,
-      password,
+      role,
     };
     const userExists = await userService.updateUserById(updateUser);
     if (userExists === undefined) {
