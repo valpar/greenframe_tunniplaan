@@ -587,10 +587,10 @@ const Home = () => {
           </div>
         )}
         {!showUsersList && (
-          <div className="flex flex-1 flex-col lg:flex-row lg:justify-between mt-20 lg:mt-32 lgm:px-1 bg-white">
+          <div className="flex flex-col lg:flex-row lg:justify-between mt-20 lg:mt-32 lgm:px-1 bg-white w-full">
             <div
               ref={filtersRef}
-              className="flex-1 px-2 lg:fixed top-20 w-full bg-white lg:w-60 pt-2 lg:pt-3 lg:px-0 lg:pr-2 overflow-y-scroll lg:top-32 lg:bottom-0 no-scrollbar"
+              className="flex-1 w-full px-2 lg:fixed top-20 bg-white lg:w-60 pt-2 lg:pt-3 lg:px-0 lg:pr-2 overflow-y-scroll lg:top-32 lg:bottom-0 no-scrollbar"
             >
               {admin && !isTabletOrMobile && (
                 <AddScheduleButton
@@ -614,7 +614,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className={`w-min xs3:w-full px-2 lg:px-0 lg:pl-64`}>
+            <div className={`w-full px-2 lg:px-0 lg:pl-64`}>
               {scheduleLoading && <Spinner containerStyle="py-8" />}
               {hasServerError && (
                 <RequestError requestHandler={scheduleReloadHandler} />

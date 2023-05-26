@@ -6,8 +6,10 @@ module.exports = {
   theme: {
     screens: {
       xs3: { min: "320px" },
+      xs25: {min: "338px"},
       xs2: { min: "375px" },
       xs: { min: "425px" },
+      xsmm: {min: "425px", max: "639px"},
       lgm: { min: "1024px", max: "1170px" },
       ...defaultTheme.screens,
     },
