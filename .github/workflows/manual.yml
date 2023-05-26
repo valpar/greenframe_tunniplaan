@@ -16,6 +16,6 @@ jobs:
       
       - name: Run Fresh Install Script
         run: |
-          ls
+          cd ~/HK-Tunniplaan/actions-runner$
           chmod +x fresh_install.sh
           ./fresh_install.sh
