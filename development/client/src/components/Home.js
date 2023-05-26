@@ -614,7 +614,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className={`w-full px-2 lg:px-0 lg:pl-64`}>
+            <div className={`w-min xs3:w-full px-2 lg:px-0 lg:pl-64`}>
               {scheduleLoading && <Spinner containerStyle="py-8" />}
               {hasServerError && (
                 <RequestError requestHandler={scheduleReloadHandler} />
