@@ -16,5 +16,6 @@ jobs:
       
       - name: Run Fresh Install Script
         run: |
+          ls
           chmod +x fresh_install.sh
           ./fresh_install.sh
