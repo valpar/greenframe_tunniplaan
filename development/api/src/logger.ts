@@ -1,9 +1,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 import winston from 'winston';
-import {
-  createPool, Pool, PoolConnection, PoolOptions,
-} from 'mysql2/promise';
+import { PoolConnection } from 'mysql2/promise';
 import pool from './database';
 
 // Loome Winston'i loggeri
