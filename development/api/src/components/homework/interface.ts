@@ -1,4 +1,4 @@
-import { RowDataPacket } from "mysql2";
+import { RowDataPacket } from 'mysql2';
 
 interface Ihomework extends RowDataPacket {
   id: number;
@@ -12,6 +12,4 @@ interface Ihomework extends RowDataPacket {
   dateDeleted?: Date | null;
 }
 
-
 export default Ihomework;
-
