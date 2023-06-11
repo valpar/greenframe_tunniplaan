@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
-import express, { Request, Response, Application } from 'express';
+import express, {
+  Request, Response, Application, NextFunction,
+} from 'express';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import openapi from './openapi.json';
@@ -28,7 +30,7 @@ import ping from './components/ping/controller';
 import courseService from './components/course/service';
 import { logger } from './logger';
 
-const app: Application = express(); // create express app
+const app = express(); // create express app
 // app.use(cors()); //use cors
 app.use(cors({
   origin: '*',
@@ -38,7 +40,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapi));
 
 app.get('/ping', ping);
 
-app.use(async (req: Request, res: Response, next) => {
+app.use(async (req: Request, res: Response, next: NextFunction) => {
   // Log request details
   logger.info(`Request from ${req.ip} using ${req.headers['user-agent']}`);
   logger.info(`Request method and URL: ${req.method} ${req.originalUrl}`);
