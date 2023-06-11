@@ -1,7 +1,9 @@
-import jwt from "jsonwebtoken";
-import { IUser } from "../../users/interfaces";
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+import jwt from 'jsonwebtoken';
+import { IUser } from '../../users/interfaces';
 
-const jwtPassword = "jagj9032jfKJKJgka903dsksfjsöd";
+const jwtPassword = 'jagj9032jfKJKJgka903dsksfjsöd';
 
 const jwtService = {
   sign: (user: IUser) => {
@@ -9,7 +11,7 @@ const jwtService = {
       id: user.id,
       role: user.role,
     };
-    const token = jwt.sign(payload, jwtPassword, { expiresIn: "1h" });
+    const token = jwt.sign(payload, jwtPassword, { expiresIn: '1h' });
     return token;
   },
   verify: (token: string) => {
