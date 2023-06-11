@@ -1,7 +1,9 @@
-import { Request, Response } from "express";
-import responseCodes from "../general/responseCodes";
-import { ILector, INewLector } from "./interfaces";
-import lecturerService from "./service";
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+import { Request, Response } from 'express';
+import responseCodes from '../general/responseCodes';
+import { INewLector } from './interfaces';
+import lecturerService from './service';
 
 const lecturerController = {
   getAllLecturersById: async (req: Request, res: Response) => {
@@ -11,19 +13,18 @@ const lecturerController = {
       return res.status(responseCodes.ok).json({ lecturers });
     }
     return res.status(responseCodes.ServerError).json({
-      error: "Server error",
+      error: 'Server error',
     });
   },
   getLecturersSubjects: async (req: Request, res: Response) => {
-    const lecturersActiveSubjects =
-      await lecturerService.getLecturersSubjects();
+    const lecturersActiveSubjects = await lecturerService.getLecturersSubjects();
     if (lecturersActiveSubjects) {
       return res.status(responseCodes.ok).json({
         lecturersActiveSubjects,
       });
     }
     return res.status(responseCodes.ServerError).json({
-      error: "Server error",
+      error: 'Server error',
     });
   },
   getLecturerById: async (req: Request, res: Response) => {
@@ -31,17 +32,17 @@ const lecturerController = {
     const lecturer = await lecturerService.getLecturerById(id);
     if (!id) {
       return res.status(responseCodes.badRequest).json({
-        error: "No valid id provided",
+        error: 'No valid id provided',
       });
     }
-    if (lecturer == undefined) {
+    if (lecturer === undefined) {
       return res.status(responseCodes.badRequest).json({
         error: `No lecturer found with id: ${id}`,
       });
     }
     if (!lecturer) {
       return res.status(responseCodes.ServerError).json({
-        error: "Server error",
+        error: 'Server error',
       });
     }
     return res.status(responseCodes.ok).json({
@@ -55,11 +56,11 @@ const lecturerController = {
     const id: number = parseInt(req.params.id, 10);
     if (!id) {
       return res.status(responseCodes.badRequest).json({
-        error: "No valid id provided",
+        error: 'No valid id provided',
       });
     }
     const subjectExists = await lecturerService.deleteLecturerById(id);
-    if (subjectExists == undefined) {
+    if (subjectExists === undefined) {
       return res.status(responseCodes.badRequest).json({
         message: `Lecturer not found with id: ${id}`,
       });
@@ -68,7 +69,7 @@ const lecturerController = {
       return res.status(responseCodes.noContent).send();
     }
     return res.status(responseCodes.ServerError).json({
-      error: "Server error",
+      error: 'Server error',
     });
   },
 
@@ -79,17 +80,17 @@ const lecturerController = {
     // console.log(firstName, lastName, email);
     if (!firstName) {
       return res.status(responseCodes.badRequest).json({
-        error: "First name is required",
+        error: 'First name is required',
       });
     }
     if (!lastName) {
       return res.status(responseCodes.badRequest).json({
-        error: "Last name is required",
+        error: 'Last name is required',
       });
     }
     if (!email) {
       return res.status(responseCodes.badRequest).json({
-        error: "Email is required",
+        error: 'Email is required',
       });
     }
     const newLecturer: INewLector = {
@@ -104,7 +105,7 @@ const lecturerController = {
       });
     }
     return res.status(responseCodes.ServerError).json({
-      error: "Server error",
+      error: 'Server error',
     });
   },
   updateLecturerById: async (req: Request, res: Response) => {
@@ -112,22 +113,22 @@ const lecturerController = {
     const { firstName, lastName, email } = req.body;
     if (!id) {
       return res.status(responseCodes.badRequest).json({
-        error: "No valid id provided",
+        error: 'No valid id provided',
       });
     }
     if (!firstName) {
       return res.status(responseCodes.badRequest).json({
-        error: "Provide firstname",
+        error: 'Provide firstname',
       });
     }
     if (!lastName) {
       return res.status(responseCodes.badRequest).json({
-        error: "Provide lastname",
+        error: 'Provide lastname',
       });
     }
     if (!email) {
       return res.status(responseCodes.badRequest).json({
-        error: "Email is required",
+        error: 'Email is required',
       });
     }
     const newLecturer: INewLector = {
@@ -137,9 +138,9 @@ const lecturerController = {
     };
     const lecturerExists = await lecturerService.updateLecturerById(
       newLecturer,
-      id
+      id,
     );
-    if (lecturerExists == undefined) {
+    if (lecturerExists === undefined) {
       return res.status(responseCodes.badRequest).json({
         error: `No user found with id: ${id}`,
       });
@@ -148,7 +149,7 @@ const lecturerController = {
       return res.status(responseCodes.noContent).send();
     }
     return res.status(responseCodes.ServerError).json({
-      error: "Server error",
+      error: 'Server error',
     });
   },
 };
