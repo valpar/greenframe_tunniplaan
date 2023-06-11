@@ -1,21 +1,22 @@
-import { Request, Response } from "express";
-import responseCodes from "../general/responseCodes";
-import { ISchedule } from "./interface";
-import scheduleService from "./service";
-import formatDate from "../../utils/formatDate";
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+import { Request, Response } from 'express';
+import responseCodes from '../general/responseCodes';
+import scheduleService from './service';
+import formatDate from '../../utils/formatDate';
 
 const scheduleController = {
   getEntireSchedule: async (req: Request, res: Response) => {
     let { atDate, toDate } = req.params;
     // console.log (atDate, toDate);
-    if (atDate == undefined) {
-      atDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-"); // tähtaeg tänasest juhul kui kuupäeva pole
+    if (atDate === undefined) {
+      atDate = new Date().toJSON().slice(0, 10).replace(/-/g, '-'); // tähtaeg tänasest juhul kui kuupäeva pole
     } else {
       atDate = formatDate.forSql(atDate);
     }
 
-    if (toDate == undefined) {
-      toDate = "3000-12-12"; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
+    if (toDate === undefined) {
+      toDate = '3000-12-12'; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
     } else {
       toDate = formatDate.forSql(toDate);
     }
@@ -25,23 +26,24 @@ const scheduleController = {
       return res.status(responseCodes.ok).json({ schedule });
     }
     return res.status(responseCodes.ServerError).json({
-      error: "Server error",
+      error: 'Server error',
     });
   },
 
   createSchedule: async (req: Request, res: Response) => {
-    const { rooms, comment, courses, lecturers, subjectCode, distanceLink } =
-      req.body;
+    const {
+      rooms, comment, courses, lecturers, subjectCode, distanceLink,
+    } = req.body;
     let { startTime, endTime, subjectId } = req.body;
 
     if (!subjectCode && !subjectId) {
       return res.status(responseCodes.badRequest).json({
-        error: "subjectCode or subjectId is missing",
+        error: 'subjectCode or subjectId is missing',
       });
     }
     if (!subjectId) {
       const resultSubjectId = await scheduleService.getSubjectByCode(
-        subjectCode
+        subjectCode,
       );
 
       subjectId = resultSubjectId.id;
@@ -49,19 +51,17 @@ const scheduleController = {
 
     if (!startTime) {
       return res.status(responseCodes.badRequest).json({
-        error: "startTime is missing",
+        error: 'startTime is missing',
       });
-    } else {
-      startTime = formatDate.forSqlDateTime(startTime);
     }
+    startTime = formatDate.forSqlDateTime(startTime);
 
     if (!endTime) {
       return res.status(responseCodes.badRequest).json({
-        error: "endTime is missing",
+        error: 'endTime is missing',
       });
-    } else {
-      endTime = formatDate.forSqlDateTime(endTime);
     }
+    endTime = formatDate.forSqlDateTime(endTime);
 
     const scheduleId = await scheduleService.createSchedule(
       startTime,
@@ -71,46 +71,45 @@ const scheduleController = {
       courses,
       subjectId,
       lecturers,
-      distanceLink
+      distanceLink,
     );
     if (scheduleId) {
       return res.status(responseCodes.ok).json({ scheduleId });
     }
     return res.status(responseCodes.ServerError).json({
-      error: "Server error",
+      error: 'Server error',
     });
   },
 
   updateSchedule: async (req: Request, res: Response) => {
-    const { rooms, comment, courses, subjectCode, lecturers, distanceLink } =
-      req.body;
+    const {
+      rooms, comment, courses, subjectCode, lecturers, distanceLink,
+    } = req.body;
     let { startTime, endTime, subjectId } = req.body;
     const id: number = parseInt(req.params.id, 10);
 
     if (!startTime) {
       return res.status(responseCodes.badRequest).json({
-        error: "startTime is missing",
+        error: 'startTime is missing',
       });
-    } else {
-      startTime = formatDate.forSqlDateTime(startTime);
     }
+    startTime = formatDate.forSqlDateTime(startTime);
 
     if (!endTime) {
       return res.status(responseCodes.badRequest).json({
-        error: "endTime is missing",
+        error: 'endTime is missing',
       });
-    } else {
-      endTime = formatDate.forSqlDateTime(endTime);
     }
+    endTime = formatDate.forSqlDateTime(endTime);
 
     if (!subjectCode && !subjectId) {
       return res.status(responseCodes.badRequest).json({
-        error: "subjectCode or subjectId is missing",
+        error: 'subjectCode or subjectId is missing',
       });
     }
     if (!subjectId) {
       const resultSubjectId = await scheduleService.getSubjectByCode(
-        subjectCode
+        subjectCode,
       );
 
       subjectId = resultSubjectId.id;
@@ -125,13 +124,13 @@ const scheduleController = {
       courses,
       subjectId,
       lecturers,
-      distanceLink
+      distanceLink,
     );
     if (updated) {
       return res.status(responseCodes.ok).json({ updated });
     }
     return res.status(responseCodes.ServerError).json({
-      error: "Server error",
+      error: 'Server error',
     });
   },
 
@@ -140,7 +139,7 @@ const scheduleController = {
 
     if (!id) {
       return res.status(responseCodes.badRequest).json({
-        error: "id is missing",
+        error: 'id is missing',
       });
     }
 
@@ -149,24 +148,24 @@ const scheduleController = {
       return res.status(responseCodes.ok).json({ scheduleId });
     }
     return res.status(responseCodes.ServerError).json({
-      error: "Server error",
+      error: 'Server error',
     });
   },
 
   getgcal: async (req: Request, res: Response) => {
-    let atDate: string = req.params.atDate;
-    let toDate: string = req.params.toDate;
-    let courseId: number = Number(req.params.courseId);
-    let lecturerId: number = Number(req.params.lecturerId);
+    let { atDate } = req.params;
+    let { toDate } = req.params;
+    const courseId: number = Number(req.params.courseId);
+    const lecturerId: number = Number(req.params.lecturerId);
 
-    if (atDate == undefined) {
-      atDate = new Date().toJSON().slice(0, 10).replace(/-/g, "-"); // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
+    if (atDate === undefined) {
+      atDate = new Date().toJSON().slice(0, 10).replace(/-/g, '-'); // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
     } else {
       atDate = formatDate.forSql(atDate);
     }
 
-    if (toDate == undefined) {
-      toDate = "3000-12-12"; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
+    if (toDate === undefined) {
+      toDate = '3000-12-12'; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
     } else {
       toDate = formatDate.forSql(toDate);
     }
@@ -175,13 +174,13 @@ const scheduleController = {
       atDate,
       toDate,
       courseId,
-      lecturerId
+      lecturerId,
     );
     if (schedule) {
       return res.status(responseCodes.ok).json({ schedule });
     }
     return res.status(responseCodes.ServerError).json({
-      error: "Server error",
+      error: 'Server error',
     });
   },
 };
