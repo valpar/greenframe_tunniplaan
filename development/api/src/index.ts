@@ -1,6 +1,10 @@
-import app from "./app";
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import app from './app';
+
 const port = 4000;
 // Start API
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`App is running on port ${port}`);
 });
