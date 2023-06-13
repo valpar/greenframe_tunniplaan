@@ -10,7 +10,8 @@ import homeworkService from '../homework/service';
 const scheduleService = {
   getEntireSchedule: async (atDate:string, toDate:string): Promise<ISchedule[] | false> => {
     try {
-      const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(`        SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
+      const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(`
+      SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
         subjects.id AS  subjectId, subjects.subjectCode AS subjectCode, subjects.subject AS subjectdescription, scheduled.distanceLink AS distanceLink, scheduled.comment, 
         group_concat( DISTINCT lecturers.id ORDER BY lecturers.id) As strLecturersId,
         group_concat( DISTINCT lecturers.firstName ORDER BY lecturers.id) As strLecturersFirstName,
@@ -20,7 +21,7 @@ const scheduleService = {
         group_concat( DISTINCT courses.courseLong ORDER BY courses.id) AS strCoursesName,    
         group_concat( DISTINCT rooms.id ORDER BY rooms.id) as strRoomsId,
         group_concat( DISTINCT rooms.room ORDER BY rooms.id) as strRooms
-        FROM scheduled left JOIN
+      FROM scheduled left JOIN
         subjects ON scheduled.subjects_id = subjects.id left JOIN
         scheduled_has_lecturers ON scheduled.id = scheduled_has_lecturers.schedule_id left JOIN
         lecturers ON scheduled_has_lecturers.lecturers_id = lecturers.id left JOIN
@@ -28,11 +29,10 @@ const scheduleService = {
         courses ON scheduled_has_courses.courses_id = courses.id left JOIN
         scheduled_has_rooms ON scheduled.id = scheduled_has_rooms.scheduled_id left JOIN
         rooms ON scheduled_has_rooms.rooms_id = rooms.id
-        WHERE scheduled.startTime >= ? AND scheduled.startTime <= DATE_ADD(?, INTERVAl 1 DAY) 
-        AND scheduled.dateDeleted IS NULL
-        GROUP BY id, startTime, endTime, scheduled.comment, subjects.id, subjects.subjectCode, subjects.subject, scheduled.distanceLink
-        ORDER BY scheduled.startTime ;`, [atDate, toDate]);
-      // console.log (atDate, toDate);
+      WHERE scheduled.startTime >= ? AND scheduled.startTime <= DATE_ADD(?, INTERVAl 1 DAY) 
+      AND scheduled.dateDeleted IS NULL
+      GROUP BY id, startTime, endTime, scheduled.comment, subjects.id, subjects.subjectCode, subjects.subject, scheduled.distanceLink
+      ORDER BY scheduled.startTime ;`, [atDate, toDate]);
       let i = 0;
       while (i < schedule.length) {
         const objSubject: Isubject = {};
@@ -48,9 +48,7 @@ const scheduleService = {
 
         const homework = await homeworkService.gethomeworkBySubjectCode(subjectCode, actualDate);
 
-        if (!homework) {
-
-        } else {
+        if (homework) {
           const arrHomeworks = []; let h = 0;
           while (h < homework.length) {
             const objHomework: IhomeW = {};
@@ -78,7 +76,7 @@ const scheduleService = {
             objRoom.roomId = Number(tmpArrRoomId[n]);
             objRoom.room = tmpArrRoomVal[n];
             arrRooms.push(objRoom);
-            n++;
+            n += 1;
           }
           schedule[i].rooms = arrRooms;
         } else {
