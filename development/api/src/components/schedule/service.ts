@@ -190,7 +190,6 @@ const scheduleService = {
           VALUES (?, ?);
       `;
         await pool.query(query, [createdscheduleId, room.roomId]);
-        return true;
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(`An error occurred while inserting room ${room.roomId}:`, error);
@@ -215,7 +214,6 @@ const scheduleService = {
           VALUES (?, ?);`;
       try {
         await pool.query(query, [createdscheduleId, course.courseId]);
-        return true;
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(`An error occurred while inserting course ${course.courseId}:`, error);
@@ -235,12 +233,11 @@ const scheduleService = {
 
     // Eelnev väljakommenteeritud kood ümber kirjutatud järgnevaga:
     lecturers.forEach(async (lecturer) => {
+      const query = `
+        INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id)
+          VALUES (?, ?);`;
       try {
-        const query = `
-          INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id)
-            VALUES (?, ?);`;
         await pool.query(query, [createdscheduleId, lecturer.lecturerId]);
-        return true;
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(`An error occurred while inserting lecturer ${lecturer.lecturerId}:`, error);
@@ -274,7 +271,8 @@ const scheduleService = {
       );
       updatedRows = updatedSchedule.affectedRows;
     } catch (error) {
-      // console.log(error);
+      // eslint-disable-next-line no-console
+      console.error('An error occurred while updating schedule', error);
       return false;
     }
 
@@ -287,64 +285,89 @@ const scheduleService = {
       return false;
     }
 
-    for (var index in rooms) {
+    /* for (var index in rooms) {
       // console.log("uus kirje sceduled:", id, " Rooms_id:", rooms[index].roomId);
       try {
-        const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(`INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id) 
+        const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
+          await pool.query(`INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id)
         VALUES ('?', '?');`, [id, rooms[index].roomId]);
       } catch (error) {
         // console.log(error);
         return false;
       }
-    }
+    } */
+    rooms.forEach(async (room) => {
+      const query = `
+        INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id)
+          VALUES (?, ?);
+      `;
+      try {
+        await pool.query(query, [id, room.roomId]);
+      } catch (error) {
+        return false;
+      }
+    });
 
     try {
-      const [deleted]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+      await pool.query(
         'DELETE FROM scheduled_has_courses WHERE scheduled_id = ?;',
         [id],
       );
-      // console.log(deleted.affectedRows);
-        // return createdChedule.insertId;
     } catch (error) {
-      console.log(error);
+      // eslint-disable-next-line no-console
+      console.error('An error occurred while deleting courses', error);
       return false;
     }
 
     // console.log(courses);
-    for (var index in courses) {
+    /* for (var index in courses) {
       console.log('uus kirje sceduled:', id, ' courses_id:', courses[index].courseId);
       try {
-        const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(`INSERT INTO scheduled_has_courses (scheduled_id, courses_id) 
+        const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
+          await pool.query(`INSERT INTO scheduled_has_courses (scheduled_id, courses_id) 
         VALUES ('?', '?');`, [id, courses[index].courseId]);
       } catch (error) {
         // console.log(error);
         return false;
       }
-    }
+    } */
 
     try {
-      const [deleted]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+      await pool.query(
         'DELETE FROM scheduled_has_lecturers WHERE schedule_id = ?;',
         [id],
       );
-      // console.log(deleted.affectedRows);
-        // return createdChedule.insertId;
     } catch (error) {
-      // console.log(error);
+      // eslint-disable-next-line no-console
+      console.error('An error occurred while deleting lecturers', error);
       return false;
     }
 
-    // console.log(lecturers);
-    for (var index in lecturers) {
+    /* for (var index in lecturers) {
       // console.log("uus kirje sceduled:", id, " lecturers_id:", lecturers[index].lecturerId);
       try {
-        const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(`INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id) 
+        const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
+          await pool.query(`INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id)
         VALUES ('?', '?');`, [id, lecturers[index].lecturerId]);
       } catch (error) {
         // console.log(error);
         return false;
       }
-    }
+    } */
+    lecturers.forEach(async (lecturer) => {
+      const query = `
+        INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id)
+        VALUES (?, ?);
+      `;
+      try {
+        await pool.query(query, [id, lecturer.lecturerId]);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(`An error occurred while inserting lecturer ${lecturer.lecturerId}:`, error);
+        return false;
+      }
+    });
+
     return updatedRows;
   },
 
