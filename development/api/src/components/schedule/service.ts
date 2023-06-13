@@ -163,42 +163,90 @@ const scheduleService = {
         [startTime, endTime, comment, subject, distanceLink],
       );
       createdscheduleId = createdChedule.insertId;
-      // return createdChedule.insertId;
     } catch (error) {
       return false;
     }
 
-    for (var index in rooms) {
+    // Järgnevalt väljakommenteeritud kood on ESLint-i rakendamisel
+    // ümber kirjutatud, kuid on alles jäetud
+    // juhuks, kui testimisel selgub, et uus kood ei tööta.
+
+    /* for (var index in rooms) {
       // console.log("uus kirje sceduled:", createdscheduleId, " Rooms_id:", rooms[index].roomId);
       try {
-        const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(`INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id) 
+        const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
+          await pool.query(`INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id)
         VALUES ('?', '?');`, [createdscheduleId, rooms[index].roomId]);
       } catch (error) {
         return false;
       }
-    }
+    } */
 
-    // console.log(courses);
-    for (var index in courses) {
-      // console.log("uus kirje sceduled:", createdscheduleId, " courses_id:", courses[index].courseId);
+    // Eelnev väljakommenteeritud kood ümber kirjutatud järgnevaga:
+    rooms.forEach(async (room) => {
       try {
-        const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(`INSERT INTO scheduled_has_courses (scheduled_id, courses_id) 
+        const query = `
+        INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id)
+          VALUES (?, ?);
+      `;
+        await pool.query(query, [createdscheduleId, room.roomId]);
+        return true;
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(`An error occurred while inserting room ${room.roomId}:`, error);
+        return false;
+      }
+    });
+
+    /* for (var index in courses) {
+      try {
+        const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
+          await pool.query(`INSERT INTO scheduled_has_courses (scheduled_id, courses_id)
         VALUES ('?', '?');`, [createdscheduleId, courses[index].courseId]);
       } catch (error) {
         return false;
       }
-    }
+    } */
 
-    // console.log(lecturers);
-    for (var index in lecturers) {
-      // console.log("uus kirje sceduled:", createdscheduleId, " lecturers_id:", lecturers[index].lecturerId);
+    // Eelnev väljakommenteeritud kood ümber kirjutatud järgnevaga:
+    courses.forEach(async (course) => {
+      const query = `
+        INSERT INTO scheduled_has_courses (scheduled_id, courses_id)
+          VALUES (?, ?);`;
       try {
-        const [createdChedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(`INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id) 
+        await pool.query(query, [createdscheduleId, course.courseId]);
+        return true;
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(`An error occurred while inserting course ${course.courseId}:`, error);
+        return false;
+      }
+    });
+
+    /* for (var index in lecturers) {
+      try {
+        const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
+          await pool.query(`INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id)
         VALUES ('?', '?');`, [createdscheduleId, lecturers[index].lecturerId]);
       } catch (error) {
         return false;
       }
-    }
+    } */
+
+    // Eelnev väljakommenteeritud kood ümber kirjutatud järgnevaga:
+    lecturers.forEach(async (lecturer) => {
+      try {
+        const query = `
+          INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id)
+            VALUES (?, ?);`;
+        await pool.query(query, [createdscheduleId, lecturer.lecturerId]);
+        return true;
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(`An error occurred while inserting lecturer ${lecturer.lecturerId}:`, error);
+        return false;
+      }
+    });
 
     return createdscheduleId;
   },
@@ -217,30 +265,25 @@ const scheduleService = {
   ): Promise<number | false> => {
     let updatedRows: number;
 
-    // console.log(id,startTime, endTime, comment, subject, distanceLink);
     try {
       const [updatedSchedule]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        `UPDATE scheduled SET 
-        startTime = ?, endTime = ?, comment = ?, subjects_id = ?, distanceLink = ?  
-        WHERE id = ?;`,
+        `UPDATE scheduled
+          SET startTime = ?, endTime = ?, comment = ?, subjects_id = ?, distanceLink = ?  
+          WHERE id = ?;`,
         [startTime, endTime, comment, subject, distanceLink, id],
       );
       updatedRows = updatedSchedule.affectedRows;
-      // return createdChedule.insertId;
     } catch (error) {
       // console.log(error);
       return false;
     }
 
     try {
-      const [deleted]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+      await pool.query(
         'DELETE FROM scheduled_has_rooms WHERE scheduled_id = ?;',
         [id],
       );
-      // console.log(deleted.affectedRows);
-        // return createdChedule.insertId;
     } catch (error) {
-      // console.log(error);
       return false;
     }
 
@@ -317,14 +360,16 @@ const scheduleService = {
     }
   },
 
-  getgcal: async (atDate:string, toDate:string, courseId:number, lecturerId:number): Promise<ISchedule[] | false> => {
+  getgcal: async (atDate:string, toDate:string, courseId:number, lecturerId:number):
+    Promise<ISchedule[] | false> => {
     let isCourse = '%';
     let isLecture = '%';
-    (courseId == 0 ? isCourse = '%' : isCourse = '');
-    (lecturerId == 0 ? isLecture = '%' : isLecture = '');
+    isCourse = courseId === 0 ? '%' : '';
+    isLecture = lecturerId === 0 ? '%' : '';
 
     try {
-      const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(`        SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
+      const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(`
+      SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
         subjects.subjectCode AS subjectCode, subjects.subject AS subject, scheduled.distanceLink AS distanceLink, scheduled.comment, 
         group_concat( DISTINCT lecturers.id ORDER BY lecturers.id) As strLecturersId,
         group_concat( DISTINCT courses.id ORDER BY courses.id) AS strCoursesId,
@@ -348,7 +393,7 @@ const scheduleService = {
 
       // AND courses.id = ? AND lecturers.id = ?
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return false;
     }
   },
@@ -362,6 +407,7 @@ const scheduleService = {
       if (result.affectedRows > 0) {
         return true;
       }
+      return false;
     } catch (error) {
       return false;
     }

@@ -57,7 +57,6 @@ const courseController = {
   },
   deleteCourse: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
-    // console.log(id);
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: 'No valid id provided',
