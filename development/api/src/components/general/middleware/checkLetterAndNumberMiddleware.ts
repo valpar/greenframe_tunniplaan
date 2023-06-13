@@ -13,8 +13,12 @@ const checkAlphabetAndNumber = (
   let testScheduled = true;
   let testSubject = true;
 
-  scheduled ? (testScheduled = validateField.testFields(scheduled)) : true;
-  subject ? (testSubject = validateField.testFields(subject)) : true;
+  // Järgnevad kaks rida välja kommenteeritud ja ümber kirjutatud
+  // scheduled ? (testScheduled = validateField.testFields(scheduled)) : true;
+  // subject ? (testSubject = validateField.testFields(subject)) : true;
+
+  testScheduled = validateField.testFields(scheduled);
+  testSubject = validateField.testFields(subject);
 
   if (testScheduled && testSubject) {
     return next();
