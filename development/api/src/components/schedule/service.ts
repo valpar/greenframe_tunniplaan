@@ -46,6 +46,7 @@ const scheduleService = {
         const { subjectCode } = schedule[i];
         const actualDate = schedule[i].startTime.toISOString().slice(0, 11).replace('T', ' ');
 
+        // eslint-disable-next-line no-await-in-loop
         const homework = await homeworkService.gethomeworkBySubjectCode(subjectCode, actualDate);
 
         if (homework) {
@@ -190,6 +191,7 @@ const scheduleService = {
           VALUES (?, ?);
       `;
         await pool.query(query, [createdscheduleId, room.roomId]);
+        return true;
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(`An error occurred while inserting room ${room.roomId}:`, error);
@@ -214,6 +216,7 @@ const scheduleService = {
           VALUES (?, ?);`;
       try {
         await pool.query(query, [createdscheduleId, course.courseId]);
+        return true;
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(`An error occurred while inserting course ${course.courseId}:`, error);
@@ -238,6 +241,7 @@ const scheduleService = {
           VALUES (?, ?);`;
       try {
         await pool.query(query, [createdscheduleId, lecturer.lecturerId]);
+        return true;
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(`An error occurred while inserting lecturer ${lecturer.lecturerId}:`, error);
@@ -303,6 +307,7 @@ const scheduleService = {
       `;
       try {
         await pool.query(query, [id, room.roomId]);
+        return true;
       } catch (error) {
         return false;
       }
@@ -324,7 +329,7 @@ const scheduleService = {
       console.log('uus kirje sceduled:', id, ' courses_id:', courses[index].courseId);
       try {
         const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
-          await pool.query(`INSERT INTO scheduled_has_courses (scheduled_id, courses_id) 
+          await pool.query(`INSERT INTO scheduled_has_courses (scheduled_id, courses_id)
         VALUES ('?', '?');`, [id, courses[index].courseId]);
       } catch (error) {
         // console.log(error);
@@ -361,6 +366,7 @@ const scheduleService = {
       `;
       try {
         await pool.query(query, [id, lecturer.lecturerId]);
+        return true;
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(`An error occurred while inserting lecturer ${lecturer.lecturerId}:`, error);
