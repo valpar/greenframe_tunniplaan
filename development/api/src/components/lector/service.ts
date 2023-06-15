@@ -1,12 +1,14 @@
-import { FieldPacket, ResultSetHeader } from "mysql2";
-import pool from "../../database";
-import { ILector, INewLector, ILecturerSubjects } from "./interfaces";
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+import { FieldPacket, ResultSetHeader } from 'mysql2';
+import pool from '../../database';
+import { ILector, INewLector, ILecturerSubjects } from './interfaces';
 
 const lecturerService = {
   getAllLecturers: async (): Promise<ILector[] | false> => {
     try {
       const [lecturers]: [ILector[], FieldPacket[]] = await pool.query(
-        "SELECT * FROM lecturers WHERE dateDeleted IS NULL"
+        'SELECT * FROM lecturers WHERE dateDeleted IS NULL',
       );
       return lecturers;
     } catch (error) {
@@ -16,46 +18,47 @@ const lecturerService = {
   },
   getLecturersSubjects: async (): Promise<ILecturerSubjects[] | false> => {
     try {
-      const [activeSubjects]: [ILecturerSubjects[], FieldPacket[]] =
-        await pool.query(
-          `SELECT CONCAT(lecturers.firstName," ",lecturers.lastName) AS fullName,
+      const [activeSubjects]: [ILecturerSubjects[], FieldPacket[]] = await pool.query(
+        `SELECT CONCAT(lecturers.firstName," ",lecturers.lastName) AS fullName,
           (SELECT GROUP_CONCAT(subject) FROM subjects 
           WHERE lecturers.id = lecturers_id) AS activeSubjects 
           FROM lecturers INNER JOIN subjects ON lecturers.id = subjects.lecturers_id 
           WHERE lecturers.dateDeleted IS NULL 
-          GROUP BY fullName, activeSubjects ORDER BY activeSubjects DESC;`
-        );
+          GROUP BY fullName, activeSubjects ORDER BY activeSubjects DESC;`,
+      );
       return activeSubjects;
     } catch (error) {
       return false;
     }
   },
   getLecturerById: async (
-    id: number
+    id: number,
   ): Promise<ILector[] | false | undefined> => {
     try {
       const lecturer: [ILector[], FieldPacket[]] = await pool.query(
-        "SELECT firstName, lastName FROM lecturers WHERE id = ? AND dateDeleted IS NULL",
-        [id]
+        'SELECT firstName, lastName FROM lecturers WHERE id = ? AND dateDeleted IS NULL',
+        [id],
       );
       if (lecturer[0][0] !== undefined) {
         return lecturer[0];
       }
+      return false;
     } catch (error) {
       return false;
     }
   },
   deleteLecturerById: async (
-    id: number
+    id: number,
   ): Promise<number | false | undefined> => {
     try {
       const [index]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "UPDATE lecturers SET dateDeleted = ? WHERE dateDeleted IS NULL AND id = ?",
-        [new Date(), id]
+        'UPDATE lecturers SET dateDeleted = ? WHERE dateDeleted IS NULL AND id = ?',
+        [new Date(), id],
       );
       if (index.affectedRows > 0) {
         return index.affectedRows;
       }
+      return false;
     } catch (error) {
       return false;
     }
@@ -63,8 +66,8 @@ const lecturerService = {
   createlecturer: async (newLecturer: INewLector): Promise<number | false> => {
     try {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "INSERT INTO lecturers SET ? ",
-        [{ ...newLecturer }]
+        'INSERT INTO lecturers SET ? ',
+        [{ ...newLecturer }],
       );
       return result.insertId;
     } catch (error) {
@@ -73,16 +76,17 @@ const lecturerService = {
   },
   updateLecturerById: async (
     newLecturer: INewLector,
-    id: number
+    id: number,
   ): Promise<boolean | undefined> => {
     try {
       const [update]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "UPDATE lecturers SET ? WHERE id = ?",
-        [{ ...newLecturer }, id]
+        'UPDATE lecturers SET ? WHERE id = ?',
+        [{ ...newLecturer }, id],
       );
       if (update.affectedRows > 0) {
         return true;
       }
+      return false;
     } catch (error) {
       return false;
     }

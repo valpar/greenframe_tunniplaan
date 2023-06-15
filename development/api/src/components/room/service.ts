@@ -1,12 +1,14 @@
-import { FieldPacket, ResultSetHeader } from "mysql2";
-import pool from "../../database";
-import IRoom from "./interface";
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+import { FieldPacket, ResultSetHeader } from 'mysql2';
+import pool from '../../database';
+import IRoom from './interface';
 
 const roomService = {
   getAllRooms: async (): Promise<IRoom[] | false> => {
     try {
       const [rooms]: [IRoom[], FieldPacket[]] = await pool.query(
-        "SELECT * FROM rooms WHERE dateDeleted is NULL"
+        'SELECT * FROM rooms WHERE dateDeleted is NULL',
       );
       return rooms;
     } catch (error) {
@@ -16,8 +18,8 @@ const roomService = {
   getRoomId: async (id: number): Promise<IRoom | false> => {
     try {
       const [room]: [IRoom[], FieldPacket[]] = await pool.query(
-        "SELECT room FROM rooms WHERE id = ? AND dateDeleted IS NULL LIMIT 1",
-        [id]
+        'SELECT room FROM rooms WHERE id = ? AND dateDeleted IS NULL LIMIT 1',
+        [id],
       );
       return room[0];
     } catch (error) {
@@ -27,8 +29,8 @@ const roomService = {
   createRoom: async (room: string): Promise<number | false> => {
     try {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "INSERT INTO rooms SET room = ?",
-        [room]
+        'INSERT INTO rooms SET room = ?',
+        [room],
       );
       return result.insertId;
     } catch (error) {
@@ -37,7 +39,7 @@ const roomService = {
   },
   deleteRoom: async (id: number): Promise<boolean> => {
     try {
-      await pool.query("UPDATE rooms SET dateDeleted = ? WHERE id = ?", [
+      await pool.query('UPDATE rooms SET dateDeleted = ? WHERE id = ?', [
         new Date(),
         id,
       ]);
@@ -52,12 +54,13 @@ const roomService = {
   }): Promise<boolean | undefined> => {
     try {
       const [update]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "UPDATE rooms SET room = ? WHERE id = ?",
-        [data.room, data.id]
+        'UPDATE rooms SET room = ? WHERE id = ?',
+        [data.room, data.id],
       );
       if (update.affectedRows > 0) {
         return true;
       }
+      return false;
     } catch (error) {
       return false;
     }

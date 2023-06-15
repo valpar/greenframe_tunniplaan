@@ -1,6 +1,4 @@
-// Interfaces
-
-import { RowDataPacket } from "mysql2";
+import { RowDataPacket } from 'mysql2';
 
 interface ILector extends RowDataPacket {
   id: number;

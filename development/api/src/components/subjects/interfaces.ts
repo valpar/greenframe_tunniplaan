@@ -1,7 +1,4 @@
-// Interfaces
-
-import { RowDataPacket } from "mysql2";
-
+import { RowDataPacket } from 'mysql2';
 
 // interface ISubject extends RowDataPacket {
 //   id: number;
@@ -36,6 +33,5 @@ interface INewSubject {
   subjectCode: string;
   creditPoint: number;
 }
-
 
 export { ISubject, INewSubject };

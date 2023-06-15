@@ -28,6 +28,12 @@ docker-compose up -d
 6. ühiduvust andmebaasiga browseris aadressil http://localhost:4000/schedule
 7. kliendi frontend rakendus töötab browseris aadressil http://localhost:3000
 
+> Praegu võib olla probleeme sellega, et dockeri konteineri loomisel ei paigaldata korrektselt `bcrypt` npm pakett. Sellisel juhul tuleb minna `ts-node-docker` nimelisse konteinerisse, ja käivitada seal `npm uninstall bcrypt` ja `npm install bcrypt`. Seejärel tuleb konteiner taaskäivitada.
+
+## ESLint
+
+API-poolses koodis on rakendatud ESLint koodianalüsaatorit koos Airbnb stiilijuhendiga. Kui kasutad arendamiseks VSCode editori, siis on soovitav paigaldada [ESLint plugin](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint). Seejärel on koodi redigeerimise ajal näha, millised kohad ei vasta stiilijuhendile.
+
 ## Meeskond
 
 | **Roll**   | **Nimi** |

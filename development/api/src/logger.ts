@@ -1,25 +1,25 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 import winston from 'winston';
-import pool from  './database';
-import { createPool, Pool, PoolConnection, PoolOptions } from 'mysql2/promise';
+import { PoolConnection } from 'mysql2/promise';
+import pool from './database';
 
 // Loome Winston'i loggeri
 
 export const logger = winston.createLogger({
-level: 'info',
-format: winston.format.json(),
-defaultMeta: { service: 'user-service' },
-transports: [
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
   //
   // - Write all logs with importance level of `error` or less to `error.log`
   // - Write all logs with importance level of `info` or less to `combined.log`
   //
-  new winston.transports.File({ filename: 'error.log', level: 'error' }),
-  new winston.transports.File({ filename: 'combined.log' }),
-  new winston.transports.Console({format: winston.format.simple(),})
-],
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' }),
+    new winston.transports.Console({ format: winston.format.simple() }),
+  ],
 });
-
-
 
 // export const logger = winston.createLogger({
 //   transports: [
@@ -31,13 +31,13 @@ transports: [
 // });
 
 export async function logToDatabase(level: string, message: string): Promise<void> {
-    const connection = await createDatabaseConnection();
-  
-    await connection.execute('INSERT INTO log (level, message) VALUES (?, ?)', [level, message]);
-  
-    connection.release();
-  }
-  
+  const connection = await createDatabaseConnection();
+
+  await connection.execute('INSERT INTO log (level, message) VALUES (?, ?)', [level, message]);
+
+  connection.release();
+}
+
 export async function createDatabaseConnection(): Promise<PoolConnection> {
   const connection = await pool.getConnection();
 
@@ -45,17 +45,15 @@ export async function createDatabaseConnection(): Promise<PoolConnection> {
   connection.on('enqueue', (query: string) => {
     logger.info(`Executing query: ${query}`);
     logToDatabase('info', `Executing query: ${query}`);
-    });
-    
-    // Käitleme vead
-    connection.on('error', (error: Error) => {
+  });
+
+  // Käitleme vead
+  connection.on('error', (error: Error) => {
     logger.error(`MySQL Error: ${error.message}`);
     logToDatabase('error', `MySQL Error: ${error.message}`);
-    });
-    
-    return connection;
-    }
+  });
 
+  return connection;
+}
 
-    export default logger;
-    
+export default logger;

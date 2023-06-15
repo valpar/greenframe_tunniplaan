@@ -1,8 +1,4 @@
-// Scheduled interfaces
-
-import { RowDataPacket } from "mysql2";
-
-
+import { RowDataPacket } from 'mysql2';
 
 interface Iroom {
  roomId?:number;
@@ -26,7 +22,7 @@ interface ISchedule extends RowDataPacket {
   rooms: Iroom[] | null;
   comment: string;
   courses: Icourse[] | null;
-  subject: {};  
+  subject: {};
   subjectId?: number;
   subjectCode?: string;
   lecturers: Ilecturer[] | null;
@@ -51,6 +47,7 @@ interface Isubject {
   subjectCode?: string ;
   subject?: string;
 
- 
  }
-export { ISchedule, Iroom, Icourse, Ilecturer, IhomeW, Isubject};
+export {
+  ISchedule, Iroom, Icourse, Ilecturer, IhomeW, Isubject,
+};
