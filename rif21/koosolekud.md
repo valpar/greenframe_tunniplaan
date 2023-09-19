@@ -17,11 +17,12 @@
   
 </ul>
 
-### RiskidS
-    <p>1. Uue võõra tehnoloogilise tööriista kasutusele võtt</p>
-    <p>2. Testide kirjutamisel ei suuda kõike vajalikku testida</p>
-    <p>3. Meeskonnaliikmete ajapuudus</p>
-
+### Riskid
+<ol>
+  <li>Uue võõra tehnoloogilise tööriista kasutusele võtt</li>
+  <li>Testide kirjutamisel ei suuda kõike vajalikku testida</lip>
+  <li>Meeskonnaliikmete ajapuudus</li>
+</ol>
      
   |    | 1. | 2. | 3. |
   | --------------- | ------------------ |----------- | ----------- | 
