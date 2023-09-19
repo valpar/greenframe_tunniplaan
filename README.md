@@ -2,14 +2,16 @@
 
 Eesmärgiks on 2023. aasta Valikpraktika käigus arendada edasi API'l baseeruvat tunniplaani ja kodutööde kuvamise lahendust, mis võimaldaks arenduse sujuvat jätkamist tulevikus ja integratsioone võimalike teiste süsteemidega.
 
+## Koosolekud
 
+[Link](https://github.com/TLUHK-RIF21/HK-Tunniplaan/blob/master/rif21/koosolekud.md)
 
 ## Meeskond
 
 | **Roll**   | **Nimi** |
 | ---------- | -------- |
 | **Arendaja** | Andrus    |
-| **?** | Mario    |
+| **Arendaja/Projektijuht** | Mario    |
 
 ### Projekt - Tunniplaan
 
@@ -35,7 +37,7 @@ docker-compose up -d
 4. arendamisel vsc docker extension ja seal vaates "containers" juurest api peal parem klõps ja "view logs" - siis saab api-ga toimuvat näha.
 5. api töötamist saab kontrollida browseris aadressil http://localhost:4000/ping
 6. ühiduvust andmebaasiga browseris aadressil http://localhost:4000/schedule
-7. kliendi frontend rakendus töötab browseris aadressil http://localhost:3000
+7. kliendi frontend rakendus töötab browseris aadressil http://localhost:80
 
 > Praegu võib olla probleeme sellega, et dockeri konteineri loomisel ei paigaldata korrektselt `bcrypt` npm pakett. Sellisel juhul tuleb minna `ts-node-docker` nimelisse konteinerisse, ja käivitada seal `npm uninstall bcrypt` ja `npm install bcrypt`. Seejärel tuleb konteiner taaskäivitada.
 
