@@ -19,8 +19,6 @@ Esialgseks plaaniks on arendada edasi kasutajate haldust ning testimist.
 | **Arendaja** | Andrus    |
 | **Arendaja/Projektijuht** | Mario    |
 
-### Projekt - Tunniplaan
-
 ## Käivitamine
 
 1. Klooni repositoorium 
