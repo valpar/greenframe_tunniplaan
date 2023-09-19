@@ -2,6 +2,8 @@
 
 Eesmärgiks on 2023. aasta Valikpraktika käigus arendada edasi API'l baseeruvat tunniplaani ja kodutööde kuvamise lahendust, mis võimaldaks arenduse sujuvat jätkamist tulevikus ja integratsioone võimalike teiste süsteemidega.
 
+
+
 ## Meeskond
 
 | **Roll**   | **Nimi** |
