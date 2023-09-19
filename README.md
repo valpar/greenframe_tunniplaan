@@ -6,6 +6,10 @@ Eesmärgiks on 2023. aasta Valikpraktika käigus arendada edasi API'l baseeruvat
 
 [Link](https://github.com/TLUHK-RIF21/HK-Tunniplaan/blob/master/rif21/koosolekud.md)
 
+## Praktikapäevikud
+[Andrus](https://github.com/TLUHK-RIF21/HK-Tunniplaan/issues/2)
+[Mario](https://github.com/TLUHK-RIF21/HK-Tunniplaan/issues/1)
+
 ## Meeskond
 
 | **Roll**   | **Nimi** |
