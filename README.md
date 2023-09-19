@@ -2,9 +2,11 @@
 
 Eesmärgiks on 2023. aasta Valikpraktika käigus arendada edasi API'l baseeruvat tunniplaani ja kodutööde kuvamise lahendust, mis võimaldaks arenduse sujuvat jätkamist tulevikus ja integratsioone võimalike teiste süsteemidega.
 
+Esialgseks plaaniks on arendada edasi kasutajate haldust ning testimist.
+
 ## Koosolekud
 
-[Link](https://github.com/TLUHK-RIF21/HK-Tunniplaan/blob/master/rif21/koosolekud.md)
+- [Link](https://github.com/TLUHK-RIF21/HK-Tunniplaan/blob/master/rif21/koosolekud.md)
 
 ## Praktikapäevikud
 <ul>
