@@ -1,5 +1,16 @@
 # Koosolekud
 
+## 19.09.2023
+### 21.00-22.00
+<ul>
+  <li>Järgmiseks korraks rakendus vigadeta käima saada.</li> 
+  <li>Vaatame järgi kasutajate halduse, rollid. Sisselogimine kuu aja jooksul.</li>
+  <li>ESlint proovimine</li>
+  <li>Kooli serveris repo käima</li>
+  
+</ul>
+
+
 ## 17.09.2023
 ### 21.00-22.00
 ### Osalejad
