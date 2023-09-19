@@ -9,10 +9,8 @@ Esialgseks plaaniks on arendada edasi kasutajate haldust ning testimist.
 - [Link](https://github.com/TLUHK-RIF21/HK-Tunniplaan/blob/master/rif21/koosolekud.md)
 
 ## Praktikapäevikud
-<ul>
-  <li>[Andrus](https://github.com/TLUHK-RIF21/HK-Tunniplaan/issues/2)</li>
-  <li>[Mario](https://github.com/TLUHK-RIF21/HK-Tunniplaan/issues/1)</li>
-</ul>
+- [Andrus](https://github.com/TLUHK-RIF21/HK-Tunniplaan/issues/2)
+- [Mario](https://github.com/TLUHK-RIF21/HK-Tunniplaan/issues/1)
 
 ## Meeskond
 
