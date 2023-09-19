@@ -8,7 +8,7 @@ Eesmärgiks on 2023. aasta Valikpraktika käigus arendada edasi API'l baseeruvat
 
 | **Roll**   | **Nimi** |
 | ---------- | -------- |
-| **?** | Andrus    |
+| **Arendaja** | Andrus    |
 | **?** | Mario    |
 
 ### Projekt - Tunniplaan
