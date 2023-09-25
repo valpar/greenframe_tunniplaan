@@ -9,15 +9,18 @@ const formatDate = {
     //     outTime = inTime.replace("T"," ");
     //   }
 
+    // ESLint errorite kõrvaldamiseks lõin returnedInputDate,
+    // enne muudeti ja tagastati inputdate, mis on sama nimega, kui parameeter
+    let returnedInputDate;
     if (inputdate.includes('T')) {
-      const splitActualDate = inputdate.split('T');
-      inputdate = splitActualDate[0];
+      const [splitActualDate] = inputdate.split('T');
+      returnedInputDate = splitActualDate;
     }
     if (inputdate.includes(' ')) {
-      const splitActualDate = inputdate.split(' ');
-      inputdate = splitActualDate[0];
+      const [splitActualDate] = inputdate.split(' ');
+      returnedInputDate = splitActualDate;
     }
-    return inputdate;
+    return returnedInputDate;
   },
 
   forSqlDateTime: (inputDateTime:string) => {
