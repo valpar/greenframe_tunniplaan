@@ -1,8 +1,8 @@
 {
   "live": {
-    "url": "http://tunniplaan.hk.tlu.ee:4000/"
+    "url": "localhost:4000/"
   },
   "api": {
-    "url": "http://tunniplaan.hk.tlu.ee:4000/"
+    "url": "localhost:4000/"
   }
 }
