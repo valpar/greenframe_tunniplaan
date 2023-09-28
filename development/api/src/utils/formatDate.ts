@@ -11,7 +11,7 @@ const formatDate = {
 
     // ESLint errorite kõrvaldamiseks lõin returnedInputDate,
     // enne muudeti ja tagastati inputdate, mis on sama nimega, kui parameeter
-    let returnedInputDate;
+    let returnedInputDate: string = '';
     if (inputdate.includes('T')) {
       const [splitActualDate] = inputdate.split('T');
       returnedInputDate = splitActualDate;

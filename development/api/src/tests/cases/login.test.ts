@@ -9,7 +9,7 @@ import app from '../../app';
 const user = {
   email: 'koviid@mail.ee',
   password: 'Koviid',
-};
+};c
 const regularUser = {
   email: 'krispi@mail.ee',
   password: 'Krispi',
