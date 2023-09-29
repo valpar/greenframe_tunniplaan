@@ -34,6 +34,7 @@ Kliendirakendust saab avada brauserist aadressil http://localhost:3000
 
 Selleks, et kohalikus arvutis käivitatud API saaks ühenduda Dockeris töötava andmebaasiga, tuleb development/api/src/database.ts failis asendada rida "host: 'mysql_server'," reaga "host: 'localhost'," ning lisada rida "port: 3307, "
 
+**NB!!!** Kasutades Visual Studio Code (VSCode), siis terminaliaknas cd käsuga kausta vahetamisel tuleb kindlasti kasutada suur- ja väiketähti. Vastasel juhul annab ESLint veateate.
 
 ### Käivitamine Dockeris
 1. Klooni repositoorium 
