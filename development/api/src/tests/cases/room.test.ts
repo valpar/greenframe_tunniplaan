@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
+/* eslint-disable no-unused-expressions */
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
@@ -58,7 +59,7 @@ describe('Room controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Room is missing');
     });
-  }),
+  });
   describe('PATCH /rooms/:id', () => {
     it('responds with code 204 and empty object', async () => {
       const response = await request(app)
@@ -105,7 +106,7 @@ describe('Room controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal(`No room found with id: ${id}`);
     });
-  }),
+  });
   describe('GET /rooms/:id', () => {
     it('responds with code 200 and room information', async () => {
       const response = await request(app)
