@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `scheduleDb`.`users` (
   `firstName` VARCHAR(45) NOT NULL,
   `lastName` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(80) NOT NULL,
   `role` VARCHAR(10) NOT NULL,
   `dateCreated` DATETIME NULL DEFAULT  CURRENT_TIMESTAMP,
   `dateDeleted` DATETIME NULL,

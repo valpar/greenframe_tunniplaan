@@ -67,3 +67,30 @@
 {"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
 {"level":"info","message":"Request method and URL: GET /schedule/2015-12-31T22:00:00.000Z/2016-01-31T21:59:59.000Z","service":"user-service"}
 {"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /favicon.ico","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /userlist","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login?email=andrus.kyynarpuu@gmail.com&password=%C3%B6dalkfak%C3%B6d","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mari@mari.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mari@mari.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"user\":{\"id\":1,\"firstName\":\"Mari\",\"lastName\":\"Maasikas\",\"email\":\"mari@mari.ee\",\"password\":\"BadExampleQwerty123\",\"role\":\"Admin\"}}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /login/1","service":"user-service"}
+{"level":"info","message":"Request body: {\"user\":{\"id\":1,\"firstName\":\"Mari\",\"lastName\":\"Maasikas\",\"email\":\"mari@mari.ee\",\"password\":\"BadExampleQwerty123\",\"role\":\"Admin\"}}","service":"user-service"}
