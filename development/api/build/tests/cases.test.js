@@ -1,0 +1,11 @@
+"use strict";
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+require('./cases/ping.test');
+require('./cases/login.test');
+require('./cases/lecturers.test');
+require('./cases/room.test');
+require('./cases/subjects.test');
+require('./cases/course.test');
+require('./cases/users.test');
+require('./cases/server.test');

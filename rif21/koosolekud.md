@@ -1,4 +1,10 @@
 # Koosolekud
+## 27.09.23
+### 21.00 - 21.55
+- kuhu maal oleme, mis probleemid on
+- Andrus proovib käima panna lokaalselt, miks frontend andmebaasist ei saa kätte
+- CI/CD praegu kohe ei tegele
+- lahendasime typescripti kompileerimise errorit
 
 ## 19.09.2023
 ### 21.00-22.00

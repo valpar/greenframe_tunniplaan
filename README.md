@@ -21,6 +21,22 @@ Esialgseks plaaniks on arendada edasi kasutajate haldust ning testimist.
 
 ## Käivitamine
 
+### Käivitamine kohalikus arvutis
+API käivitamiseks tuleb minna development/api kausta ning seal sisestada käsk npm run dev
+Enne esimest käivitamist peale repositooriumi kloonimist võib olla vajalik deinstalleerida bcrypt
+käisuga npm uninstall brcypt ning installeerida see uuesti npm install bcrypt
+API kaustuab porti 4000 ning API toimimist saab kontrollida aadressil http://localhost:4000/ping 
+
+Kliendirakendus tuleb käivitada kohalikus arvutis development/client kaustast käsuga npm start.
+Enne esimest käivitamist peale repositooriumi kloonimist tuleks käivitada käsk npm ci 
+pakettide installeerimiseks
+Kliendirakendust saab avada brauserist aadressil http://localhost:3000
+
+Selleks, et kohalikus arvutis käivitatud API saaks ühenduda Dockeris töötava andmebaasiga, tuleb development/api/src/database.ts failis asendada rida "host: 'mysql_server'," reaga "host: 'localhost'," ning lisada rida "port: 3307, "
+
+**NB!!!** Kasutades Visual Studio Code (VSCode), siis terminaliaknas cd käsuga kausta vahetamisel tuleb kindlasti kasutada suur- ja väiketähti. Vastasel juhul annab ESLint veateate.
+
+### Käivitamine Dockeris
 1. Klooni repositoorium 
 ```bash
 git clone https://github.com/TLUHK-RIF21/HK-Tunniplaan
@@ -44,6 +60,10 @@ docker-compose up -d
 7. kliendi frontend rakendus töötab browseris aadressil http://localhost:80
 
 > Praegu võib olla probleeme sellega, et dockeri konteineri loomisel ei paigaldata korrektselt `bcrypt` npm pakett. Sellisel juhul tuleb minna `ts-node-docker` nimelisse konteinerisse, ja käivitada seal `npm uninstall bcrypt` ja `npm install bcrypt`. Seejärel tuleb konteiner taaskäivitada.
+
+## Rakenduse laadimine serverisse
+Kohalikus masinas kasutamise jaoks tuleb kliendile anda aadressiks localhost. Selleks tuleb muuta faili development/client/src/config.json. Serverisse laadimisel tuleb selles failis API aadressid asendada serveri URL'iga
+
 
 ## ESLint
 
