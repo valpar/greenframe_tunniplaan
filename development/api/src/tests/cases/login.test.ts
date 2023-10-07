@@ -3,8 +3,10 @@
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import * as faker from 'faker';
 import app from '../../app';
+// import * as faker from 'faker';
+// faker import doesn't work, used require(https://stackoverflow.com/questions/41292559/could-not-find-a-declaration-file-for-module-module-name-path-to-module-nam)
+const faker = require('faker');
 
 const user = {
   email: 'koviid@mail.ee',
@@ -23,15 +25,19 @@ const wrongUserPassword = {
   password: 'Koviid1',
 };
 
-const firstname: string = faker.name.firstName();
-const lastname: string = faker.name.lastName();
-const password: string = faker.internet.password();
-const email: string = faker.internet.email();
+// These variables aren't used
+// const firstname: string = faker.name.firstName();
+// const lastname: string = faker.name.lastName();
+// const password: string = faker.internet.password();
+// const email: string = faker.internet.email();
+// const fakeToken: string = faker.internet.password();
+// let userId: number;
+// const id: number = 9999;
+
+// eslint-disable-next-line no-unused-vars
 let token: string;
+// eslint-disable-next-line no-unused-vars
 let userToken: string;
-const fakeToken: string = faker.internet.password();
-let userId: number;
-const id: number = 9999;
 
 describe('Login controller', () => {
   describe('POST /login', () => {

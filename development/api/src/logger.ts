@@ -3,7 +3,6 @@
 import winston from 'winston';
 import { PoolConnection } from 'mysql2/promise';
 import pool from './database';
-
 // Loome Winston'i loggeri
 
 export const logger = winston.createLogger({
@@ -31,6 +30,7 @@ export const logger = winston.createLogger({
 // });
 
 export async function logToDatabase(level: string, message: string): Promise<void> {
+  // eslint-disable-next-line no-use-before-define
   const connection = await createDatabaseConnection();
 
   await connection.execute('INSERT INTO log (level, message) VALUES (?, ?)', [level, message]);

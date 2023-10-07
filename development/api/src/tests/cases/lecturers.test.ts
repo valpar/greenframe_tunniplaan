@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
+/* eslint-disable no-unused-expressions */
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
@@ -102,7 +103,7 @@ describe('Lecturers controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Insert only letters, space or -');
     });
-  }),
+  });
   describe('PATCH /lecturers/:id', () => {
     it('responds with code 204 and empty object', async () => {
       const response = await request(app)
@@ -166,7 +167,7 @@ describe('Lecturers controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('No valid id provided');
     });
-  }),
+  });
   describe('GET /lecturers/activeSubjects', () => {
     it('responds with code 200 and all lecturers assigned subjects information', async () => {
       const response = await request(app)
