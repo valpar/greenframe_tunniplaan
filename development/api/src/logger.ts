@@ -1,8 +1,6 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
 import winston from 'winston';
 import { PoolConnection } from 'mysql2/promise';
-import pool from './database';
+import pool from './database.ts';
 // Loome Winston'i loggeri
 
 export const logger = winston.createLogger({
