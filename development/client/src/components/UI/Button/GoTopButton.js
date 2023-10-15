@@ -6,7 +6,9 @@ const GoTopButton = () => {
   const [showGoTop, setShowGoTop] = useState(false);
 
   const handleVisibleButton = () => {
-    setShowGoTop(window.pageYOffset > 50);
+    // 'pageYOffset' is deprecated.ts
+    // setShowGoTop(window.pageYOffset > 50);
+    setShowGoTop(window.scrollY > 50);
   };
 
   const handleScrollUp = () => {
@@ -31,6 +33,8 @@ const GoTopButton = () => {
       <FontAwesomeIcon
         className="block text-4xl md:text-6xl cursor-pointer text-darkGray opacity-70 hover:opacity-100 duration-200"
         icon={faCircleUp}
+        // for testing the component
+        data-testid="go-top-button"
       />
     </div>
   );

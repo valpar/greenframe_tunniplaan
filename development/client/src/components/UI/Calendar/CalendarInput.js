@@ -150,7 +150,7 @@ const CalendarInput = (props) => {
   }, [activePeriod, calendarRange]);
 
   return (
-    <div className="relative group">
+    <div data-testid = 'relative-group' className="relative group">
       {!showBtnModal && !isMobile && window.innerWidth >= 1024 && (
         <div className="absolute bg-collegeGreen h-11 group-hover:animate-peeper" />
       )}
