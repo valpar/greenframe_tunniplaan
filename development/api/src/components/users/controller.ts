@@ -5,6 +5,7 @@ import responseCodes from '../general/responseCodes';
 import { INewUser } from './interfaces';
 import userService from './service';
 import jwtService from '../general/services/jwtService';
+import isLoggedIn from '../auth/isLoggedInMiddleware';
 
 const userController = {
   getAllUsers: async (req: Request, res: Response) => {
@@ -145,38 +146,25 @@ const userController = {
   },
 
   updatePassword: async (req: Request, res: Response)=> {
-    const id: number = parseInt(req.params.id, 10);
+    const reqId: number = parseInt(req.params.id, 10);
+    const {password} = req.body;
+
+    const {id, role} = res.locals.user;
     
-    const token = req.headers.authorization?.split(' ')[1];
-    let decoded = jwtToken.decode(token, {complete: true}) ;
-    let payload = decoded.payload ;
+    if (!(reqId == id || role == 'admin'))
+      return res.status(responseCodes.notAuthorized);  
 
-    /*
-
-    const {
-      firstName, lastName, email, role,
-    } = req.body;
-    if (!id) {
+    if (!reqId) {
       return res.status(responseCodes.badRequest).json({
         error: 'No valid id provided',
       });
     }
-    if (!firstName && !lastName && !email && !role) {
-      return res.status(responseCodes.badRequest).json({
-        error: 'Nothing to update',
-      });
-    }
-    const updateUser: any = {
-      id,
-      firstName,
-      lastName,
-      email,
-      role,
-    };
-    const userExists = await userService.updateUserById(updateUser);
+
+    const userExists = await userService.updatePassword(reqId, password);
+
     if (userExists === undefined) {
       return res.status(responseCodes.badRequest).json({
-        error: `No user found with id: ${id}`,
+        error: `No user found with id: ${reqId}`,
       });
     }
     if (!userExists) {
@@ -185,9 +173,7 @@ const userController = {
       });
     }
     return res.status(responseCodes.noContent).send();
-  */
   },
-
 };
 
 export default userController;

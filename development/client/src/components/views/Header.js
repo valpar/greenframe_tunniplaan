@@ -24,7 +24,9 @@ export const Header = (props) => {
     usersListOpen,
     filtersNotification,
     showMobilePicture,
-    openModalAnimation
+    openModalAnimation,
+    showLoginModalHandler,
+    loginHandler,
   } = props;
 
   return (
@@ -108,6 +110,15 @@ export const Header = (props) => {
                         Logi välja
                       </button>
                     )}
+
+                    <button
+                      onClick={showLoginModalHandler}
+                      className="btn-period"
+                      type="button"
+                      name="login"
+                    >
+                      Logi sisse (mock)
+                    </button>
 
                     <button
                       onClick={userRollHandler}

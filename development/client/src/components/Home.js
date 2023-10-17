@@ -19,6 +19,10 @@ import { useMediaQuery } from "react-responsive";
 import UsersList from "./views/UsersList";
 import { RequestError } from "./UI/RequestError";
 
+import LoginModal from "./views/LoginModal";
+
+
+
 const Home = () => {
   const [scheduleRequestParams, setScheduleRequestParams] = useState({
     startDate: new Date().toISOString(),
@@ -65,6 +69,14 @@ const Home = () => {
   const [openModalAnimation, setOpenModalAnimation] = useState(false);
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1023px)" });
   const [showUsersList, setShowUsersList] = useState(false);
+  
+  
+
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginMessage, setLoginMessage] = useState("Logi sisse");
+
 
   const work_Data = useCallback(() => {
     setScheduleLoading(isLoading);
@@ -489,6 +501,7 @@ const Home = () => {
           localStorage.setItem("token", JSON.stringify(response.data));
         }
         setShowUsersModal(false);
+        setLoginMessage("Logi välja");
         console.log("Roll: ", response.data.user.role);
       } catch (error) {
         console.log(error);
@@ -531,6 +544,36 @@ const Home = () => {
     setShowUsersModal(false);
   };
 
+  const showLoginModalHandler = (event) => {
+    event.preventDefault();
+    setShowLoginModal(!showLoginModal);
+  };
+
+  const loginHandler = (event) => {
+    event.preventDefault();
+    setShowLoginModal(!showLoginModal);
+    axios.post('/login', 
+      {
+        email: email,
+        password: password
+      })
+      .then((response) => {
+        console.log("Response: ")
+        console.log(response.data.token);
+        setLoginInfo(response.data);
+        if (response.data) {
+          localStorage.setItem("token", JSON.stringify(response.data));
+        }
+        setShowUsersModal(false);
+        console.log("Roll: ", response.data.user.role);
+        setLoginMessage("Logi välja");
+      })
+      .catch((error) => {
+        console.log("Error: ")
+        console.log(error)
+      })
+  }
+
   return (
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
       <div className="mx-auto w-full">
@@ -561,9 +604,9 @@ const Home = () => {
             filtersNotification={dropdownsSelection?.length}
             showMobilePicture={userStudent || userLecturer || admin}
             openModalAnimation={openModalAnimation}
+            showLoginModalHandler={showLoginModalHandler}
           />
         </div>
-
         {showMobileMenu && isTabletOrMobile && (
           <MobileMenu
             onClose={mobileMenuHandler}
@@ -581,6 +624,20 @@ const Home = () => {
             admin={admin}
           />
         )}
+        
+        {showLoginModal && (
+            <LoginModal 
+              email = {email}
+              password = {password}
+              onEmailChange={setEmail} 
+              onPasswordChange={setPassword} 
+              onClose={showLoginModalHandler} 
+              onDecline={showLoginModalHandler} 
+              onConfirm={loginHandler} 
+              modalMessage="Logi sisse"
+            /> 
+        )}
+
         {showUsersList && (
           <div>
             <UsersList onClose={usersListHandler} />
