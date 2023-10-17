@@ -1,10 +1,14 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 import GoTopButton from '../components/UI/Button/GoTopButton.js';
 
-// ma ei saa seda testi normaalselt toimima
 
 describe('GoTopButton', () => {
+  it("matches snapshot", () => {
+    const tree = renderer.create(<GoTopButton />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
   it('should render and handle scroll to top', () => {
     // Mock the scroll function
     const scrollToMock = jest.fn();

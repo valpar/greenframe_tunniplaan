@@ -11,7 +11,6 @@ afterEach(() => {
 });
 
 describe('CalendarOneInput', () => {
-
     //snapshoti test on, teha ka unit testid
     it("matches snapshot", () => {
         // loob snapshoti

@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddDropdown if matches snapshot 1`] = `
+<div
+  className="relative w-full h-auto"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <div
+    className=" css-b62m3t-container"
+    onKeyDown={[Function]}
+  >
+    <span
+      className="css-1f43avz-a11yText-A11yText"
+      id="react-select-2-live-region"
+    />
+    <span
+      aria-atomic="false"
+      aria-live="polite"
+      aria-relevant="additions text"
+      className="css-1f43avz-a11yText-A11yText"
+    />
+    <div
+      className=" css-1ok88yx-control"
+      onMouseDown={[Function]}
+      onTouchEnd={[Function]}
+    >
+      <div
+        className=" css-319lph-ValueContainer"
+      >
+        <div
+          className=" css-rg4fjx-placeholder"
+          id="react-select-2-placeholder"
+        >
+          Select...
+        </div>
+        <div
+          className=" css-6j8wv5-Input"
+          data-value=""
+        >
+          <input
+            aria-autocomplete="list"
+            aria-describedby="react-select-2-placeholder"
+            aria-expanded={false}
+            aria-haspopup={true}
+            autoCapitalize="none"
+            autoComplete="off"
+            autoCorrect="off"
+            className=""
+            disabled={false}
+            id="react-select-2-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            role="combobox"
+            spellCheck="false"
+            style={
+              Object {
+                "background": 0,
+                "border": 0,
+                "color": "inherit",
+                "font": "inherit",
+                "gridArea": "1 / 2",
+                "label": "input",
+                "margin": 0,
+                "minWidth": "2px",
+                "opacity": 1,
+                "outline": 0,
+                "padding": 0,
+                "width": "100%",
+              }
+            }
+            tabIndex={0}
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        className=" css-q6enge-IndicatorsContainer"
+      >
+        <span
+          className=" css-1okebmr-indicatorSeparator"
+        />
+        <div
+          aria-hidden="true"
+          className=" css-tlfecz-indicatorContainer"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-angle-down px-1"
+            data-icon="angle-down"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 448 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

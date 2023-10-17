@@ -1,0 +1,1384 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CalendarInput matches snapshot 1`] = `
+<div
+  className="relative group"
+  data-testid="relative-group"
+>
+  <div
+    className="relative border group border-borderGray shadow lg:hover:border-black"
+  >
+    <div
+      className="flex justify-between border-b-[1px] border-borderGray"
+    >
+      <div
+        className="relative flex justify-center  w-full"
+      >
+        <input
+          className="h-11 text-center lg:px-1 hover:text-black duration-200 "
+          name="dateRange"
+          onClick={[Function]}
+          readOnly={true}
+          type="text"
+          value="Kalender"
+        />
+        <div
+          className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center"
+        >
+          <div
+            className="h-[1.7rem] w-0 border-r-[1px] border-borderGray"
+          />
+          <div
+            className="flex justify-center items-center px-3 text-borderGray"
+          >
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-angle-up "
+              data-icon="angle-up"
+              data-prefix="fas"
+              focusable="false"
+              onClick={[Function]}
+              role="img"
+              style={Object {}}
+              viewBox="0 0 448 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className=""
+    >
+      <div
+        className="react-calendar react-calendar--selectRange filters"
+      >
+        <div
+          className="react-calendar__navigation"
+        >
+          <button
+            aria-label=""
+            className="react-calendar__navigation__arrow react-calendar__navigation__prev2-button"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            «
+          </button>
+          <button
+            aria-label=""
+            className="react-calendar__navigation__arrow react-calendar__navigation__prev-button"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            ‹
+          </button>
+          <button
+            aria-label=""
+            className="react-calendar__navigation__label"
+            disabled={false}
+            onClick={[Function]}
+            style={
+              Object {
+                "flexGrow": 1,
+              }
+            }
+            type="button"
+          >
+            <span
+              className="react-calendar__navigation__label__labelText react-calendar__navigation__label__labelText--from"
+            >
+              oktoober 2023
+            </span>
+          </button>
+          <button
+            aria-label=""
+            className="react-calendar__navigation__arrow react-calendar__navigation__next-button"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            ›
+          </button>
+          <button
+            aria-label=""
+            className="react-calendar__navigation__arrow react-calendar__navigation__next2-button"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            »
+          </button>
+        </div>
+        <div
+          className="react-calendar__viewContainer"
+          onBlur={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="react-calendar__month-view react-calendar__month-view--weekNumbers"
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                  "display": "flex",
+                }
+              }
+            >
+              <div
+                className="react-calendar__month-view__weekNumbers"
+                onFocus={[Function]}
+                onMouseOver={[Function]}
+                style={
+                  Object {
+                    "display": "flex",
+                    "flexBasis": "calc(100% * (1 / 8)",
+                    "flexDirection": "column",
+                    "flexShrink": 0,
+                    "flexWrap": "no-wrap",
+                  }
+                }
+              >
+                <div
+                  className="react-calendar__tile"
+                  style={
+                    Object {
+                      "flexBasis": "16.666666666666668%",
+                      "flexGrow": 0,
+                      "flexShrink": 0,
+                      "marginLeft": null,
+                      "overflow": "hidden",
+                    }
+                  }
+                >
+                  <span>
+                    39
+                  </span>
+                </div>
+                <div
+                  className="react-calendar__tile"
+                  style={
+                    Object {
+                      "flexBasis": "16.666666666666668%",
+                      "flexGrow": 0,
+                      "flexShrink": 0,
+                      "marginLeft": null,
+                      "overflow": "hidden",
+                    }
+                  }
+                >
+                  <span>
+                    40
+                  </span>
+                </div>
+                <div
+                  className="react-calendar__tile"
+                  style={
+                    Object {
+                      "flexBasis": "16.666666666666668%",
+                      "flexGrow": 0,
+                      "flexShrink": 0,
+                      "marginLeft": null,
+                      "overflow": "hidden",
+                    }
+                  }
+                >
+                  <span>
+                    41
+                  </span>
+                </div>
+                <div
+                  className="react-calendar__tile"
+                  style={
+                    Object {
+                      "flexBasis": "16.666666666666668%",
+                      "flexGrow": 0,
+                      "flexShrink": 0,
+                      "marginLeft": null,
+                      "overflow": "hidden",
+                    }
+                  }
+                >
+                  <span>
+                    42
+                  </span>
+                </div>
+                <div
+                  className="react-calendar__tile"
+                  style={
+                    Object {
+                      "flexBasis": "16.666666666666668%",
+                      "flexGrow": 0,
+                      "flexShrink": 0,
+                      "marginLeft": null,
+                      "overflow": "hidden",
+                    }
+                  }
+                >
+                  <span>
+                    43
+                  </span>
+                </div>
+                <div
+                  className="react-calendar__tile"
+                  style={
+                    Object {
+                      "flexBasis": "16.666666666666668%",
+                      "flexGrow": 0,
+                      "flexShrink": 0,
+                      "marginLeft": null,
+                      "overflow": "hidden",
+                    }
+                  }
+                >
+                  <span>
+                    44
+                  </span>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "flexGrow": 1,
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="react-calendar__month-view__weekdays"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "flexDirection": undefined,
+                      "flexWrap": "no-wrap",
+                    }
+                  }
+                >
+                  <div
+                    className="react-calendar__month-view__weekdays__weekday"
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                  >
+                    <abbr
+                      aria-label="esmaspäev"
+                      title="esmaspäev"
+                    >
+                      E
+                    </abbr>
+                  </div>
+                  <div
+                    className="react-calendar__month-view__weekdays__weekday"
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                  >
+                    <abbr
+                      aria-label="teisipäev"
+                      title="teisipäev"
+                    >
+                      T
+                    </abbr>
+                  </div>
+                  <div
+                    className="react-calendar__month-view__weekdays__weekday"
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                  >
+                    <abbr
+                      aria-label="kolmapäev"
+                      title="kolmapäev"
+                    >
+                      K
+                    </abbr>
+                  </div>
+                  <div
+                    className="react-calendar__month-view__weekdays__weekday"
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                  >
+                    <abbr
+                      aria-label="neljapäev"
+                      title="neljapäev"
+                    >
+                      N
+                    </abbr>
+                  </div>
+                  <div
+                    className="react-calendar__month-view__weekdays__weekday"
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                  >
+                    <abbr
+                      aria-label="reede"
+                      title="reede"
+                    >
+                      R
+                    </abbr>
+                  </div>
+                  <div
+                    className="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--weekend"
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                  >
+                    <abbr
+                      aria-label="laupäev"
+                      title="laupäev"
+                    >
+                      L
+                    </abbr>
+                  </div>
+                  <div
+                    className="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--weekend"
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                  >
+                    <abbr
+                      aria-label="pühapäev"
+                      title="pühapäev"
+                    >
+                      P
+                    </abbr>
+                  </div>
+                </div>
+                <div
+                  className="react-calendar__month-view__days"
+                  style={
+                    Object {
+                      "display": "flex",
+                      "flexDirection": undefined,
+                      "flexWrap": "wrap",
+                    }
+                  }
+                >
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="25. september 2023"
+                    >
+                      25
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="26. september 2023"
+                    >
+                      26
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="27. september 2023"
+                    >
+                      27
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="28. september 2023"
+                    >
+                      28
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="29. september 2023"
+                    >
+                      29
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="30. september 2023"
+                    >
+                      30
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="1. oktoober 2023"
+                    >
+                      1
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="2. oktoober 2023"
+                    >
+                      2
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="3. oktoober 2023"
+                    >
+                      3
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="4. oktoober 2023"
+                    >
+                      4
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="5. oktoober 2023"
+                    >
+                      5
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="6. oktoober 2023"
+                    >
+                      6
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="7. oktoober 2023"
+                    >
+                      7
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="8. oktoober 2023"
+                    >
+                      8
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="9. oktoober 2023"
+                    >
+                      9
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="10. oktoober 2023"
+                    >
+                      10
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="11. oktoober 2023"
+                    >
+                      11
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="12. oktoober 2023"
+                    >
+                      12
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="13. oktoober 2023"
+                    >
+                      13
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="14. oktoober 2023"
+                    >
+                      14
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="15. oktoober 2023"
+                    >
+                      15
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="16. oktoober 2023"
+                    >
+                      16
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="17. oktoober 2023"
+                    >
+                      17
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="18. oktoober 2023"
+                    >
+                      18
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="19. oktoober 2023"
+                    >
+                      19
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="20. oktoober 2023"
+                    >
+                      20
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="21. oktoober 2023"
+                    >
+                      21
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="22. oktoober 2023"
+                    >
+                      22
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="23. oktoober 2023"
+                    >
+                      23
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="24. oktoober 2023"
+                    >
+                      24
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="25. oktoober 2023"
+                    >
+                      25
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="26. oktoober 2023"
+                    >
+                      26
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="27. oktoober 2023"
+                    >
+                      27
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="28. oktoober 2023"
+                    >
+                      28
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="29. oktoober 2023"
+                    >
+                      29
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="30. oktoober 2023"
+                    >
+                      30
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="31. oktoober 2023"
+                    >
+                      31
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="1. november 2023"
+                    >
+                      1
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="2. november 2023"
+                    >
+                      2
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="3. november 2023"
+                    >
+                      3
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="4. november 2023"
+                    >
+                      4
+                    </abbr>
+                  </button>
+                  <button
+                    className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseOver={[Function]}
+                    style={
+                      Object {
+                        "flexBasis": "14.285714285714286%",
+                        "flexGrow": 0,
+                        "flexShrink": 0,
+                        "marginLeft": null,
+                        "overflow": "hidden",
+                      }
+                    }
+                    type="button"
+                  >
+                    <abbr
+                      aria-label="5. november 2023"
+                    >
+                      5
+                    </abbr>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex gap-2 justify-center p-2 lg:flex-col"
+    >
+      <div
+        className="flex flex-auto justify-evenly space-x-2"
+      >
+        <button
+          className=" btn-period"
+          name="today"
+          onClick={[Function]}
+        >
+          Täna
+        </button>
+        <button
+          className=" btn-period"
+          name="tomorrow"
+          onClick={[Function]}
+        >
+          Homme
+        </button>
+      </div>
+      <div
+        className="flex flex-auto justify-evenly space-x-2"
+      >
+        <button
+          className=" btn-period"
+          name="week"
+          onClick={[Function]}
+        >
+          Nädal
+        </button>
+        <button
+          className=" btn-period"
+          name="semester"
+          onClick={[Function]}
+        >
+          Semester
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

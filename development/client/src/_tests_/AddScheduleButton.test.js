@@ -1,12 +1,17 @@
 import React from 'react';
 import { render, fireEvent} from '@testing-library/react';
+import renderer from 'react-test-renderer';
 import { AddScheduleButton } from '../components/UI/Button/AddScheduleButton';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 describe('AddScheduleButton', () => {
+  it("matches snapshot", () => {
+    const tree = renderer.create(<AddScheduleButton />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
   it('renders the button with FontAwesomeIcon', () => {
     const addScheduleHandler = jest.fn();
-    const addSchedule = true; // Change this to match your desired state
+    const addSchedule = true; 
 
     const { getByText, getByTestId } = render(
       <AddScheduleButton

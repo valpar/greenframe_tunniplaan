@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DropdownInput matches snapshot 1`] = `
+<div
+  className="relative w-full flex flex-col"
+>
+  <input
+    autoComplete="off"
+    className="p-2 border w-full border-borderGray  rounded-none font-normal focus:outline-none focus:border-black"
+    name=""
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    readOnly={false}
+    type="text"
+    value=""
+  />
+</div>
+`;
