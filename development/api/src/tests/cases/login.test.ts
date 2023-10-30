@@ -1,9 +1,7 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import app from '../../app';
+import app from '../../app.ts';
 // import * as faker from 'faker';
 // faker import doesn't work, used require(https://stackoverflow.com/questions/41292559/could-not-find-a-declaration-file-for-module-module-name-path-to-module-nam)
 const faker = require('faker');

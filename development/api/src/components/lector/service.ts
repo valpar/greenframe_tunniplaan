@@ -1,8 +1,6 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { FieldPacket, ResultSetHeader } from 'mysql2';
-import pool from '../../database';
-import { ILector, INewLector, ILecturerSubjects } from './interfaces';
+import pool from '../../database.ts';
+import { ILector, INewLector, ILecturerSubjects } from './interfaces.ts';
 
 const lecturerService = {
   getAllLecturers: async (): Promise<ILector[] | false> => {

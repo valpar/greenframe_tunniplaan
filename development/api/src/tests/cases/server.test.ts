@@ -1,11 +1,9 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-expressions */
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import app from '../../app';
-import pool from '../../database';
+import app from '../../app.ts';
+import pool from '../../database.ts';
 
 const user = {
   email: 'koviid@mail.ee',

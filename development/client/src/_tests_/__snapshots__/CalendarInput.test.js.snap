@@ -893,7 +893,7 @@ exports[`CalendarInput matches snapshot 1`] = `
                     </abbr>
                   </button>
                   <button
-                    className="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day"
+                    className="react-calendar__tile react-calendar__month-view__days__day"
                     onClick={[Function]}
                     onFocus={[Function]}
                     onMouseOver={[Function]}
@@ -1091,7 +1091,7 @@ exports[`CalendarInput matches snapshot 1`] = `
                     </abbr>
                   </button>
                   <button
-                    className="react-calendar__tile react-calendar__month-view__days__day"
+                    className="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day"
                     onClick={[Function]}
                     onFocus={[Function]}
                     onMouseOver={[Function]}

@@ -1,8 +1,6 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { Request, Response, NextFunction } from 'express';
-import jwtService from '../general/services/jwtService';
-import responseCodes from '../general/responseCodes';
+import jwtService from '../general/services/jwtService.ts';
+import responseCodes from '../general/responseCodes.ts';
 
 const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;

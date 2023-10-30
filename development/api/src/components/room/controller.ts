@@ -1,8 +1,6 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { Request, Response } from 'express';
-import responseCodes from '../general/responseCodes';
-import roomService from './service';
+import responseCodes from '../general/responseCodes.ts';
+import roomService from './service.ts';
 
 const roomController = {
   getAllRooms: async (req: Request, res: Response) => {

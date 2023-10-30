@@ -1,11 +1,9 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-expressions */
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 // import * as faker from 'faker';
-import app from '../../app';
+import app from '../../app.ts';
 
 // faker import ei töötanud, teen require(https://stackoverflow.com/questions/41292559/could-not-find-a-declaration-file-for-module-module-name-path-to-module-nam)
 const faker = require('faker');

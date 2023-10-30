@@ -1,9 +1,6 @@
-/* eslint-disable camelcase */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { RowDataPacket, FieldPacket, ResultSetHeader } from 'mysql2';
-import pool from '../../database';
-import Ihomework from './interface';
+import pool from '../../database.ts';
+import Ihomework from './interface.ts';
 // import ISubject from "./interface";
 
 const homeworkService = {
@@ -37,7 +34,7 @@ const homeworkService = {
   createhomework: async (
     description: string,
     dueDate: string,
-    subjects_id: number,
+    subjectsId: number,
     extrasLink: string,
   ): Promise<number | false | undefined> => {
     try {
@@ -50,7 +47,7 @@ const homeworkService = {
       // );
       const [id]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         'INSERT INTO homeworks (description, dueDate, subjects_id, extrasLink) VALUES (?, ?, ?, ?)',
-        [description, dueDate, subjects_id, extrasLink],
+        [description, dueDate, subjectsId, extrasLink],
       );
       return id.insertId;
     } catch (error) {
@@ -76,13 +73,13 @@ const homeworkService = {
     id: number,
     description: string,
     dueDate: string,
-    subjects_id: number,
+    subjectsId: number,
     extrasLink: string,
   ): Promise<boolean | undefined> => {
     try {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         'UPDATE homeworks SET description = ?, dueDate = ?, subjects_id = ? , extrasLink = ? WHERE id = ?',
-        [description, dueDate, subjects_id, extrasLink, id],
+        [description, dueDate, subjectsId, extrasLink, id],
       );
       if (result.affectedRows > 0) {
         return true;

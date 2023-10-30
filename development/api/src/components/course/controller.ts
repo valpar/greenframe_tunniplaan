@@ -1,8 +1,6 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { Request, Response } from 'express';
-import responseCodes from '../general/responseCodes';
-import courseService from './service';
+import responseCodes from '../general/responseCodes.ts';
+import courseService from './service.ts';
 
 const courseController = {
   getAllCourses: async (req: Request, res: Response) => {

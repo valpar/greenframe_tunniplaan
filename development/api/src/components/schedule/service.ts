@@ -1,11 +1,9 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { FieldPacket, ResultSetHeader, RowDataPacket } from 'mysql2';
-import pool from '../../database';
+import pool from '../../database.ts';
 import {
   ISchedule, Iroom, Ilecturer, Icourse, IhomeW, Isubject,
-} from './interface';
-import homeworkService from '../homework/service';
+} from './interface.ts';
+import homeworkService from '../homework/service.ts';
 
 const scheduleService = {
   getEntireSchedule: async (atDate:string, toDate:string): Promise<ISchedule[] | false> => {

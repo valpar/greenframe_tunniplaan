@@ -1,9 +1,7 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { Request, Response } from 'express';
 import axios from 'axios';
-import loginService from './service';
-import responseCodes from '../general/responseCodes';
+import loginService from './service.ts';
+import responseCodes from '../general/responseCodes.ts';
 
 const authController = {
   googleAuth: async (req: Request, res: Response) => {

@@ -1,8 +1,6 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { FieldPacket, ResultSetHeader } from 'mysql2';
-import { INewUser, IUser } from './interfaces';
-import pool from '../../database';
+import { INewUser, IUser } from './interfaces.ts';
+import pool from '../../database.ts';
 
 const userService = {
   getAllUsers: async (): Promise<IUser[] | false> => {

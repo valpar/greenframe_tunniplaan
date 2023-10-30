@@ -1,9 +1,7 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { Request, Response } from 'express';
-import responseCodes from '../general/responseCodes';
-import { INewUser } from './interfaces';
-import userService from './service';
+import responseCodes from '../general/responseCodes.ts';
+import { INewUser } from './interfaces.ts';
+import userService from './service.ts';
 
 const userController = {
   getAllUsers: async (req: Request, res: Response) => {

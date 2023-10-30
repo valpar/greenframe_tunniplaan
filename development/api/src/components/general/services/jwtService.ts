@@ -1,7 +1,5 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import jwt from 'jsonwebtoken';
-import { IUser } from '../../users/interfaces';
+import { IUser } from '../../users/interfaces.ts';
 
 const jwtPassword = 'jagj9032jfKJKJgka903dsksfjsöd';
 

@@ -1,8 +1,6 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { FieldPacket, ResultSetHeader } from 'mysql2';
-import pool from '../../database';
-import ICourse from './interface';
+import pool from '../../database.ts';
+import ICourse from './interface.ts';
 
 const courseService = {
   getAllCourses: async (): Promise<ICourse[] | false> => {

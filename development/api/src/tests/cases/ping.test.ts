@@ -1,9 +1,7 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import app from '../../app';
+import app from '../../app.ts';
 
 describe('Ping controller', () => {
   describe('GET /ping', () => {

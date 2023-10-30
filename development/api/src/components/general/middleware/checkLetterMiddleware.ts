@@ -1,8 +1,6 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { Request, Response, NextFunction } from 'express';
-import responseCodes from '../responseCodes';
-import validateField from '../services/service';
+import responseCodes from '../responseCodes.ts';
+import validateField from '../services/service.ts';
 
 const checkAlphabet = (req: Request, res: Response, next: NextFunction) => {
   const { firstName, lastName } = req.body;

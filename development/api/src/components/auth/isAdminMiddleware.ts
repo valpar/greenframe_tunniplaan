@@ -1,7 +1,5 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { Request, Response, NextFunction } from 'express';
-import responseCodes from '../general/responseCodes';
+import responseCodes from '../general/responseCodes.ts';
 
 const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
   const { user } = res.locals;

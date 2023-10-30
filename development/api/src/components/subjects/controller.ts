@@ -1,10 +1,8 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { Request, Response } from 'express';
-import responseCodes from '../general/responseCodes';
-import { INewSubject } from './interfaces';
+import responseCodes from '../general/responseCodes.ts';
+import { INewSubject } from './interfaces.ts';
 
-import subjectServices from './service';
+import subjectServices from './service.ts';
 
 const subjectController = {
   getAllSubjects: async (req: Request, res: Response) => {

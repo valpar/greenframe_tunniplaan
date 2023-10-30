@@ -1,2 +1,10 @@
 # dependencies
 /node_modules
+
+# production
+/build
+
+# misc
+.combined.log
+.error.log
+/.nyc_output

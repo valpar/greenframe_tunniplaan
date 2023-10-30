@@ -1,8 +1,6 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { FieldPacket, ResultSetHeader } from 'mysql2';
-import pool from '../../database';
-import { ISubject, INewSubject } from './interfaces';
+import pool from '../../database.ts';
+import { ISubject, INewSubject } from './interfaces.ts';
 
 const subjectServices = {
   getAllSubjects: async (): Promise<ISubject[] | false> => {
