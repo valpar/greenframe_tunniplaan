@@ -1,7 +1,9 @@
 # Tunniplaani API
 
 ## API pääsupunktid
-API pääsupunktid on kirjeldatud `/api-docs`. Kohalikus masinas käivitades `localhost:4000/api-docs`
+API pääsupunktide kirjeldused on failis api-docs/readme.md (kaust api-docs asub repositooriumi juurkataloogis)
+
+Käivitatud API puhul on pääsupunkte saab vaadata veebilehitsejas pääsupunktil `/api-docs`. Kohalikus masinas käivitades `localhost:4000/api-docs`
 
 ## Pääsupunktid
 Pääsupunktid on failis src/app.ts. Pääsupunkti funktsioonis on kirjeldatud ka kontrollerid, mis asuvad src/components alamkaustades.

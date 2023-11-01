@@ -883,3 +883,21 @@
 {"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
 {"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
 {"level":"info","message":"Request body: {\"email\":\"koviid@mail.ee\",\"password\":\"Koviid\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-29T20:39:39.326Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
