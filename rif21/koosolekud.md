@@ -1,4 +1,10 @@
 # Koosolekud
+## 29.10.23 
+- kuidas läinud on, millised probleemid?
+- sisselogimine ja kasutajate haldus lahtine
+- pooleli olevad ülesanded
+- dokumentatsiooni uuendada
+
 ## 07.10.23 (11.00 - 11.55)
 - sisselogimine teha
 - rollid ja võimalused millised, vaja kliendiga suhelda
