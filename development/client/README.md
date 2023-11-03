@@ -341,3 +341,4 @@ Päringute tegemiseks kasutatakse axios paketti.
         console.log("Error: ")
         console.log(error)
       })
+
