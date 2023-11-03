@@ -8,8 +8,89 @@ Failis src/components/Home.js
 Sisselogimise menüü on src/components/views/Header.js
 Mobiiliversioon on src/components/views/MobileMenu.js
 
+### Googlega sisselogimine
+
+Google kaudu logimise info:
+[https://www.youtube.com/watch?v=HtJKUQXmtok](https://www.youtube.com/watch?v=HtJKUQXmtok)
+
+    import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+    const [googleAccessToken, setGoogleAcessToken] = useState([]);
+    
+    let [googleProfile, setGoogleProfile] = useState(() => {
+      let localData = localStorage.getItem("localGoogleProfile");
+      return localData ? JSON.parse(localData) : {};
+    });
+
+
+    const login = useGoogleLogin({
+      onSuccess: (googleResponse) => {
+        setGoogleAcessToken(googleResponse.access_token); // selleks et seda saata backi autentimiseks
+
+        axios
+          .get(
+            `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleResponse.access_token}`,
+            {
+              headers: {
+                Authorization: `Bearer ${googleResponse.access_token}`,
+                Accept: "application/json",
+              },
+            }
+          )
+          .then((result) => {
+            setGoogleProfile(result.data);
+            if (result.data) {
+              localStorage.setItem(
+                "localGoogleProfile",
+                JSON.stringify(result.data)
+              );
+            }
+          })
+          .catch((err) => console.log(err)); // kui google acess tokeniga ligipääs ebaõnnestus
+      },
+      onError: (error) => console.log("Login Failed:", error), // kui google esmasel pöördumisel juba tekkis viga
+    });
+
+
+   useEffect(() => {
+      if(googleAccessToken?.length === 0) {
+        return;
+      }
+
+      async function fetchProfile() {
+        try {
+          const response = await axios.post(
+            `googleauth`,
+            null, // edastate tühja päringu keha
+            {
+              headers: {
+                Authorization: `Bearer ${googleAccessToken}`,
+                Accept: "application/json",
+              },
+            } 
+          );
+          setLoginInfo(response.data);
+          if (response.data) {
+            localStorage.setItem("token", JSON.stringify(response.data));
+          }
+          setShowUsersModal(false);
+          setLoginMessage("Logi välja");
+          console.log("Roll: ", response.data.user.role);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      if (googleAccessToken) {
+        fetchProfile();
+      }
+    }, [googleAccessToken]);
+
+
 Sisse logimine algab sellest funktsioonist:
  `const login = useGoogleLogin`
+
+
+
 
 ### Kasutajarollide haldus
 Failis components Home.js on kirjeldatud sündmus `userRollHandler`.
