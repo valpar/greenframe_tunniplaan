@@ -18,8 +18,7 @@ import { Header } from "./views/Header";
 import { useMediaQuery } from "react-responsive";
 import UsersList from "./views/UsersList";
 import { RequestError } from "./UI/RequestError";
-
-import LoginModal from "./views/LoginModal";
+import ConfirmModal from "./UI/ConfirmModal/ConfirmModal";
 
 
 
@@ -54,12 +53,14 @@ const Home = () => {
     newOccurenceAdded
   );
 
-  const [dropdownsSelection, setDropdownSelection] = useState([]);
+  const [loginMessage, setLoginMessage] =useState((!localStorage.getItem("token")? "Logi sisse": "Logi välja"));
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  
+  const [dropdownsSelection, setDropdownSelection] = useState([]); // xxx
   const [admin, setAdmin] = useState(false);
   const [userLecturer, setUserLecturer] = useState(false);
   const [userStudent, setUserStudent] = useState(false);
   const [addSchedule, setAddSchedule] = useState(false);
-  const [showUsersModal, setShowUsersModal] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [notScheduled, setNotScheduled] = useState("");
@@ -69,14 +70,6 @@ const Home = () => {
   const [openModalAnimation, setOpenModalAnimation] = useState(false);
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1023px)" });
   const [showUsersList, setShowUsersList] = useState(false);
-  
-  
-
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loginMessage, setLoginMessage] = useState("Logi sisse");
-
 
   const work_Data = useCallback(() => {
     setScheduleLoading(isLoading);
@@ -313,11 +306,9 @@ const Home = () => {
       setUserStudent(false);
       setShowUsersList(false);
     }
-    setShowUsersModal(false);
   };
 
   const userAdminHandler = (event) => {
-    setShowUsersModal(false);
   };
 
   useEffect(() => {
@@ -359,9 +350,26 @@ const Home = () => {
   const closeAdditionModalHandler = () => {
     setAddSchedule(false);
   };
-  const showUserRollesHandler = () => {
-    setShowUsersModal((prevState) => (prevState = !prevState));
+  
+  
+  const loginHandler = () => {
+    if (!localStorage.getItem("token")) {
+      login();
+    }
+    else {
+      setShowLogoutConfirm(true);
+    }
   };
+ 
+  const logoutDeclineHandler = () => {
+    setShowLogoutConfirm(false);
+  };
+  
+  const logoutConfirmHandler = () => {
+    logOut();
+    setShowLogoutConfirm(false);
+  };
+
   const emptyFiltersHandler = () => {
     setFilteredData(data);
     setDropdownSelection(undefined);
@@ -423,7 +431,7 @@ const Home = () => {
   const login = useGoogleLogin({
     onSuccess: (googleResponse) => {
       setGoogleAcessToken(googleResponse.access_token); // selleks et seda saata backi autentimiseks
-
+      setLoginMessage("Logi välja");
       axios
         .get(
           `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleResponse.access_token}`,
@@ -469,11 +477,11 @@ const Home = () => {
     setProfile(null);
     setGoogleProfile(null);
     setLoginInfo(null);
-    setShowUsersModal(false);
     setAdmin(false);
     setUserLecturer(false);
     setUserStudent(false);
     setShowUsersList(false);
+    setLoginMessage("Logi sisse");
   };
   // --- Google login end ---
 
@@ -500,7 +508,6 @@ const Home = () => {
         if (response.data) {
           localStorage.setItem("token", JSON.stringify(response.data));
         }
-        setShowUsersModal(false);
         setLoginMessage("Logi välja");
         console.log("Roll: ", response.data.user.role);
       } catch (error) {
@@ -541,52 +548,20 @@ const Home = () => {
 
   const usersListHandler = () => {
     setShowUsersList((prevState) => (prevState = !prevState));
-    setShowUsersModal(false);
   };
 
-  const showLoginModalHandler = (event) => {
-    event.preventDefault();
-    setShowLoginModal(!showLoginModal);
-  };
-
-  const loginHandler = (event) => {
-    event.preventDefault();
-    setShowLoginModal(!showLoginModal);
-    axios.post('/login', 
-      {
-        email: email,
-        password: password
-      })
-      .then((response) => {
-        console.log("Response: ")
-        console.log(response.data.token);
-        setLoginInfo(response.data);
-        if (response.data) {
-          localStorage.setItem("token", JSON.stringify(response.data));
-        }
-        setShowUsersModal(false);
-        console.log("Roll: ", response.data.user.role);
-        setLoginMessage("Logi välja");
-      })
-      .catch((error) => {
-        console.log("Error: ")
-        console.log(error)
-      })
-  }
-
+  
   return (
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
       <div className="mx-auto w-full">
         <div className="lg:fixed lg:w-[73rem] -ml-2 lg:h-28 bg-white z-10">
           <Header
             profile={profile}
-            onClick={showUserRollesHandler}
+            onClick={loginHandler}
+            loginMessage={loginMessage}
             loginInfo={loginInfo}
             userPicture={userPicture}
-            showUsersModal={showUsersModal}
-            login={login}
-            logOut={logOut}
-            userAdminHandler={userAdminHandler}
+            userAdminHandler={userAdminHandler} 
             userRoll={userRole}
             admin={admin}
             isTabletOrMobile={isTabletOrMobile}
@@ -599,12 +574,10 @@ const Home = () => {
             hiddeMobileIcon={hiddeMobileFilters}
             userRollHandler={userRollHandler}
             onUsersManagement={usersListHandler}
-            showMockLogin={userStudent || userLecturer || admin}
             usersListOpen={showUsersList}
             filtersNotification={dropdownsSelection?.length}
             showMobilePicture={userStudent || userLecturer || admin}
             openModalAnimation={openModalAnimation}
-            showLoginModalHandler={showLoginModalHandler}
           />
         </div>
         {showMobileMenu && isTabletOrMobile && (
@@ -620,24 +593,10 @@ const Home = () => {
             showMobileMenu={openModalAnimation}
             onUsersManagement={usersListHandler}
             usersListOpen={showUsersList}
-            showMockLogin={userStudent || userLecturer || admin}
             admin={admin}
           />
         )}
         
-        {showLoginModal && (
-            <LoginModal 
-              email = {email}
-              password = {password}
-              onEmailChange={setEmail} 
-              onPasswordChange={setPassword} 
-              onClose={showLoginModalHandler} 
-              onDecline={showLoginModalHandler} 
-              onConfirm={loginHandler} 
-              modalMessage="Logi sisse"
-            /> 
-        )}
-
         {showUsersList && (
           <div>
             <UsersList onClose={usersListHandler} />
@@ -754,6 +713,20 @@ const Home = () => {
         )}
       </div>
       {!isTabletOrMobile && <GoTopButton />}
+      
+      {showLogoutConfirm && (
+        <div 
+        className="absolute top-28 -right-4"
+        >
+                  <ConfirmModal
+                    modalMessage="Logi välja"
+                    topArrow 
+                    onConfirm={logoutConfirmHandler}
+                    onDecline={logoutDeclineHandler}
+                  />
+        </div>
+    )}  
+        
     </div>
   );
 };

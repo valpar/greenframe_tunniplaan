@@ -1,18 +1,14 @@
 import { ReactComponent as Logo } from "../../assets/logo/HK-est.svg";
+import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
 
 export const Header = (props) => {
   const {
     isTabletOrMobile,
     userPicture,
-    onClick,
+    onClick,  // see eemaldada
+    loginMessage,
     loginInfo,
-    showUsersModal,
-    login,
-    logOut,
-    userRollHandler,
-    showMockLogin,
     showMobileFilters,
-    userRoll,
     admin,
     addScheduleHandler,
     scrollY,
@@ -25,7 +21,6 @@ export const Header = (props) => {
     filtersNotification,
     showMobilePicture,
     openModalAnimation,
-    showLoginModalHandler,
     loginHandler,
   } = props;
 
@@ -77,97 +72,9 @@ export const Header = (props) => {
               </div>
               {/* <div className="text-lg mx-auto text-center">{userRoll}</div> */}
               <div className="text-lg mx-auto text-center">
-                {loginInfo?.user?.firstName
-                  ? loginInfo?.user?.firstName
-                  : "Logi sisse"}
-              </div>
+                {loginMessage}
+              </div>  
             </div>
-
-            {showUsersModal && (
-              <div className="absolute top-28 -right-4">
-                <div className="relative">
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rotate-45 bg-white border-l rounded-br-full border-t border-borderGray"></div>
-                  <div className="flex flex-col justify-around items-center p-4 space-y-2 border border-borderGray  green-shadow bg-white w-44">
-                    <p className="uppercase text-center">{userRoll}</p>
-                    {!localStorage.getItem("token") && (
-                      <button
-                        onClick={login}
-                        className="btn-period"
-                        type="button"
-                        name="Login Google"
-                      >
-                        Google konto
-                      </button>
-                    )}
-
-                    {localStorage.getItem("token") && (
-                      <button
-                        onClick={logOut}
-                        className="btn-period"
-                        type="button"
-                        name="Logout Google"
-                      >
-                        Logi välja
-                      </button>
-                    )}
-
-                    <button
-                      onClick={showLoginModalHandler}
-                      className="btn-period"
-                      type="button"
-                      name="login"
-                    >
-                      Logi sisse (mock)
-                    </button>
-
-                    <button
-                      onClick={userRollHandler}
-                      className="btn-period"
-                      type="button"
-                      name="admin"
-                    >
-                      Haldus (mock)
-                    </button>
-                    <button
-                      onClick={userRollHandler}
-                      className="btn-period"
-                      type="button"
-                      name="lecturer"
-                    >
-                      Õppejõud (mock)
-                    </button>
-                    <button
-                      onClick={userRollHandler}
-                      className="btn-period"
-                      type="button"
-                      name="student"
-                    >
-                      Õpilane (mock)
-                    </button>
-                    {admin && (
-                      <button
-                        onClick={onUsersManagement}
-                        className="btn-period"
-                        type="button"
-                        name="userManagement"
-                      >
-                        Kasutajate haldus
-                      </button>
-                    )}
-                    {!localStorage.getItem("token") && showMockLogin && (
-                      <button
-                        onClick={userRollHandler}
-                        className="btn-period"
-                        type="button"
-                        name="logout"
-                      >
-                        Logi välja (mock)
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         </div>
 
@@ -225,9 +132,9 @@ export const Header = (props) => {
               className={`bi bi-x-lg text-[1.6em] mt-[0.1rem]`}
             ></i>
           )}
-        </div>
-      </div>
 
+        </div>           
+      </div>
       <div
         className={`w-full h-[0.2rem] bg-[#6c8298] border-solid border-1 border-[#d4d4d4]`}
       />
