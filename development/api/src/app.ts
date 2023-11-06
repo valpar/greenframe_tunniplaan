@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
+
+
 import express, {
   Request, Response, Application, NextFunction,
 } from 'express';
@@ -55,8 +57,6 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 // ----LOGIN AND USER ENDPOINTS NOT IN USE----
 
 // Login
-
-app.post('/login', authController.login);
 
 // User endpoints
 app.post('/users', checkAlphabet, userController.addUser);

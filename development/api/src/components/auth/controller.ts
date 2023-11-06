@@ -4,9 +4,13 @@ import { Request, Response } from 'express';
 import axios from 'axios';
 import loginService from './service';
 import responseCodes from '../general/responseCodes';
+import userApi from '../../token';
 
 const authController = {
   googleAuth: async (req: Request, res: Response) => {
+    let email = '';
+    let user;
+    
     try {
       const authHeader = req.headers.authorization;
       const googleToken = authHeader?.split(' ')[1];
@@ -21,38 +25,38 @@ const authController = {
           Authorization: `Bearer ${googleToken}`,
         },
       });
-
       // console.log('Google response:', response.data.email);
-      const loginProfile = await loginService.googleLogin(response.data.email);
-      return res.status(responseCodes.ok).json(
-        loginProfile,
-      );
     } catch (error) {
     // console.error('External API error:', error);
       return res.status(500).send('Google autenth error');
     }
-  },
-  login: async (req: Request, res: Response) => {
-    const { email, password } = req.body;
-    const token = await loginService.login(email, password);
-    if (token === undefined) {
-      return res.status(responseCodes.notAuthorized).json({
-        error: 'Check credentials',
+
+    try{
+      const response = await axios.get(`${userApi.url}/users/email/${'mrt@tlu.ee'}`, {
+        headers: {
+          'Authorization': `Bearer ${userApi.token}`,
+          'Content-Type': 'application/json'
+        }
       });
+      
+      user = {
+        id: response.data.data.id,
+        firstName: response.data.data.firstName,
+        lastName: response.data.data.lastName,
+        email: response.data.data.email,
+        roles: response.data.data.roles
+      };
     }
-    if (!token) {
-      return res.status(responseCodes.ServerError).json({
-        error: 'Server error',
-      });
+    catch (error) {
+      return res.status(500).send('UserApi autenth error');
     }
-    if (token === '0') {
-      return res.status(responseCodes.notAuthorized).json({
-        error: 'Check password',
-      });
-    }
-    return res.status(responseCodes.ok).json({
-      token,
-    });
+    
+    const loginProfile = await loginService.googleLogin(user);
+      return res.status(responseCodes.ok).json(
+        loginProfile,
+      );
+
+
   },
 };
 

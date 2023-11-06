@@ -37,7 +37,8 @@ const Home = () => {
 
   let [loginInfo, setLoginInfo] = useState(() => {
     let token = localStorage.getItem("token");
-    if (token === {}) {
+    console.log(token);
+    if (token === null || token.length == 0) {
       return null;
     }
 
@@ -58,8 +59,8 @@ const Home = () => {
   
   const [dropdownsSelection, setDropdownSelection] = useState([]); // xxx
   const [admin, setAdmin] = useState(false);
-  const [userLecturer, setUserLecturer] = useState(false);
-  const [userStudent, setUserStudent] = useState(false);
+  const [teacher, setTeacher] = useState(false);
+  const [student, setStudent] = useState(false);
   const [addSchedule, setAddSchedule] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
@@ -287,23 +288,23 @@ const Home = () => {
     event.preventDefault();
     if (event.target.name === "admin") {
       setAdmin(true);
-      setUserStudent(false);
-      setUserLecturer(false);
+      setStudent(false);
+      setTeacher(false);
     }
     if (event.target.name === "lecturer") {
       setAdmin(false);
-      setUserStudent(false);
-      setUserLecturer(true);
+      setStudent(false);
+      setTeacher(true);
     }
     if (event.target.name === "student") {
       setAdmin(false);
-      setUserLecturer(false);
-      setUserStudent(true);
+      setTeacher(false);
+      setStudent(true);
     }
     if (event.target.name === "logout") {
       setAdmin(false);
-      setUserLecturer(false);
-      setUserStudent(false);
+      setTeacher(false);
+      setStudent(false);
       setShowUsersList(false);
     }
   };
@@ -314,21 +315,30 @@ const Home = () => {
   useEffect(() => {
     const roles = {
       admin: false,
-      userLecturer: false,
-      userStudent: false,
+      teacher: false,
+      student: false,
+      apiUser: false,
     };
 
-    if (loginInfo?.user?.role === "admin") {
-      roles.admin = true;
-    } else if (loginInfo?.user?.role === "lecturer") {
-      roles.userLecturer = true;
-    } else if (loginInfo?.user?.role === "student") {
-      roles.userStudent = true;
-    }
 
+    if (loginInfo !== null)
+    {  
+      const userRoles = loginInfo.user.roles;
+
+      if (userRoles.includes("admin"))
+        roles.admin = true;
+      if (userRoles.includes("teacher"))
+        roles.teacher = true;
+      if (userRoles.includes("student"))
+        roles.student = true;
+      if (userRoles.includes("apiUser"))
+        roles.apiUser = true;
+    }
+  
     setAdmin(roles.admin);
-    setUserLecturer(roles.userLecturer);
-    setUserStudent(roles.userStudent);
+    setTeacher(roles.teacher);
+    setStudent(roles.student);
+ 
   }, [loginInfo]);
 
   const addScheduleHandler = () => {
@@ -389,9 +399,9 @@ const Home = () => {
 
   const userRole = admin
     ? "HALDUR"
-    : userLecturer
+    : teacher
     ? "ÕPPEJÕUD"
-    : userStudent
+    : student
     ? "ÕPILANE"
     : "";
 
@@ -478,8 +488,8 @@ const Home = () => {
     setGoogleProfile(null);
     setLoginInfo(null);
     setAdmin(false);
-    setUserLecturer(false);
-    setUserStudent(false);
+    setTeacher(false);
+    setStudent(false);
     setShowUsersList(false);
     setLoginMessage("Logi sisse");
   };
@@ -504,6 +514,7 @@ const Home = () => {
             },
           }
         );
+
         setLoginInfo(response.data);
         if (response.data) {
           localStorage.setItem("token", JSON.stringify(response.data));
@@ -576,7 +587,7 @@ const Home = () => {
             onUsersManagement={usersListHandler}
             usersListOpen={showUsersList}
             filtersNotification={dropdownsSelection?.length}
-            showMobilePicture={userStudent || userLecturer || admin}
+            showMobilePicture={student || teacher || admin}
             openModalAnimation={openModalAnimation}
           />
         </div>
@@ -682,9 +693,9 @@ const Home = () => {
                       <div>{dateService.formatYear(e)}</div>
                     </div>
                     <Table
-                      userLecturer={userLecturer}
+                      teacher={teacher}
                       admin={admin}
-                      isLoggedIn={admin || userLecturer || userStudent}
+                      isLoggedIn={admin || teacher || student}
                       day={e}
                       filteredData={filteredData}
                       rawData={data}
