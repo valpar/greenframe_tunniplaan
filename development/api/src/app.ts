@@ -1,4 +1,8 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+
+
 import express, {
   Request, Response, Application, NextFunction,
 } from 'express';
@@ -54,8 +58,6 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 
 // Login
 
-app.post('/login', authController.login);
-
 // User endpoints
 app.post('/users', checkAlphabet, userController.addUser);
 // login middelware from this point
@@ -67,7 +69,7 @@ app.get('/users', userController.getAllUsers);
 app.get('/users/:id', userController.getUserById);
 app.delete('/users/:id', userController.deleteUser);
 app.patch('/users/:id', userController.updateUserById);
-app.patch('/users/password/:id', userController.updatePassword);
+app.patch('/users/updatePassword/:id', isLoggedIn, userController.updatePassword);
 // app.patch("/users/:id", checkAlphabet, userController.updateUserById);
 
 app.post('/googleauth', authController.googleAuth);

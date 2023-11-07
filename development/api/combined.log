@@ -94,3 +94,810 @@
 {"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
 {"level":"info","message":"Request method and URL: PATCH /login/1","service":"user-service"}
 {"level":"info","message":"Request body: {\"user\":{\"id\":1,\"firstName\":\"Mari\",\"lastName\":\"Maasikas\",\"email\":\"mari@mari.ee\",\"password\":\"BadExampleQwerty123\",\"role\":\"Admin\"}}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/password/1","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using got (https://github.com/sindresorhus/got)","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using got (https://github.com/sindresorhus/got)","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using got (https://github.com/sindresorhus/got)","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/password/1","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using got (https://github.com/sindresorhus/got)","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using got (https://github.com/sindresorhus/got)","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/password/1","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using got (https://github.com/sindresorhus/got)","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using got (https://github.com/sindresorhus/got)","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/updatePassword/2","service":"user-service"}
+{"level":"info","message":"Request body: {\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/updatePassword?id=2","service":"user-service"}
+{"level":"info","message":"Request body: {\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/updatePassword/2","service":"user-service"}
+{"level":"info","message":"Request body: {\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/updatePassword/2","service":"user-service"}
+{"level":"info","message":"Request body: {\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/updatePassword/2","service":"user-service"}
+{"level":"info","message":"Request body: {\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using Thunder Client (https://www.thunderclient.com)","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/updatePassword/2","service":"user-service"}
+{"level":"info","message":"Request body: {\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-09T19:05:14.029Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-08T21:00:00.000Z/2023-10-09T20:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-09T19:09:50.211Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /favicon.ico","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:21:53.324Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"Andrus\",\"password\":\"surramurra\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using got (https://github.com/sindresorhus/got)","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:21:53.324Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:25:35.921Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:25:35.921Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:25:35.921Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:30:14.150Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:30:14.150Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:33:00.223Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:37:14.893Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:38:04.543Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:38:04.543Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:38:44.963Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-17T19:38:44.963Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-20T11:13:21.145Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@ltu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /favicon.ico","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@ltu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"mrt@tlu.ee\",\"password\":\"BadExampleQwerty123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-28T08:48:01.633Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-28T08:52:57.653Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2021-03-15T22:00:00.000Z/2021-03-16T21:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2021-03-15T22:00:00.000Z/2021-03-17T21:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2021-03-17T22:00:00.000Z/2021-03-18T21:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2021-03-17T22:00:00.000Z/2021-03-18T21:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2021-03-08T22:00:00.000Z/2021-03-09T21:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2021-03-08T22:00:00.000Z/2021-03-18T21:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2018-05-07T21:00:00.000Z/2018-05-08T20:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2018-05-07T21:00:00.000Z/2018-05-18T20:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-28T09:58:24.697Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-28T10:14:59.955Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-28T10:30:21.688Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"koviid@mail.ee\",\"password\":\"Koviid\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"krispi@mail.ee\",\"password\":\"Krispi\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"Simone.Langosh40@hotmail.com\",\"password\":\"v9h5N9u1FkcH7U_\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"koviid@mail.ee\",\"password\":\"Koviid1\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"koviid@mail.ee\",\"password\":\"Koviid\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers/1","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers/1","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Mari\",\"lastName\":\"Murimari\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Mari\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {\"lastName\":\"Murimari\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"123\",\"lastName\":\"123\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /lecturers/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Uari\",\"lastName\":\"Lurimari\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /lecturers/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Mari\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /lecturers/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {\"lastName\":\"Murimari\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /lecturers/9999","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Muri\",\"lastName\":\"Murimari\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /lecturers/0","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Muri\",\"lastName\":\"Murimari\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers/activeSubjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers/0","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /lecturers/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /lecturers/0","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /lecturers/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"koviid@mail.ee\",\"password\":\"Koviid\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {\"room\":\"mingruum 200\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /rooms/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {\"room\":\"ruum 200\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /rooms/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /rooms/0","service":"user-service"}
+{"level":"info","message":"Request body: {\"room\":\"ruum 200\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /rooms/9999","service":"user-service"}
+{"level":"info","message":"Request body: {\"room\":\"ruum 200\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms/0","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /rooms/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /rooms/0","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /rooms/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"koviid@mail.ee\",\"password\":\"Koviid\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {\"subject\":\"Mate\",\"scheduled\":\"Reedel\",\"lecturers_id\":3,\"courses_id\":2}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {\"scheduled\":\"Reedel\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {\"subject\":\"Mate\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {\"subject\":\"Mate\",\"scheduled\":\"Reedel\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {\"subject\":\"Mate\",\"scheduled\":\"Reedel\",\"courses_id\":3}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {\"subject\":\"{]Mate\",\"scheduled\":\"{[Reedel\",\"courses_id\":3,\"lecturers_id\":2}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /subjects/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {\"scheduled\":\"Neljapäev\",\"courses_id\":1}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /subjects/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /subjects/9999","service":"user-service"}
+{"level":"info","message":"Request body: {\"scheduled\":\"Neljapäev\",\"courses_id\":1}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /subjects/0","service":"user-service"}
+{"level":"info","message":"Request body: {\"scheduled\":\"Neljapäev\",\"courses_id\":1}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects/0","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /subjects/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /subjects/0","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /subjects/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"koviid@mail.ee\",\"password\":\"Koviid\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /courses","service":"user-service"}
+{"level":"info","message":"Request body: {\"course\":\"RIF 40\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /courses/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {\"course\":\"RIF 200\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /courses/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /courses/0","service":"user-service"}
+{"level":"info","message":"Request body: {\"course\":\"RIF 200\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /courses/9999","service":"user-service"}
+{"level":"info","message":"Request body: {\"course\":\"RIF 200\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses/0","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /courses/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /courses/0","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /courses/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"koviid@mail.ee\",\"password\":\"Koviid\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"krispi@mail.ee\",\"password\":\"Krispi\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /users","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Earnest\",\"lastName\":\"Schoen\",\"password\":\"hPM8PUTSXKsmluk\",\"email\":\"Camylle_Renner6@yahoo.com\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /users","service":"user-service"}
+{"level":"info","message":"Request body: {\"lastName\":\"Kati\",\"password\":\"Karu\",\"email\":\"karu@kati.ee\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /users","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Karu\",\"password\":\"Karu\",\"email\":\"karu@kati.ee\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /users","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Karu\",\"lastName\":\"Kati\",\"email\":\"karu@kati.ee\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /users","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Karu\",\"lastName\":\"Kati\",\"password\":\"Karu\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Earnest\",\"lastName\":\"Schoen\",\"password\":\"hPM8PUTSXKsmluk\",\"email\":\"Camylle_Renner6@yahoo.com\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/0","service":"user-service"}
+{"level":"info","message":"Request body: {\"course\":\"RIF 200\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/9999","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Maru\",\"lastName\":\"Mati\",\"password\":\"Maru\",\"email\":\"maru@kati.ee\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users/0","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /users/undefined","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /users/0","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /users/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"koviid@mail.ee\",\"password\":\"Koviid\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers/1","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"sde\",\"lastName\":\"sde\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /lecturers/1","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Muri\",\"lastName\":\"Murimari\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers/activeSubjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /lecturers/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {\"room\":\"ruum\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /rooms/9999","service":"user-service"}
+{"level":"info","message":"Request body: {\"room\":\"ruum 200\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /rooms/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {\"subject\":\"Mate\",\"scheduled\":\"Reedel\",\"lecturers_id\":3,\"courses_id\":2}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /subjects/9999","service":"user-service"}
+{"level":"info","message":"Request body: {\"scheduled\":\"Neljapäev\",\"courses_id\":1}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /subjects/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {\"subject\":\"Mate\",\"scheduled\":\"Reedel\",\"lecturers_id\":3,\"courses_id\":2}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /subjects/9999","service":"user-service"}
+{"level":"info","message":"Request body: {\"scheduled\":\"Neljapäev\",\"courses_id\":1}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /subjects/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {\"subject\":\"Mate\",\"scheduled\":\"Reedel\",\"lecturers_id\":3,\"courses_id\":2}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /subjects/9999","service":"user-service"}
+{"level":"info","message":"Request body: {\"scheduled\":\"Neljapäev\",\"courses_id\":1}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /subjects/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /courses","service":"user-service"}
+{"level":"info","message":"Request body: {\"course\":\"RIF 200\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /courses/9999","service":"user-service"}
+{"level":"info","message":"Request body: {\"course\":\"RIF 200\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /courses/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /users","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Karu\",\"lastName\":\"Kati\",\"password\":\"Karu\",\"email\":\"kiu@kiu.ee\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: PATCH /users/9999","service":"user-service"}
+{"level":"info","message":"Request body: {\"firstName\":\"Maru\",\"lastName\":\"Mati\",\"password\":\"Maru\",\"email\":\"maru@kati.ee\"}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: DELETE /users/9999","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::ffff:127.0.0.1 using undefined","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /login","service":"user-service"}
+{"level":"info","message":"Request body: {\"email\":\"koviid@mail.ee\",\"password\":\"Koviid\"}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-29T20:39:39.326Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /users","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}

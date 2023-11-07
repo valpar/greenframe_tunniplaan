@@ -19,7 +19,7 @@ const pool = mysql
   .promise();
 */
 const pool = mysql2_1.default.createPool({
-    host: 'localhost',
+    host: process.env.HOST,
     user: 'admin',
     password: 'parool',
     database: 'scheduleDb',

@@ -5,27 +5,340 @@ Selles failis on kirjeldatud tähelepanekud koodi kohta, kus midagi on kirjeldat
 Failis src/components/Home.js
 
 ### Kasutajate sisselogimine
-Sisse logimine algab sellest funktsioonist:
- `const login = useGoogleLogin`
-### Kasutajarollide haldus
-Failis components Home.js on kirjeldatud sündmus `userRollHandler`.
-Kui näiteks `event.target.name === "admin"` siis kirjeldatakse rollid järgmiselt:
-      
-      if (event.target.name === "admin") {
-        setAdmin(true);
-        setUserStudent(false);
-        setUserLecturer(false);
+Sisselogimise menüü on src/components/views/Header.js
+Mobiiliversioon on src/components/views/MobileMenu.js
+
+### Googlega sisselogimine
+
+Google kaudu logimise info:
+[https://www.youtube.com/watch?v=HtJKUQXmtok](https://www.youtube.com/watch?v=HtJKUQXmtok)
+
+    import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+    const [googleAccessToken, setGoogleAcessToken] = useState([]);
+    
+    let [googleProfile, setGoogleProfile] = useState(() => {
+      let localData = localStorage.getItem("localGoogleProfile");
+      return localData ? JSON.parse(localData) : {};
+    });
+
+
+    const login = useGoogleLogin({
+      onSuccess: (googleResponse) => {
+        setGoogleAcessToken(googleResponse.access_token); // selleks et seda saata backi autentimiseks
+
+        axios
+          .get(
+            `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleResponse.access_token}`,
+            {
+              headers: {
+                Authorization: `Bearer ${googleResponse.access_token}`,
+                Accept: "application/json",
+              },
+            }
+          )
+          .then((result) => {
+            setGoogleProfile(result.data);
+            if (result.data) {
+              localStorage.setItem(
+                "localGoogleProfile",
+                JSON.stringify(result.data)
+              );
+            }
+          })
+          .catch((err) => console.log(err)); // kui google acess tokeniga ligipääs ebaõnnestus
+      },
+      onError: (error) => console.log("Login Failed:", error), // kui google esmasel pöördumisel juba tekkis viga
+    });
+
+
+   useEffect(() => {
+      if(googleAccessToken?.length === 0) {
+        return;
       }
 
-Muutujas `loginInfo` 
+      async function fetchProfile() {
+        try {
+          const response = await axios.post(
+            `googleauth`,
+            null, // edastate tühja päringu keha
+            {
+              headers: {
+                Authorization: `Bearer ${googleAccessToken}`,
+                Accept: "application/json",
+              },
+            } 
+          );
+          setLoginInfo(response.data);
+          if (response.data) {
+            localStorage.setItem("token", JSON.stringify(response.data));
+          }
+          setShowUsersModal(false);
+          setLoginMessage("Logi välja");
+          console.log("Roll: ", response.data.user.role);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      if (googleAccessToken) {
+        fetchProfile();
+      }
+    }, [googleAccessToken]);
 
 
-Kasutaja rollid on defineeritud Reacti efektis:
-      
-      useEffect(() => {
-        const roles = {
-        admin: false,
-        userLecturer: false,
-        userStudent: false,
-      };
+Sisse logimine algab sellest funktsioonist:
+ `const login = useGoogleLogin`
+
+
+
+
+### Kasutajarollide haldus
+Failis components Home.js on kirjeldatud sündmus `userRollHandler`.
+
+Muutuja `loginInfo`  sisselogitud kasutaja identifitseerimiseks backis. loginInfosse salvestatakse autentimisel API'lt saadud vastus koos tokeniga.
+
+Sisselogimisel salvestatakse info ka localStorage'sse:
+  
+  localStorage.setItem("token", JSON.stringify(response.data));
+
+  let token = localStorage.getItem("token");
+
+
+## Home.js
+Muutujad
+token = localStorage.getItem("token");
+userRole, eestikeelsed nimetused rollidele admin, userStudent, userLecturer 
+login = useGoogleLogin
+
+
+
+## UI elemendid
+UI elemendid (Modal, Input, Dropdown, Button jne) on asuvad kaustas src/components/UI
+
+### Modaalid
+
+#### Modal
+Näide Modal'i kasutamisest:
+
+Näide on võetud failist src/components/views/UserEditModal.js
+    
+    <Modal
+      onCenter={true}
+      onHidden={hideModal}
+      onClose={closeHandler}
+      overlay={showOverlay}
+    >
+      <div className="relative flex flex-col">
+    
+        # Järgnev kood moodustab sulgemisristikese ülemisse paremasse nurka
+        
+        <div className="relative flex justify-end">
+          <i
+            onClick={closeHandler}
+            className={`bi bi-x-lg absolute text-3xl lg:text-xl -top-2 -right-2`}
+          ></i>
+        </div>
+        
+        # Siit algab dialoogi sisu
+
+        <div className="flex flex-col items-center mb-2 lg:min-w-[50rem]">
+        
+        # Järgnev kood loob päise dialoogile
+
+          <h1 className="font-bold text-lg my-2 mb-6">{`${
+            editMode ? "KASUTAJA ANDMETE MUUTMINE" : "UUE KASUTAJA LISAMINE"
+          }`}</h1>
+        
+        # Siin kuvatakse dialoogi sisu
+          
+        </div>
+        
+        # Siit algab dialoogi jalus koos salvestamise ja kustutamise nuppudega
+        
+        # Siin on vaheriba???
+
+        <div
+          className={`flex ${
+            props.editMode
+              ? "justify-between space-x-20"
+              : "justify-center lg:justify-between"
+          } w-full pt-8`}
+        >
+
+      </div>
+    </Modal>
+
+ConfrimModalid nupuvajutuste korral või samuti otse Modal'i kehasse kirjutada.
+
+#### ConfirmModal
+ConfirmModal on kasutusel näiteks Jah/Ei kinnituse küsimiseks.
+Siin on näide ConfirmModali kasutamisest:
+Näide on võetud failist src/components/views/UserEditModal.js
+
+    {showDeleteConfirmModal && (
+      <div className="absolute top-20 -left-16">
+        <ConfirmModal
+          onDecline={declineHandler}
+          onConfirm={deleteItemHandler}
+          modalMessage={deleteModalMessage}
+          topArrow={true}
+        />
+      </div>
+    )}
+
+
+#### RequestModal
+RequestModal on kasutusel päringute vastuste tarvis.
+Näide RequestModali kasutamisest:
+Näide on võetud failist src/components/views/UserEditModal.js
+    
+    {showRequestModal && (
+      <RequestModal
+        error={requestError}
+        success={requestSuccess}
+        loading={requestLoading}
+        modalMessage={requestMessage}
+        customStyle="top-1/2 lg:ml-32"
+        onDecline={endRequestHandler}
+        onConfirm={failedRequestConfirmHandler}
+      />
+    )}
+
+#### Modalite kuvamine
+Modale on võimalik kuvada viisil, et kui mõni väärtus on tõene, siis Modal kuvatakse:
+
+    {showRequestModal && (
+      <RequestModal
+        # siin on vajalikud propsid
+      />
+    )}
+
+Muutujat muudetakse läbi Reacti UseState, mis väärtuse muutumisel renderdab vastava objekti:
+
+See näide on kirjas failis Home.js
+  const [showUsersModal, setShowUsersModal] = useState(false);
+
+
+### Dialoogi elementid
+
+#### Input
+##### InputOvarLappingLabel
+
+Näide on võetud failist src/components/views/UserEditModal.js
+
+    <InputOverlappingLabel
+      placeholder="Eesnimi"
+      onChange={inputChangeHandler}
+      name={"firstName"}
+      value={e.firstName}
+      errorMessage={errorMessage[i]?.firstName}
+      eTopPos="true"
+      index={i}
+    />
+
+Sealtsamast on näide inputChangeHandlerist:
+
+    const inputChangeHandler = (value) => {
+        const isFirstName = value.name === "firstName";
+  
+        const trimmedValue = value?.value.trim();
+        
+        if (isFirstName) {
+          !hasValue
+          ? setErrorMessages((prevState) => {
+            const prev = [...prevState];
+            prev[value.id] = {
+              ...prev[value.id],
+              firstName: mandatoryFields,
+            };
+            return prev;
+          })
+        : setErrorMessages((prevState) => {
+            const prev = [...prevState];
+            prev[value.id] = {
+              ...prev[value.id],
+              firstName: null,
+            };
+            return prev;
+          });
+        setEnteredUserData((prevState)  => {
+            const prev = [...prevState];
+            prev[value.id] = {
+              ...prev[value.id],
+              firstName: trimmedValue,
+            };
+          return prev;
+        });
+      }
+    }
+
+##### DropDownOverlappingInput
+Näide on võetud failist src/components/views/UserEditModal.js
+
+    <DropdownOverlappingInput
+      placeholder="Roll"
+      onChange={inputChangeHandler}
+      name={"role"}
+      value={
+        roleOptions.find((item) => {
+        return item.value === e.role;
+        })?.label
+      }
+      errorMessage={errorMessage[i]?.role}
+      eTopPos="true"
+      options={roleOptions}
+      showOptions="true"
+      readOnly="true"
+      index={i}
+    />
+
+#### Button
+Tavapärane HTML nupp
+Näide on võetud failist src/components/views/UserEditModal.js
+
+    <button
+      onClick={confirmModalHandler}
+      className="btn-actions"
+      type="button"
+      name="delete"
+    >
+      KUSTUTA
+    </button>
+
+### Handler
+Handlerid on kasutusel näiteks Input elemendist sisestuse lugemiseks.
+
+Handler muutujana peaks paiknema seal, kus sisestuselement luuakse, või kus on vaja tulemust kasutada. Näiteks, kui kogu rakenduses on vaja sisestatud väärtust kasutada, võib handleri luua ka Home.js failis.
+
+Handler andtakse sisestuselemendile läbi propside:
+
+    <button
+      onClick={confirmModalHandler}
+    />
+
+
+    const confirmModalHandler = (event) => {
+      if (event.target.name === "delete") {
+        setShowDeleteConfirmModal(true);
+        setOverlay(true);
+      }
+    }
+
+## Päringud
+Päringute tegemiseks kasutatakse axios paketti.
+
+    axios.post('/login', 
+      {
+        email: email,
+        password: password
+      })
+      .then((response) => {
+  
+        # siia tuleb kirjutada see, mida vastuse korral teha
+  
+      })
+      .catch((error) => {
+        console.log("Error: ")
+        console.log(error)
+      })
 
