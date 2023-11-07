@@ -25,6 +25,9 @@ const authController = {
           Authorization: `Bearer ${googleToken}`,
         },
       });
+
+      email = response.data.email;
+     
       // console.log('Google response:', response.data.email);
     } catch (error) {
     // console.error('External API error:', error);
@@ -32,7 +35,7 @@ const authController = {
     }
 
     try{
-      const response = await axios.get(`${userApi.url}/users/email/${'mrt@tlu.ee'}`, {
+      const response = await axios.get(`${userApi.url}/users/email/${email}`, {
         headers: {
           'Authorization': `Bearer ${userApi.token}`,
           'Content-Type': 'application/json'

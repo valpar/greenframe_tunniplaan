@@ -2,9 +2,21 @@ import SideModal from "../UI/Modal/SideModal";
 import { useState } from "react";
 
 const MobileMenu = (props) => {
-  const [showUserOptions, setShowUserOptions] = useState(false);
-  const { onUsersManagement, admin, onClose } = props;
+  //const [showUserOptions, setShowUserOptions] = useState(false);
+  const {
+    onClose,
+    loginHandler,
+    loginMessage,
+    loginInfo,
+    userPicture,
+    userAdminHandler,
+    showMobileMenu,
+    onUsersManagement,
+    usersListOpen,
+    admin,
+  } = props;
 
+  /*
   const loginHandler = () => {
     setShowUserOptions(true);
   };
@@ -14,101 +26,44 @@ const MobileMenu = (props) => {
     props.userRollHandler(e);
     onClose();
   };
-
+*/
   const usersManagementHandler = () => {
     onUsersManagement();
     onClose();
   };
 
   return (
-    <SideModal onHidden={props.showMobileMenu}>
+    <SideModal onHidden={showMobileMenu}>
       <div className={`flex flex-col`}>
         <div className="px-4 pt-8">
-          {!showUserOptions && (
+      {/* {!showUserOptions && ( */}
             <div className="flex flex-col space-y-8 w-full pb-10">
               {/* User photo */}
               <div className="mx-auto w-24 h-24">
                 <img
-                  src={props.userInfo}
+                  src={userPicture}
                   alt="User"
                   className="w-full h-full rounded-full object-cover
             "
                 ></img>
               </div>
+
               <p className="uppercase text-center">
-                {props.loginInfo?.user?.firstName
-                  ? props.loginInfo?.user?.firstName
-                  : "Logi sisse"}{" "}
-                / {props.userRoll ? props.userRoll : "Külaline"}
+                {loginInfo?.user?.firstName
+                  ? loginInfo?.user?.firstName
+                  : ""}
               </p>
 
-              {!localStorage.getItem("token") && (
-                <button
-                  onClick={props.login}
+              <button
+                  onClick={loginHandler}
                   className="btn-m-menu"
                   type="button"
                   name="Login Google"
                 >
-                  Google konto
-                </button>
-              )}
+                  {loginMessage}
+              </button>
+             
 
-              {localStorage.getItem("token") && (
-                <button
-                  onClick={props.logOut}
-                  className="btn-m-menu"
-                  type="button"
-                  name="Logout Google"
-                >
-                  LOGI VÄLJA
-                </button>
-              )}
-              {admin && (
-                <button
-                  onClick={usersManagementHandler}
-                  className="btn-m-menu"
-                  type="button"
-                  name="userManagement"
-                >
-                  KASUTAJATE HALDUS
-                </button>
-              )}
-
-              {!localStorage.getItem("token") &&
-                props.userRoll !== "LOGI SISSE" && (
-                  <button
-                    onClick={userRollHandler}
-                    type="button"
-                    name="logout"
-                    className="btn-m-menu"
-                  >
-                    Logi välja (mock)
-                  </button>
-                )}
-              <button
-                onClick={userRollHandler}
-                type="button"
-                name="admin"
-                className="btn-m-menu"
-              >
-                Haldus (mock)
-              </button>
-              <button
-                onClick={userRollHandler}
-                type="button"
-                name="lecturer"
-                className="btn-m-menu"
-              >
-                Õppejõud (mock)
-              </button>
-              <button
-                onClick={userRollHandler}
-                type="button"
-                name="student"
-                className="btn-m-menu"
-              >
-                Õpilane (mock)
-              </button>
               <a
                 className="btn-m-menu text-center"
                 target="_blank"
@@ -126,7 +81,7 @@ const MobileMenu = (props) => {
                 Riiul
               </a>
             </div>
-          )}
+   {/*    )}  */}
         </div>
       </div>
     </SideModal>
