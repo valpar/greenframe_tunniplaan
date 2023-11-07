@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import responseCodes from '../general/responseCodes.ts';
-import { INewUser } from './interfaces.ts';
-import userService from './service.ts';
+import responseCodes from '../general/responseCodes';
+import { INewUser } from './interfaces';
+import userService from './service';
+import jwtService from '../general/services/jwtService';
 
 const userController = {
   getAllUsers: async (req: Request, res: Response) => {
@@ -66,7 +67,7 @@ const userController = {
 
   addUser: async (req: Request, res: Response) => {
     const {
-      firstName, lastName, role, email,
+      firstName, lastName, role, email, password
     } = req.body;
     if (!firstName) {
       return res.status(responseCodes.badRequest).json({
@@ -92,6 +93,7 @@ const userController = {
       firstName,
       lastName,
       email,
+      password,
       role,
     };
     const id = await userService.createUser(newUser);
@@ -139,6 +141,51 @@ const userController = {
     }
     return res.status(responseCodes.noContent).send();
   },
+
+  updatePassword: async (req: Request, res: Response)=> {
+    const id: number = parseInt(req.params.id, 10);
+    
+    const token = req.headers.authorization?.split(' ')[1];
+    let decoded = jwtToken.decode(token, {complete: true}) ;
+    let payload = decoded.payload ;
+
+    /*
+
+    const {
+      firstName, lastName, email, role,
+    } = req.body;
+    if (!id) {
+      return res.status(responseCodes.badRequest).json({
+        error: 'No valid id provided',
+      });
+    }
+    if (!firstName && !lastName && !email && !role) {
+      return res.status(responseCodes.badRequest).json({
+        error: 'Nothing to update',
+      });
+    }
+    const updateUser: any = {
+      id,
+      firstName,
+      lastName,
+      email,
+      role,
+    };
+    const userExists = await userService.updateUserById(updateUser);
+    if (userExists === undefined) {
+      return res.status(responseCodes.badRequest).json({
+        error: `No user found with id: ${id}`,
+      });
+    }
+    if (!userExists) {
+      return res.status(responseCodes.ServerError).json({
+        error: 'Server error',
+      });
+    }
+    return res.status(responseCodes.noContent).send();
+  */
+  },
+
 };
 
 export default userController;
