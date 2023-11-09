@@ -5591,7 +5591,7 @@ INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALU
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-10-29 12:15:00', '2022-10-29 15:30:00', '128');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-10-29 12:15:00', '2022-10-29 15:30:00', '176');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-10-29 12:15:00', '2022-10-29 15:30:00', '35');
-INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-11-2 08:00:00', '2022-11-2 14:45:00', '9');
+INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-11-2 08:00:00', '2023-11-2 14:45:00', '9');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-11-3 08:00:00', '2022-11-3 13:00:00', '9');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-11-3 08:00:00', '2022-11-3 11:15:00', '107');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-11-3 08:00:00', '2022-11-3 10:30:00', '23');
@@ -5797,7 +5797,7 @@ INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALU
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-12-16 12:15:00', '2022-12-16 15:30:00', '146');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-12-17 08:00:00', '2022-12-17 13:45:00', '188');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-12-17 08:00:00', '2022-12-17 10:15:00', '106');
-INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-12-17 10:15:00', '2022-12-17 11:15:00', '109');
+INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2022-12-17 10:15:00', '2023-12-17 11:15:00', '109');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2023-1-5 08:00:00', '2023-1-5 15:30:00', '89');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2023-1-5 12:15:00', '2023-1-5 15:30:00', '83');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2023-1-5 12:15:00', '2023-1-5 15:30:00', '101');
@@ -5951,3 +5951,9 @@ INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALU
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2023-6-3 08:00:00', '2023-6-3 15:30:00', '176');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2023-6-8 12:15:00', '2023-6-8 15:30:00', '41');
 INSERT INTO `scheduleDb`.`scheduled` (`startTime`, `endTime`,`subjects_id`) VALUES ('2023-6-9 08:00:00', '2023-6-9 11:15:00', '33');
+
+
+UPDATE scheduled
+SET startTime=DATE_ADD(startTime, INTERVAL 8 YEAR),
+endTime=DATE_ADD(endTime, INTERVAL 8 YEAR)
+WHERE id<1000;
