@@ -37,7 +37,6 @@ const Home = () => {
 
   let [loginInfo, setLoginInfo] = useState(() => {
     let token = localStorage.getItem("token");
-    console.log(token);
     if (token === null || token.length == 0) {
       return null;
     }

@@ -4,7 +4,6 @@ import { Request, Response } from 'express';
 import axios from 'axios';
 import loginService from './service';
 import responseCodes from '../general/responseCodes';
-import userApi from '../../token';
 
 const authController = {
   googleAuth: async (req: Request, res: Response) => {
@@ -35,9 +34,10 @@ const authController = {
     }
 
     try{
-      const response = await axios.get(`${userApi.url}/users/email/${email}`, {
+      console.log()
+      const response = await axios.get(`${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/${email}`, {
         headers: {
-          'Authorization': `Bearer ${userApi.token}`,
+          'Authorization': `Bearer ${process.env.USERAPI_TOKEN}`,
           'Content-Type': 'application/json'
         }
       });
