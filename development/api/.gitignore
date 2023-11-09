@@ -6,6 +6,6 @@
 /build
 
 # misc
-.combined.log
-.error.log
+combined.log
+error.log
 /.nyc_output
