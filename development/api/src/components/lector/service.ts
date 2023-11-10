@@ -1,6 +1,6 @@
 import { FieldPacket, ResultSetHeader } from 'mysql2';
-import pool from '../../database.ts';
-import { ILector, INewLector, ILecturerSubjects } from './interfaces.ts';
+import pool from '../../database';
+import { ILector, INewLector, ILecturerSubjects } from './interfaces';
 
 const lecturerService = {
   getAllLecturers: async (): Promise<ILector[] | false> => {

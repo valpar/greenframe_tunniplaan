@@ -68,7 +68,7 @@ const userController = {
 
   addUser: async (req: Request, res: Response) => {
     const {
-      firstName, lastName, role, email, password
+      firstName, lastName, role, email, password,
     } = req.body;
     if (!firstName) {
       return res.status(responseCodes.badRequest).json({
@@ -145,12 +145,12 @@ const userController = {
 
   updatePassword: async (req: Request, res: Response)=> {
     const reqId: number = parseInt(req.params.id, 10);
-    const {password} = req.body;
+    const { password } = req.body;
 
-    const {id, role} = res.locals.user;
-    
-    if (!(reqId == id || role == 'admin'))
-      return res.status(responseCodes.notAuthorized);  
+    const { id, role } = res.locals.user;
+    if (!(reqId === id || role === 'admin')) {
+      return res.status(responseCodes.notAuthorized);
+    }
 
     if (!reqId) {
       return res.status(responseCodes.badRequest).json({

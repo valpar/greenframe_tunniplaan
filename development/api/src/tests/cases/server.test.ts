@@ -2,8 +2,8 @@
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import app from '../../app.ts';
-import pool from '../../database.ts';
+import app from '../../app';
+import pool from '../../database';
 
 const user = {
   email: 'koviid@mail.ee',

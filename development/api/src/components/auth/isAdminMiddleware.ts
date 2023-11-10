@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import responseCodes from '../general/responseCodes.ts';
+import responseCodes from '../general/responseCodes';
 
 const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
   const { user } = res.locals;

@@ -1,6 +1,6 @@
 import winston from 'winston';
 import { PoolConnection } from 'mysql2/promise';
-import pool from './database.ts';
+import pool from './database';
 // Loome Winston'i loggeri
 
 export const logger = winston.createLogger({

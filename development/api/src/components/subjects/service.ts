@@ -1,6 +1,6 @@
 import { FieldPacket, ResultSetHeader } from 'mysql2';
-import pool from '../../database.ts';
-import { ISubject, INewSubject } from './interfaces.ts';
+import pool from '../../database';
+import { ISubject, INewSubject } from './interfaces';
 
 const subjectServices = {
   getAllSubjects: async (): Promise<ISubject[] | false> => {

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import responseCodes from '../general/responseCodes.ts';
-import scheduleService from './service.ts';
-import formatDate from '../../utils/formatDate.ts';
+import responseCodes from '../general/responseCodes';
+import scheduleService from './service';
+import formatDate from '../../utils/formatDate';
 
 const scheduleController = {
   getEntireSchedule: async (req: Request, res: Response) => {

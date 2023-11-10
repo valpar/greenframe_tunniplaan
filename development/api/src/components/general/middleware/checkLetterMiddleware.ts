@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import responseCodes from '../responseCodes.ts';
-import validateField from '../services/service.ts';
+import responseCodes from '../responseCodes';
+import validateField from '../services/service';
 
 const checkAlphabet = (req: Request, res: Response, next: NextFunction) => {
   const { firstName, lastName } = req.body;

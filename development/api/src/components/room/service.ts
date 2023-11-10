@@ -1,6 +1,6 @@
 import { FieldPacket, ResultSetHeader } from 'mysql2';
-import pool from '../../database.ts';
-import IRoom from './interface.ts';
+import pool from '../../database';
+import IRoom from './interface';
 
 const roomService = {
   getAllRooms: async (): Promise<IRoom[] | false> => {

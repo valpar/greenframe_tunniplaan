@@ -1,36 +1,31 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-
-
 import express, {
   Request, Response, Application, NextFunction,
 } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import openapi from './openapi.json';
-import authController from './components/auth/controller.ts';
-import userController from './components/users/controller.ts';
-import lecturerController from './components/lector/controller.ts';
-import subjectController from './components/subjects/controller.ts';
-import courseController from './components/course/controller.ts';
-import roomController from './components/room/controller.ts';
-import scheduleController from './components/schedule/controller.ts';
-import homeworkController from './components/homework/controller.ts';
+import authController from './components/auth/controller';
+import userController from './components/users/controller';
+import lecturerController from './components/lector/controller';
+import subjectController from './components/subjects/controller';
+import courseController from './components/course/controller';
+import roomController from './components/room/controller';
+import scheduleController from './components/schedule/controller';
+import homeworkController from './components/homework/controller';
 
 // Järgnevad ESLint errorid on keelatud teadlikult ja lähevad eemaldamisele,
 // kui midllewared saavad uuesti rakendatud
 
 // eslint-disable-next-line no-unused-vars
-import isAdmin from './components/auth/isAdminMiddleware.ts';
+import isAdmin from './components/auth/isAdminMiddleware';
 // eslint-disable-next-line no-unused-vars
-import isLoggedIn from './components/auth/isLoggedInMiddleware.ts';
-import checkAlphabet from './components/general/middleware/checkLetterMiddleware.ts';
+import isLoggedIn from './components/auth/isLoggedInMiddleware';
+import checkAlphabet from './components/general/middleware/checkLetterMiddleware';
 // eslint-disable-next-line no-unused-vars
-import checkAlphabetAndNumber from './components/general/middleware/checkLetterAndNumberMiddleware.ts';
-import ping from './components/ping/controller.ts';
-import courseService from './components/course/service.ts';
-import { logger } from './logger.ts';
+import checkAlphabetAndNumber from './components/general/middleware/checkLetterAndNumberMiddleware';
+import ping from './components/ping/controller';
+import courseService from './components/course/service';
+import { logger } from './logger';
 
 const app = express(); // create express app
 // app.use(cors()); //use cors

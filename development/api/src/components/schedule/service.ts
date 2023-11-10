@@ -1,9 +1,9 @@
 import { FieldPacket, ResultSetHeader, RowDataPacket } from 'mysql2';
-import pool from '../../database.ts';
+import pool from '../../database';
 import {
   ISchedule, Iroom, Ilecturer, Icourse, IhomeW, Isubject,
-} from './interface.ts';
-import homeworkService from '../homework/service.ts';
+} from './interface';
+import homeworkService from '../homework/service';
 
 const scheduleService = {
   getEntireSchedule: async (atDate:string, toDate:string): Promise<ISchedule[] | false> => {

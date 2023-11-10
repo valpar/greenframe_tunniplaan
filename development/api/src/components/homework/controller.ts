@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import responseCodes from '../general/responseCodes.ts';
-import homeworkService from './service.ts';
-import formatDate from '../../utils/formatDate.ts';
+import responseCodes from '../general/responseCodes';
+import homeworkService from './service';
+import formatDate from '../../utils/formatDate';
 
 const homeworkController = {
   getAllHomeworks: async (req: Request, res: Response) => {

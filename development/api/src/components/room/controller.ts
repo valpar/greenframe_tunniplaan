@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import responseCodes from '../general/responseCodes.ts';
-import roomService from './service.ts';
+import responseCodes from '../general/responseCodes';
+import roomService from './service';
 
 const roomController = {
   getAllRooms: async (req: Request, res: Response) => {

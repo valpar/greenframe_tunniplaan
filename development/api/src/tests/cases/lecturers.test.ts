@@ -2,7 +2,7 @@
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import app from '../../app.ts';
+import app from '../../app';
 
 const user = {
   email: 'koviid@mail.ee',

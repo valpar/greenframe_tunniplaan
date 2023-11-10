@@ -1,6 +1,6 @@
 import { FieldPacket, ResultSetHeader } from 'mysql2';
-import pool from '../../database.ts';
-import ICourse from './interface.ts';
+import pool from '../../database';
+import ICourse from './interface';
 
 const courseService = {
   getAllCourses: async (): Promise<ICourse[] | false> => {

@@ -1,6 +1,6 @@
 import { RowDataPacket, FieldPacket, ResultSetHeader } from 'mysql2';
-import pool from '../../database.ts';
-import Ihomework from './interface.ts';
+import pool from '../../database';
+import Ihomework from './interface';
 // import ISubject from "./interface";
 
 const homeworkService = {

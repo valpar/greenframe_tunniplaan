@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import responseCodes from '../general/responseCodes.ts';
-import { INewLector } from './interfaces.ts';
-import lecturerService from './service.ts';
+import responseCodes from '../general/responseCodes';
+import { INewLector } from './interfaces';
+import lecturerService from './service';
 
 const lecturerController = {
   getAllLecturersById: async (req: Request, res: Response) => {

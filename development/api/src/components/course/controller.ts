@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import responseCodes from '../general/responseCodes.ts';
-import courseService from './service.ts';
+import responseCodes from '../general/responseCodes';
+import courseService from './service';
 
 const courseController = {
   getAllCourses: async (req: Request, res: Response) => {

@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { IUser } from '../../users/interfaces.ts';
+import { IUser } from '../../users/interfaces';
 
 const jwtPassword = 'jagj9032jfKJKJgka903dsksfjsöd';
 

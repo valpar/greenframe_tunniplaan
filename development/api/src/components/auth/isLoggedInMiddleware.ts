@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import jwtService from '../general/services/jwtService.ts';
-import responseCodes from '../general/responseCodes.ts';
+import jwtService from '../general/services/jwtService';
+import responseCodes from '../general/responseCodes';
 
 const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;

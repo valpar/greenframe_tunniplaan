@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import responseCodes from '../general/responseCodes.ts';
-import { INewSubject } from './interfaces.ts';
+import responseCodes from '../general/responseCodes';
+import { INewSubject } from './interfaces';
 
-import subjectServices from './service.ts';
+import subjectServices from './service';
 
 const subjectController = {
   getAllSubjects: async (req: Request, res: Response) => {
