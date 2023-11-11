@@ -1,8 +1,8 @@
-require('./cases/ping.test.ts');
-require('./cases/login.test.ts');
-require('./cases/lecturers.test.ts');
-require('./cases/room.test.ts');
-require('./cases/subjects.test.ts');
-require('./cases/course.test.ts');
-require('./cases/users.test.ts');
-require('./cases/server.test.ts');
+require('./cases/ping.test');
+require('./cases/login.test');
+require('./cases/lecturers.test');
+require('./cases/room.test');
+require('./cases/subjects.test');
+require('./cases/course.test');
+require('./cases/users.test');
+require('./cases/server.test');

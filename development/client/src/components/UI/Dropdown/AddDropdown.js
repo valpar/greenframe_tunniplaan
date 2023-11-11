@@ -171,6 +171,7 @@ const AddDropdown = (props) => {
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
       className="relative w-full h-auto"
+      data-testid="add-dropdown"
     >
       {props.topLabel && <label>{props.topLabel}</label>}
       {props.onErrorMessage &&

@@ -18,7 +18,7 @@ describe('GoTopButton', () => {
     Object.defineProperty(window, 'scrollY', { value: 100 });
 
     // Render the component
-    const { getByTestId } = render(<GoTopButton />);
+    render(<GoTopButton />);
 
     // Check if a component value exists
     const goTopButton = screen.getByTestId('go-top-button');

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent} from '@testing-library/react';
+import { render, fireEvent, screen} from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import { AddScheduleButton } from '../components/UI/Button/AddScheduleButton';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
@@ -13,23 +13,21 @@ describe('AddScheduleButton', () => {
     const addScheduleHandler = jest.fn();
     const addSchedule = true; 
 
-    const { getByText, getByTestId } = render(
+    render(
       <AddScheduleButton
         addSchedule={addSchedule}
         addScheduleHandler={addScheduleHandler}
       />
     );
 
-    // eslint-disable-next-line testing-library/prefer-screen-queries
-    const addButton = getByText('LISA');
-    // eslint-disable-next-line testing-library/prefer-screen-queries
-    const fontAwesomeIcon = getByTestId('font-awesome-icon');
+    const button = screen.getByText('LISA');
+    const fontAwesomeIcon = screen.getByTestId('font-awesome-icon');
 
-    expect(addButton).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
     expect(fontAwesomeIcon).toBeInTheDocument();
     expect(fontAwesomeIcon).toHaveAttribute('data-icon', faAngleRight.iconName);
 
-    fireEvent.click(addButton);
+    fireEvent.click(button);
     expect(addScheduleHandler).toHaveBeenCalled();
   });
 });

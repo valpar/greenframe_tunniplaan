@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AddDropdown if matches snapshot 1`] = `
+exports[`AddDropdown component if matches snapshot 1`] = `
 <div
   className="relative w-full h-auto"
+  data-testid="add-dropdown"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >

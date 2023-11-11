@@ -18,6 +18,7 @@ const Backdrop = (props) => {
 
   return (
     <div
+      data-testid="backdrop"
       className="fixed top-0 left-0 w-full h-screen z-20 bg-neutral-900 opacity-70"
       onClick={props.onClose}
     />
@@ -27,6 +28,7 @@ const Backdrop = (props) => {
 const RequestModalOverlay = (props) => {
   return (
     <div
+      data-testid="modal-overlay"
       className={`fixed top-1/3 lg:top-1/4 w-11/12 lg:w-96 h-auto left-1/2 -translate-x-1/2 bg-white rounded z-40 shadow-lg animate-slideDown ${props.customStyle}`}
     >
       {props.loading && <Spinner containerStyle="p-12" />}

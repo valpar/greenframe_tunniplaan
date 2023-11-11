@@ -70,9 +70,7 @@ exports[`Header if matches snapshot 1`] = `
           </div>
           <div
             className="text-lg mx-auto text-center"
-          >
-            Logi sisse
-          </div>
+          />
         </div>
       </div>
     </div>

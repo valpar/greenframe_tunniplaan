@@ -105,6 +105,7 @@ const SearchDropdown = ({
         <div className="absolute bg-collegeGreen h-11 group-hover:animate-peeper" />
       )}
       <Select
+        data-testid='select'
         components={{ DropdownIndicator: CustomDropdownIndicator }}
         ref={refChangeHandler}
         value={selectedOption}
