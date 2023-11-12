@@ -15,6 +15,7 @@ const Backdrop = (props) => {
 
   return (
     <div
+      data-testid="backdrop"
       className="fixed top-0 left-0 w-full h-screen z-20 bg-neutral-900 opacity-70"
       onClick={props.onClose}
     />

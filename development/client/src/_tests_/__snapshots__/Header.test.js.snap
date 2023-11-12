@@ -76,6 +76,7 @@ exports[`Header if matches snapshot 1`] = `
     </div>
     <div
       className="lg:hidden flex flex-row w-40 justify-end items-center space-x-7 pr-2"
+      data-testid="admin-controls"
     >
       <div
         className="relative pt-[0.1rem] pr-1"

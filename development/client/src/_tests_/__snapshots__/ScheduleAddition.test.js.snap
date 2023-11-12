@@ -19,6 +19,7 @@ exports[`ScheduleAddition matches snapshot 1`] = `
   >
     <div
       className="relative w-full h-auto"
+      data-testid="add-dropdown"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
@@ -128,6 +129,7 @@ exports[`ScheduleAddition matches snapshot 1`] = `
     </div>
     <div
       className="relative w-full h-auto"
+      data-testid="add-dropdown"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
@@ -237,6 +239,7 @@ exports[`ScheduleAddition matches snapshot 1`] = `
     </div>
     <div
       className="relative w-full h-auto"
+      data-testid="add-dropdown"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
@@ -346,6 +349,7 @@ exports[`ScheduleAddition matches snapshot 1`] = `
     </div>
     <div
       className="relative w-full h-auto"
+      data-testid="add-dropdown"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
@@ -460,6 +464,7 @@ exports[`ScheduleAddition matches snapshot 1`] = `
     <div>
       <div
         className="flex flex-col w-full items-center lg:items-end lg:flex-row lg:space-x-4"
+        data-testid="date-of-occurence-form"
       >
         <div
           className="flex flex-col lg:flex-row w-full space-y-3 lg:space-x-4 lg:space-y-0"

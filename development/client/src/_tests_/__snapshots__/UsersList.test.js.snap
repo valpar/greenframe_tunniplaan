@@ -26,6 +26,7 @@ exports[`Header if matches snapshot 1`] = `
   >
     <div
       className="green-peeper"
+      data-testid="user-edit-modal"
     />
     <button
       className="w-full"
@@ -37,6 +38,7 @@ exports[`Header if matches snapshot 1`] = `
   <div>
     <div
       className="flex justify-center py-8"
+      data-testid="spinner"
     >
       <div
         role="status"

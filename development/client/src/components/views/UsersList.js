@@ -76,7 +76,7 @@ const UsersList = (props) => {
         onClick={addModalHandler}
         className="realtive flex justify-between items-center group relative mx-auto mt-4  mb-3 w-48 h-10 font-bold bg-darkGray text-white shadow hover:shadow-lg"
       >
-        <div className="green-peeper" />
+        <div data-testid='user-edit-modal' className="green-peeper" />
         <button type="button" className="w-full">
           LISA
         </button>

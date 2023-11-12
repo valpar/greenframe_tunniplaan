@@ -3,6 +3,7 @@
 exports[`MobileMenu matches snapshot 1`] = `
 <div
   className="animate-slideRightOff fixed top-20 w-full h-full left-1/2 -translate-x-1/2 bg-white z-30 shadow-lg"
+  data-testid="modal-overlay"
 >
   <div
     className="absolute hidden justify-center items-center w-full h-full bg-neutral-900 opacity-70 z-30"
@@ -31,12 +32,51 @@ exports[`MobileMenu matches snapshot 1`] = `
             </div>
             <p
               className="uppercase text-center"
-            />
+            >
+              Logi sisse
+               
+              / 
+              Külaline
+            </p>
             <button
               className="btn-m-menu"
               name="Login Google"
               type="button"
-            />
+            >
+              Google konto
+            </button>
+            <button
+              className="btn-m-menu"
+              name="logout"
+              onClick={[Function]}
+              type="button"
+            >
+              Logi välja (mock)
+            </button>
+            <button
+              className="btn-m-menu"
+              name="admin"
+              onClick={[Function]}
+              type="button"
+            >
+              Haldus (mock)
+            </button>
+            <button
+              className="btn-m-menu"
+              name="lecturer"
+              onClick={[Function]}
+              type="button"
+            >
+              Õppejõud (mock)
+            </button>
+            <button
+              className="btn-m-menu"
+              name="student"
+              onClick={[Function]}
+              type="button"
+            >
+              Õpilane (mock)
+            </button>
             <a
               className="btn-m-menu text-center"
               href="https://start.hk.tlu.ee/sahtelbeta/sahtel/index.php"

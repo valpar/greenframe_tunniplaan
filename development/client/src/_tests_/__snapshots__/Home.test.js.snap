@@ -89,6 +89,7 @@ exports[`Home matches snapshot 1`] = `
           </div>
           <div
             className="lg:hidden flex flex-row w-40 justify-end items-center space-x-7 pr-2"
+            data-testid="admin-controls"
           >
             <div
               className="relative pt-[0.1rem] pr-1"
@@ -927,7 +928,7 @@ exports[`Home matches snapshot 1`] = `
                                   </abbr>
                                 </button>
                                 <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                                  className="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                                   onClick={[Function]}
                                   onFocus={[Function]}
                                   onMouseOver={[Function]}
