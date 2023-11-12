@@ -30,4 +30,5 @@ describe('AddScheduleButton', () => {
     fireEvent.click(button);
     expect(addScheduleHandler).toHaveBeenCalled();
   });
+  
 });

@@ -7,12 +7,12 @@ beforeAll(() => {
     const meta = document.createElement('meta');
     meta.setAttribute('name', 'theme-color');
     document.head.appendChild(meta);
-  });
+});
   
-  afterAll(() => {
-    // eslint-disable-next-line testing-library/no-node-access
-    document.head.removeChild(document.querySelector('meta[name="theme-color"]'));
-  });
+afterAll(() => {
+  // eslint-disable-next-line testing-library/no-node-access
+  document.head.removeChild(document.querySelector('meta[name="theme-color"]'));
+});
 
   // kui seda ei tee (createPortal), siis target "is not DOM element"
 jest.mock('react-dom', () => ({

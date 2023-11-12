@@ -2,9 +2,19 @@ import React from 'react';
 import { render, fireEvent, waitFor, screen, cleanup } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import CalendarInput from '../components/UI/Calendar/CalendarInput';
+import { formatDate } from "c:/Tunniplaan/HK-Tunniplaan/development/client/src/utils/Format/Date/index";
 
-// Mock the onChange prop function
 const mockOnChange = jest.fn();
+
+// kui ei mocki aega, siis snapshot muutub pidevalt
+beforeAll(() => {
+  jest.useFakeTimers('modern');
+  jest.setSystemTime(new Date('2023-04-10')); 
+});
+
+afterAll(() => {
+  jest.useRealTimers();
+});
 
 afterEach(() => {
     cleanup();
@@ -72,19 +82,16 @@ describe('CalendarInput', () => {
   it("selects a custom date range and updates state", () => {
     render(<CalendarInput onChange={mockOnChange} />);
     const today = new Date();
-    const end = new Date(today);
-    end.setHours(23);
-    end.setMinutes(59);
-    end.setSeconds(59);
-    end.setMilliseconds(999);
+    const end = new Date();
 
     const expectedStartTime = new Date(today);
     expectedStartTime.setHours(0, 0, 0, 0);
 
     const expectedEndDate = new Date(end);
+    expectedEndDate.setHours(23,59,59,999);
 
-    const expectedDateRange = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()} - ${end.getDate()}.${end.getMonth() + 1}.${end.getFullYear()}`;
-    
+    const expectedDateRange = `10.04.2023 - 10.04.2023`; // enne oli dünaamiline kell, ning snapshotid muutusid iga uue kuupäevaga
+
     // Simulate selecting a custom date range in the calendar
     fireEvent.click(screen.getByText(today.getDate().toString()));
     fireEvent.click(screen.getByText(end.getDate().toString()));

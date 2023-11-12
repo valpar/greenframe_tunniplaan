@@ -1,12 +1,16 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import renderer from 'react-test-renderer'; //snapshot renderer
-import { Header } from '../components/views/Header'; // Headeri failis on named export, ei ole export default
+import renderer from 'react-test-renderer';
+import { Header } from '../components/views/Header';
 
 
 describe('Header', () => {
-    //snapshot sellisel kujul ei tööta
     it("if matches snapshot", () => {
         const tree = renderer.create(<Header />).toJSON();
         expect(tree).toMatchSnapshot();
+    });
+    it('displays admin controls when admin prop is true', () => {
+        render(<Header admin={true} />);
+        const adminControls = screen.getByTestId('admin-controls');
+        expect(adminControls).toBeInTheDocument();
     });
 });
