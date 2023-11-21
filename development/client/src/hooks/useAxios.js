@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import config from "../config.json";
 
-axios.defaults.baseURL = config.api.url;
+axios.defaults.baseURL = `${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`;
+//console.log(config.api.url);
+//console.log(`${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`);
 
 const useAxios = (axiosParams, trigger) => {
   const [response, setResponse] = useState(undefined);

@@ -37,7 +37,6 @@ const Home = () => {
 
   let [loginInfo, setLoginInfo] = useState(() => {
     let token = localStorage.getItem("token");
-    // console.log(token);
     if (token === null || token.length == 0) {
       return null;
     }
@@ -291,7 +290,7 @@ const Home = () => {
       setStudent(false);
       setTeacher(false);
     }
-    if (event.target.name === "lecturer") {
+    if (event.target.name === "teacher") {
       setAdmin(false);
       setStudent(false);
       setTeacher(true);
@@ -396,14 +395,6 @@ const Home = () => {
   //   : userStudent
   //   ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"
   //   : require("../assets/icons/user.png");
-
-  const userRole = admin
-    ? "HALDUR"
-    : teacher
-    ? "ÕPPEJÕUD"
-    : student
-    ? "ÕPILANE"
-    : "";
 
   const mobileMenuHandler = () => {
     setOpenModalAnimation((prevState) => (prevState = !prevState));
@@ -568,12 +559,11 @@ const Home = () => {
         <div className="lg:fixed lg:w-[73rem] -ml-2 lg:h-28 bg-white z-10">
           <Header
             profile={profile}
-            onClick={loginHandler}
+            loginHandler={loginHandler}
             loginMessage={loginMessage}
             loginInfo={loginInfo}
             userPicture={userPicture}
             userAdminHandler={userAdminHandler} 
-            userRoll={userRole}
             admin={admin}
             isTabletOrMobile={isTabletOrMobile}
             addScheduleHandler={addScheduleHandler}
@@ -594,13 +584,11 @@ const Home = () => {
         {showMobileMenu && isTabletOrMobile && (
           <MobileMenu
             onClose={mobileMenuHandler}
-            userInfo={userPicture}
+            loginHandler={loginHandler}
+            loginMessage={loginMessage}
             loginInfo={loginInfo}
-            userRollHandler={userRollHandler}
+            userPicture={userPicture}
             userAdminHandler={userAdminHandler}
-            userRoll={userRole}
-            login={login}
-            logOut={logOut}
             showMobileMenu={openModalAnimation}
             onUsersManagement={usersListHandler}
             usersListOpen={showUsersList}

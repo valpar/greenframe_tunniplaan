@@ -1,9 +1,9 @@
 import app from './app';
 
-const port = 4000;
+require('dotenv').config();
 
 // Start API
-app.listen(port, () => {
+app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`App is running on port ${port}`);
+  console.log(`App is running on port ${process.env.PORT}`);
 });

@@ -5,11 +5,10 @@ import AddDropdown from "../UI/Dropdown/AddDropdown";
 import axios from "axios";
 import AddNewItem from "./AddNewItem";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
-import config from "../../config.json";
 import content from "../../assets/content/content.json";
 import RequestModal from "../UI/RequestModal/RequestModal";
 
-axios.defaults.baseURL = config.api.url;
+axios.defaults.baseURL = `${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`;
 
 const ScheduleAddition = (props) => {
   const {

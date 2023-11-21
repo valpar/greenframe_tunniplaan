@@ -1,5 +1,4 @@
 import { ReactComponent as Logo } from "../../assets/logo/HK-est.svg";
-import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
 
 export const Header = (props) => {
   const {
@@ -62,7 +61,7 @@ export const Header = (props) => {
           </div>
           {/* Desktop login */}
           <div className="hidden relative lg:flex flex-col justify-end mb-1">
-            <div className="mt-4 w-28 cursor-pointer" onClick={onClick}>
+            <div className="mt-4 w-28 cursor-pointer" onClick={loginHandler}>
               <div className="mx-auto w-12 h-12">
                 <img
                   src={userPicture}
@@ -70,7 +69,9 @@ export const Header = (props) => {
                   className="w-full h-full rounded-full object-cover"
                 ></img>
               </div>
-              {/* <div className="text-lg mx-auto text-center">{userRoll}</div> */}
+              {loginInfo && <div className="text-lg mx-auto text-center">{loginInfo?.user?.firstName}</div>}
+
+              {/* <div className="text-lg mx-auto text-center">{userRole}</div> */} 
               <div className="text-lg mx-auto text-center">
                 {loginMessage}
               </div>  

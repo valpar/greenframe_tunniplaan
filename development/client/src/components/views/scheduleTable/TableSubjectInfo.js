@@ -5,7 +5,6 @@ import InputWithPlaceholder from "../../UI/Input/InputWithPlaceholder";
 import AddHomework from "../AddHomework";
 import ConfirmModal from "../../UI/ConfirmModal/ConfirmModal";
 import axios from "axios";
-import config from "../../../config.json";
 import content from "../../../assets/content/content.json";
 import RequestModal from "../../UI/RequestModal/RequestModal";
 import TooltipLarge from "../../UI/Tooltip/TooltipLarge";
@@ -24,7 +23,7 @@ const isValidUrl = (urlString) => {
   return !!urlPattern.test(urlString);
 };
 
-axios.defaults.baseURL = config.api.url;
+axios.defaults.baseURL = `${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`;
 
 const TableSubjectInfo = (props) => {
   const {admin, userLecturer} = props;

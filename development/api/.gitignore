@@ -9,3 +9,4 @@
 combined.log
 error.log
 /.nyc_output
+.env
