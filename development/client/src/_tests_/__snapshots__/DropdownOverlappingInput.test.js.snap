@@ -11,6 +11,7 @@ exports[`DropdownOverlappingInput matches snapshot 1`] = `
   <input
     autoComplete="off"
     className="p-2 border w-full border-borderGray  rounded-none font-normal focus:outline-none focus:border-black"
+    data-testid="option-1"
     name=""
     onBlur={[Function]}
     onChange={[Function]}

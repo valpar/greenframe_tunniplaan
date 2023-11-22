@@ -18,6 +18,7 @@ exports[`AddScheduleButton matches snapshot 1`] = `
     className="svg-inline--fa fa-angle-right  right-0 absolute text-base text-white p-4 duration-150"
     data-icon="angle-right"
     data-prefix="fas"
+    data-testid="font-awesome-icon"
     focusable="false"
     role="img"
     style={Object {}}

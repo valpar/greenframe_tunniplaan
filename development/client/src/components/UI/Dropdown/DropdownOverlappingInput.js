@@ -69,6 +69,7 @@ const DropdownOverlappingInput = (props) => {
         {props.value ? props.placeholder : ""}
       </label>
       <input
+        data-testid="option-1" // for testing purposes
         onMouseEnter={mouseEnterHandler}
         onMouseLeave={mouseLeaveHandler}
         onClick={showOptionsHandler}

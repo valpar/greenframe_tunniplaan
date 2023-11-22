@@ -3,6 +3,7 @@
 exports[`CalendarInput matches snapshot 1`] = `
 <div
   className="relative group"
+  data-testid="relative-group"
 >
   <div
     className="relative border group border-borderGray shadow lg:hover:border-black"

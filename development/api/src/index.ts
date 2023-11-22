@@ -1,9 +1,7 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
 require('dotenv').config();
 
+// eslint-disable-next-line import/first
 import app from './app';
-
 
 // Start API
 app.listen(process.env.PORT, () => {

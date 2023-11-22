@@ -3,6 +3,7 @@
 exports[`AddDropdown component if matches snapshot 1`] = `
 <div
   className="relative w-full h-auto"
+  data-testid="add-dropdown"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >

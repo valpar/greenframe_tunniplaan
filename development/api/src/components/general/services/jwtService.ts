@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import jwt from 'jsonwebtoken';
 import { IUser } from '../../users/interfaces';
 

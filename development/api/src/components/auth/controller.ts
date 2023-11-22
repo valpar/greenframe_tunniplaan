@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { Request, Response } from 'express';
 import axios from 'axios';
 import loginService from './service';
@@ -9,7 +7,6 @@ const authController = {
   googleAuth: async (req: Request, res: Response) => {
     let email = '';
     let user;
-    
     try {
       const authHeader = req.headers.authorization;
       const googleToken = authHeader?.split(' ')[1];
@@ -26,7 +23,6 @@ const authController = {
       });
 
       email = response.data.email;
-     
       // console.log('Google response:', response.data.email);
     } catch (error) {
     // console.error('External API error:', error);
@@ -38,10 +34,9 @@ const authController = {
       const response = await axios.get(`${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/${email}`, {
         headers: {
           'Authorization': `Bearer ${process.env.USERAPI_TOKEN}`,
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
-      
       user = {
         id: response.data.data.id,
         firstName: response.data.data.firstName,

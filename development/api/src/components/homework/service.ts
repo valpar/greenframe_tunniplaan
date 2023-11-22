@@ -1,6 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { RowDataPacket, FieldPacket, ResultSetHeader } from 'mysql2';
 import pool from '../../database';
 import Ihomework from './interface';

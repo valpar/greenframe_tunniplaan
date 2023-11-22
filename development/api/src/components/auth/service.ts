@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import userService from '../users/service';
 import hashService from '../general/services/hashService';
 import jwtService from '../general/services/jwtService';

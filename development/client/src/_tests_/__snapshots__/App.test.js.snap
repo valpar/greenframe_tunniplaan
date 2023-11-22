@@ -253,6 +253,7 @@ exports[`App Component matches snapshot 1`] = `
             <div>
               <div
                 className="relative group"
+                data-testid="relative-group"
               >
                 <div
                   className="relative border group border-borderGray shadow lg:hover:border-black"
@@ -928,7 +929,7 @@ exports[`App Component matches snapshot 1`] = `
                                   </abbr>
                                 </button>
                                 <button
-                                  className="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                                   onClick={[Function]}
                                   onFocus={[Function]}
                                   onMouseOver={[Function]}
@@ -1819,6 +1820,7 @@ exports[`App Component matches snapshot 1`] = `
       >
         <div
           className="flex justify-center py-8"
+          data-testid="spinner"
         >
           <div
             role="status"
@@ -1858,6 +1860,7 @@ exports[`App Component matches snapshot 1`] = `
       className="svg-inline--fa fa-circle-up block text-4xl md:text-6xl cursor-pointer text-darkGray opacity-70 hover:opacity-100 duration-200"
       data-icon="circle-up"
       data-prefix="far"
+      data-testid="go-top-button"
       focusable="false"
       role="img"
       style={Object {}}

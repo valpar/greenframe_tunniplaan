@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { FieldPacket, ResultSetHeader, RowDataPacket } from 'mysql2';
 import pool from '../../database';
 import {
