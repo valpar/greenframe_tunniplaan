@@ -82,7 +82,9 @@ const homeworkController = {
     const {
       description, subjectCode, extrasLink,
     } = req.body;
-    let { dueDate, subjects_id } = req.body;
+    // camelCase muudatused, vana kood alles
+    // let { dueDate, subjects_id } = req.body;
+    let { dueDate, subjectsId } = req.body;
     // console.log(description, dueDate, subjectCode, subjects_id, extrasLink);
     if (!description) {
       return res.status(responseCodes.badRequest).json({
@@ -97,7 +99,8 @@ const homeworkController = {
     }
     dueDate = formatDate.forSqlDateTime(dueDate);
 
-    if (!subjectCode && !subjects_id) {
+    // refaktoreermine, ESLint camelCase muudatused
+    /* if (!subjectCode && !subjects_id) {
       return res.status(responseCodes.badRequest).json({
         error: 'homework subjectCode or subjects_id is missing',
       });
@@ -106,12 +109,22 @@ const homeworkController = {
       const subjectId = await homeworkService.getSubjectByCode(subjectCode);
 
       subjects_id = subjectId.id;
+    } */
+    if (!subjectCode && !subjectsId) {
+      return res.status(responseCodes.badRequest).json({
+        error: 'homework subjectCode or subjects_id is missing',
+      });
+    }
+    if (!subjectsId) {
+      const subjectId = await homeworkService.getSubjectByCode(subjectCode);
+
+      subjectsId = subjectId.id;
     }
 
     const id = await homeworkService.createhomework(
       description,
       dueDate,
-      subjects_id,
+      subjectsId,
       extrasLink,
     );
     if (!id) {
@@ -150,7 +163,8 @@ const homeworkController = {
     const {
       description, subjectCode, extrasLink,
     } = req.body;
-    let { dueDate, subjects_id } = req.body;
+    // ka siin tegin subjects_id camelCase stiilis
+    let { dueDate, subjectsId } = req.body;
     if (!id) {
       return res.status(responseCodes.badRequest).json({
         error: 'No valid id provided',
@@ -163,21 +177,21 @@ const homeworkController = {
     }
     dueDate = formatDate.forSqlDateTime(dueDate);
 
-    if (!description && !dueDate && !subjects_id && !subjectCode) {
+    if (!description && !dueDate && !subjectsId && !subjectCode) {
       return res.status(responseCodes.badRequest).json({
         error: 'Nothing to update',
       });
     }
-    if (!subjects_id) {
+    if (!subjectsId) {
       const subjectId = await homeworkService.getSubjectByCode(subjectCode);
-      subjects_id = subjectId.id;
+      subjectsId = subjectId.id;
     }
 
     const homeworkExists = await homeworkService.updatehomework(
       id,
       description,
       dueDate,
-      subjects_id,
+      subjectsId,
       extrasLink,
     );
 

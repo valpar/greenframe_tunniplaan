@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-expressions */
 import request from 'supertest';
 import { describe, it } from 'mocha';

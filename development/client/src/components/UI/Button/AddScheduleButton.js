@@ -14,6 +14,7 @@ export const AddScheduleButton = (props) => {
       <FontAwesomeIcon
         data-testid="font-awesome-icon"
         icon={faAngleRight}
+        data-testid="font-awesome-icon"
         className={`${
           props.addSchedule ? "rotate-180" : ""
         } right-0 absolute text-base text-white p-4 duration-150`}

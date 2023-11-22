@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 require('./cases/ping.test');
 require('./cases/login.test');
 require('./cases/lecturers.test');
