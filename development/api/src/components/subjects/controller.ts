@@ -14,6 +14,7 @@ const subjectController = {
       error: 'Server error',
     });
   },
+  // eslint-disable-next-line consistent-return
   getSubjectById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     const { subjectCode } = req.body;

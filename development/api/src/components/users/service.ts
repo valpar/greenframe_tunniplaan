@@ -85,7 +85,7 @@ const userService = {
     try {
       const pswhash = await hashService.hash(password);
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "UPDATE users SET password = ? WHERE id = ?",
+        'UPDATE users SET password = ? WHERE id = ?',
         [pswhash, id],
       );
       if (result.affectedRows > 0) {

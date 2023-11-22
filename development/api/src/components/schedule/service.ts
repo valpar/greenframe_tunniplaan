@@ -388,7 +388,7 @@ const scheduleService = {
   },
 
   getgcal: async (atDate:string, toDate:string, courseId:number, lecturerId:number):
-    Promise<ISchedule[] | false> => {
+  Promise<ISchedule[] | false> => {
     let isCourse = '%';
     let isLecture = '%';
     isCourse = courseId === 0 ? '%' : '';

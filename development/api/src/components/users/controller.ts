@@ -143,7 +143,7 @@ const userController = {
     return res.status(responseCodes.noContent).send();
   },
 
-  updatePassword: async (req: Request, res: Response)=> {
+  updatePassword: async (req: Request, res: Response) => {
     const reqId: number = parseInt(req.params.id, 10);
     const { password } = req.body;
 

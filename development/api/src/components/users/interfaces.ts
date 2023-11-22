@@ -21,7 +21,7 @@ interface IUpdateUser {
   lastName?: string;
   email?: string;
   password?: string;
-  role?: 'admin' | 'user'| 'lecturer'| 'student';
+  role?: 'admin' | 'user' | 'lecturer' | 'student';
 }
 
 export { IUser, IUpdateUser, INewUser };

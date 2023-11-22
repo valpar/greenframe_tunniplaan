@@ -1,7 +1,7 @@
 import { RowDataPacket } from 'mysql2';
 
 interface Iroom {
- roomId?:number;
+  roomId?:number;
   room?:string ;
 
 }
@@ -47,7 +47,7 @@ interface Isubject {
   subjectCode?: string ;
   subject?: string;
 
- }
+}
 export {
   ISchedule, Iroom, Icourse, Ilecturer, IhomeW, Isubject,
 };
