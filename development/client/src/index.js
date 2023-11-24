@@ -9,5 +9,6 @@ import { register as registerServiceWorker } from "./serviceWorkerRegistration";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
 
+
 registerServiceWorker();
 reportWebVitals();

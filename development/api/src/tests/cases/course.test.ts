@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
+/* eslint-disable no-unused-expressions */
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
@@ -58,7 +59,7 @@ describe('Course controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Course is missing');
     });
-  }),
+  });
   describe('PATCH /courses/:id', () => {
     it('responds with code 204 and empty object', async () => {
       const response = await request(app)
@@ -105,7 +106,7 @@ describe('Course controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal(`No course found with id: ${id}`);
     });
-  }),
+  });
   describe('GET /courses/:id', () => {
     it('responds with code 200 and room information', async () => {
       const response = await request(app)

@@ -2,14 +2,13 @@ import Modal from "../UI/Modal/Modal";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
-import config from "../../config.json";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 import content from "../../assets/content/content.json";
 import RequestModal from "../UI/RequestModal/RequestModal";
 import { InputOverlappingLabel } from "../UI/Input/InputOverlappingLabel";
 import DropdownOverlappingInput from "../UI/Dropdown/DropdownOverlappingInput";
 
-axios.defaults.baseURL = config.api.url;
+axios.defaults.baseURL = `${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`;
 
 const userObject = {
   firstName: "",

@@ -3,6 +3,7 @@
 import { FieldPacket, ResultSetHeader } from 'mysql2';
 import { INewUser, IUser } from './interfaces';
 import pool from '../../database';
+import hashService from '../general/services/hashService';
 
 const userService = {
   getAllUsers: async (): Promise<IUser[] | false> => {
@@ -32,7 +33,7 @@ const userService = {
   getUserByEmail: async (email: string): Promise<IUser | false | undefined> => {
     try {
       const [user]: [IUser[], FieldPacket[]] = await pool.query(
-        'SELECT firstName, lastName, email, role FROM users WHERE email = ? AND dateDeleted is NULL',
+        'SELECT id, firstName, lastName, email, role FROM users WHERE email = ? AND dateDeleted is NULL',
         [email],
       );
       if (user[0] !== undefined) {
@@ -73,6 +74,21 @@ const userService = {
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
         "UPDATE users SET dateDeleted = ?, email = CONCAT('deleted',email) WHERE id = ?",
         [new Date(), id],
+      );
+      if (result.affectedRows > 0) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      return false;
+    }
+  },
+  updatePassword: async (id: number, password: string): Promise<boolean | undefined> => {
+    try {
+      const pswhash = await hashService.hash(password);
+      const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
+        "UPDATE users SET password = ? WHERE id = ?",
+        [pswhash, id],
       );
       if (result.affectedRows > 0) {
         return true;

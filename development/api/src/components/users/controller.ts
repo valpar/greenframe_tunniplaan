@@ -4,6 +4,8 @@ import { Request, Response } from 'express';
 import responseCodes from '../general/responseCodes';
 import { INewUser } from './interfaces';
 import userService from './service';
+import jwtService from '../general/services/jwtService';
+import isLoggedIn from '../auth/isLoggedInMiddleware';
 
 const userController = {
   getAllUsers: async (req: Request, res: Response) => {
@@ -68,7 +70,7 @@ const userController = {
 
   addUser: async (req: Request, res: Response) => {
     const {
-      firstName, lastName, role, email,
+      firstName, lastName, role, email, password
     } = req.body;
     if (!firstName) {
       return res.status(responseCodes.badRequest).json({
@@ -94,6 +96,7 @@ const userController = {
       firstName,
       lastName,
       email,
+      password,
       role,
     };
     const id = await userService.createUser(newUser);
@@ -132,6 +135,36 @@ const userController = {
     if (userExists === undefined) {
       return res.status(responseCodes.badRequest).json({
         error: `No user found with id: ${id}`,
+      });
+    }
+    if (!userExists) {
+      return res.status(responseCodes.ServerError).json({
+        error: 'Server error',
+      });
+    }
+    return res.status(responseCodes.noContent).send();
+  },
+
+  updatePassword: async (req: Request, res: Response)=> {
+    const reqId: number = parseInt(req.params.id, 10);
+    const {password} = req.body;
+
+    const {id, role} = res.locals.user;
+    
+    if (!(reqId == id || role == 'admin'))
+      return res.status(responseCodes.notAuthorized);  
+
+    if (!reqId) {
+      return res.status(responseCodes.badRequest).json({
+        error: 'No valid id provided',
+      });
+    }
+
+    const userExists = await userService.updatePassword(reqId, password);
+
+    if (userExists === undefined) {
+      return res.status(responseCodes.badRequest).json({
+        error: `No user found with id: ${reqId}`,
       });
     }
     if (!userExists) {

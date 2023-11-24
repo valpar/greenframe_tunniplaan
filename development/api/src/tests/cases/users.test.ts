@@ -1,10 +1,14 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
+/* eslint-disable no-unused-expressions */
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import * as faker from 'faker';
+// import * as faker from 'faker';
 import app from '../../app';
+
+// faker import ei töötanud, teen require(https://stackoverflow.com/questions/41292559/could-not-find-a-declaration-file-for-module-module-name-path-to-module-nam)
+const faker = require('faker');
 
 const user = {
   email: 'koviid@mail.ee',
@@ -74,7 +78,7 @@ describe('User controller', () => {
           password,
           email,
         });
-      console.log(firstname);
+      // console.log(firstname);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(201);
       expect(response.body).to.have.key('id');
@@ -137,7 +141,7 @@ describe('User controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Email is required');
     });
-  }),
+  });
   describe('PATCH /users/:id', () => {
     it('responds with code 204 and empty object', async () => {
       const response = await request(app)
@@ -190,7 +194,7 @@ describe('User controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal(`No user found with id: ${id}`);
     });
-  }),
+  });
   describe('GET /users/:id', () => {
     it('responds with code 200 and user information', async () => {
       const response = await request(app)

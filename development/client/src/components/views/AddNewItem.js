@@ -6,12 +6,11 @@ import NewLecturer from "./inputRows/NewLecturer";
 import NewRoom from "./inputRows/NewRoom";
 import NewCourse from "./inputRows/NewCourse";
 import ConfirmModal from "../UI/ConfirmModal/ConfirmModal";
-import config from "../../config.json";
 import TooltipLarge from "../UI/Tooltip/TooltipLarge";
 import content from "../../assets/content/content.json";
 import RequestModal from "../UI/RequestModal/RequestModal";
 
-axios.defaults.baseURL = config.api.url;
+axios.defaults.baseURL = `${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`;
 
 const AddNewItem = (props) => {
   const {

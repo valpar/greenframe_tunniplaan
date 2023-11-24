@@ -7,6 +7,9 @@ import responseCodes from '../general/responseCodes';
 
 const authController = {
   googleAuth: async (req: Request, res: Response) => {
+    let email = '';
+    let user;
+    
     try {
       const authHeader = req.headers.authorization;
       const googleToken = authHeader?.split(' ')[1];
@@ -22,37 +25,41 @@ const authController = {
         },
       });
 
+      email = response.data.email;
+     
       // console.log('Google response:', response.data.email);
-      const loginProfile = await loginService.googleLogin(response.data.email);
-      return res.status(responseCodes.ok).json(
-        loginProfile,
-      );
     } catch (error) {
     // console.error('External API error:', error);
       return res.status(500).send('Google autenth error');
     }
-  },
-  login: async (req: Request, res: Response) => {
-    const { email, password } = req.body;
-    const token = await loginService.login(email, password);
-    if (token === undefined) {
-      return res.status(responseCodes.notAuthorized).json({
-        error: 'Check credentials',
+
+    try{
+      console.log()
+      const response = await axios.get(`${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/${email}`, {
+        headers: {
+          'Authorization': `Bearer ${process.env.USERAPI_TOKEN}`,
+          'Content-Type': 'application/json'
+        }
       });
+      
+      user = {
+        id: response.data.data.id,
+        firstName: response.data.data.firstName,
+        lastName: response.data.data.lastName,
+        email: response.data.data.email,
+        roles: response.data.data.roles
+      };
     }
-    if (!token) {
-      return res.status(responseCodes.ServerError).json({
-        error: 'Server error',
-      });
+    catch (error) {
+      return res.status(500).send('UserApi autenth error');
     }
-    if (token === '0') {
-      return res.status(responseCodes.notAuthorized).json({
-        error: 'Check password',
-      });
-    }
-    return res.status(responseCodes.ok).json({
-      token,
-    });
+    
+    const loginProfile = await loginService.googleLogin(user);
+      return res.status(responseCodes.ok).json(
+        loginProfile,
+      );
+
+
   },
 };
 

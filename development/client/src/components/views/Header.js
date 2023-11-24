@@ -4,15 +4,10 @@ export const Header = (props) => {
   const {
     isTabletOrMobile,
     userPicture,
-    onClick,
+    onClick,  // see eemaldada
+    loginMessage,
     loginInfo,
-    showUsersModal,
-    login,
-    logOut,
-    userRollHandler,
-    showMockLogin,
     showMobileFilters,
-    userRoll,
     admin,
     addScheduleHandler,
     scrollY,
@@ -24,7 +19,8 @@ export const Header = (props) => {
     usersListOpen,
     filtersNotification,
     showMobilePicture,
-    openModalAnimation
+    openModalAnimation,
+    loginHandler,
   } = props;
 
   return (
@@ -65,7 +61,7 @@ export const Header = (props) => {
           </div>
           {/* Desktop login */}
           <div className="hidden relative lg:flex flex-col justify-end mb-1">
-            <div className="mt-4 w-28 cursor-pointer" onClick={onClick}>
+            <div className="mt-4 w-28 cursor-pointer" onClick={loginHandler}>
               <div className="mx-auto w-12 h-12">
                 <img
                   src={userPicture}
@@ -73,90 +69,13 @@ export const Header = (props) => {
                   className="w-full h-full rounded-full object-cover"
                 ></img>
               </div>
-              {/* <div className="text-lg mx-auto text-center">{userRoll}</div> */}
+              {loginInfo && <div className="text-lg mx-auto text-center">{loginInfo?.user?.firstName}</div>}
+
+              {/* <div className="text-lg mx-auto text-center">{userRole}</div> */} 
               <div className="text-lg mx-auto text-center">
-                {loginInfo?.user?.firstName
-                  ? loginInfo?.user?.firstName
-                  : "Logi sisse"}
-              </div>
+                {loginMessage}
+              </div>  
             </div>
-
-            {showUsersModal && (
-              <div className="absolute top-28 -right-4">
-                <div className="relative">
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rotate-45 bg-white border-l rounded-br-full border-t border-borderGray"></div>
-                  <div className="flex flex-col justify-around items-center p-4 space-y-2 border border-borderGray  green-shadow bg-white w-44">
-                    <p className="uppercase text-center">{userRoll}</p>
-                    {!localStorage.getItem("token") && (
-                      <button
-                        onClick={login}
-                        className="btn-period"
-                        type="button"
-                        name="Login Google"
-                      >
-                        Google konto
-                      </button>
-                    )}
-
-                    {localStorage.getItem("token") && (
-                      <button
-                        onClick={logOut}
-                        className="btn-period"
-                        type="button"
-                        name="Logout Google"
-                      >
-                        Logi välja
-                      </button>
-                    )}
-
-                    <button
-                      onClick={userRollHandler}
-                      className="btn-period"
-                      type="button"
-                      name="admin"
-                    >
-                      Haldus (mock)
-                    </button>
-                    <button
-                      onClick={userRollHandler}
-                      className="btn-period"
-                      type="button"
-                      name="lecturer"
-                    >
-                      Õppejõud (mock)
-                    </button>
-                    <button
-                      onClick={userRollHandler}
-                      className="btn-period"
-                      type="button"
-                      name="student"
-                    >
-                      Õpilane (mock)
-                    </button>
-                    {admin && (
-                      <button
-                        onClick={onUsersManagement}
-                        className="btn-period"
-                        type="button"
-                        name="userManagement"
-                      >
-                        Kasutajate haldus
-                      </button>
-                    )}
-                    {!localStorage.getItem("token") && showMockLogin && (
-                      <button
-                        onClick={userRollHandler}
-                        className="btn-period"
-                        type="button"
-                        name="logout"
-                      >
-                        Logi välja (mock)
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         </div>
 
@@ -214,9 +133,9 @@ export const Header = (props) => {
               className={`bi bi-x-lg text-[1.6em] mt-[0.1rem]`}
             ></i>
           )}
-        </div>
-      </div>
 
+        </div>           
+      </div>
       <div
         className={`w-full h-[0.2rem] bg-[#6c8298] border-solid border-1 border-[#d4d4d4]`}
       />

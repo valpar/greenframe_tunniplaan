@@ -1,26 +1,12 @@
 import mysql from 'mysql2';
 
-/*
-const pool = mysql
-  .createPool({
-    host: 'mysql_server',
-    user: 'admin',
-    password: 'parool',
-    database: 'scheduleDb',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0,
-    charset: 'UTF8MB4',
-  })
-  .promise();
-*/
 
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'admin',
-  password: 'parool',
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   database: 'scheduleDb',
-  port: 3307,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,

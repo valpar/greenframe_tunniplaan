@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
+/* eslint-disable no-unused-expressions */
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
@@ -66,7 +67,7 @@ describe('Server errors', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('PATCH /lecturers/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
@@ -81,7 +82,7 @@ describe('Server errors', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('GET /lecturers/activeSubjects', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
@@ -133,7 +134,7 @@ describe('Room controller server connections', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('PATCH /rooms/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
@@ -147,7 +148,7 @@ describe('Room controller server connections', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('DELETE /rooms/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
@@ -191,7 +192,7 @@ describe('Subjects server errors', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('PATCH /subjects/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
@@ -206,7 +207,7 @@ describe('Subjects server errors', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('GET /subjects/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
@@ -260,7 +261,7 @@ describe('Subjects server errors', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('PATCH /subjects/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
@@ -275,7 +276,7 @@ describe('Subjects server errors', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('GET /subjects/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
@@ -330,7 +331,7 @@ describe('Subjects server errors', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('PATCH /subjects/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
@@ -345,7 +346,7 @@ describe('Subjects server errors', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('GET /subjects/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
@@ -397,7 +398,7 @@ describe('Courses server errors', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('PATCH /courses/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
@@ -411,7 +412,7 @@ describe('Courses server errors', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('GET /courses/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
@@ -466,7 +467,7 @@ describe('User controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('PATCH /users/:id', () => {
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
@@ -483,7 +484,7 @@ describe('User controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Server error');
     });
-  }),
+  });
   describe('GET /users/:id', () => {
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
