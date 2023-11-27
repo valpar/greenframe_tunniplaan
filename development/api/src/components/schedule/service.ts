@@ -10,6 +10,7 @@ import homeworkService from '../homework/service';
 const scheduleService = {
   getEntireSchedule: async (atDate:string, toDate:string): Promise<ISchedule[] | false> => {
     try {
+      console.log(`Schedule: DB_Host: ${process.env.DB_HOST}:${process.env.DB_PORT}`);
       const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(`
       SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
         subjects.id AS  subjectId, subjects.subjectCode AS subjectCode, subjects.subject AS subjectdescription, scheduled.distanceLink AS distanceLink, scheduled.comment, 
@@ -138,7 +139,7 @@ const scheduleService = {
       }
       return schedule;
     } catch (error) {
-      // console.log(error);
+        console.log(error);
       return false;
     }
   },

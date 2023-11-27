@@ -7,6 +7,7 @@ import formatDate from '../../utils/formatDate';
 
 const scheduleController = {
   getEntireSchedule: async (req: Request, res: Response) => {
+    console.log(`DB_Host: ${process.env.DB_HOST}:${process.env.DB_PORT}`);
     let { atDate, toDate } = req.params;
     // console.log (atDate, toDate);
     if (atDate === undefined) {
