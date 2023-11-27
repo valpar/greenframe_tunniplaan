@@ -1,5 +1,6 @@
 require('./cases/ping.test');
 require('./cases/login.test');
+// require('./cases/userapi.test');
 require('./cases/lecturers.test');
 require('./cases/room.test');
 require('./cases/subjects.test');

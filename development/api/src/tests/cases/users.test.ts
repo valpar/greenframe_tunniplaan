@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-expressions */
+/* läheb eemaldamisele
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
@@ -261,3 +261,4 @@ describe('User controller', () => {
     });
   });
 });
+ */

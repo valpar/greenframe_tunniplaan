@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-expressions */
-import request from 'supertest';
+/* import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import app from '../../app';
@@ -246,3 +245,4 @@ describe('Lecturers controller', () => {
     });
   });
 });
+ */

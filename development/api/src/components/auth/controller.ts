@@ -26,13 +26,14 @@ const authController = {
       // console.log('Google response:', response.data.email);
     } catch (error) {
     // console.error('External API error:', error);
-      return res.status(500).send('Google autenth error');
+      return res.status(500).send('Google authentication error');
     }
 
     try{
-      console.log()
+      console.log();
       const response = await axios.get(`${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/${email}`, {
         headers: {
+          // eslint-disable-next-line quote-props
           'Authorization': `Bearer ${process.env.USERAPI_TOKEN}`,
           'Content-Type': 'application/json',
         },
@@ -42,19 +43,16 @@ const authController = {
         firstName: response.data.data.firstName,
         lastName: response.data.data.lastName,
         email: response.data.data.email,
-        roles: response.data.data.roles
+        roles: response.data.data.roles,
       };
+    } catch (error) {
+      return res.status(500).send('UserApi authentication error');
     }
-    catch (error) {
-      return res.status(500).send('UserApi autenth error');
-    }
-    
+
     const loginProfile = await loginService.googleLogin(user);
-      return res.status(responseCodes.ok).json(
-        loginProfile,
-      );
-
-
+    return res.status(responseCodes.ok).json(
+      loginProfile,
+    );
   },
 };
 

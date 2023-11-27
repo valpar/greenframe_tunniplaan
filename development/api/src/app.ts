@@ -56,17 +56,19 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 // Login
 
 // User endpoints
-app.post('/users', checkAlphabet, userController.addUser);
+// app.post('/users', checkAlphabet, userController.addUser);
 // login middelware from this point
 // app.use(isLoggedIn);
 // isAdmin,
 //-------
 // app.get("/users", isAdmin, userController.getAllUsers);
-app.get('/users', userController.getAllUsers);
+
+// users on vana lahendus
+/* app.get('/users', userController.getAllUsers);
 app.get('/users/:id', userController.getUserById);
 app.delete('/users/:id', userController.deleteUser);
 app.patch('/users/:id', userController.updateUserById);
-app.patch('/users/updatePassword/:id', isLoggedIn, userController.updatePassword);
+app.patch('/users/updatePassword/:id', isLoggedIn, userController.updatePassword); */
 // app.patch("/users/:id", checkAlphabet, userController.updateUserById);
 
 app.post('/googleauth', authController.googleAuth);
