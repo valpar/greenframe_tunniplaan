@@ -1,0 +1,4 @@
+REACT_APP_HOST="React host"
+REACT_APP_PORT="React port"
+REACT_APP_API_HOST="API host"
+REACT_APP_API_PORT="API port"
