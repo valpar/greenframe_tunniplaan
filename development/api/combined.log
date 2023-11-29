@@ -3235,3 +3235,306 @@
 {"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36","service":"user-service"}
 {"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
 {"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /favicon.ico","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-25T17:39:53.092Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /favicon.ico","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-25T17:42:22.327Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-01T21:00:00.000Z/2023-10-02T20:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-10-01T21:00:00.000Z/2023-10-30T21:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2017-01-02T22:00:00.000Z/2017-01-03T21:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2017-01-02T22:00:00.000Z/2017-01-31T21:59:59.000Z","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-25T18:20:15.075Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /googleauth","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-25T18:25:40.500Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-25T18:26:12.272Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-25T18:26:55.363Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /googleauth","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /favicon.ico","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-25T20:46:02.862Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /googleauth","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /favicon.ico","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-25T21:16:42.256Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /googleauth","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /googleauth","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /googleauth","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-25T21:29:01.126Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /googleauth","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-25T21:44:39.171Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /googleauth","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /googleauth","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /googleauth","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /googleauth","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: POST /googleauth","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-26T12:52:38.190Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-26T13:03:16.808Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-26T13:06:11.138Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-26T13:44:01.058Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /courses","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /lecturers","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /rooms","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /subjects","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}
+{"level":"info","message":"Request from ::1 using Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36","service":"user-service"}
+{"level":"info","message":"Request method and URL: GET /schedule/2023-11-26T14:16:39.000Z/","service":"user-service"}
+{"level":"info","message":"Request body: {}","service":"user-service"}

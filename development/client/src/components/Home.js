@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import useAxios from "../hooks/useAxios";
 
 import * as dateService from "../utils/Format/Date";
 
@@ -19,7 +18,7 @@ import { useMediaQuery } from "react-responsive";
 import UsersList from "./views/UsersList";
 import { RequestError } from "./UI/RequestError";
 import ConfirmModal from "./UI/ConfirmModal/ConfirmModal";
-
+import useAxios from "../hooks/useAxios";
 
 
 const Home = () => {
@@ -368,6 +367,7 @@ const Home = () => {
     else {
       setShowLogoutConfirm(true);
     }
+  
   };
  
   const logoutDeclineHandler = () => {
@@ -432,7 +432,6 @@ const Home = () => {
   const login = useGoogleLogin({
     onSuccess: (googleResponse) => {
       setGoogleAcessToken(googleResponse.access_token); // selleks et seda saata backi autentimiseks
-      setLoginMessage("Logi välja");
       axios
         .get(
           `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleResponse.access_token}`,
@@ -509,9 +508,8 @@ const Home = () => {
         setLoginInfo(response.data);
         if (response.data) {
           localStorage.setItem("token", JSON.stringify(response.data));
+          setLoginMessage("Logi välja");
         }
-        setLoginMessage("Logi välja");
-        console.log("Roll: ", response.data.user.role);
       } catch (error) {
         console.log(error);
       }
@@ -552,7 +550,6 @@ const Home = () => {
     setShowUsersList((prevState) => (prevState = !prevState));
   };
 
-  
   return (
     <div className="relative container mx-auto flex max-w-6xl flex-col font-sans text-center">
       <div className="mx-auto w-full">
