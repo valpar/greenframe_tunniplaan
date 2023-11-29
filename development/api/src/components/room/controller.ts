@@ -3,7 +3,17 @@ import responseCodes from '../general/responseCodes';
 import roomService from './service';
 
 const roomController = {
+  // try catch proov
   getAllRooms: async (req: Request, res: Response) => {
+    try {
+      const rooms = await roomService.getAllRooms();
+      return res.status(responseCodes.ok).json({ rooms });
+    } catch (error) {
+      console.error('Error in getAllRooms controller:', error);
+      return res.status(responseCodes.ServerError).json({ error: 'Server errorrrr' });
+    }
+  },
+  /* getAllRooms: async (req: Request, res: Response) => {
     const rooms = await roomService.getAllRooms();
     if (rooms) {
       return res.status(responseCodes.ok).json({
@@ -11,9 +21,9 @@ const roomController = {
       });
     }
     return res.status(responseCodes.ServerError).json({
-      error: 'Server error',
+      error: 'Server errorer',
     });
-  },
+  }, */
   getRoomById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     const room = await roomService.getRoomId(id);

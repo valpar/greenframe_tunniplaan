@@ -3,7 +3,23 @@ import pool from '../../database';
 import IRoom from './interface';
 
 const roomService = {
-  getAllRooms: async (): Promise<IRoom[] | false> => {
+  // võtan return false ära
+  getAllRooms: async (): Promise<IRoom[]> => {
+    console.log('Database Host:', process.env.DB_HOST);
+    console.log('Database Port:', process.env.DB_PORT);
+    try {
+      const [rooms]: [IRoom[], FieldPacket[]] = await pool.query(
+        'SELECT * FROM rooms WHERE dateDeleted is NULL',
+      );
+      return rooms;
+    } catch (error) {
+      console.error('Database query error:', error);
+      throw new Error('Database query failed');
+    }
+  },
+  /* getAllRooms: async (): Promise<IRoom[] | false> => {
+    console.log('Database Host:', process.env.DB_HOST);
+    console.log('Database Port:', process.env.DB_PORT);
     try {
       const [rooms]: [IRoom[], FieldPacket[]] = await pool.query(
         'SELECT * FROM rooms WHERE dateDeleted is NULL',
@@ -12,7 +28,7 @@ const roomService = {
     } catch (error) {
       return false;
     }
-  },
+  }, */
   getRoomId: async (id: number): Promise<IRoom | false> => {
     try {
       const [room]: [IRoom[], FieldPacket[]] = await pool.query(

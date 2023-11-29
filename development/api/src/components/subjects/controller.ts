@@ -20,7 +20,7 @@ const subjectController = {
     const { subjectCode } = req.body;
     if (!subjectCode && !id) {
       return res.status(responseCodes.badRequest).json({
-        error: 'No valid id or subjedtCode provided',
+        error: 'No valid id or subjectCode provided',
       });
     }
 

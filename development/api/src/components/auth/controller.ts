@@ -29,7 +29,7 @@ const authController = {
       return res.status(500).send('Google authentication error');
     }
 
-    try{
+    try {
       console.log();
       const response = await axios.get(`${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/${email}`, {
         headers: {
