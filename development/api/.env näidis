@@ -1,0 +1,10 @@
+PORT= "API port"
+
+DB_HOST="andmebaasi serveri host"
+DB_PORT="andmebaasi serveri port"
+DB_USER="andmebaasi serveri kasutaja"
+DB_PASSWORD="andmebaasi serveri"
+
+USERAPI_HOST="userApi host"
+USERAPI_PORT="userApi port"
+USERAPI_TOKEN="userApi token"
