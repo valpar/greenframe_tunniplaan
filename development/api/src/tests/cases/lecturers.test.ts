@@ -110,7 +110,8 @@ describe('Lecturers controller', () => {
         .delete(`/lecturers/${lecturerId}`);
         // .set('Authorization', `Bearer ${token}`);
       expect(response.body).to.be.a('object');
-      expect(response.body).to.be.empty;
+      // expect(response.body).to.be.empty;
+      expect(response.body).to.deep.equal({});
       expect(response.statusCode).to.equal(204);
     });
     it('responds with code 400 and error message', async () => {
@@ -122,16 +123,17 @@ describe('Lecturers controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('No valid id provided');
     });
-    /* it('responds with code 400 and error message', async () => {
+    // api saadab 500 error
+    it('responds with code 400 and error message', async () => {
       const response = await request(app)
-        .delete(`/lecturers/${id}`);
+        .delete(`/lecturers/${lecturerId}`);
         // .set('Authorization', `Bearer ${token}`);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('message');
       expect(response.body.message).to.equal(
-        `Lecturer not found with id: ${id} or has active subjects`,
+        `Lecturer not found with id: ${lecturerId} or has active subjects`,
       );
-    }); */
+    });
   });
 });

@@ -1,6 +1,3 @@
-/* eslint-disable import/first */
-// require('dotenv').config();
-
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
@@ -14,8 +11,6 @@ describe('Room Controller', () => {
     room: 'Updated Room Name',
   };
   describe('GET /rooms', () => {
-    /* console.log('Database Host:', process.env.DB_HOST);
-    console.log('Database Port:', process.env.DB_PORT); */
     it('should fetch all rooms with status 200', async () => {
       const response = await request(app).get('/rooms');
       expect(response.status).to.equal(200);
@@ -39,7 +34,8 @@ describe('Room Controller', () => {
     });
   });
   describe('PATCH /rooms/:id', () => {
-    /* it('responds with code 204 and empty object', async () => {
+    it('responds with code 204 and empty object', async () => {
+      roomId = 1;
       const response = await request(app)
         .patch(`/rooms/${roomId}`)
         // .set('Authorization', `Bearer ${token}`)
@@ -47,10 +43,10 @@ describe('Room Controller', () => {
           room: 'ruum 200',
         });
       expect(response.body).to.be.a('object');
-      expect(response.body).to.be.empty;
+      expect(response.body).to.deep.equal({});
       expect(response.statusCode).to.equal(204);
-    }); */
-    /* it('responds with code 400 and error message', async () => {
+    });
+    it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .patch(`/rooms/${roomId}`)
         // .set('Authorization', `Bearer ${token}`)
@@ -59,8 +55,8 @@ describe('Room Controller', () => {
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Nothing to update');
-    }); */
-    /* it('responds with code 400 and error message', async () => {
+    });
+    it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .patch('/rooms/0')
         // .set('Authorization', `Bearer ${token}`)
@@ -71,7 +67,18 @@ describe('Room Controller', () => {
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('No valid id provided');
-    }); */
+    });
+    it('should return 400 error when updating a room with invalid data', async () => {
+      roomId = 1;
+      const invalidUpdateData = { room: '' }; // tühi string ei ole lubatud
+      const response = await request(app)
+        .patch(`/rooms/${roomId}`)
+        .send(invalidUpdateData);
+      expect(response.status).to.equal(400);
+      expect(response.body).to.have.property('error');
+      expect(response.body.error).to.equal('Nothing to update');
+    });
+    // tuleb 500
     /* it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .patch(`/rooms/${id}`)
@@ -86,16 +93,37 @@ describe('Room Controller', () => {
     }); */
   });
   describe('POST /rooms', () => {
-    /* it('should add a new room and return its id', async () => {
-      const newRoom = 'newRoom';
+    it('should add a new room and return its id', async () => {
+      const newRoom = { room: 'newRoom' };
       const response = await request(app).post('/rooms').send(newRoom);
       expect(response.status).to.equal(201);
       expect(response.body).to.have.property('id');
-    }); */
+    });
     it('should return an error for missing room data', async () => {
       const response = await request(app).post('/rooms').send({});
       expect(response.status).to.equal(400);
       expect(response.body).to.have.property('error');
+    });
+  });
+  describe('DELETE /rooms/:id', () => {
+    let roomIdToDelete: number;
+    beforeEach(async () => {
+      // uus tuba, mida kustutada
+      const newRoom = { room: 'Temporary Room' };
+      const response = await request(app).post('/rooms').send(newRoom);
+      roomIdToDelete = response.body.id;
+    });
+    it('should successfully delete a room and return status 204', async () => {
+      const response = await request(app).delete(`/rooms/${roomIdToDelete}`);
+      expect(response.status).to.equal(204);
+    });
+    describe('DELETE /rooms/:id', () => {
+      it('should return an error for a non-existent room id', async () => {
+        const response = await request(app).delete(`/rooms/${id}`);
+        expect(response.status).to.equal(400);
+        expect(response.body).to.have.property('message');
+        expect(response.body.message).to.equal(`Room not found with id: ${id}`);
+      });
     });
   });
 });

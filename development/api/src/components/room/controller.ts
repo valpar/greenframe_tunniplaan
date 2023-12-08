@@ -10,7 +10,7 @@ const roomController = {
       return res.status(responseCodes.ok).json({ rooms });
     } catch (error) {
       console.error('Error in getAllRooms controller:', error);
-      return res.status(responseCodes.ServerError).json({ error: 'Server errorrrr' });
+      return res.status(responseCodes.ServerError).json({ error: 'Server error' });
     }
   },
   /* getAllRooms: async (req: Request, res: Response) => {
@@ -21,7 +21,7 @@ const roomController = {
       });
     }
     return res.status(responseCodes.ServerError).json({
-      error: 'Server errorer',
+      error: 'Server error',
     });
   }, */
   getRoomById: async (req: Request, res: Response) => {
