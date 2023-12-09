@@ -100,7 +100,7 @@ app.patch(
 // Subjects endpoints
 app.get('/subjects', subjectController.getAllSubjects);
 app.get('/subjects/:id', subjectController.getSubjectById);
-app.post('/subjects', subjectController.addSubject);
+app.post('/subjects', isLoggedIn, subjectController.addSubject);
 app.delete('/subjects/:id', subjectController.deleteSubject);
 app.patch('/subjects/:id', subjectController.updateSubjectById);
 
@@ -116,7 +116,7 @@ app.patch('/courses/:id', courseController.updateCourseById);
 
 app.get('/rooms', roomController.getAllRooms);
 app.get('/rooms/:id', roomController.getRoomById);
-app.post('/rooms', roomController.addRoom);
+app.post('/rooms', /* isLoggedIn, */ roomController.addRoom);
 app.delete('/rooms/:id', roomController.deleteRoom);
 app.patch('/rooms/:id', roomController.updateRoomById);
 
