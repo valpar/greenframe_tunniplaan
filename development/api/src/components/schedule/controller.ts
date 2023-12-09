@@ -30,7 +30,7 @@ const scheduleController = {
 
   createSchedule: async (req: Request, res: Response) => {
     const {
-      rooms, comment, courses, lecturers, subjectCode, distanceLink,
+      rooms, comment, courses, teachers, subjectCode, distanceLink,
     } = req.body;
     let { startTime, endTime, subjectId } = req.body;
 
@@ -68,7 +68,7 @@ const scheduleController = {
       comment,
       courses,
       subjectId,
-      lecturers,
+      teachers,
       distanceLink,
     );
     if (scheduleId) {
@@ -81,7 +81,7 @@ const scheduleController = {
 
   updateSchedule: async (req: Request, res: Response) => {
     const {
-      rooms, comment, courses, subjectCode, lecturers, distanceLink,
+      rooms, comment, courses, subjectCode, teachers, distanceLink,
     } = req.body;
     let { startTime, endTime, subjectId } = req.body;
     const id: number = parseInt(req.params.id, 10);
@@ -121,7 +121,7 @@ const scheduleController = {
       comment,
       courses,
       subjectId,
-      lecturers,
+      teachers,
       distanceLink,
     );
     if (updated) {
@@ -154,7 +154,7 @@ const scheduleController = {
     let { atDate } = req.params;
     let { toDate } = req.params;
     const courseId: number = Number(req.params.courseId);
-    const lecturerId: number = Number(req.params.lecturerId);
+    const teacherId: number = Number(req.params.teacherId);
 
     if (atDate === undefined) {
       atDate = new Date().toJSON().slice(0, 10).replace(/-/g, '-'); // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
@@ -172,7 +172,7 @@ const scheduleController = {
       atDate,
       toDate,
       courseId,
-      lecturerId,
+      teacherId,
     );
     if (schedule) {
       return res.status(responseCodes.ok).json({ schedule });

@@ -8,7 +8,7 @@ import cors from 'cors';
 import openapi from './openapi.json';
 import authController from './components/auth/controller';
 import userController from './components/users/controller';
-import lecturerController from './components/lector/controller';
+import teacherController from './components/teacher/controller';
 import subjectController from './components/subjects/controller';
 import courseController from './components/course/controller';
 import roomController from './components/room/controller';
@@ -80,21 +80,21 @@ app.get('/schedule/:atDate/:toDate', scheduleController.getEntireSchedule);
 app.post('/schedule', scheduleController.createSchedule);
 app.patch('/schedule/:id', scheduleController.updateSchedule);
 app.delete('/schedule/:id', scheduleController.deleteSchedule);
-app.get('/gcal/:atDate/:toDate/:courseId/:lecturerId', scheduleController.getgcal);
+app.get('/gcal/:atDate/:toDate/:courseId/:teacherId', scheduleController.getgcal);
 
-// Lecturer endpoints
-app.get('/lecturers', lecturerController.getAllLecturersById);
-app.get('/lecturers/activeSubjects', lecturerController.getLecturersSubjects);
-app.get('/lecturers/:id', lecturerController.getLecturerById);
-app.post('/lecturers', checkAlphabet, lecturerController.addLecturer);
+// Teacher endpoints
+app.get('/teachers', teacherController.getAllTeachersById);
+app.get('/teachers/activeSubjects', teacherController.getTeachersSubjects);
+app.get('/teachers/:id', teacherController.getTeacherById);
+app.post('/teachers', checkAlphabet, teacherController.addTeacher);
 app.delete(
-  '/lecturers/:id',
-  lecturerController.deleteLecturerWhenNoSubjectsById,
+  '/teachers/:id',
+  teacherController.deleteTeacherWhenNoSubjectsById,
 );
 app.patch(
-  '/lecturers/:id',
+  '/teachers/:id',
   checkAlphabet,
-  lecturerController.updateLecturerById,
+  teacherController.updateTeacherById,
 );
 
 // Subjects endpoints

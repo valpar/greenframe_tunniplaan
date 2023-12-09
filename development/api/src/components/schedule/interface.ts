@@ -10,8 +10,8 @@ interface Icourse {
   courseCode?:string;
   courseName?:string;
 }
-interface Ilecturer {
-  lecturerId?:number
+interface Iteacher {
+  teacherId?:number
   firstName?:string
   lastName?:string
 }
@@ -25,7 +25,7 @@ interface ISchedule extends RowDataPacket {
   subject: {};
   subjectId?: number;
   subjectCode?: string;
-  lecturers: Ilecturer[] | null;
+  teachers: Iteacher[] | null;
   atDate?:Date;
   toDate?:Date;
 }
@@ -49,5 +49,5 @@ interface Isubject {
 
 }
 export {
-  ISchedule, Iroom, Icourse, Ilecturer, IhomeW, Isubject,
+  ISchedule, Iroom, Icourse, Iteacher, IhomeW, Isubject,
 };

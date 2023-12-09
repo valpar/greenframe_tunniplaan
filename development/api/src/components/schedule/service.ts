@@ -1,7 +1,7 @@
 import { FieldPacket, ResultSetHeader, RowDataPacket } from 'mysql2';
 import pool from '../../database';
 import {
-  ISchedule, Iroom, Ilecturer, Icourse, IhomeW, Isubject,
+  ISchedule, Iroom, Iteacher, Icourse, IhomeW, Isubject,
 } from './interface';
 import homeworkService from '../homework/service';
 
@@ -11,9 +11,9 @@ const scheduleService = {
       const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(`
       SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
         subjects.id AS  subjectId, subjects.subjectCode AS subjectCode, subjects.subject AS subjectdescription, scheduled.distanceLink AS distanceLink, scheduled.comment, 
-        group_concat( DISTINCT lecturers.id ORDER BY lecturers.id) As strLecturersId,
-        group_concat( DISTINCT lecturers.firstName ORDER BY lecturers.id) As strLecturersFirstName,
-        group_concat( DISTINCT lecturers.lastName ORDER BY lecturers.id) As strLecturersLastName,
+        group_concat( DISTINCT teachers.id ORDER BY teachers.id) As strTeachersId,
+        group_concat( DISTINCT teachers.firstName ORDER BY teachers.id) As strTeachersFirstName,
+        group_concat( DISTINCT teachers.lastName ORDER BY teachers.id) As strTeachersLastName,
         group_concat( DISTINCT courses.id ORDER BY courses.id) AS strCoursesId,
         group_concat( DISTINCT courses.course ORDER BY courses.id) AS strCourses,
         group_concat( DISTINCT courses.courseLong ORDER BY courses.id) AS strCoursesName,    
@@ -21,8 +21,8 @@ const scheduleService = {
         group_concat( DISTINCT rooms.room ORDER BY rooms.id) as strRooms
       FROM scheduled left JOIN
         subjects ON scheduled.subjects_id = subjects.id left JOIN
-        scheduled_has_lecturers ON scheduled.id = scheduled_has_lecturers.schedule_id left JOIN
-        lecturers ON scheduled_has_lecturers.lecturers_id = lecturers.id left JOIN
+        scheduled_has_teachers ON scheduled.id = scheduled_has_teachers.schedule_id left JOIN
+        teachers ON scheduled_has_teachers.teachers_id = teachers.id left JOIN
         scheduled_has_courses ON scheduled.id = scheduled_has_courses.scheduled_id left JOIN
         courses ON scheduled_has_courses.courses_id = courses.id left JOIN
         scheduled_has_rooms ON scheduled.id = scheduled_has_rooms.scheduled_id left JOIN
@@ -102,25 +102,25 @@ const scheduleService = {
           schedule[i].courses = null;
         }
 
-        if (schedule[i].strLecturersId) {
-          const tmpArrLecturersId = schedule[i].strLecturersId.split(',');
-          const tmpArrLecturersFirst = schedule[i].strLecturersFirstName.split(',');
-          const tmpArrLecturersLast = schedule[i].strLecturersLastName.split(',');
+        if (schedule[i].strTeachersId) {
+          const tmpArrTeachersId = schedule[i].strTeachersId.split(',');
+          const tmpArrTeachersFirst = schedule[i].strTeachersFirstName.split(',');
+          const tmpArrTeachersLast = schedule[i].strTeachersLastName.split(',');
 
-          let n = 0; const arrLecturers = [];
+          let n = 0; const arrTeachers = [];
 
-          while (n < tmpArrLecturersId.length) {
-            const objLecturer:Ilecturer = {};
-            objLecturer.lecturerId = tmpArrLecturersId[n] * 1;
-            objLecturer.firstName = tmpArrLecturersFirst[n];
-            objLecturer.lastName = tmpArrLecturersLast[n];
-            arrLecturers.push(objLecturer);
+          while (n < tmpArrTeachersId.length) {
+            const objTeacher:Iteacher = {};
+            objTeacher.teacherId = tmpArrTeachersId[n] * 1;
+            objTeacher.firstName = tmpArrTeachersFirst[n];
+            objTeacher.lastName = tmpArrTeachersLast[n];
+            arrTeachers.push(objTeacher);
 
             n += 1;
           }
-          schedule[i].lecturers = arrLecturers;
+          schedule[i].teachers = arrTeachers;
         } else {
-          schedule[i].lecturers = null;
+          schedule[i].teachers = null;
         }
 
         delete schedule[i].subjectCode;
@@ -129,9 +129,9 @@ const scheduleService = {
         delete schedule[i].strCoursesId;
         delete schedule[i].strCourses;
         delete schedule[i].strCoursesName;
-        delete schedule[i].strLecturersId;
-        delete schedule[i].strLecturersFirstName;
-        delete schedule[i].strLecturersLastName;
+        delete schedule[i].strTeachersId;
+        delete schedule[i].strTeachersFirstName;
+        delete schedule[i].strTeachersLastName;
         i += 1;
       }
       return schedule;
@@ -149,7 +149,7 @@ const scheduleService = {
     comment:string,
     courses: Array<Icourse>,
     subject:number,
-    lecturers: Array<Ilecturer>,
+    teachers: Array<Iteacher>,
     distanceLink:string,
   ): Promise<number | false> => {
     let createdscheduleId: number;
@@ -222,27 +222,27 @@ const scheduleService = {
       }
     });
 
-    /* for (var index in lecturers) {
+    /* for (var index in teachers) {
       try {
         const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
-          await pool.query(`INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id)
-        VALUES ('?', '?');`, [createdscheduleId, lecturers[index].lecturerId]);
+          await pool.query(`INSERT INTO scheduled_has_teachers (schedule_id, teachers_id)
+        VALUES ('?', '?');`, [createdscheduleId, teachers[index].teacherId]);
       } catch (error) {
         return false;
       }
     } */
 
     // Eelnev väljakommenteeritud kood ümber kirjutatud järgnevaga:
-    lecturers.forEach(async (lecturer) => {
+    teachers.forEach(async (teacher) => {
       const query = `
-        INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id)
+        INSERT INTO scheduled_has_teachers (schedule_id, teachers_id)
           VALUES (?, ?);`;
       try {
-        await pool.query(query, [createdscheduleId, lecturer.lecturerId]);
+        await pool.query(query, [createdscheduleId, teacher.teacherId]);
         return true;
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.error(`An error occurred while inserting lecturer ${lecturer.lecturerId}:`, error);
+        console.error(`An error occurred while inserting teacher ${teacher.teacherId}:`, error);
         return false;
       }
     });
@@ -259,7 +259,7 @@ const scheduleService = {
     comment:string,
     courses: Array<Icourse>,
     subject:number,
-    lecturers: Array<Ilecturer>,
+    teachers: Array<Iteacher>,
     distanceLink:string,
   ): Promise<number | false> => {
     let updatedRows: number;
@@ -337,37 +337,37 @@ const scheduleService = {
 
     try {
       await pool.query(
-        'DELETE FROM scheduled_has_lecturers WHERE schedule_id = ?;',
+        'DELETE FROM scheduled_has_teachers WHERE schedule_id = ?;',
         [id],
       );
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error('An error occurred while deleting lecturers', error);
+      console.error('An error occurred while deleting teachers', error);
       return false;
     }
 
-    /* for (var index in lecturers) {
-      // console.log("uus kirje sceduled:", id, " lecturers_id:", lecturers[index].lecturerId);
+    /* for (var index in teachers) {
+      // console.log("uus kirje sceduled:", id, " teachers_id:", teachers[index].teacherId);
       try {
         const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
-          await pool.query(`INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id)
-        VALUES ('?', '?');`, [id, lecturers[index].lecturerId]);
+          await pool.query(`INSERT INTO scheduled_has_teachers (schedule_id, teachers_id)
+        VALUES ('?', '?');`, [id, teachers[index].teacherId]);
       } catch (error) {
         // console.log(error);
         return false;
       }
     } */
-    lecturers.forEach(async (lecturer) => {
+    teachers.forEach(async (teacher) => {
       const query = `
-        INSERT INTO scheduled_has_lecturers (schedule_id, lecturers_id)
+        INSERT INTO scheduled_has_teachers (schedule_id, teachers_id)
         VALUES (?, ?);
       `;
       try {
-        await pool.query(query, [id, lecturer.lecturerId]);
+        await pool.query(query, [id, teacher.teacherId]);
         return true;
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.error(`An error occurred while inserting lecturer ${lecturer.lecturerId}:`, error);
+        console.error(`An error occurred while inserting teacher ${teacher.teacherId}:`, error);
         return false;
       }
     });
@@ -387,38 +387,38 @@ const scheduleService = {
     }
   },
 
-  getgcal: async (atDate:string, toDate:string, courseId:number, lecturerId:number):
+  getgcal: async (atDate:string, toDate:string, courseId:number, teacherId:number):
   Promise<ISchedule[] | false> => {
     let isCourse = '%';
     let isLecture = '%';
     isCourse = courseId === 0 ? '%' : '';
-    isLecture = lecturerId === 0 ? '%' : '';
+    isLecture = teacherId === 0 ? '%' : '';
 
     try {
       const [schedule]: [ISchedule[], FieldPacket[]] = await pool.query(`
       SELECT distinct scheduled.id AS id, scheduled.startTime AS startTime, scheduled.endTime AS endTime, 
         subjects.subjectCode AS subjectCode, subjects.subject AS subject, scheduled.distanceLink AS distanceLink, scheduled.comment, 
-        group_concat( DISTINCT lecturers.id ORDER BY lecturers.id) As strLecturersId,
+        group_concat( DISTINCT teachers.id ORDER BY teachers.id) As strTeachersId,
         group_concat( DISTINCT courses.id ORDER BY courses.id) AS strCoursesId,
         group_concat( DISTINCT rooms.id ORDER BY rooms.id) as strRoomsId
         FROM scheduled left JOIN
         subjects ON scheduled.subjects_id = subjects.id left JOIN
-        scheduled_has_lecturers ON scheduled.id = scheduled_has_lecturers.schedule_id left JOIN
-        lecturers ON scheduled_has_lecturers.lecturers_id = lecturers.id left JOIN
+        scheduled_has_teachers ON scheduled.id = scheduled_has_teachers.schedule_id left JOIN
+        teachers ON scheduled_has_teachers.teachers_id = teachers.id left JOIN
         scheduled_has_courses ON scheduled.id = scheduled_has_courses.scheduled_id left JOIN
         courses ON scheduled_has_courses.courses_id = courses.id left JOIN
         scheduled_has_rooms ON scheduled.id = scheduled_has_rooms.scheduled_id left JOIN
         rooms ON scheduled_has_rooms.rooms_id = rooms.id
-        WHERE scheduled.startTime >= ? AND scheduled.startTime <= DATE_ADD(?, INTERVAl 1 DAY) AND (courses.id = ? OR "%" = ?) AND (lecturers.id = ? OR "%" = ?)
+        WHERE scheduled.startTime >= ? AND scheduled.startTime <= DATE_ADD(?, INTERVAl 1 DAY) AND (courses.id = ? OR "%" = ?) AND (teachers.id = ? OR "%" = ?)
         AND scheduled.dateDeleted IS NULL
         GROUP BY id, startTime, endTime, scheduled.comment, subjects.subjectCode, subjects.subject, scheduled.distanceLink
-        ORDER BY scheduled.startTime ;`, [atDate, toDate, courseId, isCourse, lecturerId, isLecture]);
+        ORDER BY scheduled.startTime ;`, [atDate, toDate, courseId, isCourse, teacherId, isLecture]);
 
-      // console.log(atDate, toDate, courseId, lecturerId);
+      // console.log(atDate, toDate, courseId, teacherId);
       // console.log(schedule);
       return schedule;
 
-      // AND courses.id = ? AND lecturers.id = ?
+      // AND courses.id = ? AND teachers.id = ?
     } catch (error) {
       // console.log(error);
       return false;

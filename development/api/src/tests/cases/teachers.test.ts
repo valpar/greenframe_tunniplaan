@@ -8,11 +8,11 @@ import app from '../../app';
   password: 'Koviid',
 }; */
 // let token: string;
-let lecturerId: number;
+let teacherId: number;
 // const id = 9999;
 
-describe('Lecturers controller', () => {
-  describe('GET /lecturers', () => {
+describe('Teachers controller', () => {
+  describe('GET /teachers', () => {
     /* it('responds with code 200 and token after login', async () => {
       const response = await request(app).post('/login').send(user);
       expect(response.body).to.be.a('object');
@@ -22,7 +22,7 @@ describe('Lecturers controller', () => {
       token = response.body.token;
     });
     it('respondse with code 401 and error message because of no token provided', async () => {
-      const response = await request(app).get('/lecturers/1');
+      const response = await request(app).get('/teachers/1');
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(401);
       expect(response.body).to.have.key('error');
@@ -30,30 +30,30 @@ describe('Lecturers controller', () => {
     });
     it('responds with code 401 and error message because of invalid token', async () => {
       const response = await request(app)
-        .get('/lecturers/1')
+        .get('/teachers/1')
         .set('Authorization', 'Bearer ölkxjdkljdglkjdgöljeöotuiöjkvlnvösodhg');
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(401);
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Invalid token');
     }); */
-    it('responds with code 200 and lecturers information', async () => {
+    it('responds with code 200 and teachers information', async () => {
       const response = await request(app)
-        .get('/lecturers');
+        .get('/teachers');
         // .set('Authorization', `Bearer ${token}`);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(200);
-      expect(response.body).to.have.key('lecturers');
-      expect(response.body.lecturers).to.be.a('array');
-      expect(Object.keys(response.body.lecturers).length).to.greaterThan(0);
+      expect(response.body).to.have.key('teachers');
+      expect(response.body.teachers).to.be.a('array');
+      expect(Object.keys(response.body.teachers).length).to.greaterThan(0);
     });
   });
-  describe('POST /lecturers', () => {
+  describe('POST /teachers', () => {
     it('responds with code 201 and sources id', async () => {
       // unikaalne email testimiseks
       const uniqueEmail = `marit+${Date.now()}@tlu.ee`;
       const response = await request(app)
-        .post('/lecturers')
+        .post('/teachers')
         // .set('Authorization', `Bearer ${token}`)
         .send({
           firstName: 'Mari',
@@ -64,11 +64,11 @@ describe('Lecturers controller', () => {
       expect(response.statusCode).to.equal(201);
       expect(response.body).to.have.key('id');
       expect(response.body.id).to.be.a('number');
-      lecturerId = response.body.id;
+      teacherId = response.body.id;
     });
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
-        .post('/lecturers')
+        .post('/teachers')
         // .set('Authorization', `Bearer ${token}`)
         .send({
           firstName: 'Mari',
@@ -80,7 +80,7 @@ describe('Lecturers controller', () => {
     });
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
-        .post('/lecturers')
+        .post('/teachers')
         // .set('Authorization', `Bearer ${token}`)
         .send({
           lastName: 'Murimari',
@@ -92,7 +92,7 @@ describe('Lecturers controller', () => {
     });
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
-        .post('/lecturers')
+        .post('/teachers')
         // .set('Authorization', `Bearer ${token}`)
         .send({
           firstName: '123',
@@ -104,10 +104,10 @@ describe('Lecturers controller', () => {
       expect(response.body.error).to.equal('Insert only letters, space or -');
     });
   });
-  describe('DELETE /lecturers/:id', () => {
+  describe('DELETE /teachers/:id', () => {
     it('responds with code 204 and empty object', async () => {
       const response = await request(app)
-        .delete(`/lecturers/${lecturerId}`);
+        .delete(`/teachers/${teacherId}`);
         // .set('Authorization', `Bearer ${token}`);
       expect(response.body).to.be.a('object');
       // expect(response.body).to.be.empty;
@@ -116,7 +116,7 @@ describe('Lecturers controller', () => {
     });
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
-        .delete('/lecturers/0');
+        .delete('/teachers/0');
         // .set('Authorization', `Bearer ${token}`);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
@@ -126,13 +126,13 @@ describe('Lecturers controller', () => {
     // api saadab 500 error
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
-        .delete(`/lecturers/${lecturerId}`);
+        .delete(`/teachers/${teacherId}`);
         // .set('Authorization', `Bearer ${token}`);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('message');
       expect(response.body.message).to.equal(
-        `Lecturer not found with id: ${lecturerId} or has active subjects`,
+        `Teacher not found with id: ${teacherId} or has active subjects`,
       );
     });
   });

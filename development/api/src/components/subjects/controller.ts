@@ -74,7 +74,7 @@ const subjectController = {
     // }
     // if (!creditPoint) {
     //   return res.status(responseCodes.badRequest).json({
-    //     error: "Lecturer id is missing",
+    //     error: "Teacher id is missing",
     //   });
     // } else {
     const subjectData: INewSubject = {

@@ -76,7 +76,7 @@ describe('Subjects controller', () => {
         .send({
           subject: 'Mate',
           scheduled: 'Reedel',
-          lecturers_id: 3,
+          teachers_id: 3,
           courses_id: 2,
         });
       // console.log(response.body);
@@ -136,7 +136,7 @@ describe('Subjects controller', () => {
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal('Lecturer id is missing');
+      expect(response.body.error).to.equal('Teacher id is missing');
     }); */
     /* it('responds with code 400 and error message', async () => {
       const response = await request(app)
@@ -146,7 +146,7 @@ describe('Subjects controller', () => {
           subject: '{]Mate',
           scheduled: '{[Reedel',
           courses_id: 3,
-          lecturers_id: 2,
+          teachers_id: 2,
         });
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
