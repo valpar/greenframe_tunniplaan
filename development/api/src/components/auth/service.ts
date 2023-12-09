@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const loginService = {
   googleLogin: async (user: any) => {
-    //const user: any = await userService.getUserByEmail('andrus.kyynarpuu@gmail.com');
+    // const user: any = await userService.getUserByEmail('andrus.kyynarpuu@gmail.com');
     if (user === undefined) return undefined;
     if (!user) return false;
     const token = await jwtService.sign(user);
