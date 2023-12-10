@@ -26,8 +26,8 @@ const TableBody = (props) => {
     setShowInfo((prevState) => (prevState = !prevState));
   };
   const joinLecturers = (item) => {
-    if (item.lecturers)
-      return item.lecturers
+    if (item.teachers)
+      return item.teachers
         .map((e) => `${e.firstName} ${e.lastName}`)
         .join(" ");
     return "";
