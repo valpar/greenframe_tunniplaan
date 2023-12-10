@@ -511,7 +511,6 @@ const Home = () => {
           localStorage.setItem("token", JSON.stringify(response.data));
         }
         setLoginMessage("Logi välja");
-        console.log("Roll: ", response.data.user.role);
       } catch (error) {
         console.log(error);
       }

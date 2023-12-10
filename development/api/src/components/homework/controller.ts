@@ -84,6 +84,7 @@ const homeworkController = {
     const {
       description, subjectCode, extrasLink,
     } = req.body;
+
     let { dueDate, subjects_id } = req.body;
     // console.log(description, dueDate, subjectCode, subjects_id, extrasLink);
     if (!description) {
@@ -116,6 +117,7 @@ const homeworkController = {
       subjects_id,
       extrasLink,
     );
+
     if (!id) {
       return res.status(responseCodes.ServerError).json({
         error: 'Server error',
