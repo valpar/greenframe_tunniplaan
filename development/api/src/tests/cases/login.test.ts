@@ -62,7 +62,7 @@ describe('Auth Controller', () => {
           firstName: 'Test',
           lastName: 'User',
           email: 'test@example.com',
-          roles: ['user'],
+          roles: ['user'], // studentiks teha
         },
       },
     });

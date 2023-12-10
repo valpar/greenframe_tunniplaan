@@ -72,7 +72,6 @@ app.patch('/users/updatePassword/:id', isLoggedIn, userController.updatePassword
 // app.patch("/users/:id", checkAlphabet, userController.updateUserById);
 
 app.post('/googleauth', authController.googleAuth);
-
 // Schedule endpoints
 app.get('/schedule/', scheduleController.getEntireSchedule);
 app.get('/schedule/:atDate', scheduleController.getEntireSchedule);
@@ -100,7 +99,7 @@ app.patch(
 // Subjects endpoints
 app.get('/subjects', subjectController.getAllSubjects);
 app.get('/subjects/:id', subjectController.getSubjectById);
-app.post('/subjects', isLoggedIn, subjectController.addSubject);
+app.post('/subjects', isLoggedIn, isAdmin, subjectController.addSubject);
 app.delete('/subjects/:id', subjectController.deleteSubject);
 app.patch('/subjects/:id', subjectController.updateSubjectById);
 

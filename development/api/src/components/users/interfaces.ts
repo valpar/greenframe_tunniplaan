@@ -1,27 +1,12 @@
-import { RowDataPacket } from 'mysql2';
+// import { RowDataPacket } from 'mysql2';
 
-interface INewUser {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  role: 'Admin' | 'User';
-}
-
-interface IUser extends INewUser, RowDataPacket {
-  id: number;
-  dateCreated: Date;
-  dateUpdated: Date;
-  dateDeleted: Date | null;
-}
-
-interface IUpdateUser {
+interface IUser {
   id: number;
   firstName?: string;
   lastName?: string;
   email?: string;
   password?: string;
-  role?: 'admin' | 'user' | 'teacher' | 'student';
+  roles?: string[]; // stringide massiiv
 }
 
-export { IUser, IUpdateUser, INewUser };
+export default IUser;

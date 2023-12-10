@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { IUser } from '../../users/interfaces';
+import IUser from '../../users/interfaces';
 
 const jwtPassword = 'jagj9032jfKJKJgka903dsksfjsöd';
 
@@ -7,7 +7,7 @@ const jwtService = {
   sign: (user: IUser) => {
     const payload = {
       id: user.id,
-      role: user.role,
+      roles: user.roles,
     };
     const token = jwt.sign(payload, jwtPassword, { expiresIn: '1h' });
     return token;
