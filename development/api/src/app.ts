@@ -99,7 +99,7 @@ app.patch(
 // Subjects endpoints
 app.get('/subjects', subjectController.getAllSubjects);
 app.get('/subjects/:id', subjectController.getSubjectById);
-app.post('/subjects', isLoggedIn, isAdmin, subjectController.addSubject);
+app.post('/subjects', /* checkAlphabetAndNumber, */ isLoggedIn, isAdmin, subjectController.addSubject);
 app.delete('/subjects/:id', subjectController.deleteSubject);
 app.patch('/subjects/:id', subjectController.updateSubjectById);
 
