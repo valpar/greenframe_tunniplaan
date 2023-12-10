@@ -33,7 +33,6 @@ describe('Subjects controller', () => {
       expect(response.body).to.have.key('subjects');
       expect(response.body.subjects).to.be.a('array');
       expect(Object.keys(response.body.subjects).length).to.greaterThan(0);
-      // console.log(adminToken);
     });
   });
 

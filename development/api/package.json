@@ -7,7 +7,7 @@
     "build": "tsc -p .",
     "start": "NODE_PATH=./build node build/index.js",
     "dev": "nodemon -r src/dotenv/config index.ts",
-    "test": "nyc mocha -r ts-node/register -r dotenv/config 'src/**/subjects.test.ts' --timeout 2000 --exit"
+    "test": "nyc mocha -r ts-node/register -r dotenv/config 'src/**/room.test.ts' --timeout 2000 --exit"
   },
   "author": "",
   "license": "ISC",

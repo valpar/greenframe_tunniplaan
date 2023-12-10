@@ -100,8 +100,8 @@ app.patch(
 app.get('/subjects', subjectController.getAllSubjects);
 app.get('/subjects/:id', subjectController.getSubjectById);
 app.post('/subjects', /* checkAlphabetAndNumber, */ isLoggedIn, isAdmin, subjectController.addSubject);
-app.delete('/subjects/:id', subjectController.deleteSubject);
-app.patch('/subjects/:id', subjectController.updateSubjectById);
+app.delete('/subjects/:id', isLoggedIn, isAdmin, subjectController.deleteSubject);
+app.patch('/subjects/:id', isLoggedIn, isAdmin, subjectController.updateSubjectById);
 
 // Course endpoints
 
@@ -115,9 +115,9 @@ app.patch('/courses/:id', courseController.updateCourseById);
 
 app.get('/rooms', roomController.getAllRooms);
 app.get('/rooms/:id', roomController.getRoomById);
-app.post('/rooms', /* isLoggedIn, */ roomController.addRoom);
-app.delete('/rooms/:id', roomController.deleteRoom);
-app.patch('/rooms/:id', roomController.updateRoomById);
+app.post('/rooms', isLoggedIn, isAdmin, roomController.addRoom);
+app.delete('/rooms/:id', isLoggedIn, isAdmin, roomController.deleteRoom);
+app.patch('/rooms/:id', isLoggedIn, isAdmin, roomController.updateRoomById);
 
 // homework
 
