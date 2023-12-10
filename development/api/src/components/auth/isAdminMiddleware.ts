@@ -9,11 +9,6 @@ const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
       error: 'You have to be admin for this operation',
     });
   }
-  if (user.role !== 'admin') {
-    return res.status(responseCodes.notAuthorized).json({
-      error: 'You have to be admin for this operation',
-    });
-  }
   return next();
 };
 
