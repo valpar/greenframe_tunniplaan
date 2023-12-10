@@ -107,9 +107,9 @@ app.patch('/subjects/:id', isLoggedIn, isAdmin, subjectController.updateSubjectB
 
 app.get('/courses', courseController.getAllCourses);
 app.get('/courses/:id', courseController.getCourseById);
-app.post('/courses', courseController.addCourse);
-app.delete('/courses/:id', courseController.deleteCourse);
-app.patch('/courses/:id', courseController.updateCourseById);
+app.post('/courses', isLoggedIn, isAdmin, courseController.addCourse);
+app.delete('/courses/:id', isLoggedIn, isAdmin, courseController.deleteCourse);
+app.patch('/courses/:id', isLoggedIn, isAdmin, courseController.updateCourseById);
 
 // Room endpoints
 

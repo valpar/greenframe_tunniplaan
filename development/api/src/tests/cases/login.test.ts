@@ -2,6 +2,8 @@ import request from 'supertest';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
+import jwtService from '../../components/general/services/jwtService';
 import app from '../../app';
 
 describe('Auth Controller', () => {
@@ -20,10 +22,10 @@ describe('Auth Controller', () => {
       data: {
         data: {
           id: 1,
-          firstName: 'Test',
+          firstName: 'Admin',
           lastName: 'User',
           email: 'test@example.com',
-          roles: ['user'],
+          roles: ['admin'],
         },
       },
     });
@@ -50,7 +52,7 @@ describe('Auth Controller', () => {
     expect(response.status).to.equal(500);
     expect(response.text).to.equal('Google authentication error');
   });
-  it('should handle successful Google and User API authentication', async () => {
+  it('should handle successful Google and User API authentication (roles: student)', async () => {
     axiosGetStub.withArgs('https://www.googleapis.com/oauth2/v1/userinfo').resolves({
       data: { email: 'test@example.com' },
     });
@@ -62,7 +64,7 @@ describe('Auth Controller', () => {
           firstName: 'Test',
           lastName: 'User',
           email: 'test@example.com',
-          roles: ['user'], // studentiks teha
+          roles: ['student'],
         },
       },
     });
@@ -86,7 +88,6 @@ describe('Auth Controller', () => {
       data: { email: 'unknown@example.com' },
     });
     axiosGetStub.withArgs(`${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/unknown@example.com`).resolves({
-      // data: null,
       data: {
         id: 9999,
         firstName: 'Testman',
@@ -102,5 +103,52 @@ describe('Auth Controller', () => {
     /* expect(response.status).to.equal(401); */
     /* console.log(response.status);
     console.log(response.body); */
+  });
+  it('should generate a valid JWT token for a mock admin user', async () => {
+    const mockAdminUser = {
+      id: 1,
+      firstName: 'Admin',
+      lastName: 'User',
+      email: 'admin@example.com',
+      password: 'mockPassword',
+      roles: ['admin'],
+    };
+
+    const adminToken = await jwtService.sign(mockAdminUser);
+    expect(adminToken).to.be.a('string');
+    expect(adminToken).not.to.be.a('');
+
+    const decodedToken = jwt.decode(adminToken);
+
+    if (decodedToken && typeof decodedToken === 'object') {
+      expect(decodedToken).to.include({
+        id: mockAdminUser.id,
+      });
+
+      if ('roles' in decodedToken) {
+        expect(decodedToken.roles).to.include.members(['admin']);
+      }
+    } else {
+      throw new Error('Decoded token is null');
+    }
+  });
+  it('should not allow a student to access an admin-only endpoint', async () => {
+    const mockStudentUser = {
+      id: 2,
+      firstName: 'Student',
+      lastName: 'User',
+      email: 'student@example.com',
+      password: 'mockPassword',
+      roles: ['student'],
+    };
+    const studentToken = await jwtService.sign(mockStudentUser);
+    const response = await request(app)
+      .patch('/rooms/1')
+      .set('Authorization', `Bearer ${studentToken}`)
+      .send({
+        room: 'ruum 222',
+      });
+    expect(response.status).to.equal(401);
+    expect(response.body).to.have.property('error');
   });
 });

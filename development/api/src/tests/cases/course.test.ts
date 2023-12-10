@@ -4,29 +4,44 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import axios from 'axios';
 import app from '../../app';
+import IUser from '../../components/users/interfaces';
+import jwtService from '../../components/general/services/jwtService';
 
 const user = {
   email: 'koviid@mail.ee',
   password: 'Koviid',
 };
 
-let token: string;
+let adminToken: string;
 let courseId: number;
 const id: number = 9999;
 
 describe('Course controller', () => {
+  before(async () => {
+    // loome mock admin kasutaja
+    const mockAdminUser: IUser = {
+      id: 1,
+      firstName: 'Admin',
+      lastName: 'User',
+      email: 'admin@example.com',
+      password: 'mockPassword',
+      roles: ['admin'], // massiivina
+    };
+
+    // loome tokeni mock admin kasutajaga
+    adminToken = await jwtService.sign(mockAdminUser);
+  });
   describe('GET /courses', () => {
     it('should respond with code 200 and courses information', async () => {
       const response = await request(app)
-        .get('/courses')
-        .set('Authorization', `Bearer ${token}`);
+        .get('/courses');
       expect(response.statusCode).to.equal(200);
       expect(response.body).to.be.an('object');
       expect(response.body).to.have.property('courses');
       expect(response.body.courses).to.be.an('array');
       expect(response.body.courses).to.have.length.above(0);
     });
-    // login endpointi pole
+    // login endpointi pole enam
     /* it('responds with code 200 and token after login first test', async () => {
       const response = await request(app).post('/login').send(user);
       expect(response.body).to.be.a('object');
@@ -38,8 +53,7 @@ describe('Course controller', () => {
     }); */
     it('responds with code 200 and courses information', async () => {
       const response = await request(app)
-        .get('/courses')
-        .set('Authorization', `Bearer ${token}`);
+        .get('/courses');
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(200);
       expect(response.body).to.have.key('courses');
@@ -51,7 +65,7 @@ describe('Course controller', () => {
     it('responds with code 201 and sources id', async () => {
       const response = await request(app)
         .post('/courses')
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .send({
           courseCode: 'RIF 40',
           courseName: 'Course Name',
@@ -65,7 +79,7 @@ describe('Course controller', () => {
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .post('/courses')
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .send({});
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
@@ -89,7 +103,7 @@ describe('Course controller', () => {
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .patch(`/courses/${courseId}`)
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .send({});
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
@@ -99,7 +113,7 @@ describe('Course controller', () => {
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .patch('/courses/0')
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .send({
           courseCode: 'RIF 007',
           courseName: 'Some course name',
@@ -127,8 +141,7 @@ describe('Course controller', () => {
   describe('GET /courses/:id', () => {
     it('responds with code 200 and room information', async () => {
       const response = await request(app)
-        .get(`/courses/${courseId}`)
-        .set('Authorization', `Bearer ${token}`);
+        .get(`/courses/${courseId}`);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(200);
       expect(response.body).to.have.key('course');
@@ -137,8 +150,7 @@ describe('Course controller', () => {
     });
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
-        .get('/courses/0')
-        .set('Authorization', `Bearer ${token}`);
+        .get('/courses/0');
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
@@ -159,7 +171,7 @@ describe('Course controller', () => {
     it('responds with code 204 and empty object', async () => {
       const response = await request(app)
         .delete(`/courses/${courseId}`)
-        .set('Authorization', `Bearer ${token}`);
+        .set('Authorization', `Bearer ${adminToken}`);
       expect(response.body).to.be.a('object');
       expect(response.body).to.deep.equal({}); // deep equal võrdleb {} sisu, ilma võrdleb viiteid
       expect(response.statusCode).to.equal(204);
@@ -167,7 +179,7 @@ describe('Course controller', () => {
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .delete('/courses/0')
-        .set('Authorization', `Bearer ${token}`);
+        .set('Authorization', `Bearer ${adminToken}`);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
