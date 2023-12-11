@@ -359,6 +359,21 @@ const scheduleService = {
       return false;
     }
 
+    if (typeof courses !== 'string') {
+      courses.forEach(async (course) => {
+        const query = `
+          INSERT INTO scheduled_has_courses (scheduled_id, courses_id)
+            VALUES (?, ?);`;
+        try {
+          await pool.query(query, [id, course.courseId]);
+          return true;
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(`An error occurred while updating course ${course.courseId}:`, error);
+          return false;
+        }
+      });
+    }
     /* for (var index in lecturers) {
       // console.log("uus kirje sceduled:", id, " lecturers_id:", lecturers[index].lecturerId);
       try {
