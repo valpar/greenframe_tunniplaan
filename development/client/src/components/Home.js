@@ -360,23 +360,25 @@ const Home = () => {
     setAddSchedule(false);
   };
   
-  
   const loginHandler = () => {
     if (!localStorage.getItem("token")) {
       login();
     }
     else {
+      document.body.style.overflow = 'hidden';
       setShowLogoutConfirm(true);
     }
   };
  
   const logoutDeclineHandler = () => {
     setShowLogoutConfirm(false);
+    document.body.style.overflow = 'unset';
   };
   
   const logoutConfirmHandler = () => {
     logOut();
     setShowLogoutConfirm(false);
+    document.body.style.overflow = 'unset';
   };
 
   const emptyFiltersHandler = () => {
