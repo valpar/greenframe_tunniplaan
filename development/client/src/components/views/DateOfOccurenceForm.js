@@ -372,7 +372,7 @@ const DateOfOccurenceForm = (props) => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full items-center lg:items-end lg:flex-row lg:space-x-4">
+    <div data-testid='date-of-occurence-form' className="flex flex-col w-full items-center lg:items-end lg:flex-row lg:space-x-4">
       <div className="flex flex-col lg:flex-row w-full space-y-3 lg:space-x-4 lg:space-y-0">
         <div className="lg:w-full lg:min-w-[15rem]">
           <CalendarOneInput
@@ -391,6 +391,7 @@ const DateOfOccurenceForm = (props) => {
         </div>
         <div className="lg:w-full">
           <InputWithLabel
+            data-testid={`input-${props.name}`} // et ei oleks mitu sama nimega data-testid
             onChange={loadChangeHandler}
             type="text"
             name="workLoad"

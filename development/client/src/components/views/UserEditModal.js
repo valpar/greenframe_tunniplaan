@@ -222,7 +222,7 @@ const UserEditModal = (props) => {
   const roleOptions = [
     { label: "Admin", value: "admin" },
     { label: "Õpilane", value: "student" },
-    { label: "Õppejõud", value: "lecturer" },
+    { label: "Õppejõud", value: "teacher" },
   ];
 
   const addNewRowHandler = () => {

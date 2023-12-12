@@ -14,6 +14,7 @@ const Backdrop = (props) => {
 
   return (
     <div
+      data-testid="backdrop"
       className="fixed top-0 left-0 w-full h-screen z-20 bg-neutral-900 opacity-70"
       onClick={props.onClose}
     />
@@ -23,6 +24,7 @@ const Backdrop = (props) => {
 const ModalOverlay = (props) => {
   return (
     <div
+      data-testid="modal-overlay"
       className={`${props.onHidden ? "hidden" : ""} fixed top-1/3 w-11/12 ${
         props.onCenter ? "" : "lg:ml-32"
       } lg:w-auto h-auto left-1/2 -translate-x-1/2 bg-white rounded z-30 shadow-lg animate-slideDown lg:top-1/4`}

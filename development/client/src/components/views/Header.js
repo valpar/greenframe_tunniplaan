@@ -79,7 +79,7 @@ export const Header = (props) => {
           </div>
         </div>
 
-        <div className="lg:hidden flex flex-row w-40 justify-end items-center space-x-7 pr-2">
+        <div data-testid='admin-controls' className="lg:hidden flex flex-row w-40 justify-end items-center space-x-7 pr-2">
           {/* Mobile schedule add */}
           {!usersListOpen && admin && isTabletOrMobile && !hiddeMobileIcon && (
             <i

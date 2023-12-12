@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { Request, Response, NextFunction } from 'express';
 import jwtService from '../general/services/jwtService';
 import responseCodes from '../general/responseCodes';

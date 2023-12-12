@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateOfOccurenceForm matches snapshot 1`] = `
+<div
+  className="flex flex-col w-full items-center lg:items-end lg:flex-row lg:space-x-4"
+  data-testid="date-of-occurence-form"
+>
+  <div
+    className="flex flex-col lg:flex-row w-full space-y-3 lg:space-x-4 lg:space-y-0"
+  >
+    <div
+      className="lg:w-full lg:min-w-[15rem]"
+    >
+      <div
+        className="relative w-full"
+      >
+        <div
+          className="relative flex flex-col w-full"
+        >
+          <input
+            autoComplete="off"
+            className="p-2 w-full border border-borderGray  rounded-none font-normal focus:outline-none focus:border-black undefined"
+            name="date"
+            onChange={[Function]}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            readOnly={false}
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="lg:w-full"
+    >
+      <div
+        className="relative flex flex-col w-full"
+      >
+        <input
+          autoComplete="off"
+          className="p-2 w-full border border-borderGray  rounded-none font-normal focus:outline-none focus:border-black undefined"
+          name="workLoad"
+          onChange={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          readOnly={true}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="lg:w-full"
+    >
+      <div
+        className="relative w-full flex flex-col"
+      >
+        <input
+          autoComplete="off"
+          className="p-2 border w-full border-borderGray  rounded-none font-normal focus:outline-none focus:border-black"
+          name="startTime"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          readOnly={true}
+          type="text"
+          value="10:00"
+        />
+      </div>
+    </div>
+    <div
+      className="lg:w-full"
+    >
+      <div
+        className="relative w-full flex flex-col"
+      >
+        <input
+          autoComplete="off"
+          className="p-2 border w-full border-borderGray  rounded-none font-normal focus:outline-none focus:border-black"
+          name="endTime"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          readOnly={true}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="lg:w-full"
+    >
+      <div
+        className="relative flex flex-col w-full"
+      >
+        <input
+          autoComplete="off"
+          className="p-2 w-full border border-borderGray  rounded-none font-normal focus:outline-none focus:border-black lg:text-center cursor-pointer"
+          name="hasLunch"
+          onChange={[Function]}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          readOnly={true}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex justify-center items-center space-x-10 pt-4 lg:pt-0  lg:pb-1 lg:justify-end !lg:items-end w-18 lg:space-x-4"
+  />
+</div>
+`;

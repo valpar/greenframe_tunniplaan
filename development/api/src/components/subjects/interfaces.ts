@@ -2,7 +2,7 @@ import { RowDataPacket } from 'mysql2';
 
 // interface ISubject extends RowDataPacket {
 //   id: number;
-//   lecturers_id: number;
+//   teachers_id: number;
 //   coursesid: number;
 //   subject: string;
 //   scheduled: string;
@@ -12,7 +12,7 @@ import { RowDataPacket } from 'mysql2';
 // }
 
 // interface INewSubject {
-//   lecturers_id: number;
+//   teachers_id: number;
 //   courses_id: number;
 //   subject: string;
 //   scheduled: string;

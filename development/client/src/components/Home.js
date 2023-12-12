@@ -100,7 +100,7 @@ const Home = () => {
     if (
       obj[0].value === "courseCode" ||
       obj[0].value === "subject" ||
-      obj[0].value === "lecturer" ||
+      obj[0].value === "teacher" ||
       obj[0].value === "room"
     ) {
       return [...data.filter((e) => e[obj[0].value] === undefined)];
@@ -111,7 +111,7 @@ const Home = () => {
   const scheduleFilter = (filterObj, rawData, type) => {
     let filterType;
     if (type === "courses") filterType = "courseCode";
-    else if (type === "lecturers") filterType = "lecturer";
+    else if (type === "teachers") filterType = "teacher";
     else if (type === "rooms") filterType = "room";
     else {
       filterType = type;
@@ -134,12 +134,12 @@ const Home = () => {
         );
       }
     }
-    if (type === "lecturers") {
+    if (type === "teachers") {
       for (let i = 0; i < objectValues.length; i++) {
         filteredeData.push(
           ...rawData.filter((e) => {
-            if (e.lecturers) {
-              let fullName = e.lecturers.map(
+            if (e.teachers) {
+              let fullName = e.teachers.map(
                 (e) => `${e.firstName} ${e.lastName}`
               );
               return fullName.some((el) => el === objectValues[i]);
@@ -222,7 +222,7 @@ const Home = () => {
     const hasStartTime = dropdownsSelection.find((o) => o.startTime);
     const hasCourse = dropdownsSelection.find((o) => o.courseCode);
     const hasSubject = dropdownsSelection.find((o) => o.subject);
-    const hasLecturer = dropdownsSelection.find((o) => o.lecturer);
+    const hasLecturer = dropdownsSelection.find((o) => o.teacher);
     const hasRoom = dropdownsSelection.find((o) => o.room);
     if (hasCourse) {
       setFilteredData([...scheduleFilter(dropdownsSelection, data, "courses")]);
@@ -244,7 +244,7 @@ const Home = () => {
           ...scheduleFilter(
             dropdownsSelection,
             hasCourse || hasSubject ? prevState : data,
-            "lecturers"
+            "teachers"
           ),
         ];
       });

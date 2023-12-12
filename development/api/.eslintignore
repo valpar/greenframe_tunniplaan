@@ -1,0 +1,2 @@
+build/**
+src/tests/**/*.test.ts

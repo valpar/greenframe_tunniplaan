@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { FieldPacket, ResultSetHeader } from 'mysql2';
 import pool from '../../database';
 import { ISubject, INewSubject } from './interfaces';
@@ -68,7 +66,6 @@ const subjectServices = {
       }
       return false;
     } catch (error) {
-      console.log(error);
       return false;
     }
   },

@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddHomework matches snapshot 1`] = `
+<div
+  className="flex flex-col p-4 m-4 border shadow shadow-borderGray"
+>
+  <div
+    className="relative flex flex-col lg:flex-row lg:items-start pb-2"
+  >
+    <div
+      className="realtive mt-2 w-full"
+    >
+      <textarea
+        className="w-full bg-white border border-borderGray px-2 py-[0.6rem] border-borderGray resize-none leading-6 hover:border-darkGray duration-200 outline-none rounded-none no-scrollbar"
+        maxLength={2500}
+        name="description"
+        onChange={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        placeholder="Iseseisva töö kirjeldus..."
+        value="Test description"
+      />
+      <label
+        className="absolute left-0 ml-2 text-xs top-0 text-gray-500 bg-white px-1 duration-200"
+        htmlFor="input"
+      >
+        Iseseisva töö kirjeldus
+      </label>
+    </div>
+    <div
+      className="relative hidden lg:flex lg:justify-end space-x-2 px-2 w-24 mt-3"
+    >
+      <i
+        className="bi bi-plus-lg cursor-pointer text-2xl leading-[unset]"
+        onClick={[MockFunction]}
+      />
+      <i
+        className="bi bi-x-lg cursor-pointer text-2xl leading-[unset]"
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+  <div
+    className="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4 lg:pr-20"
+  >
+    <div
+      className="relative pb-2 lg:pb-0"
+    >
+      <div
+        className="relative w-full"
+      >
+        <label
+          className="absolute left-0 ml-2 text-xs -top-2 z-5 text-gray-500 bg-white px-1"
+          htmlFor="input"
+        >
+          Tähtaeg:
+        </label>
+        <div
+          className="relative flex flex-col w-full"
+        >
+          <input
+            autoComplete="off"
+            className="p-2 w-full border border-red-500 rounded-none font-normal focus:outline-none focus:border-black undefined"
+            name="dueDate"
+            onChange={[Function]}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            placeholder="Tähtaeg:"
+            readOnly={false}
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="pb-3 lg:w-full lg:pr-2"
+    >
+      <div
+        className="relative"
+      >
+        <label
+          className="absolute left-0 ml-2 text-xs -top-2 text-gray-500 bg-white px-1 duration-200"
+          htmlFor="input"
+        >
+          Õppematerjalide link
+        </label>
+        <input
+          autoComplete="off"
+          className="p-2 border border-red-500 w-full rounded-none font-normal focus:outline-none focus:border-black"
+          name="extraLink"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          placeholder="Õppematerjalide link"
+          readOnly={false}
+          type="text"
+          value="http://example.com"
+        />
+      </div>
+    </div>
+    <div
+      className="relative flex justify-center w-full lg:hidden px-2"
+    >
+      <i
+        className="hidden lg:visible bi bi-plus-lg cursor-pointer text-3xl leading-[unset]"
+        onClick={[MockFunction]}
+      />
+      <i
+        className="bi bi-x-lg cursor-pointer text-3xl leading-[unset]"
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -16,17 +16,17 @@ const NewLecturer = (props) => {
     email: "",
   });
 
-  const { mandatoryField, brokenEmail, lecturerExists } = content.errorMessages;
+  const { mandatoryField, brokenEmail, teacherExists } = content.errorMessages;
 
   useEffect(() => {
     if (props.editMode) {
-      const lecturerData = props.lecturerData.lecturers.filter((e) => {
+      const teacherData = props.teachrerData.teachers.filter((e) => {
         return e.id === props.editValues
           ? { firstName: e.firstName, lastName: e.lastName, email: e.email }
           : false;
       })[0];
-      setEnteredLecturerData(lecturerData);
-      if (!lecturerData.email) {
+      setEnteredLecturerData(teacherData);
+      if (!teacherData.email) {
         return setErrorMessages({
           firstName: null,
           lastName: null,
@@ -82,7 +82,7 @@ const NewLecturer = (props) => {
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
       );
       const emailExists =
-        props.lecturerData.lecturers.filter((e) => e.email === value.value)
+        props.teacherData.teachers.filter((e) => e.email === value.value)
           .length > 0;
       setEnteredLecturerData((prevState) => {
         return { ...prevState, email: value.value };
@@ -94,7 +94,7 @@ const NewLecturer = (props) => {
             ? setErrorMessages((prevState) => {
                 return {
                   ...prevState,
-                  email: emailExists ? lecturerExists : brokenEmail,
+                  email: emailExists ? teacherExists : brokenEmail,
                 };
               })
             : setErrorMessages((prevState) => {

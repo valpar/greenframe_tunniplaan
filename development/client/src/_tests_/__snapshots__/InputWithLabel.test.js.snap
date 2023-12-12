@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputWithLabel matches snapshot 1`] = `
+<div
+  className="relative flex flex-col w-full"
+>
+  <input
+    autoComplete="off"
+    className="p-2 w-full border border-borderGray  rounded-none font-normal focus:outline-none focus:border-black undefined"
+    name=""
+    onChange={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    readOnly={false}
+    type="text"
+    value=""
+  />
+</div>
+`;

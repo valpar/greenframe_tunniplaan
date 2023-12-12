@@ -1,6 +1,4 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-unused-expressions */
+/* läheb eemaldamisele
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
@@ -263,3 +261,4 @@ describe('User controller', () => {
     });
   });
 });
+ */

@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { FieldPacket, ResultSetHeader } from 'mysql2';
 import { INewUser, IUser } from './interfaces';
 import pool from '../../database';
@@ -87,7 +85,7 @@ const userService = {
     try {
       const pswhash = await hashService.hash(password);
       const [result]: [ResultSetHeader, FieldPacket[]] = await pool.query(
-        "UPDATE users SET password = ? WHERE id = ?",
+        'UPDATE users SET password = ? WHERE id = ?',
         [pswhash, id],
       );
       if (result.affectedRows > 0) {

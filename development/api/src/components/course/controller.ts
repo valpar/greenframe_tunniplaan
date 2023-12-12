@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { Request, Response } from 'express';
 import responseCodes from '../general/responseCodes';
 import courseService from './service';

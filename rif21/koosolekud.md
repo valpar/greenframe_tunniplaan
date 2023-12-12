@@ -1,4 +1,17 @@
 # Koosolekud
+## 29.10.23 
+- kuidas läinud on, millised probleemid?
+- sisselogimine ja kasutajate haldus lahtine
+- pooleli olevad ülesanded
+- dokumentatsiooni uuendada
+
+## 07.10.23 (11.00 - 11.55)
+- sisselogimine teha
+- rollid ja võimalused millised, vaja kliendiga suhelda
+- uus pöörduspunkt parooli muutmiseks
+- api dokumentatsiooni uuendada
+- tegime koos merge branchide vahel ja masteriga
+
 ## 27.09.23
 ### 21.00 - 21.55
 - kuhu maal oleme, mis probleemid on

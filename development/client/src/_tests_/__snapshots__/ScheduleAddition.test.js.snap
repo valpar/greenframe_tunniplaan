@@ -1,0 +1,626 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScheduleAddition matches snapshot 1`] = `
+<div
+  className="flex flex-col justify-center items-center p-4 mb-0 w-full mt-1 mb-8 lg:mt-3 border border-borderGray shadow-md"
+>
+  <div
+    className="relative text-sm md:text-base font-bold w-full"
+  >
+    <h6>
+      LOENGU LISAMINE TUNNIPLAANI
+    </h6>
+    <i
+      className="bi bi-x-lg absolute -top-1 -right-1 lg:top-0 lg:right-0 cursor-pointer text-3xl lg:text-xl leading-5 lg:hover:text-black lg:hover:scale-105 duration-150"
+    />
+  </div>
+  <div
+    className="flex flex-col justify-between items-start lg:px-4 space-y-3 lg:space-x-4 lg:space-y-0 py-8  w-full lg:flex-row"
+  >
+    <div
+      className="relative w-full h-auto"
+      data-testid="add-dropdown"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className=" css-b62m3t-container"
+        onKeyDown={[Function]}
+      >
+        <span
+          className="css-1f43avz-a11yText-A11yText"
+          id="react-select-2-live-region"
+        />
+        <span
+          aria-atomic="false"
+          aria-live="polite"
+          aria-relevant="additions text"
+          className="css-1f43avz-a11yText-A11yText"
+        />
+        <div
+          className=" css-1ok88yx-control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className=" css-319lph-ValueContainer"
+          >
+            <div
+              className=" css-rg4fjx-placeholder"
+              id="react-select-2-placeholder"
+            >
+              Õppeaine
+            </div>
+            <div
+              className=" css-6j8wv5-Input"
+              data-value=""
+            >
+              <input
+                aria-autocomplete="list"
+                aria-describedby="react-select-2-placeholder"
+                aria-expanded={false}
+                aria-haspopup={true}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className=""
+                disabled={false}
+                id="react-select-2-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                role="combobox"
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "color": "inherit",
+                    "font": "inherit",
+                    "gridArea": "1 / 2",
+                    "label": "input",
+                    "margin": 0,
+                    "minWidth": "2px",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "100%",
+                  }
+                }
+                tabIndex={0}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className=" css-q6enge-IndicatorsContainer"
+          >
+            <span
+              className=" css-1okebmr-indicatorSeparator"
+            />
+            <div
+              aria-hidden="true"
+              className=" css-tlfecz-indicatorContainer"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-angle-down px-1"
+                data-icon="angle-down"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="relative w-full h-auto"
+      data-testid="add-dropdown"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className=" css-b62m3t-container"
+        onKeyDown={[Function]}
+      >
+        <span
+          className="css-1f43avz-a11yText-A11yText"
+          id="react-select-3-live-region"
+        />
+        <span
+          aria-atomic="false"
+          aria-live="polite"
+          aria-relevant="additions text"
+          className="css-1f43avz-a11yText-A11yText"
+        />
+        <div
+          className=" css-1ok88yx-control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className=" css-319lph-ValueContainer"
+          >
+            <div
+              className=" css-rg4fjx-placeholder"
+              id="react-select-3-placeholder"
+            >
+              Õppejõud
+            </div>
+            <div
+              className=" css-6j8wv5-Input"
+              data-value=""
+            >
+              <input
+                aria-autocomplete="list"
+                aria-describedby="react-select-3-placeholder"
+                aria-expanded={false}
+                aria-haspopup={true}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className=""
+                disabled={false}
+                id="react-select-3-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                role="combobox"
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "color": "inherit",
+                    "font": "inherit",
+                    "gridArea": "1 / 2",
+                    "label": "input",
+                    "margin": 0,
+                    "minWidth": "2px",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "100%",
+                  }
+                }
+                tabIndex={0}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className=" css-q6enge-IndicatorsContainer"
+          >
+            <span
+              className=" css-1okebmr-indicatorSeparator"
+            />
+            <div
+              aria-hidden="true"
+              className=" css-tlfecz-indicatorContainer"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-angle-down px-1"
+                data-icon="angle-down"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="relative w-full h-auto"
+      data-testid="add-dropdown"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className=" css-b62m3t-container"
+        onKeyDown={[Function]}
+      >
+        <span
+          className="css-1f43avz-a11yText-A11yText"
+          id="react-select-4-live-region"
+        />
+        <span
+          aria-atomic="false"
+          aria-live="polite"
+          aria-relevant="additions text"
+          className="css-1f43avz-a11yText-A11yText"
+        />
+        <div
+          className=" css-1ok88yx-control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className=" css-319lph-ValueContainer"
+          >
+            <div
+              className=" css-rg4fjx-placeholder"
+              id="react-select-4-placeholder"
+            >
+              Kursus
+            </div>
+            <div
+              className=" css-6j8wv5-Input"
+              data-value=""
+            >
+              <input
+                aria-autocomplete="list"
+                aria-describedby="react-select-4-placeholder"
+                aria-expanded={false}
+                aria-haspopup={true}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className=""
+                disabled={false}
+                id="react-select-4-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                role="combobox"
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "color": "inherit",
+                    "font": "inherit",
+                    "gridArea": "1 / 2",
+                    "label": "input",
+                    "margin": 0,
+                    "minWidth": "2px",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "100%",
+                  }
+                }
+                tabIndex={0}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className=" css-q6enge-IndicatorsContainer"
+          >
+            <span
+              className=" css-1okebmr-indicatorSeparator"
+            />
+            <div
+              aria-hidden="true"
+              className=" css-tlfecz-indicatorContainer"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-angle-down px-1"
+                data-icon="angle-down"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="relative w-full h-auto"
+      data-testid="add-dropdown"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className=" css-b62m3t-container"
+        onKeyDown={[Function]}
+      >
+        <span
+          className="css-1f43avz-a11yText-A11yText"
+          id="react-select-5-live-region"
+        />
+        <span
+          aria-atomic="false"
+          aria-live="polite"
+          aria-relevant="additions text"
+          className="css-1f43avz-a11yText-A11yText"
+        />
+        <div
+          className=" css-1ok88yx-control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className=" css-319lph-ValueContainer"
+          >
+            <div
+              className=" css-rg4fjx-placeholder"
+              id="react-select-5-placeholder"
+            >
+              Ruum
+            </div>
+            <div
+              className=" css-6j8wv5-Input"
+              data-value=""
+            >
+              <input
+                aria-autocomplete="list"
+                aria-describedby="react-select-5-placeholder"
+                aria-expanded={false}
+                aria-haspopup={true}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className=""
+                disabled={false}
+                id="react-select-5-input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                role="combobox"
+                spellCheck="false"
+                style={
+                  Object {
+                    "background": 0,
+                    "border": 0,
+                    "color": "inherit",
+                    "font": "inherit",
+                    "gridArea": "1 / 2",
+                    "label": "input",
+                    "margin": 0,
+                    "minWidth": "2px",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "100%",
+                  }
+                }
+                tabIndex={0}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className=" css-q6enge-IndicatorsContainer"
+          >
+            <span
+              className=" css-1okebmr-indicatorSeparator"
+            />
+            <div
+              aria-hidden="true"
+              className=" css-tlfecz-indicatorContainer"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="svg-inline--fa fa-angle-down px-1"
+                data-icon="angle-down"
+                data-prefix="fas"
+                focusable="false"
+                role="img"
+                style={Object {}}
+                viewBox="0 0 448 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+                  fill="currentColor"
+                  style={Object {}}
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex flex-col w-full lg:px-4  space-y-4"
+  >
+    <div>
+      <div
+        className="flex flex-col w-full items-center lg:items-end lg:flex-row lg:space-x-4"
+        data-testid="date-of-occurence-form"
+      >
+        <div
+          className="flex flex-col lg:flex-row w-full space-y-3 lg:space-x-4 lg:space-y-0"
+        >
+          <div
+            className="lg:w-full lg:min-w-[15rem]"
+          >
+            <div
+              className="relative w-full"
+            >
+              <div
+                className="relative flex flex-col w-full"
+              >
+                <label
+                  className="font-bold w-full text-left pb-1 lg:pb-2"
+                >
+                  Kuupäev
+                </label>
+                <input
+                  autoComplete="off"
+                  className="p-2 w-full border border-borderGray  rounded-none font-normal focus:outline-none focus:border-black undefined"
+                  name="date"
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  readOnly={false}
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="lg:w-full"
+          >
+            <div
+              className="relative flex flex-col w-full"
+            >
+              <label
+                className="font-bold w-full text-left pb-1 lg:pb-2"
+              >
+                Maht
+              </label>
+              <input
+                autoComplete="off"
+                className="p-2 w-full border border-borderGray  rounded-none font-normal focus:outline-none focus:border-black undefined"
+                name="workLoad"
+                onChange={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                readOnly={true}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="lg:w-full"
+          >
+            <div
+              className="relative w-full flex flex-col"
+            >
+              <label
+                className="font-bold text-left pb-1 lg:pb-2"
+              >
+                Algus
+              </label>
+              <input
+                autoComplete="off"
+                className="p-2 border w-full border-borderGray  rounded-none font-normal focus:outline-none focus:border-black"
+                name="startTime"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                readOnly={true}
+                type="text"
+                value="10:00"
+              />
+            </div>
+          </div>
+          <div
+            className="lg:w-full"
+          >
+            <div
+              className="relative w-full flex flex-col"
+            >
+              <label
+                className="font-bold text-left pb-1 lg:pb-2"
+              >
+                Lõpp
+              </label>
+              <input
+                autoComplete="off"
+                className="p-2 border w-full border-borderGray  rounded-none font-normal focus:outline-none focus:border-black"
+                name="endTime"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                readOnly={true}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="lg:w-full"
+          >
+            <div
+              className="relative flex flex-col w-full"
+            >
+              <label
+                className="font-bold w-full text-left pb-1 lg:pb-2"
+              >
+                Lõuna
+              </label>
+              <input
+                autoComplete="off"
+                className="p-2 w-full border border-borderGray  rounded-none font-normal focus:outline-none focus:border-black lg:text-center cursor-pointer"
+                name="hasLunch"
+                onChange={[Function]}
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                readOnly={true}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="flex justify-center items-center space-x-10 pt-4 lg:pt-0  lg:pb-1 lg:justify-end !lg:items-end w-18 lg:space-x-4"
+        >
+          <i
+            className="bi bi-plus-lg text-4xl lg:text-2xl text-right"
+            onClick={[Function]}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="relative flex justify-center lg:justify-end w-full px-2 lg:px-4 mb-4 mt-6 lg:mt-12"
+  >
+    <button
+      className="btn-actions"
+      onClick={[Function]}
+      type="submit"
+    >
+      SALVESTA
+    </button>
+  </div>
+</div>
+`;

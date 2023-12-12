@@ -19,7 +19,7 @@ const AddNewItem = (props) => {
     scheduled,
     roomsData,
     courseData,
-    lecturerData,
+    teacherData,
     subjectsData,
     onClose,
     onDelete,
@@ -30,7 +30,7 @@ const AddNewItem = (props) => {
     deleteMessage,
     roomHasActiveLecturers,
     courseHasActiveLecturers,
-    lecturerHasActiveLecturers,
+    teacherHasActiveLecturers,
     subjectHasActiveLecturers,
     saveMessage,
   } = content.confirmModalMessages;
@@ -99,7 +99,7 @@ const AddNewItem = (props) => {
       let responseId = [];
       if (modalFor === "rooms") typeId = "roomId";
       if (modalFor === "courses") typeId = "courseId";
-      if (modalFor === "lecturers") typeId = "lecturerId";
+      if (modalFor === "teachers") typeId = "teacherId";
       setRequestAction("create");
       try {
         setShowUpdateConfirmModal(false);
@@ -159,10 +159,10 @@ const AddNewItem = (props) => {
         }
         return false;
       });
-      let lecturerBooked = scheduled.filter((row) => {
-        if (row.lecturers !== "") {
-          let arr = row.lecturers.filter(
-            (lecturer) => lecturer.lecturerId === inputsState[0].id
+      let teacherBooked = scheduled.filter((row) => {
+        if (row.teachers !== "") {
+          let arr = row.teachers.filter(
+            (teacher) => teacher.teacherId === inputsState[0].id
           );
           return arr.length > 0 ? row : false;
         }
@@ -179,8 +179,8 @@ const AddNewItem = (props) => {
         setDeleteModalMessage(roomHasActiveLecturers);
       if (modalFor === "courses" && courseBooked.length > 0)
         setDeleteModalMessage(courseHasActiveLecturers);
-      if (modalFor === "lecturers" && lecturerBooked.length > 0)
-        setDeleteModalMessage(lecturerHasActiveLecturers);
+      if (modalFor === "teachers" && teacherBooked.length > 0)
+        setDeleteModalMessage(teacherHasActiveLecturers);
       if (modalFor === "subject" && subjectBooked.length > 0)
         setDeleteModalMessage(subjectHasActiveLecturers);
 
@@ -228,10 +228,10 @@ const AddNewItem = (props) => {
           .patch(`/courses/${editValues}`, inputsState[0])
           .then((response) => console.log(response));
       }
-      if (modalFor === "lecturers") {
+      if (modalFor === "teachers") {
         console.log(inputsState[0]);
         await axios
-          .patch(`/lecturers/${editValues}`, inputsState[0])
+          .patch(`/teachers/${editValues}`, inputsState[0])
           .then((response) => console.log(response));
       }
       if (modalFor === "subjects") {
@@ -269,9 +269,9 @@ const AddNewItem = (props) => {
           .delete(`/courses/${editValues}`)
           .then((response) => console.log(response));
       }
-      if (modalFor === "lecturers") {
+      if (modalFor === "teachers") {
         await axios
-          .delete(`/lecturers/${editValues}`)
+          .delete(`/teachers/${editValues}`)
           .then((response) => console.log(response));
       }
       if (modalFor === "subjects") {
@@ -357,7 +357,7 @@ const AddNewItem = (props) => {
               </div>
             );
           })}
-        {modalFor === "lecturers" &&
+        {modalFor === "teachers" &&
           inputsState.map((inputsRow, i) => {
             return (
               <div key={i}>
@@ -369,7 +369,7 @@ const AddNewItem = (props) => {
                   modalFor={modalFor}
                   onChange={inputsChangeHandler}
                   index={i}
-                  lecturerData={lecturerData}
+                  teacherData={teacherData}
                   values={inputsState[i]}
                   count={inputsState.length}
                 />

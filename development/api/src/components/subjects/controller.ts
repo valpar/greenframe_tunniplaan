@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { Request, Response } from 'express';
 import responseCodes from '../general/responseCodes';
 import { INewSubject } from './interfaces';
@@ -16,12 +14,13 @@ const subjectController = {
       error: 'Server error',
     });
   },
+  // eslint-disable-next-line consistent-return
   getSubjectById: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
     const { subjectCode } = req.body;
     if (!subjectCode && !id) {
       return res.status(responseCodes.badRequest).json({
-        error: 'No valid id or subjedtCode provided',
+        error: 'No valid id or subjectCode provided',
       });
     }
 
@@ -75,7 +74,7 @@ const subjectController = {
     // }
     // if (!creditPoint) {
     //   return res.status(responseCodes.badRequest).json({
-    //     error: "Lecturer id is missing",
+    //     error: "Teacher id is missing",
     //   });
     // } else {
     const subjectData: INewSubject = {

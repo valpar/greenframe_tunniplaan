@@ -2,7 +2,7 @@
 ```mermaid
 erDiagram
     scheduled ||--o{scheduled_has_courses:id
-    scheduled ||--o{scheduled_has_lecturers:id
+    scheduled ||--o{scheduled_has_teachers:id
     scheduled ||--o{scheduled_has_rooms:id
    scheduled
    scheduled {
@@ -39,9 +39,9 @@ erDiagram
         dateDeleted datetime
         
     }
-    lecturers ||--o{scheduled_has_lecturers:lecturers_id
-    lecturers
-    lecturers {
+    teachers ||--o{scheduled_has_teachers:teachers_id
+    teachers
+    teachers {
         id number
         firstName string
         lastName string
@@ -82,11 +82,11 @@ erDiagram
         scheduled_id
         rooms_id
         }
-    scheduled_has_lecturers
-    scheduled_has_lecturers{
+    scheduled_has_teachers
+    scheduled_has_teachers{
         id number
         schedule_id
-        lecturers_id
+        teachers_id
         }
         
 
@@ -110,12 +110,12 @@ erDiagram
 - Loengu aja kustutamine: `DELETE /api/v1/users/:id/`
 
 ### Õppejõuga seotud
-- GET `/lecturers`
-- GET `/lecturers/:activeSubjects` ???
-- GET `/lecturers/:id`
-- POST `/lecturers`
-- DELETE `/lecturers/:id`
-- PATCH `/lecturers/:id`
+- GET `/teachers`
+- GET `/teachers/:activeSubjects` ???
+- GET `/teachers/:id`
+- POST `/teachers`
+- DELETE `/teachers/:id`
+- PATCH `/teachers/:id`
 
 ### Õppeainega seotud
 - GET `/subjects`
