@@ -2,3 +2,4 @@
 /node_modules
 /src/token.ts
 .env
+/.nyc_output
