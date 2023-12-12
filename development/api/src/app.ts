@@ -127,9 +127,9 @@ app.patch('/rooms/:id', isLoggedIn, isAdmin, roomController.updateRoomById);
 
 app.get('/homeworks', homeworkController.getAllHomeworks);
 app.get('/homeworks/:id', homeworkController.getHomeworkById);
-app.post('/homeworks', homeworkController.addHomework);
-app.delete('/homeworks/:id', homeworkController.deleteHomework);
-app.patch('/homeworks/:id', homeworkController.updateHomeworkById);
+app.post('/homeworks', isLoggedIn, isAdmin, homeworkController.addHomework);
+app.delete('/homeworks/:id', isLoggedIn, isAdmin, homeworkController.deleteHomework);
+app.patch('/homeworks/:id', isLoggedIn, isAdmin, homeworkController.updateHomeworkById);
 
 app.get('/homeworkbycode/:code/:actualDate', homeworkController.getHomeworkByCode);
 

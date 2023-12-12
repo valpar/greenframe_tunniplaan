@@ -112,7 +112,7 @@ const homeworkController = {
     } */
     if (!subjectCode && !subjectsId) {
       return res.status(responseCodes.badRequest).json({
-        error: 'homework subjectCode or subjects_id is missing',
+        error: 'homework subjectCode or subjectsId is missing',
       });
     }
     if (!subjectsId) {
@@ -163,7 +163,6 @@ const homeworkController = {
     const {
       description, subjectCode, extrasLink,
     } = req.body;
-    // ka siin tegin subjects_id camelCase stiilis
     let { dueDate, subjectsId } = req.body;
     if (!id) {
       return res.status(responseCodes.badRequest).json({
