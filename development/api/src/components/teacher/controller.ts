@@ -134,10 +134,12 @@ const teacherController = {
       lastName,
       email,
     };
+    // console.log('Updating teacher with ID:', id, 'and data:', newTeacher);
     const teacherExists = await teacherService.updateTeacherById(
       newTeacher,
       id,
     );
+    // console.log('Update result:', teacherExists);
     if (teacherExists === undefined) {
       return res.status(responseCodes.badRequest).json({
         error: `No user found with id: ${id}`,

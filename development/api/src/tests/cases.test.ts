@@ -6,3 +6,5 @@ require('./cases/subjects.test');
 require('./cases/course.test');
 require('./cases/users.test');
 require('./cases/server.test');
+require('./cases/homework.test');
+require('./cases/schedule.test');

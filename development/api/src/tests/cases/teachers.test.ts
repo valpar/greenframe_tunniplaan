@@ -5,10 +5,6 @@ import app from '../../app';
 import jwtService from '../../components/general/services/jwtService';
 import IUser from '../../components/users/interfaces';
 
-/* const user = {
-  email: 'koviid@mail.ee',
-  password: 'Koviid',
-}; */
 let adminToken: string;
 let teacherId: number;
 // const id = 9999;
@@ -29,30 +25,6 @@ describe('Teachers controller', () => {
     adminToken = await jwtService.sign(mockAdminUser);
   });
   describe('GET /teachers', () => {
-    /* it('responds with code 200 and token after login', async () => {
-      const response = await request(app).post('/login').send(user);
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(200);
-      expect(response.body).to.have.key('token');
-      expect(response.body.token).to.be.a('string');
-      token = response.body.token;
-    });
-    it('respondse with code 401 and error message because of no token provided', async () => {
-      const response = await request(app).get('/teachers/1');
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(401);
-      expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal('No token provided');
-    });
-    it('responds with code 401 and error message because of invalid token', async () => {
-      const response = await request(app)
-        .get('/teachers/1')
-        .set('Authorization', 'Bearer ölkxjdkljdglkjdgöljeöotuiöjkvlnvösodhg');
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(401);
-      expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal('Invalid token');
-    }); */
     it('responds with code 200 and teachers information', async () => {
       const response = await request(app)
         .get('/teachers');
@@ -119,6 +91,75 @@ describe('Teachers controller', () => {
       expect(response.body.error).to.equal('Insert only letters, space or -');
     });
   });
+  describe('PATCH /teachers/:id', () => {
+    it('responds with code 204 and updates teacher information', async () => {
+      const uniqueEmail = new Date().getTime();
+      const teacherToUpdate = {
+        firstName: 'Patched',
+        lastName: 'Teacher',
+        email: `${uniqueEmail}@example.com`,
+      };
+      const response = await request(app)
+        .patch(`/teachers/${teacherId}`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send(teacherToUpdate);
+      expect(response.body).to.be.a('object');
+      expect(response.statusCode).to.equal(204);
+    });
+    it('responds with code 400 and error message for number as name', async () => {
+      const invalidTeacherData = {
+        firstName: '1',
+        lastName: 'ValidLastName',
+        email: 'legit@email.ee',
+      };
+      const response = await request(app)
+        .patch(`/teachers/${teacherId}`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send(invalidTeacherData);
+      expect(response.body).to.be.a('object');
+      expect(response.statusCode).to.equal(400);
+      expect(response.body).to.have.key('error');
+      expect(response.body.error).to.equal('Insert only letters, space or -');
+      // console.log(response.body);
+    });
+    it('responds with code 400 and error message when no data is provided', async () => {
+      const response = await request(app)
+        .patch(`/teachers/${teacherId}`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({});
+      expect(response.body).to.be.a('object');
+      expect(response.statusCode).to.equal(400);
+      expect(response.body).to.have.key('error');
+      expect(response.body.error).to.equal('Provide firstname');
+      // console.log(response.body);
+    });
+    it('responds with code 400 and error message when non-admin user tries to update', async () => {
+      // non admin user
+      const nonAdminUser: IUser = {
+        id: 2,
+        firstName: 'Student',
+        lastName: 'User',
+        email: 'nonadmin@example.com',
+        password: 'mockPassword',
+        roles: ['student'], // non-admin
+      };
+      const nonAdminToken = await jwtService.sign(nonAdminUser);
+      const teacherToUpdate = {
+        firstName: 'UpdatedFirstName',
+        lastName: 'UpdatedLastName',
+        email: 'updated_email@example.com',
+      };
+      const response = await request(app)
+        .patch(`/teachers/${teacherId}`)
+        .set('Authorization', `Bearer ${nonAdminToken}`)
+        .send(teacherToUpdate);
+      // console.log(response.body);
+      expect(response.body).to.be.a('object');
+      expect(response.statusCode).to.equal(401);
+      expect(response.body).to.have.key('error');
+      expect(response.body.error).to.equal('You have to be admin for this operation');
+    });
+  });
   describe('DELETE /teachers/:id', () => {
     it('responds with code 204 and empty object', async () => {
       const response = await request(app)
@@ -138,16 +179,18 @@ describe('Teachers controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('No valid id provided');
     });
-    // api saadab 500 error
+    // api saadab 500 error, peab uurima miks
     /* it('responds with code 400 and error message', async () => {
+      const noTeacherId = 9000;
       const response = await request(app)
-        .delete(`/teachers/${teacherId}`)
+        .delete(`/teachers/${noTeacherId}`)
         .set('Authorization', `Bearer ${adminToken}`);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('message');
-      expect(response.body.message).to.equal(
-        `Teacher not found with id: ${teacherId} or has active subjects`,
+      expect(response.body.message).to.equal(`Teacher not found with id: ${noTeacherId}`);
+      /* expect(response.body.message).to.equal(
+        `Teacher not found with id: ${noTeacherId} or has active subjects`,
       );
     }); */
   });
