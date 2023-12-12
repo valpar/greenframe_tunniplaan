@@ -137,7 +137,9 @@ const scheduleService = {
       }
       return schedule;
     } catch (error) {
-        console.log(error);
+      /* eslint-disable no-console */
+      console.log(error);
+      /* eslint-enable no-console */
       return false;
     }
   },
@@ -187,20 +189,23 @@ const scheduleService = {
     // This can lead to unexpected behavior
 
     // Eelnev väljakommenteeritud kood ümber kirjutatud järgnevaga:
-    rooms.forEach(async (room) => {
-      try {
-        const query = `
-        INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id)
-          VALUES (?, ?);
-      `;
-        await pool.query(query, [createdscheduleId, room.roomId]);
-        return true;
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(`An error occurred while inserting room ${room.roomId}:`, error);
-        return false;
-      }
-    });
+    if (typeof rooms !== 'string') {
+      rooms.forEach(async (room) => {
+        try {
+          const query = `
+          INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id)
+            VALUES (?, ?);
+        `;
+          await pool.query(query, [createdscheduleId, room.roomId]);
+          return true;
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(`An error occurred while inserting room ${room.roomId}:`, error);
+          return false;
+        }
+      });
+    }
+
     /* for (var index in courses) {
       try {
         const [createdChedule]: [ResultSetHeader, FieldPacket[]] =
@@ -212,19 +217,21 @@ const scheduleService = {
     } */
 
     // Eelnev väljakommenteeritud kood ümber kirjutatud järgnevaga:
-    courses.forEach(async (course) => {
-      const query = `
-        INSERT INTO scheduled_has_courses (scheduled_id, courses_id)
-          VALUES (?, ?);`;
-      try {
-        await pool.query(query, [createdscheduleId, course.courseId]);
-        return true;
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(`An error occurred while inserting course ${course.courseId}:`, error);
-        return false;
-      }
-    });
+    if (typeof courses !== 'string') {
+      courses.forEach(async (course) => {
+        const query = `
+          INSERT INTO scheduled_has_courses (scheduled_id, courses_id)
+            VALUES (?, ?);`;
+        try {
+          await pool.query(query, [createdscheduleId, course.courseId]);
+          return true;
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(`An error occurred while inserting course ${course.courseId}:`, error);
+          return false;
+        }
+      });
+    }
 
     /* for (var index in teachers) {
       try {
@@ -237,19 +244,21 @@ const scheduleService = {
     } */
 
     // Eelnev väljakommenteeritud kood ümber kirjutatud järgnevaga:
-    teachers.forEach(async (teacher) => {
-      const query = `
-        INSERT INTO scheduled_has_teachers (schedule_id, teachers_id)
-          VALUES (?, ?);`;
-      try {
-        await pool.query(query, [createdscheduleId, teacher.teacherId]);
-        return true;
-      } catch (error) {
+    if (typeof teachers !== 'string') {
+      teachers.forEach(async (teacher) => {
+        const query = `
+          INSERT INTO scheduled_has_teachers (schedule_id, teachers_id)
+            VALUES (?, ?);`;
+        try {
+          await pool.query(query, [createdscheduleId, teacher.teacherId]);
+          return true;
+        } catch (error) {
         // eslint-disable-next-line no-console
-        console.error(`An error occurred while inserting teacher ${teacher.teacherId}:`, error);
-        return false;
-      }
-    });
+          console.error(`An error occurred while inserting teacher ${teacher.teacherId}:`, error);
+          return false;
+        }
+      });
+    }
 
     return createdscheduleId;
   },
@@ -302,19 +311,21 @@ const scheduleService = {
         return false;
       }
     } */
-    rooms.forEach(async (room) => {
-      const query = `
-        INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id)
-          VALUES (?, ?);
-      `;
-      try {
-        await pool.query(query, [id, room.roomId]);
-        return true;
-      } catch (error) {
-        return false;
-      }
-    });
 
+    if (typeof rooms !== 'string') {
+      rooms.forEach(async (room) => {
+        const query = `
+          INSERT INTO scheduled_has_rooms (scheduled_id, rooms_id)
+            VALUES (?, ?);
+      `;
+        try {
+          await pool.query(query, [id, room.roomId]);
+          return true;
+        } catch (error) {
+          return false;
+        }
+      });
+    }
     try {
       await pool.query(
         'DELETE FROM scheduled_has_courses WHERE scheduled_id = ?;',
@@ -350,6 +361,23 @@ const scheduleService = {
       return false;
     }
 
+    if (typeof courses !== 'string') {
+      courses.forEach(async (course) => {
+        const query = `
+          INSERT INTO scheduled_has_courses (scheduled_id, courses_id)
+            VALUES (?, ?);`;
+        try {
+          await pool.query(query, [id, course.courseId]);
+          return true;
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(`An error occurred while updating course ${course.courseId}:`, error);
+          return false;
+        }
+      });
+    }
+    /* for (var index in teachers) {
+      // console.log("uus kirje sceduled:", id, " teachers_id:", teachers[index].lecturerId);
     /* for (var index in teachers) {
       // console.log("uus kirje sceduled:", id, " teachers_id:", teachers[index].teacherId);
       try {
@@ -361,20 +389,22 @@ const scheduleService = {
         return false;
       }
     } */
-    teachers.forEach(async (teacher) => {
-      const query = `
-        INSERT INTO scheduled_has_teachers (schedule_id, teachers_id)
-        VALUES (?, ?);
-      `;
-      try {
-        await pool.query(query, [id, teacher.teacherId]);
-        return true;
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(`An error occurred while inserting teacher ${teacher.teacherId}:`, error);
-        return false;
-      }
-    });
+    if (typeof teachers !== 'string') {
+      teachers.forEach(async (teacher) => {
+        const query = `
+          INSERT INTO scheduled_has_teachers (schedule_id, teachers_id)
+          VALUES (?, ?);
+        `;
+        try {
+          await pool.query(query, [id, teacher.teacherId]);
+          return true;
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(`An error occurred while inserting teacher ${teacher.teacherId}:`, error);
+          return false;
+        }
+      });
+    }
 
     return updatedRows;
   },

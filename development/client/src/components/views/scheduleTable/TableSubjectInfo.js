@@ -334,6 +334,7 @@ const TableSubjectInfo = (props) => {
     const homeworksNotEmpty = enteredInfo.homeworks.every((e) => {
       return e.description !== "" && e.dueDate !== "";
     });
+
     if (fieldValidator()) {
       try {
         setShowRequestModal(true);
