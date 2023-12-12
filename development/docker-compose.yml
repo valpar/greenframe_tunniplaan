@@ -40,7 +40,7 @@ services:
     volumes:
       - "./sql/createDb.sql:/docker-entrypoint-initdb.d/createDb.sql"
       - "./sql/insertData.sql:/docker-entrypoint-initdb.d/insertData.sql"
-      - "./sql/insertDataSchLect.sql:/docker-entrypoint-initdb.d/insertDataSchLect.sql"
+      - "./sql/insertDataSchTeach.sql:/docker-entrypoint-initdb.d/insertDataSchTeach.sql"
       - "./sql/insertDataSchRooms.sql:/docker-entrypoint-initdb.d/insertDataSchRooms.sql"
       - "./sql/insertDataSchCourses.sql:/docker-entrypoint-initdb.d/insertDataSchCourses.sql"
     networks:
