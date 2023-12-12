@@ -376,8 +376,8 @@ const scheduleService = {
         }
       });
     }
-    /* for (var index in lecturers) {
-      // console.log("uus kirje sceduled:", id, " lecturers_id:", lecturers[index].lecturerId);
+    /* for (var index in teachers) {
+      // console.log("uus kirje sceduled:", id, " teachers_id:", teachers[index].lecturerId);
     /* for (var index in teachers) {
       // console.log("uus kirje sceduled:", id, " teachers_id:", teachers[index].teacherId);
       try {

@@ -238,7 +238,7 @@ const ScheduleAddition = (props) => {
   };
 
   const dropdownHandler = (dropDownValue) => {
-    const hasLecturers =
+    const hasTeachers =
       dropDownValue.filter((value) => value.teacherId === "newLecturer")
         .length > 0;
     const hasCourses =
@@ -252,7 +252,7 @@ const ScheduleAddition = (props) => {
       setModalContent("subjects");
       return;
     }
-    if (hasLecturers) {
+    if (hasTeachers) {
       setShowAddModal(true);
       setModalContent("teachers");
       return;

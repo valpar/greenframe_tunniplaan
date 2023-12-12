@@ -28,10 +28,10 @@ const AddNewItem = (props) => {
   } = props;
   const {
     deleteMessage,
-    roomHasActiveLecturers,
-    courseHasActiveLecturers,
-    teacherHasActiveLecturers,
-    subjectHasActiveLecturers,
+    roomHasActiveTeachers,
+    courseHasActiveTeachers,
+    teacherHasActiveTeachers,
+    subjectHasActiveTeachers,
     saveMessage,
   } = content.confirmModalMessages;
   const { mandatoryFields } = content.errorMessages;
@@ -176,13 +176,13 @@ const AddNewItem = (props) => {
       });
 
       if (modalFor === "rooms" && roomBooked.length > 0)
-        setDeleteModalMessage(roomHasActiveLecturers);
+        setDeleteModalMessage(roomHasActiveTeachers);
       if (modalFor === "courses" && courseBooked.length > 0)
-        setDeleteModalMessage(courseHasActiveLecturers);
+        setDeleteModalMessage(courseHasActiveTeachers);
       if (modalFor === "teachers" && teacherBooked.length > 0)
-        setDeleteModalMessage(teacherHasActiveLecturers);
+        setDeleteModalMessage(teacherHasActiveTeachers);
       if (modalFor === "subject" && subjectBooked.length > 0)
-        setDeleteModalMessage(subjectHasActiveLecturers);
+        setDeleteModalMessage(subjectHasActiveTeachers);
 
       setShowDeleteConfirmModal(true);
       setOverlay(true);
