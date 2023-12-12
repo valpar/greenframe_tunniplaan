@@ -6,7 +6,7 @@ import CalendarInput from "../UI/Calendar/CalendarInput";
 const ScheduleFilters = (props) => {
   const { onPassingFilters, onEmptyFilters } = props;
   const [courseData, setCourseData] = useState([]);
-  const [teacherData, setLecturerData] = useState([]);
+  const [teacherData, setTeacherData] = useState([]);
   const [roomsData, setRoomsData] = useState([]);
   const [subjectsData, setSubjectsData] = useState([]);
   const [isReset, setIsReset] = useState(false);
@@ -19,7 +19,7 @@ const ScheduleFilters = (props) => {
     return tmp ? JSON.parse(tmp) : undefined;
   });
 
-  const [teacherFilterDefValue, setLecturerFilterDefValue] = useState();
+  const [teacherFilterDefValue, setTeacherFilterDefValue] = useState();
   const [roomFilterDefValue, setRoomFilterDefValue] = useState();
   const [subjectFilterDefValue, setSubjectFilterDefValue] = useState();
 
@@ -58,7 +58,7 @@ const ScheduleFilters = (props) => {
     }
   }, [courseLoading, courseResponse]);
 
-  const workLecturerData = useCallback(() => {
+  const workTeacherData = useCallback(() => {
     if (!teacherLoading && teacherResponse !== undefined) {
       const teachers = [];
 
@@ -74,7 +74,7 @@ const ScheduleFilters = (props) => {
             teacherResponse.teachers[key].lastName,
         });
       }
-      setLecturerData(teachers);
+      setTeacherData(teachers);
     }
   }, [teacherLoading, teacherResponse]);
 
@@ -110,8 +110,8 @@ const ScheduleFilters = (props) => {
     workCourseData();
   }, [workCourseData, courseResponse]);
   useEffect(() => {
-    workLecturerData();
-  }, [workLecturerData, teacherResponse]);
+    workTeacherData();
+  }, [workTeacherData, teacherResponse]);
   useEffect(() => {
     workRoomsData();
   }, [workRoomsData, roomResponse]);

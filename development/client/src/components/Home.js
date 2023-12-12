@@ -222,7 +222,7 @@ const Home = () => {
     const hasStartTime = dropdownsSelection.find((o) => o.startTime);
     const hasCourse = dropdownsSelection.find((o) => o.courseCode);
     const hasSubject = dropdownsSelection.find((o) => o.subject);
-    const hasLecturer = dropdownsSelection.find((o) => o.teacher);
+    const hasTeacher = dropdownsSelection.find((o) => o.teacher);
     const hasRoom = dropdownsSelection.find((o) => o.room);
     if (hasCourse) {
       setFilteredData([...scheduleFilter(dropdownsSelection, data, "courses")]);
@@ -238,7 +238,7 @@ const Home = () => {
         ];
       });
     }
-    if (hasLecturer) {
+    if (hasTeacher) {
       setFilteredData((prevState) => {
         return [
           ...scheduleFilter(
@@ -254,7 +254,7 @@ const Home = () => {
         return [
           ...scheduleFilter(
             dropdownsSelection,
-            hasCourse || hasLecturer || hasSubject ? prevState : data,
+            hasCourse || hasTeacher || hasSubject ? prevState : data,
             "rooms"
           ),
         ];
@@ -265,7 +265,7 @@ const Home = () => {
         return [
           ...scheduleFilter(
             dropdownsSelection,
-            hasCourse || hasLecturer || hasSubject || hasRoom
+            hasCourse || hasTeacher || hasSubject || hasRoom
               ? prevState
               : data,
             "startTime"
@@ -390,7 +390,7 @@ const Home = () => {
   };
   // const userPicture = admin
   //   ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  //   : userLecturer
+  //   : userTeacher
   //   ? "https://images.pexels.com/photos/4342401/pexels-photo-4342401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   //   : userStudent
   //   ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"

@@ -22,7 +22,7 @@ const ScheduleAddition = (props) => {
   } = props;
 
   const [courseData, setCourseData] = useState([]);
-  const [teacherData, setLecturerData] = useState([]);
+  const [teacherData, setTeacherData] = useState([]);
   const [roomsData, setRoomsData] = useState([]);
   const [subjectsData, setSubjectsData] = useState([]);
   const [newOccurence, setNewOccurence] = useState([
@@ -146,9 +146,9 @@ const ScheduleAddition = (props) => {
     }
   }, [courseLoading, courseResponse]);
 
-  const workLecturerData = useCallback(() => {
+  const workTeacherData = useCallback(() => {
     if (!teacherLoading && teacherResponse !== undefined) {
-      const teachers = [{ label: "Lisa uus...", value: "newLecturer" }];
+      const teachers = [{ label: "Lisa uus...", value: "newTeacher" }];
 
       for (const key in teacherResponse.teachers) {
         teachers.push({
@@ -159,7 +159,7 @@ const ScheduleAddition = (props) => {
           value: teacherResponse.teachers[key].id,
         });
       }
-      setLecturerData(teachers);
+      setTeacherData(teachers);
     }
   }, [teacherLoading, teacherResponse]);
 
@@ -195,8 +195,8 @@ const ScheduleAddition = (props) => {
     workCourseData();
   }, [workCourseData, courseResponse]);
   useEffect(() => {
-    workLecturerData();
-  }, [workLecturerData, teacherResponse]);
+    workTeacherData();
+  }, [workTeacherData, teacherResponse]);
   useEffect(() => {
     workRoomsData();
   }, [workRoomsData, roomResponse]);
@@ -238,8 +238,8 @@ const ScheduleAddition = (props) => {
   };
 
   const dropdownHandler = (dropDownValue) => {
-    const hasLecturers =
-      dropDownValue.filter((value) => value.teacherId === "newLecturer")
+    const hasTeachers =
+      dropDownValue.filter((value) => value.teacherId === "newTeacher")
         .length > 0;
     const hasCourses =
       dropDownValue.filter((value) => value.courseId === "newCourse").length >
@@ -252,7 +252,7 @@ const ScheduleAddition = (props) => {
       setModalContent("subjects");
       return;
     }
-    if (hasLecturers) {
+    if (hasTeachers) {
       setShowAddModal(true);
       setModalContent("teachers");
       return;

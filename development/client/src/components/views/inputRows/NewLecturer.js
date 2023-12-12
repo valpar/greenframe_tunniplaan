@@ -3,9 +3,9 @@ import { useState } from "react";
 import { InputOverlappingLabel } from "../../UI/Input/InputOverlappingLabel";
 import content from "../../../assets/content/content.json";
 
-const NewLecturer = (props) => {
+const NewTeacher = (props) => {
   const { onChange, index } = props;
-  const [enteredLecturerData, setEnteredLecturerData] = useState({
+  const [enteredTeacherData, setEnteredTeacherData] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -25,7 +25,7 @@ const NewLecturer = (props) => {
           ? { firstName: e.firstName, lastName: e.lastName, email: e.email }
           : false;
       })[0];
-      setEnteredLecturerData(teacherData);
+      setEnteredTeacherData(teacherData);
       if (!teacherData.email) {
         return setErrorMessages({
           firstName: null,
@@ -57,7 +57,7 @@ const NewLecturer = (props) => {
         : setErrorMessages((prevState) => {
             return { ...prevState, firstName: null };
           });
-      setEnteredLecturerData((prevState) => {
+      setEnteredTeacherData((prevState) => {
         return { ...prevState, firstName: value.value };
       });
     }
@@ -72,7 +72,7 @@ const NewLecturer = (props) => {
         : setErrorMessages((prevState) => {
             return { ...prevState, lastName: null };
           });
-      setEnteredLecturerData((prevState) => {
+      setEnteredTeacherData((prevState) => {
         return { ...prevState, lastName: value.value };
       });
     }
@@ -84,7 +84,7 @@ const NewLecturer = (props) => {
       const emailExists =
         props.teacherData.teachers.filter((e) => e.email === value.value)
           .length > 0;
-      setEnteredLecturerData((prevState) => {
+      setEnteredTeacherData((prevState) => {
         return { ...prevState, email: value.value };
       });
 
@@ -138,11 +138,11 @@ const NewLecturer = (props) => {
       errorMessage.lastName === null &&
       errorMessage.email === null
     ) {
-      onChange(enteredLecturerData, index, true);
+      onChange(enteredTeacherData, index, true);
       return;
     }
-    onChange(enteredLecturerData, index, false);
-  }, [enteredLecturerData, errorMessage]);
+    onChange(enteredTeacherData, index, false);
+  }, [enteredTeacherData, errorMessage]);
   return (
     <div className="flex flex-col items-center mb-2 lg:min-w-[41rem]">
       {index === 0 && (
@@ -198,4 +198,4 @@ const NewLecturer = (props) => {
   );
 };
 
-export default NewLecturer;
+export default NewTeacher;
