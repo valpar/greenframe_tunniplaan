@@ -6,7 +6,8 @@ import jwtService from '../../components/general/services/jwtService';
 import IUser from '../../components/users/interfaces';
 
 let adminToken: string;
-// let scheduleId: number;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let scheduleId: number; // tegelikult kasutatakse seda, eslint arvab, et ei kasutata
 
 describe('Schedule Controller', () => {
   before(async () => {
