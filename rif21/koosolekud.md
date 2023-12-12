@@ -1,4 +1,9 @@
 # Koosolekud
+## 09.12.23 (11.00-11.50)
+ -Koosolekul arutasime: middleware isadmin, isloggedin, server errorid, eslint extension, homework, teachers vs lecturers
+- Andrus tegelenud siiamaani automaatse deploy uurimisega, Mario API testidega, lõime ka issued asjade kohta, millega tegeleme.
+- -Otsustasime ümber nimetada "lecturer" ja kasutada "teacher", sest userAPI kasutab ka sama ja siis on ühtlasem üle organisatsiooni.
+-  Kõigile mitte-get endpointidele panen autoriseerimise middleware vahele.
 ## 29.10.23 
 - kuidas läinud on, millised probleemid?
 - sisselogimine ja kasutajate haldus lahtine
