@@ -49,9 +49,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `scheduleDb`.`lecturers`
+-- Table `scheduleDb`.`teachers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `scheduleDb`.`lecturers` (
+CREATE TABLE IF NOT EXISTS `scheduleDb`.`teachers` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(45) NOT NULL,
   `lastName` VARCHAR(45) NOT NULL,
@@ -139,12 +139,12 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `scheduleDb`.`scheduled_has_lecturers`
+-- Table `scheduleDb`.`scheduled_has_teachers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled_has_lecturers` (
+CREATE TABLE IF NOT EXISTS `scheduleDb`.`scheduled_has_teachers` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `schedule_id` INT NOT NULL,
-  `lecturers_id` INT NULL,
+  `teachers_id` INT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

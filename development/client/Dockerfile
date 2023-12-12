@@ -6,7 +6,8 @@ COPY package*.json ./
 
 COPY . .
 
-RUN npm ci
+## npm ci hakkas errorit andma, muutsin npm i
+RUN npm i
 
 RUN npm run build
 

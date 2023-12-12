@@ -1,6 +1,6 @@
 export const Spinner = (props) => {
   return (
-    <div className={`flex justify-center ${props.containerStyle}`}>
+    <div data-testid="spinner" className={`flex justify-center ${props.containerStyle}`}>
       <div role="status">
         <svg
           aria-hidden="true"

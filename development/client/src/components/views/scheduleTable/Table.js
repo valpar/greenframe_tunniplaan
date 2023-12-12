@@ -59,7 +59,7 @@ const Table = (props) => {
               )}
               <TableRow
                 admin={props.admin}
-                userLecturer={props.userLecturer}
+                userTeacher={props.userTeacher}
                 rawData={props.rawData}
                 data={data}
                 key={item.id}

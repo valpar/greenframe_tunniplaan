@@ -26,7 +26,7 @@ const isValidUrl = (urlString) => {
 axios.defaults.baseURL = `${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`;
 
 const TableSubjectInfo = (props) => {
-  const {admin, userLecturer} = props;
+  const {admin, userTeacher} = props;
 
   const [homework, setHomework] = useState([]);
   const [editMode, setEditMode] = useState(false);
@@ -71,7 +71,7 @@ const TableSubjectInfo = (props) => {
   const [showNotValidTooltip, setShowNotValidTooltip] = useState(false);
 
   useEffect(() => {
-    if(!admin && !userLecturer) {
+    if(!admin && !userTeacher) {
       setEditMode(false);
     }
   })
@@ -459,7 +459,7 @@ const TableSubjectInfo = (props) => {
               </h6>
             </div>
             <div className="absolute right-2 top-2 space-x-4 px-2">
-              {(props.userLecturer || props.admin) && !editMode && (
+              {(props.userTeacher || props.admin) && !editMode && (
                 <i
                   onClick={editInfoHandler}
                   className="bi bi-pencil-fill cursor-pointer text-2xl lg:text-xl"

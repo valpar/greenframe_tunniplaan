@@ -24,6 +24,7 @@ const Backdrop = (props) => {
 const ModalOverlay = (props) => {
   return (
     <div
+      data-testid="modal-overlay"
       className={`${
         props.onHidden ? "animate-slideRight" : "animate-slideRightOff"
       } fixed top-20 w-full h-full left-1/2 -translate-x-1/2 bg-white z-30 shadow-lg`}

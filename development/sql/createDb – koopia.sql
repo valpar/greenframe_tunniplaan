@@ -49,9 +49,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `scheduleDb`.`lecturers`
+-- Table `scheduleDb`.`teachers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `scheduleDb`.`lecturers` (
+CREATE TABLE IF NOT EXISTS `scheduleDb`.`teachers` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(45) NOT NULL,
   `lastName` VARCHAR(45) NOT NULL,
@@ -124,20 +124,20 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `scheduleDb`.`lecturers_has_subjects`
+-- Table `scheduleDb`.`teachers_has_subjects`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `scheduleDb`.`lecturers_has_subjects` (
-  `lecturers_id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `scheduleDb`.`teachers_has_subjects` (
+  `teachers_id` INT NOT NULL,
   `subjects_id` INT NOT NULL,
-  PRIMARY KEY (`lecturers_id`, `subjects_id`),
-  INDEX `fk_lecturers_has_subjects_subjects1_idx` (`subjects_id` ASC) VISIBLE,
-  INDEX `fk_lecturers_has_subjects_lecturers1_idx` (`lecturers_id` ASC) VISIBLE,
-  CONSTRAINT `fk_lecturers_has_subjects_lecturers1`
-    FOREIGN KEY (`lecturers_id`)
-    REFERENCES `scheduleDb`.`lecturers` (`id`)
+  PRIMARY KEY (`teachers_id`, `subjects_id`),
+  INDEX `fk_teachers_has_subjects_subjects1_idx` (`subjects_id` ASC) VISIBLE,
+  INDEX `fk_teachers_has_subjects_teachers1_idx` (`teachers_id` ASC) VISIBLE,
+  CONSTRAINT `fk_teachers_has_subjects_teachers1`
+    FOREIGN KEY (`teachers_id`)
+    REFERENCES `scheduleDb`.`teachers` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_lecturers_has_subjects_subjects1`
+  CONSTRAINT `fk_teachers_has_subjects_subjects1`
     FOREIGN KEY (`subjects_id`)
     REFERENCES `scheduleDb`.`subjects` (`id`)
     ON DELETE NO ACTION

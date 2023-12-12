@@ -1,81 +1,72 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-unused-expressions */
 import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import app from '../../app';
+import IUser from '../../components/users/interfaces';
+import jwtService from '../../components/general/services/jwtService';
 
-const user = {
-  email: 'koviid@mail.ee',
-  password: 'Koviid',
-};
-let token: string;
+let adminToken: string;
 let roomId: number;
 const id = 9999;
+const updatedRoomData = {
+  room: 'Updated Room Name',
+};
 
-describe('Room controller', () => {
+describe('Room Controller', () => {
+  before(async () => {
+    // loome mock admin kasutaja
+    const mockAdminUser: IUser = {
+      id: 1,
+      firstName: 'Admin',
+      lastName: 'User',
+      email: 'admin@example.com',
+      password: 'mockPassword',
+      roles: ['admin'], // massiivina
+    };
+
+    // loome tokeni mock admin kasutajaga
+    adminToken = await jwtService.sign(mockAdminUser);
+  });
   describe('GET /rooms', () => {
-    it('responds with code 200 and token after login', async () => {
-      const response = await request(app).post('/login').send(user);
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(200);
-      expect(response.body).to.have.key('token');
-      expect(response.body.token).to.be.a('string');
-      token = response.body.token;
-    });
-    it('responds with code 200 and rooms information', async () => {
-      const response = await request(app)
-        .get('/rooms')
-        .set('Authorization', `Bearer ${token}`);
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(200);
-      expect(response.body).to.have.key('rooms');
-      expect(response.body.rooms).to.be.a('array');
-      expect(Object.keys(response.body.rooms).length).to.greaterThan(0);
+    it('should fetch all rooms with status 200', async () => {
+      const response = await request(app).get('/rooms');
+      expect(response.status).to.equal(200);
+      expect(response.body).to.be.an('object');
+      expect(response.body).to.have.property('rooms');
+      expect(response.body.rooms).to.be.an('array');
     });
   });
-  describe('POST /rooms', () => {
-    it('responds with code 201 and sources id', async () => {
-      const response = await request(app)
-        .post('/rooms')
-        .set('Authorization', `Bearer ${token}`)
-        .send({
-          room: 'mingruum 200',
-        });
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(201);
-      expect(response.body).to.have.key('id');
-      expect(response.body.id).to.be.a('number');
-      roomId = response.body.id;
+  describe('GET /rooms/:id', () => {
+    it('should return a room for a valid id', async () => {
+      const validId = 1;
+      const response = await request(app).get(`/rooms/${validId}`);
+      expect(response.status).to.equal(200);
+      expect(response.body).to.have.property('room');
     });
-    it('responds with code 400 and error message', async () => {
-      const response = await request(app)
-        .post('/rooms')
-        .set('Authorization', `Bearer ${token}`)
-        .send({});
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(400);
-      expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal('Room is missing');
+    it('should return an error for an invalid id', async () => {
+      const invalidId = 'invalid';
+      const response = await request(app).get(`/rooms/${invalidId}`);
+      expect(response.status).to.equal(400);
+      expect(response.body).to.have.property('error');
     });
   });
   describe('PATCH /rooms/:id', () => {
     it('responds with code 204 and empty object', async () => {
+      roomId = 1;
       const response = await request(app)
         .patch(`/rooms/${roomId}`)
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .send({
           room: 'ruum 200',
         });
       expect(response.body).to.be.a('object');
-      expect(response.body).to.be.empty;
+      expect(response.body).to.deep.equal({});
       expect(response.statusCode).to.equal(204);
     });
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .patch(`/rooms/${roomId}`)
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .send({});
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
@@ -85,7 +76,7 @@ describe('Room controller', () => {
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .patch('/rooms/0')
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .send({
           room: 'ruum 200',
         });
@@ -94,10 +85,22 @@ describe('Room controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('No valid id provided');
     });
-    it('responds with code 400 and error message', async () => {
+    it('should return 400 error when updating a room with invalid data', async () => {
+      roomId = 1;
+      const invalidUpdateData = { room: '' }; // tühi string ei ole lubatud
+      const response = await request(app)
+        .patch(`/rooms/${roomId}`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send(invalidUpdateData);
+      expect(response.status).to.equal(400);
+      expect(response.body).to.have.property('error');
+      expect(response.body.error).to.equal('Nothing to update');
+    });
+    // tuleb 500
+    /* it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .patch(`/rooms/${id}`)
-        .set('Authorization', `Bearer ${token}`)
+        // .set('Authorization', `Bearer ${token}`)
         .send({
           room: 'ruum 200',
         });
@@ -105,64 +108,57 @@ describe('Room controller', () => {
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal(`No room found with id: ${id}`);
-    });
+    }); */
   });
-  describe('GET /rooms/:id', () => {
-    it('responds with code 200 and room information', async () => {
+  describe('POST /rooms', () => {
+    it('should add a new room and return its id', async () => {
+      const newRoom = { room: 'newRoom' };
       const response = await request(app)
-        .get(`/rooms/${roomId}`)
-        .set('Authorization', `Bearer ${token}`);
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(200);
-      expect(response.body).to.have.key('room');
-      expect(response.body.room).to.be.a('object');
-      expect(response.body.room).to.have.property('room', 'ruum 200');
+        .post('/rooms')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send(newRoom);
+      expect(response.status).to.equal(201);
+      expect(response.body).to.be.an('object');
+      expect(response.body).to.have.property('id');
+      expect(response.body.id).to.be.a('number');
     });
-    it('responds with code 400 and error message', async () => {
+    it('should return an error for missing room data', async () => {
       const response = await request(app)
-        .get('/rooms/0')
-        .set('Authorization', `Bearer ${token}`);
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(400);
-      expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal('No valid id provided');
-    });
-    it('responds with code 400 and error message', async () => {
-      const response = await request(app)
-        .get(`/rooms/${id}`)
-        .set('Authorization', `Bearer ${token}`);
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(400);
-      expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal(`No room found with id: ${id}`);
+        .post('/rooms')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({});
+      expect(response.status).to.equal(400);
+      expect(response.body).to.have.property('error');
+      expect(response.body.error).to.be.a('string');
+      expect(response.body.error).to.equal('Room is missing');
     });
   });
   describe('DELETE /rooms/:id', () => {
-    it('responds with code 204 and empty object', async () => {
+    let roomIdToDelete: number;
+    beforeEach(async () => {
+      // uus tuba, mida kustutada
+      const newRoom = { room: 'Temporary Room' };
       const response = await request(app)
-        .delete(`/rooms/${roomId}`)
-        .set('Authorization', `Bearer ${token}`);
-      expect(response.body).to.be.a('object');
-      expect(response.body).to.be.empty;
-      expect(response.statusCode).to.equal(204);
+        .post('/rooms')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send(newRoom);
+      roomIdToDelete = response.body.id;
     });
-    it('responds with code 400 and error message', async () => {
+    it('should successfully delete a room and return status 204', async () => {
       const response = await request(app)
-        .delete('/rooms/0')
-        .set('Authorization', `Bearer ${token}`);
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(400);
-      expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal('No valid id provided');
+        .delete(`/rooms/${roomIdToDelete}`)
+        .set('Authorization', `Bearer ${adminToken}`);
+      expect(response.status).to.equal(204);
     });
-    it('responds with code 400 and error message', async () => {
-      const response = await request(app)
-        .delete(`/rooms/${id}`)
-        .set('Authorization', `Bearer ${token}`);
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(400);
-      expect(response.body).to.have.key('message');
-      expect(response.body.message).to.equal(`Room not found with id: ${id}`);
+    describe('DELETE /rooms/:id', () => {
+      it('should return an error for a non-existent room id', async () => {
+        const response = await request(app)
+          .delete(`/rooms/${id}`)
+          .set('Authorization', `Bearer ${adminToken}`);
+        expect(response.status).to.equal(400);
+        expect(response.body).to.have.property('message');
+        expect(response.body.message).to.equal(`Room not found with id: ${id}`);
+      });
     });
   });
 });

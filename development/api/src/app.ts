@@ -1,7 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-
 
 import express, {
   Request, Response, Application, NextFunction,
@@ -11,7 +8,7 @@ import cors from 'cors';
 import openapi from './openapi.json';
 import authController from './components/auth/controller';
 import userController from './components/users/controller';
-import lecturerController from './components/lector/controller';
+import teacherController from './components/teacher/controller';
 import subjectController from './components/subjects/controller';
 import courseController from './components/course/controller';
 import roomController from './components/room/controller';
@@ -59,75 +56,80 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 // Login
 
 // User endpoints
-app.post('/users', checkAlphabet, userController.addUser);
+// app.post('/users', checkAlphabet, userController.addUser);
 // login middelware from this point
 // app.use(isLoggedIn);
 // isAdmin,
 //-------
 // app.get("/users", isAdmin, userController.getAllUsers);
-app.get('/users', userController.getAllUsers);
+
+// users on vana lahendus
+/* app.get('/users', userController.getAllUsers);
 app.get('/users/:id', userController.getUserById);
 app.delete('/users/:id', userController.deleteUser);
 app.patch('/users/:id', userController.updateUserById);
-app.patch('/users/updatePassword/:id', isLoggedIn, userController.updatePassword);
+app.patch('/users/updatePassword/:id', isLoggedIn, userController.updatePassword); */
 // app.patch("/users/:id", checkAlphabet, userController.updateUserById);
 
 app.post('/googleauth', authController.googleAuth);
-
 // Schedule endpoints
 app.get('/schedule/', scheduleController.getEntireSchedule);
 app.get('/schedule/:atDate', scheduleController.getEntireSchedule);
 app.get('/schedule/:atDate/:toDate', scheduleController.getEntireSchedule);
-app.post('/schedule', scheduleController.createSchedule);
-app.patch('/schedule/:id', scheduleController.updateSchedule);
-app.delete('/schedule/:id', scheduleController.deleteSchedule);
-app.get('/gcal/:atDate/:toDate/:courseId/:lecturerId', scheduleController.getgcal);
+app.post('/schedule', isLoggedIn, isAdmin, scheduleController.createSchedule);
+app.patch('/schedule/:id', isLoggedIn, isAdmin, scheduleController.updateSchedule);
+app.delete('/schedule/:id', isLoggedIn, isAdmin, scheduleController.deleteSchedule);
+app.get('/gcal/:atDate/:toDate/:courseId/:teacherId', scheduleController.getgcal);
 
-// Lecturer endpoints
-app.get('/lecturers', lecturerController.getAllLecturersById);
-app.get('/lecturers/activeSubjects', lecturerController.getLecturersSubjects);
-app.get('/lecturers/:id', lecturerController.getLecturerById);
-app.post('/lecturers', checkAlphabet, lecturerController.addLecturer);
+// Teacher endpoints
+app.get('/teachers', teacherController.getAllTeachersById);
+app.get('/teachers/activeSubjects', teacherController.getTeachersSubjects);
+app.get('/teachers/:id', teacherController.getTeacherById);
+app.post('/teachers', checkAlphabet, isLoggedIn, isAdmin, teacherController.addTeacher);
 app.delete(
-  '/lecturers/:id',
-  lecturerController.deleteLecturerWhenNoSubjectsById,
+  '/teachers/:id',
+  isLoggedIn,
+  isAdmin,
+  teacherController.deleteTeacherWhenNoSubjectsById,
 );
 app.patch(
-  '/lecturers/:id',
+  '/teachers/:id',
   checkAlphabet,
-  lecturerController.updateLecturerById,
+  isLoggedIn,
+  isAdmin,
+  teacherController.updateTeacherById,
 );
 
 // Subjects endpoints
 app.get('/subjects', subjectController.getAllSubjects);
 app.get('/subjects/:id', subjectController.getSubjectById);
-app.post('/subjects', subjectController.addSubject);
-app.delete('/subjects/:id', subjectController.deleteSubject);
-app.patch('/subjects/:id', subjectController.updateSubjectById);
+app.post('/subjects', /* checkAlphabetAndNumber, */ isLoggedIn, isAdmin, subjectController.addSubject);
+app.delete('/subjects/:id', isLoggedIn, isAdmin, subjectController.deleteSubject);
+app.patch('/subjects/:id', isLoggedIn, isAdmin, subjectController.updateSubjectById);
 
 // Course endpoints
 
 app.get('/courses', courseController.getAllCourses);
 app.get('/courses/:id', courseController.getCourseById);
-app.post('/courses', courseController.addCourse);
-app.delete('/courses/:id', courseController.deleteCourse);
-app.patch('/courses/:id', courseController.updateCourseById);
+app.post('/courses', isLoggedIn, isAdmin, courseController.addCourse);
+app.delete('/courses/:id', isLoggedIn, isAdmin, courseController.deleteCourse);
+app.patch('/courses/:id', isLoggedIn, isAdmin, courseController.updateCourseById);
 
 // Room endpoints
 
 app.get('/rooms', roomController.getAllRooms);
 app.get('/rooms/:id', roomController.getRoomById);
-app.post('/rooms', roomController.addRoom);
-app.delete('/rooms/:id', roomController.deleteRoom);
-app.patch('/rooms/:id', roomController.updateRoomById);
+app.post('/rooms', isLoggedIn, isAdmin, roomController.addRoom);
+app.delete('/rooms/:id', isLoggedIn, isAdmin, roomController.deleteRoom);
+app.patch('/rooms/:id', isLoggedIn, isAdmin, roomController.updateRoomById);
 
 // homework
 
 app.get('/homeworks', homeworkController.getAllHomeworks);
 app.get('/homeworks/:id', homeworkController.getHomeworkById);
-app.post('/homeworks', homeworkController.addHomework);
-app.delete('/homeworks/:id', homeworkController.deleteHomework);
-app.patch('/homeworks/:id', homeworkController.updateHomeworkById);
+app.post('/homeworks', isLoggedIn, isAdmin, homeworkController.addHomework);
+app.delete('/homeworks/:id', isLoggedIn, isAdmin, homeworkController.deleteHomework);
+app.patch('/homeworks/:id', isLoggedIn, isAdmin, homeworkController.updateHomeworkById);
 
 app.get('/homeworkbycode/:code/:actualDate', homeworkController.getHomeworkByCode);
 

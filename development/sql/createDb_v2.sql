@@ -53,11 +53,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `schedule`.`lecturers`
+-- Table `schedule`.`teachers`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `schedule`.`lecturers` ;
+DROP TABLE IF EXISTS `schedule`.`teachers` ;
 
-CREATE TABLE IF NOT EXISTS `schedule`.`lecturers` (
+CREATE TABLE IF NOT EXISTS `schedule`.`teachers` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(45) NOT NULL,
   `lastName` VARCHAR(45) NOT NULL,
@@ -136,22 +136,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `schedule`.`lecturers_has_subjects`
+-- Table `schedule`.`teachers_has_subjects`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `schedule`.`lecturers_has_subjects` ;
+DROP TABLE IF EXISTS `schedule`.`teachers_has_subjects` ;
 
-CREATE TABLE IF NOT EXISTS `schedule`.`lecturers_has_subjects` (
-  `lecturers_id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `schedule`.`teachers_has_subjects` (
+  `teachers_id` INT NOT NULL,
   `subjects_id` INT NOT NULL,
-  PRIMARY KEY (`lecturers_id`, `subjects_id`),
-  INDEX `fk_lecturers_has_subjects_subjects1_idx` (`subjects_id` ASC) VISIBLE,
-  INDEX `fk_lecturers_has_subjects_lecturers1_idx` (`lecturers_id` ASC) VISIBLE,
-  CONSTRAINT `fk_lecturers_has_subjects_lecturers1`
-    FOREIGN KEY (`lecturers_id`)
-    REFERENCES `schedule`.`lecturers` (`id`)
+  PRIMARY KEY (`teachers_id`, `subjects_id`),
+  INDEX `fk_teachers_has_subjects_subjects1_idx` (`subjects_id` ASC) VISIBLE,
+  INDEX `fk_teachers_has_subjects_teachers1_idx` (`teachers_id` ASC) VISIBLE,
+  CONSTRAINT `fk_teachers_has_subjects_teachers1`
+    FOREIGN KEY (`teachers_id`)
+    REFERENCES `schedule`.`teachers` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_lecturers_has_subjects_subjects1`
+  CONSTRAINT `fk_teachers_has_subjects_subjects1`
     FOREIGN KEY (`subjects_id`)
     REFERENCES `schedule`.`subjects` (`id`)
     ON DELETE NO ACTION

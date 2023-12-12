@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { FieldPacket, ResultSetHeader } from 'mysql2';
 import pool from '../../database';
 import ICourse from './interface';
@@ -66,6 +64,7 @@ const courseService = {
         }
         return false;
       } catch (error) {
+        console.error(error);
         return false;
       }
     },

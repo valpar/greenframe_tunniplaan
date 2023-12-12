@@ -6,7 +6,7 @@ import CalendarInput from "../UI/Calendar/CalendarInput";
 const ScheduleFilters = (props) => {
   const { onPassingFilters, onEmptyFilters } = props;
   const [courseData, setCourseData] = useState([]);
-  const [lecturerData, setLecturerData] = useState([]);
+  const [teacherData, setTeacherData] = useState([]);
   const [roomsData, setRoomsData] = useState([]);
   const [subjectsData, setSubjectsData] = useState([]);
   const [isReset, setIsReset] = useState(false);
@@ -19,7 +19,7 @@ const ScheduleFilters = (props) => {
     return tmp ? JSON.parse(tmp) : undefined;
   });
 
-  const [lecturerFilterDefValue, setLecturerFilterDefValue] = useState();
+  const [teacherFilterDefValue, setTeacherFilterDefValue] = useState();
   const [roomFilterDefValue, setRoomFilterDefValue] = useState();
   const [subjectFilterDefValue, setSubjectFilterDefValue] = useState();
 
@@ -29,10 +29,10 @@ const ScheduleFilters = (props) => {
     error: courseError,
   } = useAxios({ method: "get", url: "/courses" });
   const {
-    response: lecturerResponse,
-    isLoading: lecturerLoading,
-    error: lecturerError,
-  } = useAxios({ method: "get", url: "/lecturers" });
+    response: teacherResponse,
+    isLoading: teacherLoading,
+    error: teacherError,
+  } = useAxios({ method: "get", url: "/teachers" });
   const {
     response: roomResponse,
     isLoading: roomLoading,
@@ -58,25 +58,25 @@ const ScheduleFilters = (props) => {
     }
   }, [courseLoading, courseResponse]);
 
-  const workLecturerData = useCallback(() => {
-    if (!lecturerLoading && lecturerResponse !== undefined) {
-      const lecturers = [];
+  const workTeacherData = useCallback(() => {
+    if (!teacherLoading && teacherResponse !== undefined) {
+      const teachers = [];
 
-      for (const key in lecturerResponse.lecturers) {
-        lecturers.push({
+      for (const key in teacherResponse.teachers) {
+        teachers.push({
           label:
-            lecturerResponse.lecturers[key].firstName +
+            teacherResponse.teachers[key].firstName +
             " " +
-            lecturerResponse.lecturers[key].lastName,
+            teacherResponse.teachers[key].lastName,
           value:
-            lecturerResponse.lecturers[key].firstName +
+            teacherResponse.teachers[key].firstName +
             " " +
-            lecturerResponse.lecturers[key].lastName,
+            teacherResponse.teachers[key].lastName,
         });
       }
-      setLecturerData(lecturers);
+      setTeacherData(teachers);
     }
-  }, [lecturerLoading, lecturerResponse]);
+  }, [teacherLoading, teacherResponse]);
 
   const workRoomsData = useCallback(() => {
     if (!roomLoading && roomResponse !== undefined) {
@@ -110,8 +110,8 @@ const ScheduleFilters = (props) => {
     workCourseData();
   }, [workCourseData, courseResponse]);
   useEffect(() => {
-    workLecturerData();
-  }, [workLecturerData, lecturerResponse]);
+    workTeacherData();
+  }, [workTeacherData, teacherResponse]);
   useEffect(() => {
     workRoomsData();
   }, [workRoomsData, roomResponse]);
@@ -165,10 +165,10 @@ const ScheduleFilters = (props) => {
         <SearchDropdown
           reset={isReset}
           onChange={filtersHandler}
-          defValue={lecturerFilterDefValue}
-          options={lecturerData}
+          defValue={teacherFilterDefValue}
+          options={teacherData}
           label="Õppejõud"
-          name="lecturer"
+          name="teacher"
           isMulti={true}
           isRemembered={true}
         />

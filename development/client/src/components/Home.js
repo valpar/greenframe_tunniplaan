@@ -99,7 +99,7 @@ const Home = () => {
     if (
       obj[0].value === "courseCode" ||
       obj[0].value === "subject" ||
-      obj[0].value === "lecturer" ||
+      obj[0].value === "teacher" ||
       obj[0].value === "room"
     ) {
       return [...data.filter((e) => e[obj[0].value] === undefined)];
@@ -110,7 +110,7 @@ const Home = () => {
   const scheduleFilter = (filterObj, rawData, type) => {
     let filterType;
     if (type === "courses") filterType = "courseCode";
-    else if (type === "lecturers") filterType = "lecturer";
+    else if (type === "teachers") filterType = "teacher";
     else if (type === "rooms") filterType = "room";
     else {
       filterType = type;
@@ -133,12 +133,12 @@ const Home = () => {
         );
       }
     }
-    if (type === "lecturers") {
+    if (type === "teachers") {
       for (let i = 0; i < objectValues.length; i++) {
         filteredeData.push(
           ...rawData.filter((e) => {
-            if (e.lecturers) {
-              let fullName = e.lecturers.map(
+            if (e.teachers) {
+              let fullName = e.teachers.map(
                 (e) => `${e.firstName} ${e.lastName}`
               );
               return fullName.some((el) => el === objectValues[i]);
@@ -221,7 +221,7 @@ const Home = () => {
     const hasStartTime = dropdownsSelection.find((o) => o.startTime);
     const hasCourse = dropdownsSelection.find((o) => o.courseCode);
     const hasSubject = dropdownsSelection.find((o) => o.subject);
-    const hasLecturer = dropdownsSelection.find((o) => o.lecturer);
+    const hasTeacher = dropdownsSelection.find((o) => o.teacher);
     const hasRoom = dropdownsSelection.find((o) => o.room);
     if (hasCourse) {
       setFilteredData([...scheduleFilter(dropdownsSelection, data, "courses")]);
@@ -237,13 +237,13 @@ const Home = () => {
         ];
       });
     }
-    if (hasLecturer) {
+    if (hasTeacher) {
       setFilteredData((prevState) => {
         return [
           ...scheduleFilter(
             dropdownsSelection,
             hasCourse || hasSubject ? prevState : data,
-            "lecturers"
+            "teachers"
           ),
         ];
       });
@@ -253,7 +253,7 @@ const Home = () => {
         return [
           ...scheduleFilter(
             dropdownsSelection,
-            hasCourse || hasLecturer || hasSubject ? prevState : data,
+            hasCourse || hasTeacher || hasSubject ? prevState : data,
             "rooms"
           ),
         ];
@@ -264,7 +264,7 @@ const Home = () => {
         return [
           ...scheduleFilter(
             dropdownsSelection,
-            hasCourse || hasLecturer || hasSubject || hasRoom
+            hasCourse || hasTeacher || hasSubject || hasRoom
               ? prevState
               : data,
             "startTime"
@@ -390,7 +390,7 @@ const Home = () => {
   };
   // const userPicture = admin
   //   ? "https://images.pexels.com/photos/3790811/pexels-photo-3790811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  //   : userLecturer
+  //   : userTeacher
   //   ? "https://images.pexels.com/photos/4342401/pexels-photo-4342401.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   //   : userStudent
   //   ? "https://images.pexels.com/photos/13180055/pexels-photo-13180055.jpeg?auto=compress&cs=tinysrgb&w=1600"

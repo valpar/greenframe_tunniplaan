@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MobileMenu matches snapshot 1`] = `
+<div
+  className="animate-slideRightOff fixed top-20 w-full h-full left-1/2 -translate-x-1/2 bg-white z-30 shadow-lg"
+  data-testid="modal-overlay"
+>
+  <div
+    className="absolute hidden justify-center items-center w-full h-full bg-neutral-900 opacity-70 z-30"
+  />
+  <div
+    className="p-4"
+  >
+    <div>
+      <div
+        className="flex flex-col"
+      >
+        <div
+          className="px-4 pt-8"
+        >
+          <div
+            className="flex flex-col space-y-8 w-full pb-10"
+          >
+            <div
+              className="mx-auto w-24 h-24"
+            >
+              <img
+                alt="User"
+                className="w-full h-full rounded-full object-cover
+ "
+              />
+            </div>
+            <p
+              className="uppercase text-center"
+            />
+            <button
+              className="btn-m-menu"
+              name="Login Google"
+              type="button"
+            />
+            <a
+              className="btn-m-menu text-center"
+              href="https://start.hk.tlu.ee/sahtelbeta/sahtel/index.php"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Sahtel
+            </a>
+            <a
+              className="btn-m-menu text-center"
+              href="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Riiul
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

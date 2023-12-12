@@ -25,9 +25,9 @@ const TableBody = (props) => {
   const extraInfoHandler = () => {
     setShowInfo((prevState) => (prevState = !prevState));
   };
-  const joinLecturers = (item) => {
-    if (item.lecturers)
-      return item.lecturers
+  const joinTeachers = (item) => {
+    if (item.teachers)
+      return item.teachers
         .map((e) => `${e.firstName} ${e.lastName}`)
         .join(" ");
     return "";
@@ -84,7 +84,7 @@ const TableBody = (props) => {
         </td>
 
         <td className="p-1 w-full md:p-2 xsmm:w-40 sm:w-60 xl:w-80 text-left">
-          {joinLecturers(props.item)}
+          {joinTeachers(props.item)}
         </td>
         
         <td className="p-1 md:p-2 w-fit md:w-48">
@@ -143,7 +143,7 @@ const TableBody = (props) => {
       {showInfo && (
         <TableSubjectInfo
           admin={props.admin}
-          userLecturer={props.userLecturer}
+          userTeacher={props.userTeacher}
           onClick={extraInfoHandler}
           item={props.item}
           data={props.data}

@@ -22,7 +22,7 @@ const ScheduleAddition = (props) => {
   } = props;
 
   const [courseData, setCourseData] = useState([]);
-  const [lecturerData, setLecturerData] = useState([]);
+  const [teacherData, setTeacherData] = useState([]);
   const [roomsData, setRoomsData] = useState([]);
   const [subjectsData, setSubjectsData] = useState([]);
   const [newOccurence, setNewOccurence] = useState([
@@ -37,12 +37,12 @@ const ScheduleAddition = (props) => {
       rooms: "",
       courses: "",
       subjectId: null,
-      lecturers: "",
+      teachers: "",
       distanceLink: "",
     },
   ]);
 
-  const { lecturerOccupiedMessage, roomOccupiedMessage, deleteMessage } =
+  const { teacherOccupiedMessage, roomOccupiedMessage, deleteMessage } =
     content.confirmModalMessages;
   const { mandatoryField } = content.errorMessages;
 
@@ -64,12 +64,12 @@ const ScheduleAddition = (props) => {
                 })
               : editData?.courses,
           subjectId: editData?.subject.id,
-          lecturers:
-            editData?.lecturers !== ""
-              ? editData?.lecturers?.map((e) => {
-                  return { lecturerId: e.lecturerId };
+          teachers:
+            editData?.teachers !== ""
+              ? editData?.teachers?.map((e) => {
+                  return { teacherId: e.teacherId };
                 })
-              : editData?.lecturers,
+              : editData?.teachers,
           distanceLink: editData?.distanceLink,
         },
       ]);
@@ -89,10 +89,10 @@ const ScheduleAddition = (props) => {
     error: courseError,
   } = useAxios({ method: "get", url: "/courses" }, newDropdownItem);
   const {
-    response: lecturerResponse,
-    isLoading: lecturerLoading,
-    error: lecturerError,
-  } = useAxios({ method: "get", url: "/lecturers" }, newDropdownItem);
+    response: teacherResponse,
+    isLoading: teacherLoading,
+    error: teacherError,
+  } = useAxios({ method: "get", url: "/teachers" }, newDropdownItem);
   const {
     response: roomResponse,
     isLoading: roomLoading,
@@ -146,22 +146,22 @@ const ScheduleAddition = (props) => {
     }
   }, [courseLoading, courseResponse]);
 
-  const workLecturerData = useCallback(() => {
-    if (!lecturerLoading && lecturerResponse !== undefined) {
-      const lecturers = [{ label: "Lisa uus...", value: "newLecturer" }];
+  const workTeacherData = useCallback(() => {
+    if (!teacherLoading && teacherResponse !== undefined) {
+      const teachers = [{ label: "Lisa uus...", value: "newTeacher" }];
 
-      for (const key in lecturerResponse.lecturers) {
-        lecturers.push({
+      for (const key in teacherResponse.teachers) {
+        teachers.push({
           label:
-            lecturerResponse.lecturers[key].firstName +
+            teacherResponse.teachers[key].firstName +
             " " +
-            lecturerResponse.lecturers[key].lastName,
-          value: lecturerResponse.lecturers[key].id,
+            teacherResponse.teachers[key].lastName,
+          value: teacherResponse.teachers[key].id,
         });
       }
-      setLecturerData(lecturers);
+      setTeacherData(teachers);
     }
-  }, [lecturerLoading, lecturerResponse]);
+  }, [teacherLoading, teacherResponse]);
 
   const workRoomsData = useCallback(() => {
     if (!roomLoading && roomResponse !== undefined) {
@@ -195,8 +195,8 @@ const ScheduleAddition = (props) => {
     workCourseData();
   }, [workCourseData, courseResponse]);
   useEffect(() => {
-    workLecturerData();
-  }, [workLecturerData, lecturerResponse]);
+    workTeacherData();
+  }, [workTeacherData, teacherResponse]);
   useEffect(() => {
     workRoomsData();
   }, [workRoomsData, roomResponse]);
@@ -238,8 +238,8 @@ const ScheduleAddition = (props) => {
   };
 
   const dropdownHandler = (dropDownValue) => {
-    const hasLecturers =
-      dropDownValue.filter((value) => value.lecturerId === "newLecturer")
+    const hasTeachers =
+      dropDownValue.filter((value) => value.teacherId === "newTeacher")
         .length > 0;
     const hasCourses =
       dropDownValue.filter((value) => value.courseId === "newCourse").length >
@@ -252,9 +252,9 @@ const ScheduleAddition = (props) => {
       setModalContent("subjects");
       return;
     }
-    if (hasLecturers) {
+    if (hasTeachers) {
       setShowAddModal(true);
-      setModalContent("lecturers");
+      setModalContent("teachers");
       return;
     }
     if (hasCourses) {
@@ -296,12 +296,12 @@ const ScheduleAddition = (props) => {
             dropdown === "subjectId"
               ? dropDownValue[0].subjectId
               : prevState[0].subjectId,
-          lecturers:
-            dropdown === "lecturerId"
+          teachers:
+            dropdown === "teacherId"
               ? dropDownValue
-              : dropDownValue[0].value === "lecturer"
+              : dropDownValue[0].value === "teacher"
               ? ""
-              : prevState[0].lecturers,
+              : prevState[0].teachers,
           comment: prevState[0].comment,
           distanceLink: prevState[0].distanceLink,
         },
@@ -329,13 +329,13 @@ const ScheduleAddition = (props) => {
     });
   };
   useEffect(() => {
-    if ((newOccurence || addedLecture[0].lecturers?.length > 0) && scheduled) {
-      const lecturerOccupied = scheduled.filter((e) => {
-        let lecturer = [];
-        if (e.lecturers && addedLecture[0].lecturers !== "") {
-          lecturer = e.lecturers?.filter((lecturerE) => {
-            let lec = addedLecture[0].lecturers.filter((element) => {
-              return lecturerE.lecturerId === element.lecturerId;
+    if ((newOccurence || addedLecture[0].teachers?.length > 0) && scheduled) {
+      const teacherOccupied = scheduled.filter((e) => {
+        let teacher = [];
+        if (e.teachers && addedLecture[0].teachers !== "") {
+          teacher = e.teachers?.filter((teacherE) => {
+            let lec = addedLecture[0].teachers.filter((element) => {
+              return teacherE.teacherId === element.teacherId;
             });
             return lec.length > 0;
           });
@@ -343,35 +343,35 @@ const ScheduleAddition = (props) => {
 
         for (let i = 0; i < newOccurence.length; i++) {
           if (
-            lecturer.length > 0 &&
+            teacher.length > 0 &&
             e.startTime <= newOccurence[i].startTime &&
             e.endTime > newOccurence[i].startTime
           ) {
             if (
               confirmdValues.filter((e) => {
-                const lecturerArr = lecturer.filter(
-                  (lec) => lec.lecturerId === e
+                const teacherArr = teacher.filter(
+                  (lec) => lec.teacherId === e
                 );
-                return lecturerArr.length > 0 ? e : false;
+                return teacherArr.length > 0 ? e : false;
               }).length > 0
             ) {
               return false;
             }
             setConfirmdValues((prevState) => [
               ...prevState,
-              ...lecturer.map((e) => e.lecturerId),
+              ...teacher.map((e) => e.teacherId),
             ]);
-            setItemToDelete((prevState) => [...prevState, ...lecturer]);
+            setItemToDelete((prevState) => [...prevState, ...teacher]);
             return e;
           }
         }
         return false;
       });
-      if (lecturerOccupied.length > 0 && !editMode) {
+      if (teacherOccupied.length > 0 && !editMode) {
         setShowConfirmModal({
-          type: "lecturer",
+          type: "teacher",
           show: true,
-          message: lecturerOccupiedMessage,
+          message: teacherOccupiedMessage,
         });
       }
     }
@@ -419,7 +419,7 @@ const ScheduleAddition = (props) => {
         });
       }
     }
-  }, [newOccurence, addedLecture[0].lecturers, addedLecture[0].rooms]);
+  }, [newOccurence, addedLecture[0].teachers, addedLecture[0].rooms]);
 
   useEffect(() => {
     const occurenceValidator = validateOccurences(newOccurence);
@@ -511,7 +511,7 @@ const ScheduleAddition = (props) => {
         rooms: "",
         courses: "",
         subjectId: "",
-        lecturers: "",
+        teachers: "",
         distanceLink: "",
       },
     ]);
@@ -603,15 +603,15 @@ const ScheduleAddition = (props) => {
         ];
       });
     }
-    if (type === "lecturer") {
+    if (type === "teacher") {
       setConfirmdValues((prevState) => {
         const newArr = prevState.pop();
         return [...prevState.filter((e) => e !== newArr)];
       });
       setAddedLecture((prevState) => {
         let value = prevState[0][type + "s"];
-        if (prevState[0].lecturers?.length === 1) value = "";
-        if (prevState[0].lecturers?.length > 1) {
+        if (prevState[0].teachers?.length === 1) value = "";
+        if (prevState[0].teachers?.length > 1) {
           value = value.filter((e) => {
             let arr = itemToDelete?.filter(
               (item) => item[type + "Id"] === e[type + "Id"]
@@ -659,7 +659,7 @@ const ScheduleAddition = (props) => {
     setShowAddModal(true);
     if (value.type === "room") setModalContent("rooms");
     if (value.type === "course") setModalContent("courses");
-    if (value.type === "lecturer") setModalContent("lecturers");
+    if (value.type === "teacher") setModalContent("teachers");
     if (value.type === "subject") setModalContent("subjects");
     setEditValues(value.value);
   };
@@ -709,7 +709,7 @@ const ScheduleAddition = (props) => {
           onDelete={deleteItemHandler}
           onClose={closeModalHandler}
           subjectsData={subjectsResponse}
-          lecturerData={lecturerResponse}
+          teacherData={teacherResponse}
           courseData={courseResponse}
           roomsData={roomResponse}
           modalFor={modalContent}
@@ -745,13 +745,13 @@ const ScheduleAddition = (props) => {
           onEdit={editItemHandler}
           onChange={dropdownHandler}
           cssClass="dropdownAddition"
-          options={lecturerData}
+          options={teacherData}
           label="Õppejõud"
-          name="lecturer"
+          name="teacher"
           isMulti={true}
-          value={addedLecture[0].lecturers}
+          value={addedLecture[0].teachers}
           modalMessage={
-            showConfirmModal.type === "lecturer" ? showConfirmModal : null
+            showConfirmModal.type === "teacher" ? showConfirmModal : null
           }
           onConfirm={dropdownConfirmHandler}
           onDecline={dropdownDeclineHandler}

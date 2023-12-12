@@ -1,7 +1,4 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-unused-expressions */
-import request from 'supertest';
+/* import request from 'supertest';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import app from '../../app';
@@ -12,11 +9,11 @@ const user = {
   password: 'Koviid',
 };
 let token: string;
-const lecturerId: number = 1;
+const teacherId: number = 1;
 const id: number = 9999;
 
 // SERVER ERRORS
-// lecturers
+// teachers
 describe('token', () => {
   it('responds with code 200 and token after login', async () => {
     const response = await request(app).post('/login').send(user);
@@ -31,10 +28,10 @@ describe('Server errors', () => {
   before(() => {
     pool.end();
   });
-  describe('GET /lecturers', () => {
+  describe('GET /teachers', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
-        .get('/lecturers')
+        .get('/teachers')
         .set('Authorization', `Bearer ${token}`);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(500);
@@ -42,10 +39,10 @@ describe('Server errors', () => {
       expect(response.body.error).to.equal('Server error');
     });
   });
-  describe('GET /lecturers/:id', () => {
+  describe('GET /teachers/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
-        .get('/lecturers/1')
+        .get('/teachers/1')
         .set('Authorization', `Bearer ${token}`);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(500);
@@ -53,10 +50,10 @@ describe('Server errors', () => {
       expect(response.body.error).to.equal('Server error');
     });
   });
-  describe('POST /lecturers', () => {
+  describe('POST /teachers', () => {
     it('responds with code 500and error message', async () => {
       const response = await request(app)
-        .post('/lecturers')
+        .post('/teachers')
         .set('Authorization', `Bearer ${token}`)
         .send({
           firstName: 'sde',
@@ -68,10 +65,10 @@ describe('Server errors', () => {
       expect(response.body.error).to.equal('Server error');
     });
   });
-  describe('PATCH /lecturers/:id', () => {
+  describe('PATCH /teachers/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
-        .patch(`/lecturers/${lecturerId}`)
+        .patch(`/teachers/${teacherId}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
           firstName: 'Muri',
@@ -83,10 +80,10 @@ describe('Server errors', () => {
       expect(response.body.error).to.equal('Server error');
     });
   });
-  describe('GET /lecturers/activeSubjects', () => {
+  describe('GET /teachers/activeSubjects', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
-        .get('/lecturers/activeSubjects')
+        .get('/teachers/activeSubjects')
         .set('Authorization', `Bearer ${token}`);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(500);
@@ -94,10 +91,10 @@ describe('Server errors', () => {
       expect(response.body.error).to.equal('Server error');
     });
   });
-  describe('DELETE /lecturers/:id', () => {
+  describe('DELETE /teachers/:id', () => {
     it('responds with code 500 and error message', async () => {
       const response = await request(app)
-        .delete(`/lecturers/${id}`)
+        .delete(`/teachers/${id}`)
         .set('Authorization', `Bearer ${token}`);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(500);
@@ -184,7 +181,7 @@ describe('Subjects server errors', () => {
         .send({
           subject: 'Mate',
           scheduled: 'Reedel',
-          lecturers_id: 3,
+          teachers_id: 3,
           courses_id: 2,
         });
       expect(response.body).to.be.a('object');
@@ -253,7 +250,7 @@ describe('Subjects server errors', () => {
         .send({
           subject: 'Mate',
           scheduled: 'Reedel',
-          lecturers_id: 3,
+          teachers_id: 3,
           courses_id: 2,
         });
       expect(response.body).to.be.a('object');
@@ -323,7 +320,7 @@ describe('Subjects server errors', () => {
         .send({
           subject: 'Mate',
           scheduled: 'Reedel',
-          lecturers_id: 3,
+          teachers_id: 3,
           courses_id: 2,
         });
       expect(response.body).to.be.a('object');
@@ -522,3 +519,4 @@ describe('User controller', () => {
     });
   });
 });
+ */

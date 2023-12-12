@@ -1,5 +1,12 @@
 # dependencies
 /node_modules
 /src/token.ts
-.env
+
+# production
+/build
+
+# misc
+combined.log
+error.log
 /.nyc_output
+.env
