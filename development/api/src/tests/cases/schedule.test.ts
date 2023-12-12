@@ -6,7 +6,7 @@ import jwtService from '../../components/general/services/jwtService';
 import IUser from '../../components/users/interfaces';
 
 let adminToken: string;
-let scheduleId: number;
+// let scheduleId: number;
 
 describe('Schedule Controller', () => {
   before(async () => {

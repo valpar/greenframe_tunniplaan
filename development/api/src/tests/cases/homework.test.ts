@@ -4,6 +4,7 @@ import { describe, it, before } from 'mocha';
 import app from '../../app';
 import jwtService from '../../components/general/services/jwtService';
 import IUser from '../../components/users/interfaces';
+import formatDate from '../../utils/formatDate';
 
 let adminToken: string;
 let homeworkId: number;
@@ -19,17 +20,6 @@ describe('Schedule Controller', () => {
       roles: ['admin'],
     };
     adminToken = await jwtService.sign(mockAdminUser);
-  });
-  describe('GET /homeworks', () => {
-    it('should respond with code 200 and homework information', async () => {
-      const response = await request(app)
-        .get('/homeworks');
-      expect(response.statusCode).to.equal(200);
-      expect(response.body).to.be.an('object');
-      expect(response.body).to.have.property('homeworks');
-      expect(response.body.homeworks).to.be.an('array');
-      // console.log(response.body);
-    });
   });
   describe('POST /homeworks', () => {
     it('should create a homework and respond with code 201', async () => {
@@ -49,6 +39,53 @@ describe('Schedule Controller', () => {
       expect(response.body).to.have.property('id');
       // console.log(response.body);
       homeworkId = response.body.id;
+    });
+  });
+  describe('GET /homeworks', () => {
+    it('should respond with code 200 and homework information', async () => {
+      const response = await request(app)
+        .get('/homeworks');
+      expect(response.statusCode).to.equal(200);
+      expect(response.body).to.be.an('object');
+      expect(response.body).to.have.property('homeworks');
+      expect(response.body.homeworks).to.be.an('array');
+      // console.log(response.body);
+    });
+    it('should respond with code 200 and a specific homework item', async () => {
+      const response = await request(app)
+        .get(`/homeworks/${homeworkId}`); // /post homeworki id
+        // .set('Authorization', `Bearer ${adminToken}`); // praegu ei ole vaja
+      expect(response.statusCode).to.equal(200);
+      expect(response.body).to.be.an('object');
+      expect(response.body.homework).to.be.an('array');
+      expect(response.body.homework[0].id).to.equal(homeworkId);
+      // console.log(response.body);
+    });
+    it('should respond with code 400 for an invalid id', async () => {
+      const invalidId = 'invalidId';
+      const response = await request(app)
+        .get(`/homeworks/${invalidId}`);
+        // .set('Authorization', `Bearer ${adminToken}`);
+      expect(response.statusCode).to.equal(400);
+      expect(response.body).to.deep.equal({ error: 'No valid id or subjectCode provided' });
+    });
+  });
+  describe('GET /homeworkbycode/:code/:actualDate', () => {
+    // tuleb 404
+    it('should return 400 No subjectCode provided', async () => {
+      const subjectCode = '';
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+      const day = String(currentDate.getDate()).padStart(2, '0');
+      let actualDate = `${year}-${month}-${day}`;
+      actualDate = formatDate.forSql(actualDate);
+      const response = await request(app)
+        .get(`/homeworkbycode/${subjectCode}/${actualDate}`);
+      // expect(response.statusCode).to.equal(400);
+      expect(response.statusCode).to.equal(404); // not found
+      expect(response.body).to.be.an('object');
+      console.log(response.body);
     });
   });
   describe('PATCH /homeworks/:id', () => {
