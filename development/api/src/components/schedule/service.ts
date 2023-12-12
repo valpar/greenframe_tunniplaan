@@ -181,6 +181,10 @@ const scheduleService = {
       }
     } */
 
+    // When using forEach with asynchronous operations (like database queries inside the loop),
+    // the forEach loop does not wait for these operations to complete before moving on.
+    // This can lead to unexpected behavior
+
     // Eelnev väljakommenteeritud kood ümber kirjutatud järgnevaga:
     rooms.forEach(async (room) => {
       try {
@@ -196,7 +200,6 @@ const scheduleService = {
         return false;
       }
     });
-
     /* for (var index in courses) {
       try {
         const [createdChedule]: [ResultSetHeader, FieldPacket[]] =

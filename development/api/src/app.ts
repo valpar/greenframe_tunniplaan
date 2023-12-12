@@ -76,9 +76,9 @@ app.post('/googleauth', authController.googleAuth);
 app.get('/schedule/', scheduleController.getEntireSchedule);
 app.get('/schedule/:atDate', scheduleController.getEntireSchedule);
 app.get('/schedule/:atDate/:toDate', scheduleController.getEntireSchedule);
-app.post('/schedule', scheduleController.createSchedule);
-app.patch('/schedule/:id', scheduleController.updateSchedule);
-app.delete('/schedule/:id', scheduleController.deleteSchedule);
+app.post('/schedule', isLoggedIn, isAdmin, scheduleController.createSchedule);
+app.patch('/schedule/:id', isLoggedIn, isAdmin, scheduleController.updateSchedule);
+app.delete('/schedule/:id', isLoggedIn, isAdmin, scheduleController.deleteSchedule);
 app.get('/gcal/:atDate/:toDate/:courseId/:teacherId', scheduleController.getgcal);
 
 // Teacher endpoints
