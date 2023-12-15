@@ -1,4 +1,29 @@
 # Koosolekud
+
+### 15.12.23
+<ul>
+  <li>Hetkel loobume CI/CDst, kui lõpus jõuame, siis proovime.</li> 
+  <li>1. Uue tööriista risk ei ole riskianalüüsis esitatud kujul realiseerunud. </li>
+  <li>2. API testides, selgus, et API controllerid ei anna kõige adekvaatsemaid errori teateid.</li>
+  <li>3. Ajapuuduse oleme lahendanud nii, et toome teisi kohustusi ohvriks. Häda on selles, et osa probleeme tuleb ikkagi hilinedes välja, kuigi riskianalüüsis üritasime seda vältida.</li>
+  <li>3. Edasi liigume samas tempos. Teeme bugfixe ja parandame erroritest teavitust.</li>
+  
+  
+</ul>
+
+### Esimese koosoleku riskianalüüs:
+<ol>
+  <li>Uue võõra tehnoloogilise tööriista kasutusele võtt</li>
+  <li>Testide kirjutamisel ei suuda kõike vajalikku testida</lip>
+  <li>Meeskonnaliikmete ajapuudus</li>
+</ol>
+     
+  |    | 1. | 2. | 3. |
+  | --------------- | ------------------ |----------- | ----------- | 
+  | riski realiseerumise tõenäosus skaalal 1-5 (väike-suur)   | 4 | 3 | 3  |
+  | riski maandamise meetmed  |Kui kahe nädalaga ei suuda uue tööriistaga midagi teha, mingit arengut või läbimurret pole, siis vaatame tegevuse ümber |Teha testimise plaan, hakkame järjest kirjutama, kui satume hätta, siis tõmbame plaani koomale, teeme nimekirja, mis oleme suutnud ära teha.  |Kohe peale Valikpraktika kohtumist esimesel nädalavahetusel hakkame edasise plaaniga tegelema, et probleemid tuleksid varakult välja
+ |
+
 ## 09.12.23 (11.00-11.50)
  -Koosolekul arutasime: middleware isadmin, isloggedin, server errorid, eslint extension, homework, teachers vs lecturers
 - Andrus tegelenud siiamaani automaatse deploy uurimisega, Mario API testidega, lõime ka issued asjade kohta, millega tegeleme.
