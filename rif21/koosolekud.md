@@ -6,7 +6,7 @@
   <li>1. Uue tööriista risk ei ole riskianalüüsis esitatud kujul realiseerunud. </li>
   <li>2. API testides, selgus, et API controllerid ei anna kõige adekvaatsemaid errori teateid.</li>
   <li>3. Ajapuuduse oleme lahendanud nii, et toome teisi kohustusi ohvriks. Häda on selles, et osa probleeme tuleb ikkagi hilinedes välja, kuigi riskianalüüsis üritasime seda vältida.</li>
-  <li>3. Edasi liigume samas tempos. Teeme bugfixe ja parandame erroritest teavitust.</li>
+  <li>Edasi liigume samas tempos. Teeme bugfixe ja parandame erroritest teavitust.</li>
   
   
 </ul>
