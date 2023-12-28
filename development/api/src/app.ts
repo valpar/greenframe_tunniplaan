@@ -131,7 +131,7 @@ app.get('/homeworks', homeworkController.getAllHomeworks);
 app.get('/homeworks/:id', homeworkController.getHomeworkById);
 app.post('/homeworks', isLoggedIn, isAdmin, homeworkController.addHomework);
 app.delete('/homeworks/:id', isLoggedIn, isAdmin, homeworkController.deleteHomework);
-app.patch('/homeworks/:id', isLoggedIn, isAdmin, homeworkController.updateHomeworkById);
+app.patch('/homeworks/:id', isLoggedIn, /* isAdmin, */ homeworkController.updateHomeworkById);
 
 app.get('/homeworkbycode/:code/:actualDate', homeworkController.getHomeworkByCode);
 

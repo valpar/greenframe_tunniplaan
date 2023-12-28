@@ -339,14 +339,20 @@ const TableSubjectInfo = (props) => {
       try {
         setShowRequestModal(true);
         setRequestLoading(true);
+        
+        const token = JSON.parse(localStorage.getItem('token'));
+
         await axios
           .patch(`/schedule/${props.item.id}`, {
             ...props.item,
             comment: enteredInfo.comment,
             distanceLink: enteredInfo.distanceLink,
             subjectId: props.item.subject.id,
+          },{
+            headers: { Authorization: `Bearer ${token.token}` },
           })
           .then((response) => {});
+       
         enteredInfo.homeworks.forEach(async (e, i) => {
           if (e.id) {
             await axios
@@ -354,6 +360,8 @@ const TableSubjectInfo = (props) => {
                 ...e,
                 subjectCode: props.item.subject.subjectCode,
                 subjects_id: props.item.subject.id,
+              },{
+                headers: { Authorization: `Bearer ${token.token}` },
               })
               .then((response) => {});
           }
@@ -362,6 +370,8 @@ const TableSubjectInfo = (props) => {
               .post(`/homeworks`, {
                 ...e,
                 subjectCode: props.item.subject.subjectCode,
+              },{
+                headers: { Authorization: `Bearer ${token.token}` },
               })
               .then((response) => {});
           }

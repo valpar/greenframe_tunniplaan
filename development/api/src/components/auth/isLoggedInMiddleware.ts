@@ -5,6 +5,7 @@ import responseCodes from '../general/responseCodes';
 const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
   const token = authHeader?.split(' ')[1];
+  
   if (!token) {
     return res.status(responseCodes.notAuthorized).json({
       error: 'No token provided',
@@ -12,6 +13,7 @@ const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
   }
   const payload = jwtService.verify(token);
   if (!payload) {
+    console.log("isloggedIn no payload in token", token);
     return res.status(responseCodes.notAuthorized).json({
       error: 'Invalid token',
     });

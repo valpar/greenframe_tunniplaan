@@ -71,6 +71,7 @@ const scheduleController = {
       teachers,
       distanceLink,
     );
+
     if (scheduleId) {
       return res.status(responseCodes.ok).json({ scheduleId });
     }
@@ -125,6 +126,7 @@ const scheduleController = {
       teachers,
       distanceLink,
     );
+
     if (updated) {
       return res.status(responseCodes.ok).json({ updated });
     }

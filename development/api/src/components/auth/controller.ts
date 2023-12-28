@@ -2,9 +2,11 @@ import { Request, Response } from 'express';
 import axios from 'axios';
 import loginService from './service';
 import responseCodes from '../general/responseCodes';
+import jwtService from '../general/services/jwtService';
 
 const authController = {
   googleAuth: async (req: Request, res: Response) => {
+
     let email = '';
     let user;
     try {
@@ -23,15 +25,13 @@ const authController = {
       });
 
       email = response.data.email;
-      // console.log('Google response:', response.data.email);
+
     } catch (error) {
-    // console.error('External API error:', error);
       return res.status(500).send('Google authentication error');
     }
 
     try {
-      console.log();
-      const response = await axios.get(`${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/${email}`, {
+      const response = await axios.get(`http://${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/${email}`, {
         headers: {
           // eslint-disable-next-line quote-props
           'Authorization': `Bearer ${process.env.USERAPI_TOKEN}`,
@@ -50,6 +50,7 @@ const authController = {
     }
 
     const loginProfile = await loginService.googleLogin(user);
+
     return res.status(responseCodes.ok).json(
       loginProfile,
     );
