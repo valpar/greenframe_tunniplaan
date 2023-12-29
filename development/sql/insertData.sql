@@ -1,12 +1,12 @@
 /*Users*/
 /* vana kood */
-INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Anneli','Kasesalu','anneli.kasesalu@tlu.ee','xxx','admin' );
+/* INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Anneli','Kasesalu','anneli.kasesalu@tlu.ee','xxx','admin' );
 INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Martti','Raavel','mrt@tlu.ee','xxx','admin' );
 INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Ahti1','Irs','htrs@tlu.ee','xxx','admin' );
 INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Ahti2','Irs','ahti.irs@gmail.com','xxx','teacher' );
 INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Jaanus','Saago','saagojaanus@gmail.com','xxx','admin' );
 INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Jaanus','Saago','jaanusjs@tlu.ee','xxx','teacher' );
-INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Jaanus','Saago','jaanus.vollii@gmail.com','xxx','student' );
+INSERT INTO `scheduleDb`.`users`(`firstName`,`lastName`,`email`,`password`,`role`) VALUES ('Jaanus','Saago','jaanus.vollii@gmail.com','xxx','student' ); */
 
 
 

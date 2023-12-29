@@ -38,7 +38,7 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - "./sql/createDb.sql:/docker-entrypoint-initdb.d/createDb.sql"
+      - "./sql/createDb_v3_no_users.sql:/docker-entrypoint-initdb.d/createDb_v3_no_users.sql"
       - "./sql/insertData.sql:/docker-entrypoint-initdb.d/insertData.sql"
       - "./sql/insertDataSchTeach.sql:/docker-entrypoint-initdb.d/insertDataSchTeach.sql"
       - "./sql/insertDataSchRooms.sql:/docker-entrypoint-initdb.d/insertDataSchRooms.sql"
