@@ -3,13 +3,13 @@
 /* eslint-disable import/no-unresolved */
 
 import express, {
-  Request, Response, Application, NextFunction,
+  Request, Response, /* Application, */ NextFunction,
 } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import openapi from './openapi.json';
 import authController from './components/auth/controller';
-import userController from './components/users/controller';
+// import userController from './components/users/controller';
 import teacherController from './components/teacher/controller';
 import subjectController from './components/subjects/controller';
 import courseController from './components/course/controller';
@@ -25,10 +25,10 @@ import isAdmin from './components/auth/isAdminMiddleware';
 // eslint-disable-next-line no-unused-vars
 import isLoggedIn from './components/auth/isLoggedInMiddleware';
 import checkAlphabet from './components/general/middleware/checkLetterMiddleware';
-// eslint-disable-next-line no-unused-vars
-import checkAlphabetAndNumber from './components/general/middleware/checkLetterAndNumberMiddleware';
+// eslint-disable-next-line no-unused-vars, max-len
+// import checkAlphabetAndNumber from './components/general/middleware/checkLetterAndNumberMiddleware';
 import ping from './components/ping/controller';
-import courseService from './components/course/service';
+// import courseService from './components/course/service';
 import { logger } from './logger';
 
 const app = express(); // create express app
@@ -129,9 +129,9 @@ app.patch('/rooms/:id', /* isLoggedIn, *//* isAdmin, */ roomController.updateRoo
 
 app.get('/homeworks', homeworkController.getAllHomeworks);
 app.get('/homeworks/:id', homeworkController.getHomeworkById);
-app.post('/homeworks', /* isLoggedIn, *//* isAdmin, */ homeworkController.addHomework);
-app.delete('/homeworks/:id', /* isLoggedIn, *//* isAdmin, */ homeworkController.deleteHomework);
-app.patch('/homeworks/:id', /* isLoggedIn, *//* isAdmin, */ homeworkController.updateHomeworkById);
+app.post('/homeworks', isLoggedIn, isAdmin, homeworkController.addHomework);
+app.delete('/homeworks/:id', isLoggedIn, isAdmin, homeworkController.deleteHomework);
+app.patch('/homeworks/:id', isLoggedIn, /* isAdmin, */ homeworkController.updateHomeworkById);
 
 app.get('/homeworkbycode/:code/:actualDate', homeworkController.getHomeworkByCode);
 

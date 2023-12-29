@@ -45,6 +45,7 @@ const homeworkController = {
 
   getHomeworkByCode: async (req: Request, res: Response) => {
     const subjectCode: string = req.params.code;
+
     let { actualDate } = req.params;
     if (actualDate === undefined) {
       actualDate = '3000-12-12'; // tähtaeg kuni selle kuupäevani juhul kui kuupäeva pole
@@ -68,17 +69,20 @@ const homeworkController = {
         // error: `No homework found with id: ${subjectCode}`,
       });
     }
+
     if (!homework) {
       return res.status(responseCodes.ServerError).json({
         error: 'Server error',
       });
     }
+
     return res.status(responseCodes.ok).json({
       homework,
     });
   },
 
   addHomework: async (req: Request, res: Response) => {
+
     const {
       description, subjectCode, extrasLink,
     } = req.body;
@@ -160,6 +164,7 @@ const homeworkController = {
     return res.status(responseCodes.noContent).send();
   },
   updateHomeworkById: async (req: Request, res: Response) => {
+
     const id: number = parseInt(req.params.id, 10);
     const {
       description, subjectCode, extrasLink,
