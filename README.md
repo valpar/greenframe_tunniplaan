@@ -32,7 +32,7 @@ Enne esimest käivitamist peale repositooriumi kloonimist tuleks käivitada käs
 pakettide installeerimiseks
 Kliendirakendust saab avada brauserist aadressil http://localhost:3000
 
-Selleks, et kohalikus arvutis käivitatud API saaks ühenduda Dockeris töötava andmebaasiga, tuleb development/api/src/database.ts failis asendada rida "host: 'mysql_server'," reaga "host: process.env.DB_HOST," ning lisada rida "port: Number(process.env.DB_PORT),", .env failis tuleb kirjutada vastavalt DB_HOST="localhost" ja DB_PORT="3306".
+Selleks, et kohalikus arvutis käivitatud API saaks ühenduda Dockeris töötava andmebaasiga, tuleb development/api/src/database.ts failis asendada rida "host: 'mysql_server'," reaga "host: process.env.DB_HOST," ning lisada rida "port: Number(process.env.DB_PORT),", .env failis tuleb kirjutada vastavalt DB_HOST="localhost" ja DB_PORT="3307".
 
 **NB!!!** Kasutades Visual Studio Code (VSCode), siis terminaliaknas cd käsuga kausta vahetamisel tuleb kindlasti kasutada suur- ja väiketähti. Vastasel juhul annab ESLint veateate.
 
