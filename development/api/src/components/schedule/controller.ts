@@ -83,6 +83,7 @@ const scheduleController = {
     const {
       rooms, comment, courses, subjectCode, teachers, distanceLink,
     } = req.body;
+
     let { startTime, endTime, subjectId } = req.body;
     const id: number = parseInt(req.params.id, 10);
 

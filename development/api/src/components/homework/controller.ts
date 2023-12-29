@@ -127,6 +127,7 @@ const homeworkController = {
       subjectsId,
       extrasLink,
     );
+
     if (!id) {
       return res.status(responseCodes.ServerError).json({
         error: 'Server error',
