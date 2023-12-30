@@ -12,7 +12,7 @@ const ScheduleFilters = (props) => {
   const [isReset, setIsReset] = useState(false);
 
   const [courseFilterDefValue, setCourseFilterDefValue] = useState(() => {
-    let tmp = localStorage.getItem("courseCode");
+    let tmp = sessionStorage.getItem("courseCode");
     if (tmp === {}) {
       return null;
     }

@@ -43,11 +43,11 @@ app.get('/ping', ping);
 
 app.use(async (req: Request, res: Response, next: NextFunction) => {
   // Log request details
-  logger.info(`Request from ${req.ip} using ${req.headers['user-agent']}`);
-  logger.info(`Request method and URL: ${req.method} ${req.originalUrl}`);
-  logger.info(`Request body: ${JSON.stringify(req.body)}`);
+  // logger.info(`Request from ${req.ip} using ${req.headers['user-agent']}`);
+  // logger.info(`Request method and URL: ${req.method} ${req.originalUrl}`);
+  // logger.info(`Request body: ${JSON.stringify(req.body)}`);
   // eslint-disable-next-line no-console
-  console.log(req.ip);
+  // console.log(req.ip);
 
   next();
 });

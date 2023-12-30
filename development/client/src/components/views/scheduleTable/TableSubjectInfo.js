@@ -340,7 +340,7 @@ const TableSubjectInfo = (props) => {
         setShowRequestModal(true);
         setRequestLoading(true);
         
-        const token = JSON.parse(localStorage.getItem('token'));
+        const token = JSON.parse(sessionStorage.getItem('token'));
 
         await axios
           .patch(`/schedule/${props.item.id}`, {
