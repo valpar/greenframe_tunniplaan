@@ -8,6 +8,7 @@ import IUser from '../../components/users/interfaces';
 let adminToken: string;
 let subjectsId: number;
 const id = 9999;
+const date = new Date();
 
 describe('Subjects controller', () => {
   before(async () => {
@@ -43,9 +44,8 @@ describe('Subjects controller', () => {
         .set('Authorization', `Bearer ${adminToken}`)
         .send({
           subject: 'Mate',
-          scheduled: 'Reedel',
-          teachers_id: 3,
-          courses_id: 2,
+          subjectCode: `${date.getTime()}`,
+          creditPoint: 3,
         });
       // console.log(response.body);
       // console.log(adminToken);
@@ -53,159 +53,99 @@ describe('Subjects controller', () => {
       expect(response.statusCode).to.equal(201);
       expect(response.body).to.have.key('id');
       expect(response.body.id).to.be.a('number');
-      subjectsId = response.body.id;
+      // subjectsId = response.body.id;
     });
-    // ainus post, mis töötab selle controlleriga
-    it('responds with code 400 and error message "Subject is missing"', async () => {
+    it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .post('/subjects')
         .set('Authorization', `Bearer ${adminToken}`)
         .send({
-          scheduled: 'Reedel',
+          subjectCode: '1',
         });
         // console.log(response.body);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal('Subject is missing');
+      expect(response.body.error).to.equal('Subject, subject code, or credit point is missing');
     });
     // controllleris on koodis välja kommenteeritud
-    /* it('responds with code 400 and error message', async () => {
+    it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .post('/subjects')
         .set('Authorization', `Bearer ${adminToken}`)
         .send({
           subject: 'Mate',
         });
-      console.log(response.body);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal('Scheduled is missing');
-    }); */
-    /* it('responds with code 201 and sources id', async () => {
-      const response = await request(app)
+      expect(response.body.error).to.equal('Subject, subject code, or credit point is missing');
+    });
+  });
+  describe('PATCH /subjects/:id', () => {
+    it('responds with code 204 and empty object', async () => {
+      // postitame uue subjecti, et saada id, mida patchida
+      const createResponse = await request(app)
         .post('/subjects')
         .set('Authorization', `Bearer ${adminToken}`)
         .send({
-          subject: 'Mate',
-          subjectCode: 'MAT101',
+          subject: 'testSubject',
+          subjectCode: `test id ${date.getTime()}`,
+          creditPoint: 99,
+        });
+      subjectsId = createResponse.body.id;
+      // console.log(subjectsId);
+      const response = await request(app)
+        .patch(`/subjects/${subjectsId}`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({
+          subject: 'New Subject',
+          subjectCode: `patch ${date.getTime()}`,
           creditPoint: 3,
         });
       expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(201);
-      expect(response.body).to.have.key('id');
-      expect(response.body.id).to.be.a('number');
-      subjectsId = response.body.id;
-    }); */
-    /* it('responds with code 400 and error message "subjectCode is missing"', async () => {
-      const response = await request(app)
-        .post('/subjects')
-        .set('Authorization', `Bearer ${adminToken}`)
-        .send({
-          subject: 'Mate',
-        });
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(400);
-      expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal('subjectCode is missing');
-    }); */
-    // ei kontrolli controlleris
-    /* it('responds with code 400 and error message', async () => {
-      const response = await request(app)
-        .post('/subjects')
-        .set('Authorization', `Bearer ${adminToken}`)
-        .send({
-          subject: 'Mate',
-          scheduled: 'Reedel',
-        });
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(400);
-      expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal('Course id is missing');
-    }); */
-    /* it('responds with code 400 and error message', async () => {
-      const response = await request(app)
-        .post('/subjects')
-        .set('Authorization', `Bearer ${adminToken}`)
-        .send({
-          subject: 'Mate',
-          scheduled: 'Reedel',
-          courses_id: 3,
-        });
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(400);
-      expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal('Teacher id is missing');
-    });  */
-    /* it('responds with code 400 and error message', async () => {
-      const response = await request(app)
-        .post('/subjects')
-        .set('Authorization', `Bearer ${adminToken}`)
-        .send({
-          subject: '{]Mate',
-          scheduled: '{[Reedel',
-          courses_id: 3,
-          teachers_id: 2,
-        });
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(400);
-      expect(response.body).to.have.key('error');
-      expect(response.body.error).to.equal(
-        'Insert only letters, numbers or -.,!',
-      );
-    }); */
-  });
-  /* describe('PATCH /subjects/:id', () => {
-    it('responds with code 204 and empty object', async () => {
-      const response = await request(app)
-        .patch(`/subjects/${subjectsId}`)
-        .set('Authorization', `Bearer ${adminToken}`)
-        .send({
-          scheduled: 'Neljapäev',
-          courses_id: 1,
-        });
-      expect(response.body).to.be.a('object');
-      expect(response.body).to.be.empty;
+      expect(response.body).to.deep.equal({});
       expect(response.statusCode).to.equal(204);
-    }); */
-  /* it('responds with code 400 and error message', async () => {
+    });
+    it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .patch(`/subjects/${subjectsId}`)
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .send({});
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Nothing to update');
-    }); */
-  /* it('responds with code 400 and error message', async () => {
+    });
+    it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .patch(`/subjects/${id}`)
-        .set('Authorization', `Bearer ${token}`)
+        // .set('Authorization', `Bearer ${adminToken}`)
         .send({
-          scheduled: 'Neljapäev',
-          courses_id: 1,
+          subject: 'patch',
+          subjectCode: `no idea ${date.getTime()}`,
+          creditPoint: 3,
         });
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal(`No subject found with id: ${id}`);
-    }); */
-  /* it('responds with code 400 and error message', async () => {
+    });
+    it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .patch('/subjects/0')
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .send({
-          scheduled: 'Neljapäev',
-          courses_id: 1,
+          subject: 'patch',
+          subjectCode: `not valid id ${date.getTime()}`,
+          creditPoint: 3,
         });
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('No valid id provided');
     });
-  }); */
+  });
   describe('GET /subjects/:id', () => {
     it('responds with code 200 and subject information', async () => {
       const response = await request(app)
@@ -233,6 +173,7 @@ describe('Subjects controller', () => {
       expect(response.body.error).to.equal(`No subject found with id: ${id}`);
     });
   });
+
   describe('DELETE /subjects/:id', () => {
     it('responds with code 204 and empty object', async () => {
       const response = await request(app)
@@ -251,8 +192,7 @@ describe('Subjects controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('No valid id provided');
     });
-    // tuleb 500 error apist
-    /* it('responds with code 400 and error message', async () => {
+    it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .delete(`/subjects/${id}`)
         .set('Authorization', `Bearer ${adminToken}`);
@@ -262,6 +202,6 @@ describe('Subjects controller', () => {
       expect(response.body.message).to.equal(
         `Subject not found with id: ${id}`,
       );
-    }); */
+    });
   });
 });

@@ -32,6 +32,7 @@ const subjectServices = {
       );
       return result.insertId;
     } catch (error) {
+      // console.log(error);
       return false;
     }
   },
@@ -66,6 +67,8 @@ const subjectServices = {
       }
       return false;
     } catch (error) {
+      console.error('Error in updateSubjectById:', (error as Error).message);
+      console.error((error as Error).stack);
       return false;
     }
   },

@@ -7,18 +7,18 @@ const checkAlphabetAndNumber = (
   res: Response,
   next: NextFunction,
 ) => {
-  const { scheduled, subject } = req.body;
-  let testScheduled = true;
-  let testSubject = true;
+  const { subject, subjectCode, creditPoint } = req.body;
 
-  // Järgnevad kaks rida välja kommenteeritud ja ümber kirjutatud
-  // scheduled ? (testScheduled = validateField.testFields(scheduled)) : true;
-  // subject ? (testSubject = validateField.testFields(subject)) : true;
+  if (!subject || !subjectCode || !creditPoint) {
+    return res.status(responseCodes.badRequest).json({
+      error: 'Subject, subject code, or credit point is missing',
+    });
+  }
 
-  testScheduled = validateField.testFields(scheduled);
-  testSubject = validateField.testFields(subject);
+  const testSubject = validateField.testFields(subject);
+  const testSubjectCode = validateField.testFields(subjectCode);
 
-  if (testScheduled && testSubject) {
+  if (testSubject && testSubjectCode) {
     return next();
   }
   return res.status(responseCodes.badRequest).json({

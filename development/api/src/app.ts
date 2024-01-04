@@ -16,19 +16,12 @@ import courseController from './components/course/controller';
 import roomController from './components/room/controller';
 import scheduleController from './components/schedule/controller';
 import homeworkController from './components/homework/controller';
-
-// Järgnevad ESLint errorid on keelatud teadlikult ja lähevad eemaldamisele,
-// kui midllewared saavad uuesti rakendatud
-
-// eslint-disable-next-line no-unused-vars
 import isAdmin from './components/auth/isAdminMiddleware';
-// eslint-disable-next-line no-unused-vars
 import isLoggedIn from './components/auth/isLoggedInMiddleware';
 import checkAlphabet from './components/general/middleware/checkLetterMiddleware';
-// eslint-disable-next-line no-unused-vars, max-len
-// import checkAlphabetAndNumber from './components/general/middleware/checkLetterAndNumberMiddleware';
+import checkAlphabetAndNumber from './components/general/middleware/checkLetterAndNumberMiddleware';
 import ping from './components/ping/controller';
-// import courseService from './components/course/service';
+// import courseService from './components/course/service';s
 import { logger } from './logger';
 
 const app = express(); // create express app
@@ -105,7 +98,7 @@ app.patch(
 // Subjects endpoints
 app.get('/subjects', subjectController.getAllSubjects);
 app.get('/subjects/:id', subjectController.getSubjectById);
-app.post('/subjects', /* checkAlphabetAndNumber, */ /* isLoggedIn, *//* isAdmin, */ subjectController.addSubject);
+app.post('/subjects', checkAlphabetAndNumber, /* isLoggedIn, *//* isAdmin, */ subjectController.addSubject);
 app.delete('/subjects/:id', /* isLoggedIn, *//* isAdmin, */ subjectController.deleteSubject);
 app.patch('/subjects/:id', /* isLoggedIn, *//* isAdmin, */ subjectController.updateSubjectById);
 

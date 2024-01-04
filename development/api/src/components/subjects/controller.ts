@@ -59,24 +59,24 @@ const subjectController = {
       });
     }
   },
-
   addSubject: async (req: Request, res: Response) => {
     const { subject, subjectCode, creditPoint } = req.body;
-    if (!subject) {
+    // see kontroll liikus middleware-sse, sest muidu 500 error koguaeg
+    /* if (!subject) {
       return res.status(responseCodes.badRequest).json({
         error: 'Subject is missing',
       });
     }
-    // if (!subjectCode) {
-    //   return res.status(responseCodes.badRequest).json({
-    //     error: "subjectCode is missing",
-    //   });
-    // }
-    // if (!creditPoint) {
-    //   return res.status(responseCodes.badRequest).json({
-    //     error: "Teacher id is missing",
-    //   });
-    // } else {
+    if (!subjectCode) {
+      return res.status(responseCodes.badRequest).json({
+        error: 'subjectCode is missing',
+      });
+    }
+    if (!creditPoint) {
+      return res.status(responseCodes.badRequest).json({
+        error: 'creditPoint is missing',
+      });
+    } */
     const subjectData: INewSubject = {
       subject,
       subjectCode,
@@ -84,6 +84,11 @@ const subjectController = {
     };
 
     const id = await subjectServices.createSubject(subjectData);
+    if (id === false) {
+      return res.status(responseCodes.badRequest).json({
+        error: 'A subject with this subjectCode already exists',
+      });
+    }
     if (id) {
       return res.status(responseCodes.created).json({
         id,
@@ -92,7 +97,6 @@ const subjectController = {
     return res.status(responseCodes.ServerError).json({
       error: 'Server error',
     });
-    // }
   },
   deleteSubject: async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id, 10);
@@ -102,17 +106,17 @@ const subjectController = {
       });
     }
     const subjectExists = await subjectServices.deleteSubject(id);
-    if (subjectExists === undefined) {
+    if (subjectExists === false) {
       return res.status(responseCodes.badRequest).json({
         message: `Subject not found with id: ${id}`,
       });
     }
-    if (subjectExists) {
-      return res.status(responseCodes.noContent).send();
+    if (subjectExists === undefined) {
+      return res.status(responseCodes.ServerError).json({
+        error: 'Server error',
+      });
     }
-    return res.status(responseCodes.ServerError).json({
-      error: 'Server error',
-    });
+    return res.status(responseCodes.noContent).send();
   },
 
   updateSubjectById: async (req: Request, res: Response) => {
@@ -123,7 +127,7 @@ const subjectController = {
         error: 'No valid id provided',
       });
     }
-    if (!subject && !subjectCode && creditPoint) {
+    if (!subject && !subjectCode && !creditPoint) {
       return res.status(responseCodes.badRequest).json({
         error: 'Nothing to update',
       });
@@ -139,12 +143,12 @@ const subjectController = {
     const subjectExists = await subjectServices.updateSubjectById(
       subjectData,
     );
-    if (subjectExists === undefined) {
+    if (subjectExists === false) {
       return res.status(responseCodes.badRequest).json({
         error: `No subject found with id: ${id}`,
       });
     }
-    if (subjectExists === false) {
+    if (subjectExists === undefined) {
       return res.status(responseCodes.ServerError).json({
         error: 'Server error',
       });
