@@ -8,9 +8,6 @@ import jwtService from '../../components/general/services/jwtService';
 let adminToken: string;
 let roomId: number;
 const id = 9999;
-const updatedRoomData = {
-  room: 'Updated Room Name',
-};
 
 describe('Room Controller', () => {
   before(async () => {

@@ -6,8 +6,7 @@ import jwtService from '../../components/general/services/jwtService';
 import IUser from '../../components/users/interfaces';
 
 let adminToken: string;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-let scheduleId: number; // tegelikult kasutatakse seda, eslint arvab, et ei kasutata
+let scheduleId: number;
 
 describe('Schedule Controller', () => {
   before(async () => {
@@ -54,7 +53,6 @@ describe('Schedule Controller', () => {
       expect(response.statusCode).to.equal(200);
       expect(response.body).to.have.property('scheduleId');
       scheduleId = response.body.scheduleId;
-      // console.log(response.body);
     });
     it('should respond with code 400 for invalid schedule data', async () => {
       const response = await request(app)
@@ -64,7 +62,6 @@ describe('Schedule Controller', () => {
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.be.an('object');
       expect(response.body).to.deep.equal({ error: 'subjectCode or subjectId is missing' });
-      // console.log(response.body);
     });
   });
 
@@ -83,8 +80,8 @@ describe('Schedule Controller', () => {
         subjectCode: 'CS101',
       };
       const response = await request(app)
-        // .patch(`/schedule/${scheduleId}`)
-        .patch('/schedule/2')
+        .patch(`/schedule/${scheduleId}`)
+        // .patch('/schedule/2')
         .set('Authorization', `Bearer ${adminToken}`)
         .send(updatedData);
       expect(response.statusCode).to.equal(200);
@@ -92,11 +89,10 @@ describe('Schedule Controller', () => {
   });
 
   describe('DELETE /schedule/:id', () => {
-    // kustutab korduvalt juba kustutatud schedule
     it('should delete a schedule and respond with code 200 (ok)', async () => {
       const response = await request(app)
-        // .delete(`/schedule/${scheduleId}`)
-        .delete('/schedule/1')
+        .delete(`/schedule/${scheduleId}`)
+        // .delete('/schedule/1')
         .set('Authorization', `Bearer ${adminToken}`);
       expect(response.statusCode).to.equal(200);
     });

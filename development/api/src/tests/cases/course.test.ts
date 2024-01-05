@@ -1,20 +1,19 @@
 import request from 'supertest';
-import { describe, it, before, beforeEach, afterEach } from 'mocha';
+import { describe, it, before } from 'mocha';
 import { expect } from 'chai';
-import sinon from 'sinon';
-import axios from 'axios';
 import app from '../../app';
 import IUser from '../../components/users/interfaces';
 import jwtService from '../../components/general/services/jwtService';
 
-const user = {
+/* const user = {
   email: 'koviid@mail.ee',
   password: 'Koviid',
-};
+}; */
 
 let adminToken: string;
 let courseId: number;
-const id: number = 9999;
+// const id: number = 9999;
+// let date = new Date();
 
 describe('Course controller', () => {
   before(async () => {
@@ -41,16 +40,6 @@ describe('Course controller', () => {
       expect(response.body.courses).to.be.an('array');
       expect(response.body.courses).to.have.length.above(0);
     });
-    // login endpointi pole enam
-    /* it('responds with code 200 and token after login first test', async () => {
-      const response = await request(app).post('/login').send(user);
-      expect(response.body).to.be.a('object');
-      expect(response.statusCode).to.equal(200);
-      expect(response.body).to.have.key('token');
-      expect(response.body.token).to.be.a('string');
-      token = response.body.token;
-      console.log(token);
-    }); */
     it('responds with code 200 and courses information', async () => {
       const response = await request(app)
         .get('/courses');
@@ -91,14 +80,27 @@ describe('Course controller', () => {
     /* it('responds with code 204 and empty object', async () => {
       const response = await request(app)
         .patch(`/courses/${courseId}`)
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .send({
-          courseCode: 'Koolitus',
+          courseCode: 'RIF 40',
           courseName: 'Koolitus',
         });
       expect(response.body).to.be.a('object');
       expect(response.body.error).to.equal('Nothing to update');
       expect(response.statusCode).to.equal(400);
+    }); */
+    // AssertionError: expected undefined to deeply equal {}
+    /* it('responds with code 204 and empty object', async () => {
+      const response = await request(app)
+        .patch(`/courses/${courseId}`)
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({
+          courseCode: 'RIF 40',
+          courseName: `Koolitus ${date.toISOString}`,
+        });
+      expect(response.body).to.be.a('object');
+      expect(response.body.error).to.deep.equal({});
+      expect(response.statusCode).to.equal(204);
     }); */
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
@@ -126,8 +128,8 @@ describe('Course controller', () => {
     // api saadab 500 error
     /* it('responds with code 400 and error message', async () => {
       const response = await request(app)
-        // .patch(`/courses/${id}`)
-        .set('Authorization', `Bearer ${token}`)
+        .patch(`/courses/${id}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .send({
           courseCode: 'RIF 007',
           courseName: 'Some course name',
@@ -173,7 +175,7 @@ describe('Course controller', () => {
         .delete(`/courses/${courseId}`)
         .set('Authorization', `Bearer ${adminToken}`);
       expect(response.body).to.be.a('object');
-      expect(response.body).to.deep.equal({}); // deep equal võrdleb {} sisu, ilma võrdleb viiteid
+      expect(response.body).to.deep.equal({});
       expect(response.statusCode).to.equal(204);
     });
     it('responds with code 400 and error message', async () => {

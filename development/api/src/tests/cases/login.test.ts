@@ -29,7 +29,7 @@ describe('Auth Controller', () => {
     axiosGetStub.withArgs('https://www.googleapis.com/oauth2/v1/userinfo').resolves({
       data: { email: 'test@example.com' },
     });
-    axiosGetStub.withArgs(`${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/test@example.com`).resolves({
+    axiosGetStub.withArgs(`http://${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/test@example.com`).resolves({
       data: {
         data: {
           id: 1,
@@ -71,7 +71,7 @@ describe('Auth Controller', () => {
       data: { email: 'test@example.com' },
     });
 
-    axiosGetStub.withArgs(`${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/test@example.com`).resolves({
+    axiosGetStub.withArgs(`http://${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/test@example.com`).resolves({
       data: {
         data: {
           id: 1,
@@ -101,7 +101,7 @@ describe('Auth Controller', () => {
     axiosGetStub.withArgs('https://www.googleapis.com/oauth2/v1/userinfo').resolves({
       data: { email: 'unknown@example.com' },
     });
-    axiosGetStub.withArgs(`${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/unknown@example.com`).resolves({
+    axiosGetStub.withArgs(`http://${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/unknown@example.com`).resolves({
       data: {
         id: 9999,
         firstName: 'Testman',

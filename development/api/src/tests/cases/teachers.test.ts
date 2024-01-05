@@ -120,7 +120,6 @@ describe('Teachers controller', () => {
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Insert only letters, space or -');
-      // console.log(response.body);
     });
     it('responds with code 400 and error message when no data is provided', async () => {
       const response = await request(app)
@@ -131,7 +130,6 @@ describe('Teachers controller', () => {
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('Provide firstname');
-      // console.log(response.body);
     });
     it('responds with code 400 and error message when non-admin user tries to update', async () => {
       // non admin user
@@ -153,7 +151,6 @@ describe('Teachers controller', () => {
         .patch(`/teachers/${teacherId}`)
         .set('Authorization', `Bearer ${nonAdminToken}`)
         .send(teacherToUpdate);
-      // console.log(response.body);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(401);
       expect(response.body).to.have.key('error');
@@ -166,7 +163,6 @@ describe('Teachers controller', () => {
         .delete(`/teachers/${teacherId}`)
         .set('Authorization', `Bearer ${adminToken}`);
       expect(response.body).to.be.a('object');
-      // expect(response.body).to.be.empty;
       expect(response.body).to.deep.equal({});
       expect(response.statusCode).to.equal(204);
     });
@@ -179,7 +175,7 @@ describe('Teachers controller', () => {
       expect(response.body).to.have.key('error');
       expect(response.body.error).to.equal('No valid id provided');
     });
-    // api saadab 500 error, peab uurima miks
+    // api saadab 500 error
     /* it('responds with code 400 and error message', async () => {
       const noTeacherId = 9000;
       const response = await request(app)

@@ -47,13 +47,10 @@ describe('Subjects controller', () => {
           subjectCode: `${date.getTime()}`,
           creditPoint: 3,
         });
-      // console.log(response.body);
-      // console.log(adminToken);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(201);
       expect(response.body).to.have.key('id');
       expect(response.body.id).to.be.a('number');
-      // subjectsId = response.body.id;
     });
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
@@ -62,7 +59,6 @@ describe('Subjects controller', () => {
         .send({
           subjectCode: '1',
         });
-        // console.log(response.body);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(400);
       expect(response.body).to.have.key('error');
@@ -94,7 +90,6 @@ describe('Subjects controller', () => {
           creditPoint: 99,
         });
       subjectsId = createResponse.body.id;
-      // console.log(subjectsId);
       const response = await request(app)
         .patch(`/subjects/${subjectsId}`)
         .set('Authorization', `Bearer ${adminToken}`)
@@ -120,7 +115,7 @@ describe('Subjects controller', () => {
     it('responds with code 400 and error message', async () => {
       const response = await request(app)
         .patch(`/subjects/${id}`)
-        // .set('Authorization', `Bearer ${adminToken}`)
+        .set('Authorization', `Bearer ${adminToken}`)
         .send({
           subject: 'patch',
           subjectCode: `no idea ${date.getTime()}`,

@@ -37,7 +37,6 @@ describe('Schedule Controller', () => {
       expect(response.statusCode).to.equal(201);
       expect(response.body).to.be.a('object');
       expect(response.body).to.have.property('id');
-      // console.log(response.body);
       homeworkId = response.body.id;
     });
   });
@@ -49,17 +48,15 @@ describe('Schedule Controller', () => {
       expect(response.body).to.be.an('object');
       expect(response.body).to.have.property('homeworks');
       expect(response.body.homeworks).to.be.an('array');
-      // console.log(response.body);
     });
     it('should respond with code 200 and a specific homework item', async () => {
       const response = await request(app)
         .get(`/homeworks/${homeworkId}`); // /post homeworki id
-        // .set('Authorization', `Bearer ${adminToken}`); // praegu ei ole vaja
+        // ''.set('Authorization', `Bearer ${adminToken}`); // praegu ei ole vaja
       expect(response.statusCode).to.equal(200);
       expect(response.body).to.be.an('object');
       expect(response.body.homework).to.be.an('array');
       expect(response.body.homework[0].id).to.equal(homeworkId);
-      // console.log(response.body);
     });
     it('should respond with code 400 for an invalid id', async () => {
       const invalidId = 'invalidId';
@@ -85,7 +82,6 @@ describe('Schedule Controller', () => {
       // expect(response.statusCode).to.equal(400);
       expect(response.statusCode).to.equal(404); // not found
       expect(response.body).to.be.an('object');
-      console.log(response.body);
     });
   });
   describe('PATCH /homeworks/:id', () => {
@@ -100,10 +96,9 @@ describe('Schedule Controller', () => {
         .patch(`/homeworks/${homeworkId}`)
         .set('Authorization', `Bearer ${adminToken}`)
         .send(updatedHomework);
-      expect(response.statusCode).to.equal(204); // api tagastab 204, no content
+      expect(response.statusCode).to.equal(204);
       expect(response.body).to.be.a('object');
       expect(response.body).to.deep.equal({});
-      // console.log(response.body);
     });
   });
   describe('DELETE /homeworks/:id', () => {
@@ -111,7 +106,7 @@ describe('Schedule Controller', () => {
       const response = await request(app)
         .delete(`/homeworks/${homeworkId}`)
         .set('Authorization', `Bearer ${adminToken}`);
-      expect(response.statusCode).to.equal(204); // api tagastab 204, no content real 159
+      expect(response.statusCode).to.equal(204);
       expect(response.body).to.be.a('object');
       expect(response.body).to.deep.equal({});
     });
