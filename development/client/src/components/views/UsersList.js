@@ -13,7 +13,7 @@ const UsersList = (props) => {
   const [editRowIndex, setEditRowIndex] = useState();
 
   const [loginInfo, setLoginInfo] = useState(() => {
-    let token = localStorage.getItem("token");
+    let token = sessionStorage.getItem("token");
     if (token === {}) {
       return null;
     }

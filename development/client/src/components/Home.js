@@ -35,7 +35,7 @@ const Home = () => {
   // const [loginInfo, setLoginInfo] = useState(null); // Sisselogitud kasutaja intentifitseerimiseks backis.
 
   let [loginInfo, setLoginInfo] = useState(() => {
-    let token = localStorage.getItem("token");
+    let token = sessionStorage.getItem("token");
     if (token === null || token.length == 0) {
       return null;
     }
@@ -52,7 +52,7 @@ const Home = () => {
     newOccurenceAdded
   );
 
-  const [loginMessage, setLoginMessage] =useState((!localStorage.getItem("token")? "Logi sisse": "Logi välja"));
+  const [loginMessage, setLoginMessage] =useState((!sessionStorage.getItem("token")? "Logi sisse": "Logi välja"));
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   
   const [dropdownsSelection, setDropdownSelection] = useState([]); // xxx
@@ -360,7 +360,7 @@ const Home = () => {
   };
   
   const loginHandler = () => {
-    if (!localStorage.getItem("token")) {
+    if (!sessionStorage.getItem("token")) {
       login();
     }
     else {
@@ -426,7 +426,7 @@ const Home = () => {
   // const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
   let [googleProfile, setGoogleProfile] = useState(() => {
-    let localData = localStorage.getItem("localGoogleProfile");
+    let localData = sessionStorage.getItem("localGoogleProfile");
     return localData ? JSON.parse(localData) : {};
   });
   const [userPicture, setUserPicture] = useState([]);
@@ -447,7 +447,7 @@ const Home = () => {
         .then((result) => {
           setGoogleProfile(result.data);
           if (result.data) {
-            localStorage.setItem(
+            sessionStorage.setItem(
               "localGoogleProfile",
               JSON.stringify(result.data)
             );
@@ -458,13 +458,13 @@ const Home = () => {
     onError: (error) => console.log("Login Failed:", error), // kui google esmasel pöördumisel juba tekkis viga
   });
 
-  // if (localStorage.getItem('localGoogleProfile')) {
-  // setGoogleProfile = JSON.parse(localStorage.getItem('localGoogleProfile'));
-  // console.log ("tagastatud google profile",JSON.parse(localStorage.getItem('localGoogleProfile')));
+  // if (sessionStorage.getItem('localGoogleProfile')) {
+  // setGoogleProfile = JSON.parse(sessionStorage.getItem('localGoogleProfile'));
+  // console.log ("tagastatud google profile",JSON.parse(sessionStorage.getItem('localGoogleProfile')));
 
   // }
 
-  // console.log ("tagastatud google profile",JSON.parse(localStorage.getItem('localGoogleProfile')));
+  // console.log ("tagastatud google profile",JSON.parse(sessionStorage.getItem('localGoogleProfile')));
   // console.log("see on õige loginInfo",loginInfo);
   useEffect(() => {
     setUserPicture(
@@ -474,7 +474,7 @@ const Home = () => {
 
   // log out function to log the user out of google and set the profile array to null
   const logOut = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     googleLogout();
     setProfile(null);
     setGoogleProfile(null);
@@ -509,8 +509,7 @@ const Home = () => {
 
         setLoginInfo(response.data);
         if (response.data) {
-          localStorage.setItem("token", JSON.stringify(response.data));
-          setLoginMessage("Logi välja");
+          sessionStorage.setItem("token", JSON.stringify(response.data));
         }
         setLoginMessage("Logi välja");
       } catch (error) {

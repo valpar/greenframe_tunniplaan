@@ -2,10 +2,11 @@ import { Request, Response } from 'express';
 import axios from 'axios';
 import loginService from './service';
 import responseCodes from '../general/responseCodes';
-import jwtService from '../general/services/jwtService';
+// import jwtService from '../general/services/jwtService';
 
 const authController = {
   googleAuth: async (req: Request, res: Response) => {
+    console.log('x!!! kontorllin sisselogimist');
     let email = '';
     let user;
     try {

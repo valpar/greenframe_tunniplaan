@@ -20,7 +20,7 @@ const SearchDropdown = ({
   // Algseisundi loomine kasutades kohalikku salvestust juhul kui salvestus on soovitud
   const [selectedOption, setSelectedOption] = useState(() => {
     if (isRemembered) {
-      const storedValue = localStorage.getItem(name);
+      const storedValue = sessionStorage.getItem(name);
       return storedValue ? JSON.parse(storedValue) : null;
     } else {
       return null;
@@ -34,7 +34,7 @@ const SearchDropdown = ({
   // useEffect, mis jälgib selectedOption muutusi ja salvestab need kohalikku salvestusse
   useEffect(() => {
     if (isRemembered) {
-      localStorage.setItem(name, JSON.stringify(selectedOption));
+      sessionStorage.setItem(name, JSON.stringify(selectedOption));
     }
     let newArrayOfObj;
     if (isMulti) {
