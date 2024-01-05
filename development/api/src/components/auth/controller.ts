@@ -29,7 +29,7 @@ const authController = {
     }
 
     try {
-      const response = await axios.get(`${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/${email}`, {
+      const response = await axios.get(`http://${process.env.USERAPI_HOST}:${process.env.USERAPI_PORT}/users/email/${email}`, {
         headers: {
           // eslint-disable-next-line quote-props
           'Authorization': `Bearer ${process.env.USERAPI_TOKEN}`,
