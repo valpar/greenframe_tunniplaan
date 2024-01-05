@@ -6,7 +6,6 @@ import jwtService from '../general/services/jwtService';
 
 const authController = {
   googleAuth: async (req: Request, res: Response) => {
-
     let email = '';
     let user;
     try {
@@ -25,7 +24,6 @@ const authController = {
       });
 
       email = response.data.email;
-
     } catch (error) {
       return res.status(500).send('Google authentication error');
     }
