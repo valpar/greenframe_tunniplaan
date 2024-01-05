@@ -10,7 +10,6 @@ import logger from '../../logger';
 
 // testime loggerit lugedes combined.log
 const readLogFile = () => fs.readFileSync('combined.log', 'utf8');
-
 describe('Auth Controller', () => {
   let axiosGetStub: sinon.SinonStub;
   // lisan loggeri testid
