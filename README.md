@@ -95,5 +95,6 @@ API-poolses koodis on rakendatud ESLint koodianalüsaatorit koos Airbnb stiiliju
 ## Materjalid
 
 - [Diplomitöö, "Uue tunniplaani arendamine", Haapsalu Kolledž 2015](https://www.etera.ee/zoom/4375/view?page=1&p=separate&search=&view=0,0,2480,3509)
-- [Diplomitöö, "Uue tunniplaani arendamine", Haapsalu Kolledž 2023]()
-- [Diplomitöö, "Uue tunniplaani arendamine", Haapsalu Kolledž 2023]()
+- [Diplomitöö, "TUNNIPLAANI RAKENDUSE ARENDAMINE JA JUURUTAMINE 
+TALLINNA ÜLIKOOLI HAAPSALU KOLLEDŽI NÄITEL", Haapsalu Kolledž 2023](https://www.etera.ee/s/GaiJ04Pyr7)
+- [Diplomitöö, "HAAPSALU KOLLEDŽI TUNNIPLAANI NUTISEADME KUVA LOOMINE", Haapsalu Kolledž 2023](https://www.etera.ee/s/g3O1UHS5CX)
