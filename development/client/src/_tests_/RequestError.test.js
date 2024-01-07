@@ -18,9 +18,9 @@ describe('RequestError', () => {
     // Replace 'Default Error Message' with the actual default message from your content file
     expect(screen.getByText('Andmete laadimine ebaõnnestus!')).toBeInTheDocument();
   });
-  it('calls reloadHandler on button click', () => {
+  it('calls requestHandler on button click', () => {
     const mockReloadHandler = jest.fn();
-    render(<RequestError reloadHandler={mockReloadHandler} />);
+    render(<RequestError requestHandler={mockReloadHandler} />);
     fireEvent.click(screen.getByText('Uuesti'));
     expect(mockReloadHandler).toHaveBeenCalled();
   });

@@ -14,7 +14,7 @@ const UsersList = (props) => {
 
   const [loginInfo, setLoginInfo] = useState(() => {
     let token = sessionStorage.getItem("token");
-    if (token === {}) {
+    if (token == {}) {
       return null;
     }
 
@@ -87,7 +87,7 @@ const UsersList = (props) => {
           <p>Laeb...</p>
         </div>
       )}
-      {error && <RequestError reloadHandler={reloadHandler} size="w-11/12" />}
+      {error && <RequestError requestHandler={reloadHandler} size="w-11/12" />}
       {!error && (
         <div className="flex flex-col justify-between lg:px-4 py-4 w-full text-left">
           <div className="hidden lg:flex w-full font-bold bg-neutral-200">

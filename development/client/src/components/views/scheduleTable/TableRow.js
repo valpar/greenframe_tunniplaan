@@ -136,6 +136,7 @@ const TableBody = (props) => {
               onUpdate={props.onUpdate}
               scheduled={props.rawData}
               isTabletOrMobile={props.isTabletOrMobile}
+              forceLogoutHandler={props.forceLogoutHandler}
             />
           </td>
         </tr>

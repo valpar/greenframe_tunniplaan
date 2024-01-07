@@ -19,7 +19,7 @@ import { useMediaQuery } from "react-responsive";
 import UsersList from "./views/UsersList";
 import { RequestError } from "./UI/RequestError";
 import ConfirmModal from "./UI/ConfirmModal/ConfirmModal";
-
+import RequestModal from "./UI/RequestModal/RequestModal";
 
 
 const Home = () => {
@@ -70,6 +70,7 @@ const Home = () => {
   const [openModalAnimation, setOpenModalAnimation] = useState(false);
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1023px)" });
   const [showUsersList, setShowUsersList] = useState(false);
+  const [showForceLogoutModal, setShowForceLogoutModal] = useState(false);
 
   const work_Data = useCallback(() => {
     setScheduleLoading(isLoading);
@@ -381,6 +382,16 @@ const Home = () => {
     document.body.style.overflow = 'unset';
   };
 
+  const forceLogoutHandler = () => {
+    setShowForceLogoutModal(true);
+    logOut();
+  }
+
+  const closeForceLogoutModal = () => {
+    setShowForceLogoutModal(false);
+  }
+
+
   const emptyFiltersHandler = () => {
     setFilteredData(data);
     setDropdownSelection(undefined);
@@ -641,6 +652,7 @@ const Home = () => {
                   onNewOccurence={newOccurenceHandler}
                   onClose={closeAdditionModalHandler}
                   isTabletOrMobile={isTabletOrMobile}
+                  forceLogoutHandler={forceLogoutHandler}
                 />
               )}
               {[
@@ -690,6 +702,7 @@ const Home = () => {
                       rawData={data}
                       onUpdate={newOccurenceHandler}
                       isTabletOrMobile={isTabletOrMobile}
+                      forceLogoutHandler={forceLogoutHandler}
                     />
                     {noSchoolWork && (
                       <p className="my-8">{`Perioodil ${startDate} - ${endDate} õppetööd ei toimu!`}</p>
@@ -725,8 +738,19 @@ const Home = () => {
                     onDecline={logoutDeclineHandler}
                   />
         </div>
-    )}  
-        
+      )}
+
+      {showForceLogoutModal && (
+        <div 
+        className="absolute top-28 -right-4"
+        >
+          <RequestModal
+            modalMessage="Välja logitud"
+            exclamation={true}
+            onClose={closeForceLogoutModal}
+          />
+        </div>
+      )}  
     </div>
   );
 };

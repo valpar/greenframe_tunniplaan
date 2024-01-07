@@ -19,6 +19,7 @@ const ScheduleAddition = (props) => {
     onUpdate,
     onClose,
     isTabletOrMobile,
+    forceLogoutHandler,
   } = props;
 
   const [courseData, setCourseData] = useState([]);
@@ -462,6 +463,11 @@ const ScheduleAddition = (props) => {
             ...addedLecture[0],
             ...element,
           })
+          .catch((error) =>  {
+            setShowRequestModal(false);
+            props.forceLogoutHandler();
+            return error;
+          })
           .then((res) => {
             if (res.status === 200) {
               setRequestSuccess(true);
@@ -481,6 +487,14 @@ const ScheduleAddition = (props) => {
           .patch(`/schedule/${editData?.id}`, {
             ...addedLecture[0],
             ...element,
+          })
+          .catch((error) =>  {
+            if (error.response.status === 401) {
+              setShowRequestModal(false);
+              props.forceLogoutHandler();
+              return error;
+            }
+            return error;
           })
           .then((res) => {
             if (res.status === 200) {
@@ -641,17 +655,23 @@ const ScheduleAddition = (props) => {
     setShowDeleteConfirmModal(false);
     setRequestLoading(true);
     setShowRequestModal(true);
-    await axios.delete(`/schedule/${editData?.id}`).then((res) => {
-      if (res.status === 200) {
-        setRequestSuccess(true);
-        setRequestLoading(false);
-        setRequestMessage(content.successMessages.delete);
-      } else {
-        setRequestLoading(false);
-        setRequestError(true);
-        setRequestMessage(content.errorMessages.requestAddError);
-      }
-    });
+    await axios.delete(`/schedule/${editData?.id}`)
+      .catch((error) =>  {
+        setShowRequestModal(false);
+        props.forceLogoutHandler();
+        return error;
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setRequestSuccess(true);
+          setRequestLoading(false);
+          setRequestMessage(content.successMessages.delete);
+        } else {
+          setRequestLoading(false);
+          setRequestError(true);
+          setRequestMessage(content.errorMessages.requestAddError);
+        }
+      });
   };
 
   const editItemHandler = (value) => {
