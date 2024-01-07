@@ -37,6 +37,13 @@
     "test": "react-scripts test --coverage",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/path/to/dir/"
+    ]
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

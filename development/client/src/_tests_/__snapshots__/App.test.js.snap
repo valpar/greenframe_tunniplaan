@@ -158,26 +158,28 @@ exports[`App Component matches snapshot 1`] = `
                     aria-live="polite"
                     aria-relevant="additions text"
                     className="css-1f43avz-a11yText-A11yText"
+                    role="log"
                   />
                   <div
-                    className=" css-hsmjzm-control"
+                    className=" css-8d42u8-control"
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
                   >
                     <div
-                      className=" css-319lph-ValueContainer"
+                      className=" css-1fdsijx-ValueContainer"
                     >
                       <div
-                        className=" css-rg4fjx-placeholder"
+                        className=" css-1pfpcr5-placeholder"
                         id="react-select-2-placeholder"
                       >
                         Kursus
                       </div>
                       <div
-                        className=" css-6j8wv5-Input"
+                        className=" css-qbdosj-Input"
                         data-value=""
                       >
                         <input
+                          aria-activedescendant=""
                           aria-autocomplete="list"
                           aria-describedby="react-select-2-placeholder"
                           aria-expanded={false}
@@ -219,11 +221,11 @@ exports[`App Component matches snapshot 1`] = `
                       className=" css-1ex1qfl-IndicatorsContainer"
                     >
                       <span
-                        className=" css-1okebmr-indicatorSeparator"
+                        className=" css-1u9des2-indicatorSeparator"
                       />
                       <div
                         aria-hidden="true"
-                        className=" css-tlfecz-indicatorContainer"
+                        className=" css-1xc3v61-indicatorContainer"
                         onMouseDown={[Function]}
                         onTouchEnd={[Function]}
                       >
@@ -239,7 +241,7 @@ exports[`App Component matches snapshot 1`] = `
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+                            d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
                             fill="currentColor"
                             style={Object {}}
                           />
@@ -345,7 +347,7 @@ exports[`App Component matches snapshot 1`] = `
                           <span
                             className="react-calendar__navigation__label__labelText react-calendar__navigation__label__labelText--from"
                           >
-                            november 2023
+                            jaanuar 2024
                           </span>
                         </button>
                         <button
@@ -410,7 +412,7 @@ exports[`App Component matches snapshot 1`] = `
                                 }
                               >
                                 <span>
-                                  44
+                                  1
                                 </span>
                               </div>
                               <div
@@ -426,7 +428,7 @@ exports[`App Component matches snapshot 1`] = `
                                 }
                               >
                                 <span>
-                                  45
+                                  2
                                 </span>
                               </div>
                               <div
@@ -442,7 +444,7 @@ exports[`App Component matches snapshot 1`] = `
                                 }
                               >
                                 <span>
-                                  46
+                                  3
                                 </span>
                               </div>
                               <div
@@ -458,7 +460,7 @@ exports[`App Component matches snapshot 1`] = `
                                 }
                               >
                                 <span>
-                                  47
+                                  4
                                 </span>
                               </div>
                               <div
@@ -474,7 +476,7 @@ exports[`App Component matches snapshot 1`] = `
                                 }
                               >
                                 <span>
-                                  48
+                                  5
                                 </span>
                               </div>
                             </div>
@@ -643,50 +645,6 @@ exports[`App Component matches snapshot 1`] = `
                                 }
                               >
                                 <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                                  onClick={[Function]}
-                                  onFocus={[Function]}
-                                  onMouseOver={[Function]}
-                                  style={
-                                    Object {
-                                      "flexBasis": "14.285714285714286%",
-                                      "flexGrow": 0,
-                                      "flexShrink": 0,
-                                      "marginLeft": null,
-                                      "overflow": "hidden",
-                                    }
-                                  }
-                                  type="button"
-                                >
-                                  <abbr
-                                    aria-label="30. oktoober 2023"
-                                  >
-                                    30
-                                  </abbr>
-                                </button>
-                                <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                                  onClick={[Function]}
-                                  onFocus={[Function]}
-                                  onMouseOver={[Function]}
-                                  style={
-                                    Object {
-                                      "flexBasis": "14.285714285714286%",
-                                      "flexGrow": 0,
-                                      "flexShrink": 0,
-                                      "marginLeft": null,
-                                      "overflow": "hidden",
-                                    }
-                                  }
-                                  type="button"
-                                >
-                                  <abbr
-                                    aria-label="31. oktoober 2023"
-                                  >
-                                    31
-                                  </abbr>
-                                </button>
-                                <button
                                   className="react-calendar__tile react-calendar__month-view__days__day"
                                   onClick={[Function]}
                                   onFocus={[Function]}
@@ -703,7 +661,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="1. november 2023"
+                                    aria-label="1. jaanuar 2024"
                                   >
                                     1
                                   </abbr>
@@ -725,7 +683,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="2. november 2023"
+                                    aria-label="2. jaanuar 2024"
                                   >
                                     2
                                   </abbr>
@@ -747,13 +705,13 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="3. november 2023"
+                                    aria-label="3. jaanuar 2024"
                                   >
                                     3
                                   </abbr>
                                 </button>
                                 <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                                  className="react-calendar__tile react-calendar__month-view__days__day"
                                   onClick={[Function]}
                                   onFocus={[Function]}
                                   onMouseOver={[Function]}
@@ -769,12 +727,34 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="4. november 2023"
+                                    aria-label="4. jaanuar 2024"
                                   >
                                     4
                                   </abbr>
                                 </button>
                                 <button
+                                  className="react-calendar__tile react-calendar__month-view__days__day"
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseOver={[Function]}
+                                  style={
+                                    Object {
+                                      "flexBasis": "14.285714285714286%",
+                                      "flexGrow": 0,
+                                      "flexShrink": 0,
+                                      "marginLeft": null,
+                                      "overflow": "hidden",
+                                    }
+                                  }
+                                  type="button"
+                                >
+                                  <abbr
+                                    aria-label="5. jaanuar 2024"
+                                  >
+                                    5
+                                  </abbr>
+                                </button>
+                                <button
                                   className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                                   onClick={[Function]}
                                   onFocus={[Function]}
@@ -791,35 +771,13 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="5. november 2023"
-                                  >
-                                    5
-                                  </abbr>
-                                </button>
-                                <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day"
-                                  onClick={[Function]}
-                                  onFocus={[Function]}
-                                  onMouseOver={[Function]}
-                                  style={
-                                    Object {
-                                      "flexBasis": "14.285714285714286%",
-                                      "flexGrow": 0,
-                                      "flexShrink": 0,
-                                      "marginLeft": null,
-                                      "overflow": "hidden",
-                                    }
-                                  }
-                                  type="button"
-                                >
-                                  <abbr
-                                    aria-label="6. november 2023"
+                                    aria-label="6. jaanuar 2024"
                                   >
                                     6
                                   </abbr>
                                 </button>
                                 <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day"
+                                  className="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                                   onClick={[Function]}
                                   onFocus={[Function]}
                                   onMouseOver={[Function]}
@@ -835,7 +793,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="7. november 2023"
+                                    aria-label="7. jaanuar 2024"
                                   >
                                     7
                                   </abbr>
@@ -857,7 +815,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="8. november 2023"
+                                    aria-label="8. jaanuar 2024"
                                   >
                                     8
                                   </abbr>
@@ -879,7 +837,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="9. november 2023"
+                                    aria-label="9. jaanuar 2024"
                                   >
                                     9
                                   </abbr>
@@ -901,13 +859,13 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="10. november 2023"
+                                    aria-label="10. jaanuar 2024"
                                   >
                                     10
                                   </abbr>
                                 </button>
                                 <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                                  className="react-calendar__tile react-calendar__month-view__days__day"
                                   onClick={[Function]}
                                   onFocus={[Function]}
                                   onMouseOver={[Function]}
@@ -923,12 +881,34 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="11. november 2023"
+                                    aria-label="11. jaanuar 2024"
                                   >
                                     11
                                   </abbr>
                                 </button>
                                 <button
+                                  className="react-calendar__tile react-calendar__month-view__days__day"
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseOver={[Function]}
+                                  style={
+                                    Object {
+                                      "flexBasis": "14.285714285714286%",
+                                      "flexGrow": 0,
+                                      "flexShrink": 0,
+                                      "marginLeft": null,
+                                      "overflow": "hidden",
+                                    }
+                                  }
+                                  type="button"
+                                >
+                                  <abbr
+                                    aria-label="12. jaanuar 2024"
+                                  >
+                                    12
+                                  </abbr>
+                                </button>
+                                <button
                                   className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                                   onClick={[Function]}
                                   onFocus={[Function]}
@@ -945,35 +925,13 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="12. november 2023"
-                                  >
-                                    12
-                                  </abbr>
-                                </button>
-                                <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day"
-                                  onClick={[Function]}
-                                  onFocus={[Function]}
-                                  onMouseOver={[Function]}
-                                  style={
-                                    Object {
-                                      "flexBasis": "14.285714285714286%",
-                                      "flexGrow": 0,
-                                      "flexShrink": 0,
-                                      "marginLeft": null,
-                                      "overflow": "hidden",
-                                    }
-                                  }
-                                  type="button"
-                                >
-                                  <abbr
-                                    aria-label="13. november 2023"
+                                    aria-label="13. jaanuar 2024"
                                   >
                                     13
                                   </abbr>
                                 </button>
                                 <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day"
+                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                                   onClick={[Function]}
                                   onFocus={[Function]}
                                   onMouseOver={[Function]}
@@ -989,7 +947,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="14. november 2023"
+                                    aria-label="14. jaanuar 2024"
                                   >
                                     14
                                   </abbr>
@@ -1011,7 +969,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="15. november 2023"
+                                    aria-label="15. jaanuar 2024"
                                   >
                                     15
                                   </abbr>
@@ -1033,7 +991,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="16. november 2023"
+                                    aria-label="16. jaanuar 2024"
                                   >
                                     16
                                   </abbr>
@@ -1055,13 +1013,13 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="17. november 2023"
+                                    aria-label="17. jaanuar 2024"
                                   >
                                     17
                                   </abbr>
                                 </button>
                                 <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                                  className="react-calendar__tile react-calendar__month-view__days__day"
                                   onClick={[Function]}
                                   onFocus={[Function]}
                                   onMouseOver={[Function]}
@@ -1077,12 +1035,34 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="18. november 2023"
+                                    aria-label="18. jaanuar 2024"
                                   >
                                     18
                                   </abbr>
                                 </button>
                                 <button
+                                  className="react-calendar__tile react-calendar__month-view__days__day"
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseOver={[Function]}
+                                  style={
+                                    Object {
+                                      "flexBasis": "14.285714285714286%",
+                                      "flexGrow": 0,
+                                      "flexShrink": 0,
+                                      "marginLeft": null,
+                                      "overflow": "hidden",
+                                    }
+                                  }
+                                  type="button"
+                                >
+                                  <abbr
+                                    aria-label="19. jaanuar 2024"
+                                  >
+                                    19
+                                  </abbr>
+                                </button>
+                                <button
                                   className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                                   onClick={[Function]}
                                   onFocus={[Function]}
@@ -1099,34 +1079,34 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="19. november 2023"
-                                  >
-                                    19
-                                  </abbr>
-                                </button>
-                                <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day"
-                                  onClick={[Function]}
-                                  onFocus={[Function]}
-                                  onMouseOver={[Function]}
-                                  style={
-                                    Object {
-                                      "flexBasis": "14.285714285714286%",
-                                      "flexGrow": 0,
-                                      "flexShrink": 0,
-                                      "marginLeft": null,
-                                      "overflow": "hidden",
-                                    }
-                                  }
-                                  type="button"
-                                >
-                                  <abbr
-                                    aria-label="20. november 2023"
+                                    aria-label="20. jaanuar 2024"
                                   >
                                     20
                                   </abbr>
                                 </button>
                                 <button
+                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseOver={[Function]}
+                                  style={
+                                    Object {
+                                      "flexBasis": "14.285714285714286%",
+                                      "flexGrow": 0,
+                                      "flexShrink": 0,
+                                      "marginLeft": null,
+                                      "overflow": "hidden",
+                                    }
+                                  }
+                                  type="button"
+                                >
+                                  <abbr
+                                    aria-label="21. jaanuar 2024"
+                                  >
+                                    21
+                                  </abbr>
+                                </button>
+                                <button
                                   className="react-calendar__tile react-calendar__month-view__days__day"
                                   onClick={[Function]}
                                   onFocus={[Function]}
@@ -1143,29 +1123,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="21. november 2023"
-                                  >
-                                    21
-                                  </abbr>
-                                </button>
-                                <button
-                                  className="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day"
-                                  onClick={[Function]}
-                                  onFocus={[Function]}
-                                  onMouseOver={[Function]}
-                                  style={
-                                    Object {
-                                      "flexBasis": "14.285714285714286%",
-                                      "flexGrow": 0,
-                                      "flexShrink": 0,
-                                      "marginLeft": null,
-                                      "overflow": "hidden",
-                                    }
-                                  }
-                                  type="button"
-                                >
-                                  <abbr
-                                    aria-label="22. november 2023"
+                                    aria-label="22. jaanuar 2024"
                                   >
                                     22
                                   </abbr>
@@ -1187,7 +1145,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="23. november 2023"
+                                    aria-label="23. jaanuar 2024"
                                   >
                                     23
                                   </abbr>
@@ -1209,13 +1167,13 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="24. november 2023"
+                                    aria-label="24. jaanuar 2024"
                                   >
                                     24
                                   </abbr>
                                 </button>
                                 <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                                  className="react-calendar__tile react-calendar__month-view__days__day"
                                   onClick={[Function]}
                                   onFocus={[Function]}
                                   onMouseOver={[Function]}
@@ -1231,12 +1189,34 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="25. november 2023"
+                                    aria-label="25. jaanuar 2024"
                                   >
                                     25
                                   </abbr>
                                 </button>
                                 <button
+                                  className="react-calendar__tile react-calendar__month-view__days__day"
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseOver={[Function]}
+                                  style={
+                                    Object {
+                                      "flexBasis": "14.285714285714286%",
+                                      "flexGrow": 0,
+                                      "flexShrink": 0,
+                                      "marginLeft": null,
+                                      "overflow": "hidden",
+                                    }
+                                  }
+                                  type="button"
+                                >
+                                  <abbr
+                                    aria-label="26. jaanuar 2024"
+                                  >
+                                    26
+                                  </abbr>
+                                </button>
+                                <button
                                   className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                                   onClick={[Function]}
                                   onFocus={[Function]}
@@ -1253,35 +1233,13 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="26. november 2023"
-                                  >
-                                    26
-                                  </abbr>
-                                </button>
-                                <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day"
-                                  onClick={[Function]}
-                                  onFocus={[Function]}
-                                  onMouseOver={[Function]}
-                                  style={
-                                    Object {
-                                      "flexBasis": "14.285714285714286%",
-                                      "flexGrow": 0,
-                                      "flexShrink": 0,
-                                      "marginLeft": null,
-                                      "overflow": "hidden",
-                                    }
-                                  }
-                                  type="button"
-                                >
-                                  <abbr
-                                    aria-label="27. november 2023"
+                                    aria-label="27. jaanuar 2024"
                                   >
                                     27
                                   </abbr>
                                 </button>
                                 <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day"
+                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                                   onClick={[Function]}
                                   onFocus={[Function]}
                                   onMouseOver={[Function]}
@@ -1297,7 +1255,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="28. november 2023"
+                                    aria-label="28. jaanuar 2024"
                                   >
                                     28
                                   </abbr>
@@ -1319,7 +1277,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="29. november 2023"
+                                    aria-label="29. jaanuar 2024"
                                   >
                                     29
                                   </abbr>
@@ -1341,9 +1299,31 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="30. november 2023"
+                                    aria-label="30. jaanuar 2024"
                                   >
                                     30
+                                  </abbr>
+                                </button>
+                                <button
+                                  className="react-calendar__tile react-calendar__month-view__days__day"
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseOver={[Function]}
+                                  style={
+                                    Object {
+                                      "flexBasis": "14.285714285714286%",
+                                      "flexGrow": 0,
+                                      "flexShrink": 0,
+                                      "marginLeft": null,
+                                      "overflow": "hidden",
+                                    }
+                                  }
+                                  type="button"
+                                >
+                                  <abbr
+                                    aria-label="31. jaanuar 2024"
+                                  >
+                                    31
                                   </abbr>
                                 </button>
                                 <button
@@ -1363,13 +1343,13 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="1. detsember 2023"
+                                    aria-label="1. veebruar 2024"
                                   >
                                     1
                                   </abbr>
                                 </button>
                                 <button
-                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
+                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
                                   onClick={[Function]}
                                   onFocus={[Function]}
                                   onMouseOver={[Function]}
@@ -1385,7 +1365,7 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="2. detsember 2023"
+                                    aria-label="2. veebruar 2024"
                                   >
                                     2
                                   </abbr>
@@ -1407,9 +1387,31 @@ exports[`App Component matches snapshot 1`] = `
                                   type="button"
                                 >
                                   <abbr
-                                    aria-label="3. detsember 2023"
+                                    aria-label="3. veebruar 2024"
                                   >
                                     3
+                                  </abbr>
+                                </button>
+                                <button
+                                  className="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseOver={[Function]}
+                                  style={
+                                    Object {
+                                      "flexBasis": "14.285714285714286%",
+                                      "flexGrow": 0,
+                                      "flexShrink": 0,
+                                      "marginLeft": null,
+                                      "overflow": "hidden",
+                                    }
+                                  }
+                                  type="button"
+                                >
+                                  <abbr
+                                    aria-label="4. veebruar 2024"
+                                  >
+                                    4
                                   </abbr>
                                 </button>
                               </div>
@@ -1484,26 +1486,28 @@ exports[`App Component matches snapshot 1`] = `
                     aria-live="polite"
                     aria-relevant="additions text"
                     className="css-1f43avz-a11yText-A11yText"
+                    role="log"
                   />
                   <div
-                    className=" css-hsmjzm-control"
+                    className=" css-8d42u8-control"
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
                   >
                     <div
-                      className=" css-319lph-ValueContainer"
+                      className=" css-1fdsijx-ValueContainer"
                     >
                       <div
-                        className=" css-rg4fjx-placeholder"
+                        className=" css-1pfpcr5-placeholder"
                         id="react-select-3-placeholder"
                       >
                         Õppeaine
                       </div>
                       <div
-                        className=" css-6j8wv5-Input"
+                        className=" css-qbdosj-Input"
                         data-value=""
                       >
                         <input
+                          aria-activedescendant=""
                           aria-autocomplete="list"
                           aria-describedby="react-select-3-placeholder"
                           aria-expanded={false}
@@ -1545,11 +1549,11 @@ exports[`App Component matches snapshot 1`] = `
                       className=" css-1ex1qfl-IndicatorsContainer"
                     >
                       <span
-                        className=" css-1okebmr-indicatorSeparator"
+                        className=" css-1u9des2-indicatorSeparator"
                       />
                       <div
                         aria-hidden="true"
-                        className=" css-tlfecz-indicatorContainer"
+                        className=" css-1xc3v61-indicatorContainer"
                         onMouseDown={[Function]}
                         onTouchEnd={[Function]}
                       >
@@ -1565,7 +1569,7 @@ exports[`App Component matches snapshot 1`] = `
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+                            d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
                             fill="currentColor"
                             style={Object {}}
                           />
@@ -1598,26 +1602,28 @@ exports[`App Component matches snapshot 1`] = `
                     aria-live="polite"
                     aria-relevant="additions text"
                     className="css-1f43avz-a11yText-A11yText"
+                    role="log"
                   />
                   <div
-                    className=" css-hsmjzm-control"
+                    className=" css-8d42u8-control"
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
                   >
                     <div
-                      className=" css-319lph-ValueContainer"
+                      className=" css-1fdsijx-ValueContainer"
                     >
                       <div
-                        className=" css-rg4fjx-placeholder"
+                        className=" css-1pfpcr5-placeholder"
                         id="react-select-4-placeholder"
                       >
                         Õppejõud
                       </div>
                       <div
-                        className=" css-6j8wv5-Input"
+                        className=" css-qbdosj-Input"
                         data-value=""
                       >
                         <input
+                          aria-activedescendant=""
                           aria-autocomplete="list"
                           aria-describedby="react-select-4-placeholder"
                           aria-expanded={false}
@@ -1659,11 +1665,11 @@ exports[`App Component matches snapshot 1`] = `
                       className=" css-1ex1qfl-IndicatorsContainer"
                     >
                       <span
-                        className=" css-1okebmr-indicatorSeparator"
+                        className=" css-1u9des2-indicatorSeparator"
                       />
                       <div
                         aria-hidden="true"
-                        className=" css-tlfecz-indicatorContainer"
+                        className=" css-1xc3v61-indicatorContainer"
                         onMouseDown={[Function]}
                         onTouchEnd={[Function]}
                       >
@@ -1679,7 +1685,7 @@ exports[`App Component matches snapshot 1`] = `
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+                            d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
                             fill="currentColor"
                             style={Object {}}
                           />
@@ -1712,26 +1718,28 @@ exports[`App Component matches snapshot 1`] = `
                     aria-live="polite"
                     aria-relevant="additions text"
                     className="css-1f43avz-a11yText-A11yText"
+                    role="log"
                   />
                   <div
-                    className=" css-hsmjzm-control"
+                    className=" css-8d42u8-control"
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
                   >
                     <div
-                      className=" css-319lph-ValueContainer"
+                      className=" css-1fdsijx-ValueContainer"
                     >
                       <div
-                        className=" css-rg4fjx-placeholder"
+                        className=" css-1pfpcr5-placeholder"
                         id="react-select-5-placeholder"
                       >
                         Ruum
                       </div>
                       <div
-                        className=" css-6j8wv5-Input"
+                        className=" css-qbdosj-Input"
                         data-value=""
                       >
                         <input
+                          aria-activedescendant=""
                           aria-autocomplete="list"
                           aria-describedby="react-select-5-placeholder"
                           aria-expanded={false}
@@ -1773,11 +1781,11 @@ exports[`App Component matches snapshot 1`] = `
                       className=" css-1ex1qfl-IndicatorsContainer"
                     >
                       <span
-                        className=" css-1okebmr-indicatorSeparator"
+                        className=" css-1u9des2-indicatorSeparator"
                       />
                       <div
                         aria-hidden="true"
-                        className=" css-tlfecz-indicatorContainer"
+                        className=" css-1xc3v61-indicatorContainer"
                         onMouseDown={[Function]}
                         onTouchEnd={[Function]}
                       >
@@ -1793,7 +1801,7 @@ exports[`App Component matches snapshot 1`] = `
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+                            d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
                             fill="currentColor"
                             style={Object {}}
                           />
@@ -1868,7 +1876,7 @@ exports[`App Component matches snapshot 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M272.9 135.7C268.3 130.8 261.9 128 255.2 128C247.5 128.3 241.1 130.9 237.5 135.8l-87.25 96C143.8 238.9 142.2 249 146.1 257.7C149.9 266.4 158.5 272 167.1 272h56L224 360c0 13.25 10.75 24 24 24h16c13.25 0 23.1-10.75 23.1-24L287.1 272h56c9.531 0 18.16-5.656 22-14.38c3.811-8.75 2.092-18.91-4.377-25.91L272.9 135.7zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 464c-114.7 0-208-93.31-208-208S141.3 48 256 48s208 93.31 208 208S370.7 464 256 464z"
+        d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM135.1 217.4c-4.5 4.2-7.1 10.1-7.1 16.3c0 12.3 10 22.3 22.3 22.3H208v96c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V256h57.7c12.3 0 22.3-10 22.3-22.3c0-6.2-2.6-12.1-7.1-16.3L269.8 117.5c-3.8-3.5-8.7-5.5-13.8-5.5s-10.1 2-13.8 5.5L135.1 217.4z"
         fill="currentColor"
         style={Object {}}
       />
