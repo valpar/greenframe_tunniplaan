@@ -20,7 +20,7 @@ const NewLecturer = (props) => {
 
   useEffect(() => {
     if (props.editMode) {
-      const teacherData = props.teachrerData.teachers.filter((e) => {
+      const teacherData = props.teacherData.teachers.filter((e) => {
         return e.id === props.editValues
           ? { firstName: e.firstName, lastName: e.lastName, email: e.email }
           : false;

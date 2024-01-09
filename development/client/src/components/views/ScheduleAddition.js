@@ -23,7 +23,7 @@ const ScheduleAddition = (props) => {
   } = props;
 
   const [courseData, setCourseData] = useState([]);
-  const [teacherData, setLecturerData] = useState([]);
+  const [teacherData, setTeacherData] = useState([]);
   const [roomsData, setRoomsData] = useState([]);
   const [subjectsData, setSubjectsData] = useState([]);
   const [newOccurence, setNewOccurence] = useState([
@@ -160,7 +160,7 @@ const ScheduleAddition = (props) => {
           value: teacherResponse.teachers[key].id,
         });
       }
-      setLecturerData(teachers);
+      setTeacherData(teachers);
     }
   }, [teacherLoading, teacherResponse]);
 
