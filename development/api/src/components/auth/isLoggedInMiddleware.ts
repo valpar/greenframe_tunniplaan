@@ -12,6 +12,7 @@ const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
     });
   }
   const payload = jwtService.verify(token);
+ 
   if (!payload) {
     console.log("isloggedIn no payload in token", token);
     return res.status(responseCodes.notAuthorized).json({

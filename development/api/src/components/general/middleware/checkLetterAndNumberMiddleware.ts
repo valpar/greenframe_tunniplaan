@@ -19,8 +19,12 @@ const checkAlphabetAndNumber = (
   testSubject = validateField.testFields(subject);
 
   if (testScheduled && testSubject) {
+    console.log("Kõik on korras");
     return next();
   }
+
+  console.log("Siia ongi see koer maetud");
+
   return res.status(responseCodes.badRequest).json({
     error: 'Insert only letters, numbers or -.,!',
   });

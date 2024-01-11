@@ -87,7 +87,7 @@ app.get('/gcal/:atDate/:toDate/:courseId/:teacherId', scheduleController.getgcal
 app.get('/teachers', teacherController.getAllTeachersById);
 app.get('/teachers/activeSubjects', teacherController.getTeachersSubjects);
 app.get('/teachers/:id', teacherController.getTeacherById);
-app.post('/teachers', checkAlphabet, isLoggedIn, isAdmin, teacherController.addTeacher);
+app.post('/teachers', /* checkAlphabet, */ isLoggedIn, isAdmin, teacherController.addTeacher);
 app.delete(
   '/teachers/:id',
   isLoggedIn,
@@ -96,7 +96,7 @@ app.delete(
 );
 app.patch(
   '/teachers/:id',
-  checkAlphabet,
+  /* checkAlphabet, */
   isLoggedIn,
   isAdmin,
   teacherController.updateTeacherById,

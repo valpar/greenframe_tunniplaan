@@ -22,6 +22,8 @@ const ScheduleAddition = (props) => {
     forceLogoutHandler,
   } = props;
 
+  const token = JSON.parse(sessionStorage.getItem('token'));
+  
   const [courseData, setCourseData] = useState([]);
   const [teacherData, setTeacherData] = useState([]);
   const [roomsData, setRoomsData] = useState([]);
@@ -462,6 +464,9 @@ const ScheduleAddition = (props) => {
           .post(`/schedule`, {
             ...addedLecture[0],
             ...element,
+          },
+          {
+            headers: { Authorization: `Bearer ${token.token}` },
           })
           .catch((error) =>  {
             setShowRequestModal(false);
@@ -487,6 +492,8 @@ const ScheduleAddition = (props) => {
           .patch(`/schedule/${editData?.id}`, {
             ...addedLecture[0],
             ...element,
+          },{
+            headers: { Authorization: `Bearer ${token.token}` },
           })
           .catch((error) =>  {
             if (error.response.status === 401) {
@@ -655,7 +662,9 @@ const ScheduleAddition = (props) => {
     setShowDeleteConfirmModal(false);
     setRequestLoading(true);
     setShowRequestModal(true);
-    await axios.delete(`/schedule/${editData?.id}`)
+    await axios.delete(`/schedule/${editData?.id}`,{
+      headers: { Authorization: `Bearer ${token.token}` },
+    })
       .catch((error) =>  {
         setShowRequestModal(false);
         props.forceLogoutHandler();
