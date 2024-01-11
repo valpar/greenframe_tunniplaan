@@ -22,8 +22,6 @@ const checkAlphabetAndNumber = (
     return next();
   }
 
-  console.log("Siia ongi see koer maetud");
-
   return res.status(responseCodes.badRequest).json({
     error: 'Insert only letters, numbers or -.,!',
   });
