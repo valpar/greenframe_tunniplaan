@@ -37,7 +37,7 @@ const Home = () => {
 
   let [loginInfo, setLoginInfo] = useState(() => {
     let token = sessionStorage.getItem("token");
-    if (token === null || token.length == 0) {
+    if (token === null || token.length === 0) {
       return null;
     }
 

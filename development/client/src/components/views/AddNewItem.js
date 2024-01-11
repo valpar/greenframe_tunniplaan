@@ -55,7 +55,7 @@ const AddNewItem = (props) => {
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [hideModal, setHideModal] = useState(false);
   const [requestAction, setRequestAction] = useState("");
-  
+
   const inputsChangeHandler = (inputsObj, rowIndex, validInputs) => {
     setInputsState((prevState) =>
       prevState.map((obj, i) => {
@@ -409,6 +409,7 @@ const AddNewItem = (props) => {
       }, 2000);
       return () => clearTimeout(timer);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requestSuccess]);
 
   const endRequestHandler = () => {

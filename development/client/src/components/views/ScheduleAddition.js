@@ -83,28 +83,29 @@ const ScheduleAddition = (props) => {
         },
       ]);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [newDropdownItem, setNewDropdownItem] = useState(false);
 
   const {
     response: courseResponse,
     isLoading: courseLoading,
-    error: courseError,
+    //error: courseError,
   } = useAxios({ method: "get", url: "/courses" }, newDropdownItem);
   const {
     response: teacherResponse,
     isLoading: teacherLoading,
-    error: teacherError,
+    //error: teacherError,
   } = useAxios({ method: "get", url: "/teachers" }, newDropdownItem);
   const {
     response: roomResponse,
     isLoading: roomLoading,
-    error: roomError,
+    //error: roomError,
   } = useAxios({ method: "get", url: "/rooms" }, newDropdownItem);
   const {
     response: subjectsResponse,
     isLoading: subjectsLoading,
-    error: subjectsError,
+    //error: subjectsError,
   } = useAxios({ method: "get", url: "/subjects" }, newDropdownItem);
 
   const [subjectValid, setSubjectValid] = useState(false);
@@ -422,6 +423,7 @@ const ScheduleAddition = (props) => {
         });
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newOccurence, addedLecture[0].teachers, addedLecture[0].rooms]);
 
   useEffect(() => {
@@ -430,6 +432,7 @@ const ScheduleAddition = (props) => {
       if (!startTimeUnique(occurenceValidator)) setFieldsValid(true);
       return setOccurencesIsValid(occurenceValidator);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newOccurence]);
 
   const saveScheduleHandler = () => {
@@ -709,6 +712,7 @@ const ScheduleAddition = (props) => {
       }, 2000);
       return () => clearTimeout(timer);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requestSuccess]);
 
   const handleResize = () => {
