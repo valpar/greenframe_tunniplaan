@@ -19,8 +19,11 @@ const ScheduleAddition = (props) => {
     onUpdate,
     onClose,
     isTabletOrMobile,
+    forceLogoutHandler,
   } = props;
 
+  const token = JSON.parse(sessionStorage.getItem('token'));
+  
   const [courseData, setCourseData] = useState([]);
   const [teacherData, setTeacherData] = useState([]);
   const [roomsData, setRoomsData] = useState([]);
@@ -80,28 +83,29 @@ const ScheduleAddition = (props) => {
         },
       ]);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [newDropdownItem, setNewDropdownItem] = useState(false);
 
   const {
     response: courseResponse,
     isLoading: courseLoading,
-    error: courseError,
+    //error: courseError,
   } = useAxios({ method: "get", url: "/courses" }, newDropdownItem);
   const {
     response: teacherResponse,
     isLoading: teacherLoading,
-    error: teacherError,
+    //error: teacherError,
   } = useAxios({ method: "get", url: "/teachers" }, newDropdownItem);
   const {
     response: roomResponse,
     isLoading: roomLoading,
-    error: roomError,
+    //error: roomError,
   } = useAxios({ method: "get", url: "/rooms" }, newDropdownItem);
   const {
     response: subjectsResponse,
     isLoading: subjectsLoading,
-    error: subjectsError,
+    //error: subjectsError,
   } = useAxios({ method: "get", url: "/subjects" }, newDropdownItem);
 
   const [subjectValid, setSubjectValid] = useState(false);
@@ -419,6 +423,7 @@ const ScheduleAddition = (props) => {
         });
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newOccurence, addedLecture[0].teachers, addedLecture[0].rooms]);
 
   useEffect(() => {
@@ -427,6 +432,7 @@ const ScheduleAddition = (props) => {
       if (!startTimeUnique(occurenceValidator)) setFieldsValid(true);
       return setOccurencesIsValid(occurenceValidator);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newOccurence]);
 
   const saveScheduleHandler = () => {
@@ -461,6 +467,14 @@ const ScheduleAddition = (props) => {
           .post(`/schedule`, {
             ...addedLecture[0],
             ...element,
+          },
+          {
+            headers: { Authorization: `Bearer ${token.token}` },
+          })
+          .catch((error) =>  {
+            setShowRequestModal(false);
+            props.forceLogoutHandler();
+            return error;
           })
           .then((res) => {
             if (res.status === 200) {
@@ -481,6 +495,16 @@ const ScheduleAddition = (props) => {
           .patch(`/schedule/${editData?.id}`, {
             ...addedLecture[0],
             ...element,
+          },{
+            headers: { Authorization: `Bearer ${token.token}` },
+          })
+          .catch((error) =>  {
+            if (error.response.status === 401) {
+              setShowRequestModal(false);
+              props.forceLogoutHandler();
+              return error;
+            }
+            return error;
           })
           .then((res) => {
             if (res.status === 200) {
@@ -641,17 +665,25 @@ const ScheduleAddition = (props) => {
     setShowDeleteConfirmModal(false);
     setRequestLoading(true);
     setShowRequestModal(true);
-    await axios.delete(`/schedule/${editData?.id}`).then((res) => {
-      if (res.status === 200) {
-        setRequestSuccess(true);
-        setRequestLoading(false);
-        setRequestMessage(content.successMessages.delete);
-      } else {
-        setRequestLoading(false);
-        setRequestError(true);
-        setRequestMessage(content.errorMessages.requestAddError);
-      }
-    });
+    await axios.delete(`/schedule/${editData?.id}`,{
+      headers: { Authorization: `Bearer ${token.token}` },
+    })
+      .catch((error) =>  {
+        setShowRequestModal(false);
+        props.forceLogoutHandler();
+        return error;
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setRequestSuccess(true);
+          setRequestLoading(false);
+          setRequestMessage(content.successMessages.delete);
+        } else {
+          setRequestLoading(false);
+          setRequestError(true);
+          setRequestMessage(content.errorMessages.requestAddError);
+        }
+      });
   };
 
   const editItemHandler = (value) => {
@@ -680,6 +712,7 @@ const ScheduleAddition = (props) => {
       }, 2000);
       return () => clearTimeout(timer);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requestSuccess]);
 
   const handleResize = () => {
@@ -715,6 +748,7 @@ const ScheduleAddition = (props) => {
           modalFor={modalContent}
           onNewItem={newItemhandler}
           scheduled={scheduled}
+          forceLogoutHandler={forceLogoutHandler}
         />
       )}
       <div className="relative text-sm md:text-base font-bold w-full">

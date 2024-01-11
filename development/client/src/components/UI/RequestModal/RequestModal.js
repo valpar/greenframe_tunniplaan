@@ -71,8 +71,26 @@ const RequestModalOverlay = (props) => {
           </div>
         </>
       )}
+      {props.exclamation && (
+        <>
+          <div className="flex justify-center pb-4 text-4xl lg:text-6xl text-collegeRed">
+            <FontAwesomeIcon icon={faExclamation} />
+          </div>
+          <div className="flex justify-center">
+            <button
+              onClick={props.onClose}
+              type="button"
+              className="px-4 py-2 w-28 border border-borderGray text-sm shadow hover:bg-borderGray hover:shadow-lg duration-150"
+            >
+              Ok
+            </button>
+          </div>
+        </>
+      )}
+
     </div>
   );
+  
 };
 
 const portalElement = document.getElementById("overlays");

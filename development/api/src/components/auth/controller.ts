@@ -6,6 +6,7 @@ import responseCodes from '../general/responseCodes';
 
 const authController = {
   googleAuth: async (req: Request, res: Response) => {
+    
     let email = '';
     let user;
     try {

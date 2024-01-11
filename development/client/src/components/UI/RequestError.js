@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 
 export const RequestError = (props) => {
-  const { errorMessage, reloadHandler, size } = props;
+  const { errorMessage, requestHandler, size, buttonText } = props;
 
   return (
     <div
@@ -18,10 +18,10 @@ export const RequestError = (props) => {
         {errorMessage ? errorMessage : content.errorMessages.serverError}
       </p>
       <button
-        onClick={reloadHandler}
+        onClick={requestHandler}
         className="py-1 px-8 my-4 border border-borderGray shadow hover:bg-borderGray hover:shadow-lg duration-150"
       >
-        Uuesti
+        {buttonText ? buttonText : "Uuesti"}
       </button>
     </div>
   );

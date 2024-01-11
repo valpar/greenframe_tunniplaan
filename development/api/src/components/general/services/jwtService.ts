@@ -9,7 +9,7 @@ const jwtService = {
       id: user.id,
       roles: user.roles,
     };
-    const token = jwt.sign(payload, jwtPassword, { expiresIn: '1h' });
+    const token = jwt.sign(payload, jwtPassword, { expiresIn: '1d' });
     return token;
   },
   verify: (token: string) => {

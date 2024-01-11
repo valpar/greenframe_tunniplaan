@@ -11,6 +11,7 @@ const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
     });
   }
   const payload = jwtService.verify(token);
+ 
   if (!payload) {
     return res.status(responseCodes.notAuthorized).json({
       error: 'Invalid token',
