@@ -744,6 +744,7 @@ const ScheduleAddition = (props) => {
           modalFor={modalContent}
           onNewItem={newItemhandler}
           scheduled={scheduled}
+          forceLogoutHandler={forceLogoutHandler}
         />
       )}
       <div className="relative text-sm md:text-base font-bold w-full">

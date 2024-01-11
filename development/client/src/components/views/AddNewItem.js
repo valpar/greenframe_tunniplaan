@@ -55,10 +55,7 @@ const AddNewItem = (props) => {
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [hideModal, setHideModal] = useState(false);
   const [requestAction, setRequestAction] = useState("");
-
-  console.log("x!!! tokken", token);
-  console.log("x!!! tokken.tokken", token.token);
-
+  
   const inputsChangeHandler = (inputsObj, rowIndex, validInputs) => {
     setInputsState((prevState) =>
       prevState.map((obj, i) => {
@@ -115,7 +112,16 @@ const AddNewItem = (props) => {
         for (let state of inputsState) {
           await axios.post(`/${modalFor}`, { ...state }, {
             headers: { Authorization: `Bearer ${token.token}` },
-          }).then((response) => {
+          })
+          .catch((error) =>  {
+            if (error.response.status === 401) {
+              setShowRequestModal(false);
+              props.forceLogoutHandler();
+              return error;
+            }
+            return error;
+          })
+          .then((response) => {
             responseId.push({ [typeId]: response.data.id });
             if (modalFor === "subjects")
               onNewItem("subjectId", response.data.id);
@@ -231,6 +237,14 @@ const AddNewItem = (props) => {
           .patch(`/rooms/${editValues}`, inputsState[0], {
             headers: { Authorization: `Bearer ${token.token}` },
           })
+          .catch((error) =>  {
+            if (error.response.status === 401) {
+              setShowRequestModal(false);
+              props.forceLogoutHandler();
+              return error;
+            }
+            return error;
+          })
           .then((response) => console.log(response));
       }
       if (modalFor === "courses") {
@@ -238,20 +252,43 @@ const AddNewItem = (props) => {
           .patch(`/courses/${editValues}`, inputsState[0], {
             headers: { Authorization: `Bearer ${token.token}` },
           })
+          .catch((error) =>  {
+            if (error.response.status === 401) {
+              setShowRequestModal(false);
+              props.forceLogoutHandler();
+              return error;
+            }
+            return error;
+          })
           .then((response) => console.log(response));
       }
       if (modalFor === "teachers") {
         await axios
           .patch(`/teachers/${editValues}`, inputsState[0], {
             headers: { Authorization: `Bearer ${token.token}` },
-          }
-          )
+          })
+          .catch((error) =>  {
+            if (error.response.status === 401) {
+              setShowRequestModal(false);
+              props.forceLogoutHandler();
+              return error;
+            }
+            return error;
+          })
           .then((response) => console.log(response));
       }
       if (modalFor === "subjects") {
         await axios
           .patch(`/subjects/${editValues}`, inputsState[0], {
             headers: { Authorization: `Bearer ${token.token}` },
+          })
+          .catch((error) =>  {
+            if (error.response.status === 401) {
+              setShowRequestModal(false);
+              props.forceLogoutHandler();
+              return error;
+            }
+            return error;
           })
           .then((response) => console.log(response));
       }
@@ -280,12 +317,28 @@ const AddNewItem = (props) => {
           .delete(`/rooms/${editValues}`, {
             headers: { Authorization: `Bearer ${token.token}` },
           })
+          .catch((error) =>  {
+            if (error.response.status === 401) {
+              setShowRequestModal(false);
+              props.forceLogoutHandler();
+              return error;
+            }
+            return error;
+          })
           .then((response) => console.log(response));
       }
       if (modalFor === "courses") {
         await axios
           .delete(`/courses/${editValues}`, {
             headers: { Authorization: `Bearer ${token.token}` },
+          })
+          .catch((error) =>  {
+            if (error.response.status === 401) {
+              setShowRequestModal(false);
+              props.forceLogoutHandler();
+              return error;
+            }
+            return error;
           })
           .then((response) => console.log(response));
       }
@@ -294,12 +347,28 @@ const AddNewItem = (props) => {
           .delete(`/teachers/${editValues}`, {
             headers: { Authorization: `Bearer ${token.token}` },
           })
+          .catch((error) =>  {
+            if (error.response.status === 401) {
+              setShowRequestModal(false);
+              props.forceLogoutHandler();
+              return error;
+            }
+            return error;
+          })
           .then((response) => console.log(response));
       }
       if (modalFor === "subjects") {
         await axios
           .delete(`/subjects/${editValues}`, {
             headers: { Authorization: `Bearer ${token.token}` },
+          })
+          .catch((error) =>  {
+            if (error.response.status === 401) {
+              setShowRequestModal(false);
+              props.forceLogoutHandler();
+              return error;
+            }
+            return error;
           })
           .then((response) => console.log(response));
       }
