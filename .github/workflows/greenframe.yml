@@ -8,7 +8,10 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all the git history
       - run: curl https://assets.greenframe.io/install.sh | bash
-      # Start your application here
+      - run: cd development
+      - run: docker-compose build
+      - run: docker-compose up -d
+      - run: sleep 60 # Wait for the application to start
       - run: greenframe analyze
         env:
           GREENFRAME_SECRET_TOKEN: ${{secrets.GREENFRAME_SECRET_TOKEN}}
