@@ -8,9 +8,10 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all the git history
       - run: curl https://assets.greenframe.io/install.sh | bash
-      - run: cd development
       - run: docker-compose build
+        working-directory: development
       - run: docker-compose up -d
+        working-directory: development
       - run: sleep 60 # Wait for the application to start
       - run: greenframe analyze
         env:
