@@ -1,0 +1,14 @@
+name: Greenframe Analysis
+on: [push]
+jobs:
+  greenframeci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Fetch all the git history
+      - run: curl https://assets.greenframe.io/install.sh | bash
+      # Start your application here
+      - run: greenframe analyze
+        env:
+          GREENFRAME_SECRET_TOKEN: ${{secrets.GREENFRAME_SECRET_TOKEN}}
