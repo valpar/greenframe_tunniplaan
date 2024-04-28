@@ -12,6 +12,6 @@ jobs:
         working-directory: development
       - run: docker-compose up -d
         working-directory: development
-      - run: greenframe analyze --baseURL http://localhost:4000
+      - run: greenframe analyze --baseURL https://localhost:4000
         env:
           GREENFRAME_SECRET_TOKEN: ${{secrets.GREENFRAME_SECRET_TOKEN}}
