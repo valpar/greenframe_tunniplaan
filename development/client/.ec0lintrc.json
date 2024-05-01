@@ -1,0 +1,28 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": "ec0lint:recommended",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["html"],
+  "rules": {},
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:html/recommended"],
+      "parser": "@html-eslint/parser"
+    },
+    {
+      "files": ["*.jsx"],
+      "extends": ["plugin:react/recommended"],
+      "parser": "@babel/eslint-parser"
+    }
+  ]
+}
